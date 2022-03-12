@@ -9,7 +9,7 @@
             {{if .Tags}}
                 <h2 class="property-title">Tags</h2>
                 <ul class="property-value">{{range .Tags}}
-                        <li><a href="/search?tag-id={{.}}">{{.}}</a></li>{{end}}</ul>
+                        <li><a href="/search?tag={{productTitle .}}">{{.}}</a></li>{{end}}</ul>
             {{end}}
             <h2 class="property-title">Operating Systems</h2>
             <ul class="property-value">{{range .OperatingSystems}}
@@ -39,7 +39,7 @@
                     <li><a href="/search?features={{.}}">{{.}}</a></li>{{end}}</ul>
             <h2 class="property-title">Languages</h2>
             <ul class="property-value">{{range .LanguageCodes}}
-                    <li><a href="/search?language-codes={{productTitle .}}">{{.}}</a></li>{{end}}</ul>
+                    <li><a href="/search?lang-code={{productTitle .}}">{{.}}</a></li>{{end}}</ul>
             <h2 class="property-title">Global Release Date</h2>
             <div class="property-value">{{.GlobalReleaseDate}}</div>
             <h2 class="property-title">GOG.com Release Date</h2>
@@ -68,14 +68,16 @@
             <ul class="property-value">{{range .Types}}
                     <li>{{.}}</li>{{end}}</ul>
         </div>
-        <details class="screenshots font-size-12em">
-            <summary>Screenshots</summary>
-            {{range .Screenshots}}
-                <a href="{{imageUrl .}}">
-                    <img class="width-100pct" src="{{imageUrl .}}" alt=""/>
-                </a>
-            {{end}}
-        </details>
+        {{if .Screenshots}}
+            <details class="screenshots font-size-12em">
+                <summary>Screenshots</summary>
+                {{range .Screenshots}}
+                    <a href="{{imageUrl .}}">
+                        <img class="width-100pct" src="{{imageUrl .}}" alt=""/>
+                    </a>
+                {{end}}
+            </details>
+        {{end}}
         {{if .Videos}}
             <details class="videos font-size-12em">
                 <summary>Videos</summary>

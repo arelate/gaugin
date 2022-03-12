@@ -1,7 +1,9 @@
 package api
 
 import (
+	"github.com/arelate/vangogh_local_data"
 	"net/http"
+	"strings"
 )
 
 type searchQuery struct {
@@ -28,6 +30,8 @@ type searchProductsViewModel struct {
 }
 
 func GetSearch(w http.ResponseWriter, r *http.Request) {
+	dc := http.DefaultClient
+
 	spvm := &searchProductsViewModel{
 		Context: "search",
 	}
@@ -36,19 +40,36 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	spvm.Query = searchQuery{
 		Text:       q.Get("text"),
 		Title:      q.Get("title"),
-		Tags:       q.Get("tag-id"),
+		Tags:       q.Get("tag"),
 		OS:         q.Get("os"),
 		Developers: q.Get("developers"),
 		Publisher:  q.Get("publisher"),
 		Series:     q.Get("series"),
 		Genres:     q.Get("genres"),
 		Features:   q.Get("features"),
-		Languages:  q.Get("language-codes"),
+		Languages:  q.Get("lang-code"),
 		Includes:   q.Get("includes-games"),
 		IncludedBy: q.Get("is-included-by-games"),
 		Requires:   q.Get("requires-games"),
 		RequiredBy: q.Get("is-required-by-games"),
 	}
+
+	keys, err := getSearch(dc, q)
+	if err != nil {
+		http.Error(w, "search error", http.StatusInternalServerError)
+	}
+
+	redux, err := getRedux(dc,
+		strings.Join(keys, ","),
+		vangogh_local_data.TitleProperty,
+		vangogh_local_data.DevelopersProperty,
+		vangogh_local_data.PublisherProperty)
+	if err != nil {
+		http.Error(w, "error getting all_redux", http.StatusInternalServerError)
+	}
+
+	lvm := listViewModelFromRedux(keys, redux)
+	spvm.Products = lvm.Products
 
 	w.Header().Add("Content-Type", "text/html")
 

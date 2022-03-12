@@ -244,6 +244,17 @@ func videoUrl(videoId string) string {
 	return u.String()
 }
 
+func searchUrl(q url.Values) *url.URL {
+	u := &url.URL{
+		Scheme: httpScheme,
+		Host:   vgHost,
+		Path:   searchEndpoint,
+	}
+	u.RawQuery = q.Encode()
+
+	return u
+}
+
 const titleIdSep = " ("
 
 func productTitle(s string) string {
@@ -263,6 +274,19 @@ func productId(s string) string {
 func getKeys(client *http.Client, pt vangogh_local_data.ProductType, mt gog_integration.Media) ([]string, error) {
 	ku := keysUrl(pt, mt)
 	resp, err := client.Get(ku.String())
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var keys []string
+	err = json.NewDecoder(resp.Body).Decode(&keys)
+	return keys, err
+}
+
+func getSearch(client *http.Client, q url.Values) ([]string, error) {
+	su := searchUrl(q)
+	resp, err := client.Get(su.String())
 	if err != nil {
 		return nil, err
 	}

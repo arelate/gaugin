@@ -19,7 +19,6 @@ func getProductsList(
 
 	redux, err := getAllRedux(dc, pt, mt,
 		vangogh_local_data.TitleProperty,
-		vangogh_local_data.GenresProperty,
 		vangogh_local_data.DevelopersProperty,
 		vangogh_local_data.PublisherProperty)
 	if err != nil {
