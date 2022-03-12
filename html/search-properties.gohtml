@@ -1,0 +1,64 @@
+{{define "search-properties"}}
+    <form action="/search" xmlns="http://www.w3.org/1999/html">
+        <div id="search-text-container">
+            <label for="search-text">Find</label>
+            <input id="search-text" type="search" name="text" placeholder="Text" value="{{.Text}}"/>
+            <input type="submit"/>
+        </div>
+        <details>
+            <summary>Advanced</summary>
+            <div>
+                <label for="search-title">Title</label>
+                <input id="search-title" type="search" name="title" placeholder="Title" value="{{.Title}}"/>
+            </div>
+            <div>
+                <label for="search-tags">Tags</label>
+                <input id="search-tags" type="search" name="tag-id" placeholder="Tags" value="{{.Tags}}"/>
+            </div>
+            <div>
+                <label for="search-os">OS</label>
+                <input id="search-os" type="search" name="os" placeholder="Operating Systems" value="{{.OS}}"/>
+            </div>
+            <div>
+                <label for="search-developers">Developers</label>
+                <input id="search-developers" type="search" name="developers" placeholder="Developers" value="{{.Developers}}"/>
+            </div>
+            <div>
+                <label for="search-publisher">Publisher</label>
+                <input id="search-publisher" type="search" name="publisher" placeholder="Publisher" value="{{.Publisher}}"/>
+            </div>
+            <div>
+                <label for="search-series">Series</label>
+                <input id="search-series" type="search" name="series" placeholder="Series" value="{{.Series}}"/>
+            </div>
+            <div>
+                <label for="search-genres">Genres</label>
+                <input id="search-genres" type="search" name="genres" placeholder="Genres" value="{{.Genres}}"/>
+            </div>
+            <div>
+                <label for="search-features">Features</label>
+                <input id="search-features" type="search" name="features" placeholder="Features" value="{{.Features}}"/>
+            </div>
+            <div>
+                <label for="search-languages">Languages</label>
+                <input id="search-languages" type="search" name="language-codes" placeholder="Languages" value="{{.Languages}}"/>
+            </div>
+            <div>
+                <label for="search-includes">Includes</label>
+                <input id="search-includes" type="search" name="includes-games" placeholder="Includes" value="{{.Includes}}"/>
+            </div>
+            <div>
+                <label for="search-included-by">Included By</label>
+                <input id="search-included-by" type="search" name="is-included-by-games" placeholder="Included By" value="{{.IncludedBy}}"/>
+            </div>
+            <div>
+                <label for="search-requires">Requires</label>
+                <input id="search-requires" type="search" name="requires-games" placeholder="Requires" value="{{.Requires}}"/>
+            </div>
+            <div>
+                <label for="search-required-by">Required By</label>
+                <input id="search-required-by" type="search" name="is-required-by-games" placeholder="Required By" value="{{.RequiredBy}}"/>
+            </div>
+        </details>
+    </form>
+{{end}}

@@ -9,33 +9,37 @@
             {{if .Tags}}
                 <h2 class="property-title">Tags</h2>
                 <ul class="property-value">{{range .Tags}}
-                        <li>{{.}}</li>{{end}}</ul>
+                        <li><a href="/search?tag-id={{.}}">{{.}}</a></li>{{end}}</ul>
             {{end}}
             <h2 class="property-title">Operating Systems</h2>
             <ul class="property-value">{{range .OperatingSystems}}
-                    <li>{{.}}</li>{{end}}</ul>
+                    <li><a href="/search?os={{.}}">{{.}}</a></li>{{end}}</ul>
             {{if (ne .Rating "0")}}
                 <h2 class="property-title">Rating</h2>
                 <div class="property-value">{{.Rating}}</div>
             {{end}}
             <h2 class="property-title">Developers</h2>
             <ul class="property-value">{{range .Developers}}
-                    <li>{{.}}</li>{{end}}</ul>
+                    <li><a href="/search?developers={{.}}">{{.}}</a></li>{{end}}</ul>
             <h2 class="property-title">Publisher</h2>
-            <div class="property-value">{{.Publisher}}</div>
+            <ul class="property-value">
+                <li><a href="/search?publisher={{.Publisher}}">{{.Publisher}}</a></li>
+            </ul>
             {{if .Series}}
                 <h2 class="property-title">Series</h2>
-                <div class="property-value">{{.Series}}</div>
+                <ul class="property-value">
+                    <li><a href="/search?series={{.Series}}">{{.Series}}</a></li>
+                </ul>
             {{end}}
             <h2 class="property-title">Genres</h2>
             <ul class="property-value">{{range .Genres}}
-                <li class="{{.}}">{{.}}</li>{{end}}</ul>
+                    <li><a href="/search?genres={{.}}">{{.}}</a></li>{{end}}</ul>
             <h2 class="property-title">Features</h2>
             <ul class="property-value">{{range .Features}}
-                <li>{{.}}</li>{{end}}</ul>
+                    <li><a href="/search?features={{.}}">{{.}}</a></li>{{end}}</ul>
             <h2 class="property-title">Languages</h2>
             <ul class="property-value">{{range .LanguageCodes}}
-                    <li>{{.}}</li>{{end}}</ul>
+                    <li><a href="/search?language-codes={{productTitle .}}">{{.}}</a></li>{{end}}</ul>
             <h2 class="property-title">Global Release Date</h2>
             <div class="property-value">{{.GlobalReleaseDate}}</div>
             <h2 class="property-title">GOG.com Release Date</h2>

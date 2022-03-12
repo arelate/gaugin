@@ -4,6 +4,55 @@ import (
 	"net/http"
 )
 
+type searchQuery struct {
+	Text       string
+	Title      string
+	Tags       string
+	OS         string
+	Developers string
+	Publisher  string
+	Series     string
+	Genres     string
+	Features   string
+	Languages  string
+	Includes   string
+	IncludedBy string
+	Requires   string
+	RequiredBy string
+}
+
+type searchProductsViewModel struct {
+	Context  string
+	Query    searchQuery
+	Products []listProductViewModel
+}
+
 func GetSearch(w http.ResponseWriter, r *http.Request) {
-	//getProductsList(vangogh_local_data.Details, gog_integration.Game, w)
+	spvm := &searchProductsViewModel{
+		Context: "search",
+	}
+
+	q := r.URL.Query()
+	spvm.Query = searchQuery{
+		Text:       q.Get("text"),
+		Title:      q.Get("title"),
+		Tags:       q.Get("tag-id"),
+		OS:         q.Get("os"),
+		Developers: q.Get("developers"),
+		Publisher:  q.Get("publisher"),
+		Series:     q.Get("series"),
+		Genres:     q.Get("genres"),
+		Features:   q.Get("features"),
+		Languages:  q.Get("language-codes"),
+		Includes:   q.Get("includes-games"),
+		IncludedBy: q.Get("is-included-by-games"),
+		Requires:   q.Get("requires-games"),
+		RequiredBy: q.Get("is-required-by-games"),
+	}
+
+	w.Header().Add("Content-Type", "text/html")
+
+	if err := tmpl.ExecuteTemplate(w, "search", spvm); err != nil {
+		http.Error(w, "template error", http.StatusInternalServerError)
+	}
 }

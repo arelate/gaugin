@@ -14,7 +14,7 @@
         --system-brown-color: rgb(152, 122, 84);
         --system-gray-color: rgb(132, 132, 137);
         --background-color: white;
-        --color: black;
+        --color: rgb(27,27,27);
     }
 }
 
@@ -33,8 +33,8 @@
         --system-pink-color: rgb(255, 65, 105);
         --system-brown-color: rgb(182, 152, 114);
         --system-gray-color: rgb(162, 162, 167);
-        --background-color: black;
-        --color: white;
+        --background-color: rgb(18,18,18);
+        --color: rgb(176,176,176);
     }
 }
 
@@ -134,7 +134,7 @@ nav.search .search {
 
 .product-details {
     margin: 0;
-    margin-bottom: 5em;
+    margin-bottom: 3em;
     padding: 0 15%;
 }
 
@@ -197,4 +197,52 @@ nav.search .search {
     margin: 1em 0;
     font-weight: bold;
     cursor: pointer;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    font-size: 0.75em;
+    padding: 4em 0 1em 0;
+    color: var(--system-gray-color);
+}
+
+footer a {
+    color: inherit;
+}
+
+form {
+    margin: 2em calc(50% - 150px);
+    width: 300px;
+    display: inline-flex;
+    justify-items: center;
+    flex-direction: column;
+    align-items: start;
+}
+
+form #search-text-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    align-items: center;
+    width: 100%;
+}
+
+form details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 1em 0;
+}
+
+form details summary {
+    cursor: pointer;
+}
+
+form details div {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 2fr 3fr;
+    grid-column-gap: 1em;
+    width: 100%;
+    padding: 0.5em 0 0 0;
 }

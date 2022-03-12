@@ -22,6 +22,7 @@ const (
 	reduxEndpoint    = cvEndpoint + "/redux"
 	imagesEndpoint   = cvEndpoint + "/images"
 	videosEndpoint   = cvEndpoint + "/videos"
+	searchEndpoint   = cvEndpoint + "/search"
 )
 
 type listProductViewModel struct {
