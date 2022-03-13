@@ -57,6 +57,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	keys, err := getSearch(dc, q)
 	if err != nil {
 		http.Error(w, "search error", http.StatusInternalServerError)
+		return
 	}
 
 	redux, err := getRedux(dc,
@@ -66,6 +67,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.PublisherProperty)
 	if err != nil {
 		http.Error(w, "error getting all_redux", http.StatusInternalServerError)
+		return
 	}
 
 	lvm := listViewModelFromRedux(keys, redux)
@@ -75,5 +77,6 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	if err := tmpl.ExecuteTemplate(w, "search", spvm); err != nil {
 		http.Error(w, "template error", http.StatusInternalServerError)
+		return
 	}
 }

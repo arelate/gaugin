@@ -15,6 +15,7 @@ func getProductsList(
 	keys, err := getKeys(dc, pt, mt)
 	if err != nil {
 		http.Error(w, "error getting keys", http.StatusInternalServerError)
+		return
 	}
 
 	redux, err := getAllRedux(dc, pt, mt,
@@ -23,6 +24,7 @@ func getProductsList(
 		vangogh_local_data.PublisherProperty)
 	if err != nil {
 		http.Error(w, "error getting all_redux", http.StatusInternalServerError)
+		return
 	}
 
 	lvm := listViewModelFromRedux(keys, redux)
@@ -32,5 +34,6 @@ func getProductsList(
 
 	if err := tmpl.ExecuteTemplate(w, "products-list", lvm); err != nil {
 		http.Error(w, "template error", http.StatusInternalServerError)
+		return
 	}
 }

@@ -8,14 +8,27 @@ import (
 	"html/template"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
+var (
+	vangoghScheme  = ""
+	vangoghAddress = ""
+	vangoghPort    = ""
+)
+
+func vangoghHost() string {
+	return fmt.Sprintf("%s:%s", vangoghAddress, vangoghPort)
+}
+
+func SetVangoghConnection(scheme, address string, port int) {
+	vangoghScheme = scheme
+	vangoghAddress = address
+	vangoghPort = strconv.Itoa(port)
+}
+
 const (
-	httpScheme       = "http"
-	vgAddress        = "192.168.1.1"
-	vgPort           = "1853"
-	vgHost           = vgAddress + ":" + vgPort
 	cvEndpoint       = "/v1"
 	keysEndpoint     = cvEndpoint + "/keys"
 	allReduxEndpoint = cvEndpoint + "/all_redux"
@@ -175,8 +188,8 @@ func defaultDesc(pt vangogh_local_data.ProductType) string {
 
 func keysUrl(pt vangogh_local_data.ProductType, mt gog_integration.Media) *url.URL {
 	u := &url.URL{
-		Scheme: httpScheme,
-		Host:   vgHost,
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
 		Path:   keysEndpoint,
 	}
 	q := u.Query()
@@ -191,8 +204,8 @@ func keysUrl(pt vangogh_local_data.ProductType, mt gog_integration.Media) *url.U
 
 func allReduxUrl(pt vangogh_local_data.ProductType, mt gog_integration.Media, properties ...string) *url.URL {
 	u := &url.URL{
-		Scheme: httpScheme,
-		Host:   vgHost,
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
 		Path:   allReduxEndpoint,
 	}
 	q := u.Query()
@@ -206,8 +219,8 @@ func allReduxUrl(pt vangogh_local_data.ProductType, mt gog_integration.Media, pr
 
 func reduxUrl(id string, properties ...string) *url.URL {
 	u := &url.URL{
-		Scheme: httpScheme,
-		Host:   vgHost,
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
 		Path:   reduxEndpoint,
 	}
 	q := u.Query()
@@ -220,8 +233,8 @@ func reduxUrl(id string, properties ...string) *url.URL {
 
 func imageUrl(imageId string) string {
 	u := &url.URL{
-		Scheme: httpScheme,
-		Host:   vgHost,
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
 		Path:   imagesEndpoint,
 	}
 	q := u.Query()
@@ -233,8 +246,8 @@ func imageUrl(imageId string) string {
 
 func videoUrl(videoId string) string {
 	u := &url.URL{
-		Scheme: httpScheme,
-		Host:   vgHost,
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
 		Path:   videosEndpoint,
 	}
 	q := u.Query()
@@ -246,8 +259,8 @@ func videoUrl(videoId string) string {
 
 func searchUrl(q url.Values) *url.URL {
 	u := &url.URL{
-		Scheme: httpScheme,
-		Host:   vgHost,
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
 		Path:   searchEndpoint,
 	}
 	u.RawQuery = q.Encode()

@@ -5,12 +5,17 @@ import (
 	"io/fs"
 )
 
-var tmpl *template.Template
+var (
+	tmpl     *template.Template
+	cssFiles fs.FS
+)
 
-func Init(templatesFS fs.FS) {
+func Init(htmlFS fs.FS, cssFS fs.FS) {
+	cssFiles = cssFS
+
 	tmpl = template.Must(
 		template.
 			New("").
 			Funcs(funcMap()).
-			ParseFS(templatesFS, "html/*.gohtml"))
+			ParseFS(htmlFS, "html/*.gohtml"))
 }

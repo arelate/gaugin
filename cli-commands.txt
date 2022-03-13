@@ -1,0 +1,14 @@
+# Decorators legend:
+# $ - supports environmental variable value
+# ^ - default property, value
+# & - supports multiple values
+# * - required value
+# {} - placeholder values
+# {^} - placeholder values, first value is default
+
+serve
+    port*
+    stderr
+    vangogh-scheme$*=http^,https
+    vangogh-address$*
+    vangogh-port$*
