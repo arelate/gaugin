@@ -32,6 +32,8 @@ func getProductsList(
 
 	w.Header().Add("Content-Type", "text/html")
 
+	w.WriteHeader(http.StatusOK)
+
 	if err := tmpl.ExecuteTemplate(w, "products-list", lvm); err != nil {
 		http.Error(w, "template error", http.StatusInternalServerError)
 		return

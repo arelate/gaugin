@@ -12,3 +12,4 @@ serve
     vangogh_scheme$*=http^,https
     vangogh_address$*
     vangogh_port$*
+    vangogh_state_dir$

@@ -16,6 +16,8 @@ import (
 	"sync"
 )
 
+const defaultVangoghStateDir = "/var/lib/vangogh"
+
 var (
 	once = sync.Once{}
 	//go:embed "html/*.gohtml"
@@ -78,21 +80,32 @@ func ServeHandler(u *url.URL) error {
 		return fmt.Errorf("missing vangogh port")
 	}
 
+	vangoghStateDir := vangogh_local_data.ValueFromUrl(u, "vangogh_state_directory")
+	if vangoghStateDir == "" {
+		vangoghStateDir = defaultVangoghStateDir
+	}
+
 	return Serve(
 		port,
+		vangoghStateDir,
 		vangoghScheme,
 		vangoghAddress,
 		vangoghPort,
 		vangogh_local_data.FlagFromUrl(u, "stderr"))
 }
 
-func Serve(port int, vangoghScheme, vangoghHost string, vangoghPort int, stderr bool) error {
+func Serve(port int,
+	vangoghStateDir string,
+	vangoghScheme, vangoghHost string,
+	vangoghPort int,
+	stderr bool) error {
 
 	if stderr {
 		nod.EnableStdErrLogger()
 		nod.DisableOutput(nod.StdOut)
 	}
 
+	vangogh_local_data.ChRoot(vangoghStateDir)
 	api.SetVangoghConnection(vangoghScheme, vangoghHost, vangoghPort)
 
 	once.Do(func() { api.Init(htmlTemplates, cssFiles) })
