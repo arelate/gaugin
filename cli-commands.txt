@@ -9,6 +9,6 @@
 serve
     port*
     stderr
-    vangogh-scheme$*=http^,https
-    vangogh-address$*
-    vangogh-port$*
+    vangogh_scheme$*=http^,https
+    vangogh_address$*
+    vangogh_port$*
