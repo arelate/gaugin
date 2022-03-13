@@ -192,10 +192,13 @@ nav.search .search {
     margin: 1em 0;
 }
 
-.product-details details {
+.product-details details,
+.product-details a.downloads {
     margin: 1em 0;
     font-weight: bold;
     cursor: pointer;
+    color: inherit;
+    text-decoration: none;
 }
 
 footer {

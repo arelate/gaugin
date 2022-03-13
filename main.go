@@ -87,8 +87,16 @@ func ServeHandler(u *url.URL) error {
 
 	vangogh_local_data.ChRoot(vangoghStateDir)
 
-	os := vangogh_local_data.OperatingSystemsFromUrl(u)
-	lc := vangogh_local_data.ValuesFromUrl(u, "language-code")
+	osStrings := vangogh_local_data.ValuesFromUrl(u, "operating_system")
+	os := vangogh_local_data.ParseManyOperatingSystems(osStrings)
+	lc := vangogh_local_data.ValuesFromUrl(u, "language_code")
+
+	if len(os) == 0 {
+		os = []vangogh_local_data.OperatingSystem{vangogh_local_data.AnyOperatingSystem}
+	}
+	if len(lc) == 0 {
+		lc = []string{"en"}
+	}
 
 	api.SetDownloadsOperatingSystems(os)
 	api.SetDownloadsLanguageCodes(lc)

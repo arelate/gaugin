@@ -40,7 +40,7 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := tmpl.ExecuteTemplate(w, "product", dl); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "downloads", dl); err != nil {
 		http.Error(w, "template error", http.StatusInternalServerError)
 		return
 	}
