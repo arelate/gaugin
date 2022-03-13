@@ -18,7 +18,6 @@ import (
 
 var (
 	once = sync.Once{}
-
 	//go:embed "html/*.gohtml"
 	htmlTemplates embed.FS
 	//go:embed "css/*.css"

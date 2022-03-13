@@ -29,13 +29,14 @@ func SetVangoghConnection(scheme, address string, port int) {
 }
 
 const (
-	cvEndpoint       = "/v1"
-	keysEndpoint     = cvEndpoint + "/keys"
-	allReduxEndpoint = cvEndpoint + "/all_redux"
-	reduxEndpoint    = cvEndpoint + "/redux"
-	imagesEndpoint   = cvEndpoint + "/images"
-	videosEndpoint   = cvEndpoint + "/videos"
-	searchEndpoint   = cvEndpoint + "/search"
+	cvEndpoint        = "/v1"
+	keysEndpoint      = cvEndpoint + "/keys"
+	allReduxEndpoint  = cvEndpoint + "/all_redux"
+	reduxEndpoint     = cvEndpoint + "/redux"
+	imagesEndpoint    = cvEndpoint + "/images"
+	videosEndpoint    = cvEndpoint + "/videos"
+	searchEndpoint    = cvEndpoint + "/search"
+	downloadsEndpoint = cvEndpoint + "/downloads"
 )
 
 type listProductViewModel struct {
