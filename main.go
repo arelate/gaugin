@@ -71,42 +71,37 @@ func ServeHandler(u *url.URL) error {
 	if vangoghScheme == "" {
 		return fmt.Errorf("missing vangogh scheme")
 	}
-
 	if vangoghAddress == "" {
 		return fmt.Errorf("missing vangogh address")
 	}
-
 	if vangoghPortStr == "" {
 		return fmt.Errorf("missing vangogh port")
 	}
+
+	api.SetVangoghConnection(vangoghScheme, vangoghAddress, vangoghPort)
 
 	vangoghStateDir := vangogh_local_data.ValueFromUrl(u, "vangogh_state_directory")
 	if vangoghStateDir == "" {
 		vangoghStateDir = defaultVangoghStateDir
 	}
 
-	return Serve(
-		port,
-		vangoghStateDir,
-		vangoghScheme,
-		vangoghAddress,
-		vangoghPort,
-		vangogh_local_data.FlagFromUrl(u, "stderr"))
+	vangogh_local_data.ChRoot(vangoghStateDir)
+
+	os := vangogh_local_data.OperatingSystemsFromUrl(u)
+	lc := vangogh_local_data.ValuesFromUrl(u, "language-code")
+
+	api.SetDownloadsOperatingSystems(os)
+	api.SetDownloadsLanguageCodes(lc)
+
+	return Serve(port, vangogh_local_data.FlagFromUrl(u, "stderr"))
 }
 
-func Serve(port int,
-	vangoghStateDir string,
-	vangoghScheme, vangoghHost string,
-	vangoghPort int,
-	stderr bool) error {
+func Serve(port int, stderr bool) error {
 
 	if stderr {
 		nod.EnableStdErrLogger()
 		nod.DisableOutput(nod.StdOut)
 	}
-
-	vangogh_local_data.ChRoot(vangoghStateDir)
-	api.SetVangoghConnection(vangoghScheme, vangoghHost, vangoghPort)
 
 	once.Do(func() { api.Init(htmlTemplates, cssFiles) })
 	api.HandleFuncs()

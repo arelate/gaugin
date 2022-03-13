@@ -33,8 +33,6 @@ const (
 	keysEndpoint      = cvEndpoint + "/keys"
 	allReduxEndpoint  = cvEndpoint + "/all_redux"
 	reduxEndpoint     = cvEndpoint + "/redux"
-	imagesEndpoint    = cvEndpoint + "/images"
-	videosEndpoint    = cvEndpoint + "/videos"
 	searchEndpoint    = cvEndpoint + "/search"
 	downloadsEndpoint = cvEndpoint + "/downloads"
 )
@@ -77,8 +75,6 @@ type productViewModel struct {
 	Screenshots []string
 	// video-ids
 	Videos []string
-	// downloads
-	Downloads []string
 }
 
 func propertyFromRedux(redux map[string][]string, property string) string {
@@ -230,38 +226,34 @@ func reduxUrl(id string, properties ...string) *url.URL {
 	return u
 }
 
-func imageUrl(imageId string) *url.URL {
-	u := &url.URL{
-		Scheme: vangoghScheme,
-		Host:   vangoghHost(),
-		Path:   imagesEndpoint,
-	}
-	q := u.Query()
-	q.Set("id", imageId)
-	u.RawQuery = q.Encode()
-
-	return u
-}
-
-func videoUrl(videoId string) *url.URL {
-	u := &url.URL{
-		Scheme: vangoghScheme,
-		Host:   vangoghHost(),
-		Path:   videosEndpoint,
-	}
-	q := u.Query()
-	q.Set("id", videoId)
-	u.RawQuery = q.Encode()
-
-	return u
-}
-
 func searchUrl(q url.Values) *url.URL {
 	u := &url.URL{
 		Scheme: vangoghScheme,
 		Host:   vangoghHost(),
 		Path:   searchEndpoint,
 	}
+	u.RawQuery = q.Encode()
+
+	return u
+}
+
+func downloadsUrl(
+	id string,
+	operatingSystems []vangogh_local_data.OperatingSystem,
+	languageCodes []string) *url.URL {
+	u := &url.URL{
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
+		Path:   downloadsEndpoint,
+	}
+	q := u.Query()
+	q.Set("id", id)
+	osStr := make([]string, 0, len(operatingSystems))
+	for _, os := range operatingSystems {
+		osStr = append(osStr, os.String())
+	}
+	q.Set("operating-system", strings.Join(osStr, ","))
+	q.Set("language-code", strings.Join(languageCodes, ","))
 	u.RawQuery = q.Encode()
 
 	return u
@@ -294,6 +286,23 @@ func getKeys(client *http.Client, pt vangogh_local_data.ProductType, mt gog_inte
 	var keys []string
 	err = json.NewDecoder(resp.Body).Decode(&keys)
 	return keys, err
+}
+
+func getDownloads(
+	client *http.Client,
+	id string,
+	operatingSystems []vangogh_local_data.OperatingSystem,
+	languageCodes []string) (vangogh_local_data.DownloadsList, error) {
+	du := downloadsUrl(id, operatingSystems, languageCodes)
+	resp, err := client.Get(du.String())
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var dl vangogh_local_data.DownloadsList
+	err = json.NewDecoder(resp.Body).Decode(&dl)
+	return dl, err
 }
 
 func getSearch(client *http.Client, q url.Values) ([]string, error) {

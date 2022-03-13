@@ -7,31 +7,9 @@ import (
 	"net/http"
 )
 
-//func GetImages(w http.ResponseWriter, r *http.Request) {
-//	iu := imageUrl(r.URL.Query().Get("id"))
-//	dc := http.DefaultClient
-//
-//	resp, err := dc.Get(iu.String())
-//	if err != nil {
-//		http.Error(w, err.Error(), http.StatusInternalServerError)
-//		return
-//	}
-//	defer resp.Body.Close()
-//
-//	w.Header().Add("Content-Type", resp.Header.Get("Content-Type"))
-//	w.Header().Add("Last-Modified", resp.Header.Get("Last-Modified"))
-//
-//	w.WriteHeader(http.StatusOK)
-//
-//	if _, err := io.Copy(w, resp.Body); err != nil {
-//		http.Error(w, err.Error(), http.StatusInternalServerError)
-//		return
-//	}
-//}
-
 func GetImages(w http.ResponseWriter, r *http.Request) {
 
-	// GET /v1/images?id
+	// GET /images?id
 
 	if r.Method != http.MethodGet {
 		err := fmt.Errorf("unsupported method")

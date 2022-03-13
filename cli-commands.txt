@@ -13,3 +13,5 @@ serve
     vangogh_address$*
     vangogh_port$*
     vangogh_state_dir$
+    operating_system$
+    language_code$

@@ -7,49 +7,9 @@ import (
 	"net/http"
 )
 
-//const videoCacheDir = "/tmp"
-//
-//func GetVideos(w http.ResponseWriter, r *http.Request) {
-//	id := r.URL.Query().Get("id")
-//
-//	dc := http.DefaultClient
-//	vu := videoUrl(id)
-//
-//	resp, err := dc.Get(vu.String())
-//	if err != nil {
-//		http.Error(w, err.Error(), http.StatusInternalServerError)
-//		return
-//	}
-//	defer resp.Body.Close()
-//
-//	cachedVideoPath := filepath.Join(videoCacheDir, id)
-//	if _, err := os.Stat(cachedVideoPath); os.IsNotExist(err) {
-//		cachedVideoFile, err := os.Create(cachedVideoPath)
-//		if err != nil {
-//			http.Error(w, err.Error(), http.StatusInternalServerError)
-//			return
-//		}
-//
-//		if _, err := io.Copy(cachedVideoFile, resp.Body); err != nil {
-//			http.Error(w, err.Error(), http.StatusInternalServerError)
-//			return
-//		}
-//
-//		mod, err := time.Parse(time.RFC1123, resp.Header.Get("Last-Modified"))
-//		if err != nil {
-//			http.Error(w, err.Error(), http.StatusInternalServerError)
-//			return
-//		}
-//
-//		os.Chtimes(cachedVideoPath, mod, mod)
-//	}
-//
-//	http.ServeFile(w, r, cachedVideoPath)
-//}
-
 func GetVideos(w http.ResponseWriter, r *http.Request) {
 
-	// GET /v1/videos?id
+	// GET /videos?id
 
 	if r.Method != http.MethodGet {
 		err := fmt.Errorf("unsupported method")
