@@ -158,8 +158,6 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 
 func funcMap() template.FuncMap {
 	return template.FuncMap{
-		"imageUrl":     imageUrl,
-		"videoUrl":     videoUrl,
 		"productTitle": productTitle,
 		"productId":    productId,
 	}
@@ -232,7 +230,7 @@ func reduxUrl(id string, properties ...string) *url.URL {
 	return u
 }
 
-func imageUrl(imageId string) string {
+func imageUrl(imageId string) *url.URL {
 	u := &url.URL{
 		Scheme: vangoghScheme,
 		Host:   vangoghHost(),
@@ -242,10 +240,10 @@ func imageUrl(imageId string) string {
 	q.Set("id", imageId)
 	u.RawQuery = q.Encode()
 
-	return u.String()
+	return u
 }
 
-func videoUrl(videoId string) string {
+func videoUrl(videoId string) *url.URL {
 	u := &url.URL{
 		Scheme: vangoghScheme,
 		Host:   vangoghHost(),
@@ -255,7 +253,7 @@ func videoUrl(videoId string) string {
 	q.Set("id", videoId)
 	u.RawQuery = q.Encode()
 
-	return u.String()
+	return u
 }
 
 func searchUrl(q url.Values) *url.URL {

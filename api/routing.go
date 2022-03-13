@@ -13,6 +13,8 @@ func HandleFuncs() {
 		"/store":   nod.RequestLog(GetStore),
 		"/product": nod.RequestLog(GetProduct),
 		"/search":  nod.RequestLog(GetSearch),
+		"/images":  nod.RequestLog(GetImages),
+		"/videos":  nod.RequestLog(GetVideos),
 		"/css/":    http.FileServer(http.FS(cssFiles)).ServeHTTP,
 	}
 

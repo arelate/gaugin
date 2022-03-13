@@ -1,6 +1,6 @@
 {{define "product-details"}}
     {{if .Image }}
-        <img class="image width-100pct margin-zero" src="{{imageUrl .Image}}" alt=""/>
+        <img class="image width-100pct margin-zero" src="/images?id={{.Image}}" alt=""/>
     {{end}}
     <div class="product-details" id="{{ .Id }}">
 
@@ -72,8 +72,8 @@
             <details class="screenshots font-size-12em">
                 <summary>Screenshots</summary>
                 {{range .Screenshots}}
-                    <a href="{{imageUrl .}}">
-                        <img class="width-100pct" src="{{imageUrl .}}" alt=""/>
+                    <a href="/images?id={{.}}">
+                        <img class="width-100pct" src="/images?id={{.}}" alt=""/>
                     </a>
                 {{end}}
             </details>
@@ -82,7 +82,7 @@
             <details class="videos font-size-12em">
                 <summary>Videos</summary>
                 {{range .Videos}}
-                    <video class="width-100pct" controls src="{{videoUrl .}}"></video>
+                    <video class="width-100pct" controls src="/videos?id={{.}}"></video>
                 {{end}}
             </details>
         {{end}}
