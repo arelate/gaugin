@@ -58,9 +58,9 @@ func ServeHandler(u *url.URL) error {
 		return err
 	}
 
-	vangoghScheme := vangogh_local_data.ValueFromUrl(u, "vangogh-scheme")
-	vangoghAddress := vangogh_local_data.ValueFromUrl(u, "vangogh-address")
-	vangoghPortStr := vangogh_local_data.ValueFromUrl(u, "vangogh-port")
+	vangoghScheme := vangogh_local_data.ValueFromUrl(u, "vangogh_scheme")
+	vangoghAddress := vangogh_local_data.ValueFromUrl(u, "vangogh_address")
+	vangoghPortStr := vangogh_local_data.ValueFromUrl(u, "vangogh_port")
 	vangoghPort, err := strconv.Atoi(vangoghPortStr)
 	if err != nil {
 		return err
