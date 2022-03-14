@@ -15,4 +15,4 @@ EXPOSE 1848
 VOLUME /var/lib/vangogh
 
 ENTRYPOINT ["/usr/bin/gaugin"]
-CMD ["serve","-p", "1848", "-stderr"]
+CMD ["serve","-port", "1848", "-stderr"]
