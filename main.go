@@ -99,6 +99,12 @@ func ServeHandler(u *url.URL) error {
 	api.SetDownloadsOperatingSystems(os)
 	api.SetDownloadsLanguageCodes(lc)
 
+	username := vangogh_local_data.ValueFromUrl(u, "username")
+	password := vangogh_local_data.ValueFromUrl(u, "password")
+
+	api.SetUsername(username)
+	api.SetPassword(password)
+
 	return Serve(port, vangogh_local_data.FlagFromUrl(u, "stderr"))
 }
 

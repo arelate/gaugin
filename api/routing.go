@@ -7,20 +7,20 @@ import (
 
 func HandleFuncs() {
 
-	patternHandlers := map[string]func(http.ResponseWriter, *http.Request){
+	patternHandlers := map[string]http.Handler{
 		// start at the account
-		"/":            http.RedirectHandler("/account", http.StatusPermanentRedirect).ServeHTTP,
-		"/account":     nod.RequestLog(GetAccount),
-		"/store":       nod.RequestLog(GetStore),
-		"/product":     nod.RequestLog(GetProduct),
-		"/search":      nod.RequestLog(GetSearch),
-		"/images":      nod.RequestLog(GetImages),
-		"/videos":      nod.RequestLog(GetVideos),
-		"/files":       nod.RequestLog(GetFiles),
-		"/local-file/": nod.RequestLog(GetLocalFile),
+		"/":            http.RedirectHandler("/account", http.StatusPermanentRedirect),
+		"/account":     nod.RequestLog(http.HandlerFunc(GetAccount)),
+		"/store":       nod.RequestLog(http.HandlerFunc(GetStore)),
+		"/product":     nod.RequestLog(http.HandlerFunc(GetProduct)),
+		"/search":      nod.RequestLog(http.HandlerFunc(GetSearch)),
+		"/images":      nod.RequestLog(http.HandlerFunc(GetImages)),
+		"/videos":      nod.RequestLog(http.HandlerFunc(GetVideos)),
+		"/files":       basicHttpAuth(nod.RequestLog(http.HandlerFunc(GetFiles))),
+		"/local-file/": basicHttpAuth(nod.RequestLog(http.HandlerFunc(GetLocalFile))),
 	}
 
 	for p, h := range patternHandlers {
-		http.HandleFunc(p, h)
+		http.HandleFunc(p, h.ServeHTTP)
 	}
 }

@@ -15,3 +15,5 @@ serve
     vangogh_state_dir$
     operating_system$
     language_code$
+    username$
+    password$

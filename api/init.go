@@ -1,6 +1,7 @@
 package api
 
 import (
+	"crypto/sha256"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/kvas"
 	"html/template"
@@ -12,6 +13,8 @@ var (
 	operatingSystems []vangogh_local_data.OperatingSystem
 	languageCodes    []string
 	rxa              kvas.ReduxAssets
+	usernameHash     [32]byte
+	passwordHash     [32]byte
 )
 
 func SetDownloadsOperatingSystems(os []vangogh_local_data.OperatingSystem) {
@@ -20,6 +23,14 @@ func SetDownloadsOperatingSystems(os []vangogh_local_data.OperatingSystem) {
 
 func SetDownloadsLanguageCodes(lc []string) {
 	languageCodes = lc
+}
+
+func SetUsername(u string) {
+	usernameHash = sha256.Sum256([]byte(u))
+}
+
+func SetPassword(p string) {
+	passwordHash = sha256.Sum256([]byte(p))
 }
 
 func Init(templatesFS fs.FS) error {

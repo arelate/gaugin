@@ -1,7 +1,7 @@
 {{define "product-details"}}
     {{template "css-product-details"}}
     {{if .Image }}
-        <img class="image" src="/images?id={{.Image}}" alt=""/>
+        <img class="cover-image" src="/images?id={{.Image}}" alt=""/>
     {{end}}
     <div class="product-details" id="{{ .Id }}">
 
