@@ -1,0 +1,104 @@
+{{define "css-product-details"}}
+    <style>
+        .product-details {
+            margin: 0;
+            padding: 0 15%;
+        }
+
+        @media only screen and (max-device-width: 800px) {
+            .product-details {
+                padding: 0 1em;
+            }
+        }
+
+        .product-details .image {
+            margin: 0;
+            width: 100%;
+        }
+
+        .product-details .text-properties .text-property {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            grid-column-gap: 1em;
+            padding: 0.5em 0;
+        }
+
+        .product-details .text-properties .text-property h2 {
+            font-size: 1em;
+            margin: 0;
+        }
+
+        .product-details .text-properties .text-property ul {
+            list-style: none;
+            margin: 0;
+            padding-inline-start: 0px;
+        }
+
+        .product-details .text-properties .text-property .property-title {
+            font-weight: bolder;
+            color: var(--system-gray-color)
+        }
+
+        .product-details .text-properties .text-property .property-value a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .product-details .videos {
+            display: flex;
+            justify-content: center;
+        }
+
+        .product-details .videos video {
+            margin: 1em 0;
+            width: 100%;
+        }
+
+        .product-details .screenshots {
+            display: flex;
+            justify-content: center;
+        }
+
+        .product-details .screenshots a {
+            margin: 1em 0;
+        }
+
+        .product-details .screenshots a .screenshot {
+            width: 100%;
+        }
+
+        .product-details details {
+            margin: 1em 0;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        .product-details .downloads .downloads-list {
+            font-weight: normal;
+            font-size: 0.75em;
+            margin: 1em 0;
+        }
+
+        .product-details .downloads-list .download {
+            padding: 0 0 1em;
+        }
+
+        .product-details .downloads-list .download a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .product-details .downloads-list .download div {
+            color: var(--system-gray-color);
+        }
+
+        .product-details .downloads-list .download div.title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--color);
+        }
+    </style>
+{{end}}

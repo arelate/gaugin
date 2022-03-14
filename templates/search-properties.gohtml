@@ -1,6 +1,7 @@
 {{define "search-properties"}}
-    <form action="/search" xmlns="http://www.w3.org/1999/html">
-        <div id="search-text-container">
+    {{template "css-search-form"}}
+    <form class="search-form" action="/search" xmlns="http://www.w3.org/1999/html">
+        <div class="search-text-container">
             <label for="search-text">Find</label>
             <input id="search-text" type="search" name="text" placeholder="Text" value="{{.Text}}"/>
             <input type="submit"/>

@@ -1,0 +1,132 @@
+{{define "product-details"}}
+    {{template "css-product-details"}}
+    {{if .Image }}
+        <img class="image" src="/images?id={{.Image}}" alt=""/>
+    {{end}}
+    <div class="product-details" id="{{ .Id }}">
+
+        <h1 class="title">{{ .Title }}</h1>
+        <div class="text-properties">
+            {{if .Tags}}
+                <div class="text-property">
+                    <h2 class="property-title">Tags</h2>
+                    <ul class="property-value">{{range .Tags}}
+                            <li><a href="/search?tag={{productTitle .}}">{{.}}</a></li>{{end}}</ul>
+                </div>
+            {{end}}
+            <div class="text-property">
+                <h2 class="property-title">Operating Systems</h2>
+                <ul class="property-value">{{range .OperatingSystems}}
+                        <li><a href="/search?os={{.}}">{{.}}</a></li>{{end}}</ul>
+            </div>
+            {{if (ne .Rating "0")}}
+                <div class="text-property">
+
+                    <h2 class="property-title">Rating</h2>
+                    <div class="property-value">{{.Rating}}</div>
+                </div>
+            {{end}}
+            <div class="text-property">
+                <h2 class="property-title">Developers</h2>
+                <ul class="property-value">{{range .Developers}}
+                        <li><a href="/search?developers={{.}}">{{.}}</a></li>{{end}}</ul>
+            </div>
+            <div class="text-property">
+                <h2 class="property-title">Publisher</h2>
+                <ul class="property-value">
+                    <li><a href="/search?publisher={{.Publisher}}">{{.Publisher}}</a></li>
+                </ul>
+            </div>
+            {{if .Series}}
+                <div class="text-property">
+                    <h2 class="property-title">Series</h2>
+                    <ul class="property-value">
+                        <li><a href="/search?series={{.Series}}">{{.Series}}</a></li>
+                    </ul>
+                </div>
+            {{end}}
+            <div class="text-property">
+                <h2 class="property-title">Genres</h2>
+                <ul class="property-value">{{range .Genres}}
+                        <li><a href="/search?genres={{.}}">{{.}}</a></li>{{end}}</ul>
+            </div>
+            <div class="text-property">
+                <h2 class="property-title">Features</h2>
+                <ul class="property-value">{{range .Features}}
+                        <li><a href="/search?features={{.}}">{{.}}</a></li>{{end}}</ul>
+            </div>
+            <div class="text-property">
+                <h2 class="property-title">Languages</h2>
+                <ul class="property-value">{{range .LanguageCodes}}
+                        <li><a href="/search?lang-code={{productTitle .}}">{{.}}</a></li>{{end}}</ul>
+            </div>
+            <div class="text-property">
+                <h2 class="property-title">Global Release Date</h2>
+                <div class="property-value">{{.GlobalReleaseDate}}</div>
+            </div>
+            <div class="text-property">
+                <h2 class="property-title">GOG.com Release Date</h2>
+                <div class="property-value">{{.GOGReleaseDate}}</div>
+            </div>
+            {{if .GOGOrderDate}}
+                <div class="text-property">
+                    <h2 class="property-title">GOG.com Order Date</h2>
+                    <div class="property-value">{{.GOGOrderDate}}</div>
+                </div>
+            {{end}}
+            {{if .IncludesGames}}
+                <div class="text-property">
+                    <h2 class="property-title">Includes</h2>
+                    <ul class="property-value">{{template "product-refs" .IncludesGames}}</ul>
+                </div>
+            {{end}}
+            {{if .IsIncludedByGames}}
+                <div class="text-property">
+                    <h2 class="property-title">Included By</h2>
+                    <ul class="property-value">{{template "product-refs" .IsIncludedByGames}}</ul>
+                </div>
+            {{end}}
+            {{if .RequiresGames}}
+                <div class="text-property">
+                    <h2 class="property-title">Requires</h2>
+                    <ul class="property-value">{{template "product-refs"  .RequiresGames}}</ul>
+                </div>
+            {{end}}
+            {{if .IsRequiredByGames}}
+                <div class="text-property">
+                    <h2 class="property-title">Required By</h2>
+                    <ul class="property-value">{{template "product-refs" .IsRequiredByGames}}</ul>
+                </div>
+            {{end}}
+            <div class="text-property">
+                <h2 class="property-title">Types</h2>
+                <ul class="property-value">{{range .Types}}
+                        <li>{{.}}</li>{{end}}</ul>
+            </div>
+        </div>
+        {{if .Screenshots}}
+            <details class="screenshots">
+                <summary>Screenshots</summary>
+                {{range .Screenshots}}
+                    <a href="/images?id={{.}}">
+                        <img class="screenshot" src="/images?id={{.}}" alt=""/>
+                    </a>
+                {{end}}
+            </details>
+        {{end}}
+        {{if .Videos}}
+            <details class="videos">
+                <summary>Videos</summary>
+                {{range .Videos}}
+                    <video controls src="/videos?id={{.}}"></video>
+                {{end}}
+            </details>
+        {{end}}
+        {{if .Downloads}}
+            <details class="downloads">
+                <summary>Downloads</summary>
+                {{template "downloads" .Downloads}}
+            </details>
+        {{end}}
+    </div>
+{{end}}

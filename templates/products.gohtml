@@ -1,12 +1,13 @@
 {{define "products"}}
+    {{template "css-products"}}
     <section class="products">
         {{range .}}
-            <a class="product text-decoration-none" href="/product?id={{.Id}}">
-                <h1 class="title font-size-12em margin-zero padding-bottom-025em">{{ .Title }}</h1>
+            <a class="product" href="/product?id={{.Id}}">
+                <h1 class="title">{{ .Title }}</h1>
                 <div class="text-properties grid-2cols-1fr2fr">
-                    <div class="property-title font-weight-bold">Developers</div>
+                    <div class="property-title">Developers</div>
                     <div class="property-value">{{range .Developers}}<span>{{.}}</span> {{end}}</div>
-                    <div class="property-title font-weight-bold">Publisher</div>
+                    <div class="property-title">Publisher</div>
                     <div class="property-value">{{.Publisher}}</div>
                 </div>
             </a>

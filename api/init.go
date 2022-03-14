@@ -9,7 +9,6 @@ import (
 
 var (
 	tmpl             *template.Template
-	cssFiles         fs.FS
 	operatingSystems []vangogh_local_data.OperatingSystem
 	languageCodes    []string
 	rxa              kvas.ReduxAssets
@@ -23,9 +22,7 @@ func SetDownloadsLanguageCodes(lc []string) {
 	languageCodes = lc
 }
 
-func Init(htmlFS fs.FS, cssFS fs.FS) error {
-	cssFiles = cssFS
-
+func Init(templatesFS fs.FS) error {
 	var err error
 	if rxa, err = vangogh_local_data.ConnectReduxAssets(
 		vangogh_local_data.LocalManualUrlProperty); err != nil {
@@ -36,7 +33,7 @@ func Init(htmlFS fs.FS, cssFS fs.FS) error {
 		template.
 			New("").
 			Funcs(funcMap()).
-			ParseFS(htmlFS, "html/*.gohtml"))
+			ParseFS(templatesFS, "templates/*.gohtml"))
 
 	return nil
 }

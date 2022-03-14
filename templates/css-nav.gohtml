@@ -1,0 +1,25 @@
+{{define "css-nav"}}
+    <style>
+        nav {
+            height: 2em;
+            padding: 0.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5em;
+        }
+
+        nav .current {
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-decoration-color: var(--system-gray-color);
+            text-underline-offset: 4px;
+        }
+    </style>
+{{end}}

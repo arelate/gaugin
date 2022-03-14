@@ -1,14 +1,11 @@
-{{define "search"}}
+{{define "products-list"}}
     <!doctype html>
     <html lang="en">
     {{template "head"}}
-    <body class="margin-zero">
+    <body>
     {{template "nav" .Context}}
-    {{template "search-properties" .Query}}
     {{template "products" .Products}}
-    {{if .Products}}
-        {{template "footer"}}
-    {{end}}
+    {{template "footer"}}
     </body>
     </html>
 {{end}}

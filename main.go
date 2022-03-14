@@ -20,10 +20,8 @@ const defaultVangoghStateDir = "/var/lib/vangogh"
 
 var (
 	once = sync.Once{}
-	//go:embed "html/*.gohtml"
-	htmlTemplates embed.FS
-	//go:embed "css/*.css"
-	cssFiles embed.FS
+	//go:embed "templates/*.gohtml"
+	templates embed.FS
 	//go:embed "cli-commands.txt"
 	cliCommands []byte
 	//go:embed "cli-help.txt"
@@ -112,7 +110,7 @@ func Serve(port int, stderr bool) error {
 	}
 
 	once.Do(func() {
-		if err := api.Init(htmlTemplates, cssFiles); err != nil {
+		if err := api.Init(templates); err != nil {
 			log.Fatalln(err)
 		}
 	})

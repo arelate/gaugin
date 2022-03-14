@@ -1,0 +1,42 @@
+{{define "css-products"}}
+    <style>
+        .products {
+            padding: 0 15%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-column-gap: 0.5em;
+        }
+
+        @media only screen and (max-device-width: 800px) {
+            .products {
+                padding: 0 0.5em;
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .products .product {
+            color: inherit;
+            padding: 0.5em 1em;
+            text-decoration: none;
+        }
+
+        .products .product .title {
+            margin: 0;
+            font-size: 1.2em;
+            padding-bottom: 0.25em;
+        }
+
+        .products .product .text-properties {
+            color: var(--system-gray-color);
+            font-size: 0.5em;
+            font-weight: normal;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            grid-column-gap: 0.5em;
+        }
+
+        .products .product .text-properties .property-title {
+            font-weight: bold;
+        }
+    </style>
+{{end}}

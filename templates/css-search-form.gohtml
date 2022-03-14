@@ -1,0 +1,39 @@
+{{define "css-search-form"}}
+    <style>
+        .search-form {
+            margin: 1em calc(50% - 150px);
+            width: 300px;
+            display: inline-flex;
+            justify-items: center;
+            flex-direction: column;
+            align-items: start;
+        }
+
+        .search-form .search-text-container {
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr;
+            align-items: center;
+            width: 100%;
+        }
+
+        .search-form details {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        .search-form details summary {
+            cursor: pointer;
+        }
+
+        .search-form details div {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 2fr 3fr;
+            grid-column-gap: 1em;
+            width: 100%;
+            padding: 0.5em 0 0 0;
+        }
+    </style>
+{{end}}
