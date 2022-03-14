@@ -111,7 +111,11 @@ func Serve(port int, stderr bool) error {
 		nod.DisableOutput(nod.StdOut)
 	}
 
-	once.Do(func() { api.Init(htmlTemplates, cssFiles) })
+	once.Do(func() {
+		if err := api.Init(htmlTemplates, cssFiles); err != nil {
+			log.Fatalln(err)
+		}
+	})
 	api.HandleFuncs()
 
 	return http.ListenAndServe(fmt.Sprintf(":%d", port), nil)

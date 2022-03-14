@@ -86,6 +86,11 @@
                 {{end}}
             </details>
         {{end}}
-        <a class="downloads font-size-12em" href="/downloads?id={{.Id}}">Downloads</a>
+        {{if .Downloads}}
+            <details class="downloads font-size-12em">
+                <summary>Downloads</summary>
+                {{template "downloads" .Downloads}}
+            </details>
+        {{end}}
     </div>
 {{end}}

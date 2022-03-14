@@ -192,13 +192,35 @@ nav.search .search {
     margin: 1em 0;
 }
 
-.product-details details,
-.product-details a.downloads {
+.product-details details {
     margin: 1em 0;
     font-weight: bold;
     cursor: pointer;
-    color: inherit;
+}
+
+.product-details .downloads-list {
+    font-weight: normal;
+    font-size: 0.75em;
+    margin: 1em 0;
+}
+
+.product-details .downloads-list .download {
+    padding: 0 0 1em;
+}
+
+.product-details .downloads-list .download a {
     text-decoration: none;
+    color: inherit;
+}
+
+.product-details .downloads-list .download div {
+    color: var(--system-gray-color);
+}
+
+.product-details .downloads-list .download div.title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--color);
 }
 
 footer {

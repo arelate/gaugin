@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/arelate/vangogh_local_data"
+	"github.com/boggydigital/nod"
 	"net/http"
 )
 
@@ -22,6 +23,14 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	dl, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes)
+	if err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
+	}
+
+	pvm.Downloads = dl
 
 	if err := tmpl.ExecuteTemplate(w, "product", pvm); err != nil {
 		http.Error(w, "template error", http.StatusInternalServerError)

@@ -1,5 +1,20 @@
 {{define "downloads"}}
-    {{range .}}
-        {{.}}
-    {{end}}
+    <div class="downloads-list">
+        {{range .}}
+            <div class="download">
+                <a href="/files?manual-url={{.ManualUrl}}">
+                    <div class="title">{{downloadTitle .}}</div>
+                    {{if .Date}}
+                        <div class="date">Date: {{.Date}}</div>
+                    {{end}}
+                    {{if .Type}}
+                        <div class="type">Type: {{.Type}}</div>
+                    {{end}}
+                    {{if .EstimatedBytes}}
+                        <div class="size"><span class="title">Size:</span> {{formatBytes .EstimatedBytes}}</div>
+                    {{end}}
+                </a>
+            </div>
+        {{end}}
+    </div>
 {{end}}

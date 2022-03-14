@@ -75,6 +75,8 @@ type productViewModel struct {
 	Screenshots []string
 	// video-ids
 	Videos []string
+	// downloads
+	Downloads vangogh_local_data.DownloadsList
 }
 
 func propertyFromRedux(redux map[string][]string, property string) string {
@@ -154,8 +156,10 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 
 func funcMap() template.FuncMap {
 	return template.FuncMap{
-		"productTitle": productTitle,
-		"productId":    productId,
+		"productTitle":  productTitle,
+		"productId":     productId,
+		"downloadTitle": downloadTitle,
+		"formatBytes":   formatBytes,
 	}
 }
 
@@ -273,6 +277,24 @@ func productId(s string) string {
 		return s[strings.LastIndex(s, titleIdSep)+len(titleIdSep) : len(s)-1]
 	}
 	return ""
+}
+
+func downloadTitle(d vangogh_local_data.Download) string {
+	return d.String()
+}
+
+func formatBytes(b int) string {
+	const unit = 1000
+	if b < unit {
+		return fmt.Sprintf("%d B", b)
+	}
+	div, exp := int64(unit), 0
+	for n := b / unit; n >= unit; n /= unit {
+		div *= unit
+		exp++
+	}
+	return fmt.Sprintf("%.1f %cB",
+		float64(b)/float64(div), "kMGTPE"[exp])
 }
 
 func getKeys(client *http.Client, pt vangogh_local_data.ProductType, mt gog_integration.Media) ([]string, error) {
