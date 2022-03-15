@@ -17,8 +17,8 @@
             {{end}}
             <div class="text-property">
                 <h2 class="property-title">Operating Systems</h2>
-                <ul class="property-value flexible">{{range .OperatingSystems}}
-                        <li><a href="/search?os={{.}}">{{.}}</a></li>{{end}}</ul>
+                <ul class="property-value horizontal">{{range .OperatingSystems}}
+                        <li>{{template "os-icon" .}}</li>{{end}}</ul>
             </div>
             {{if (ne .Rating "0")}}
                 <div class="text-property">
@@ -80,7 +80,7 @@
             {{if .GOGOrderDate}}
                 <div class="text-property">
                     <h2 class="property-title">GOG.com Order Date</h2>
-                    <div class="property-value">{{.GOGOrderDate}}</div>
+                    <div class="property-value">{{justTheDate .GOGOrderDate}}</div>
                 </div>
             {{end}}
             {{if .IncludesGames}}

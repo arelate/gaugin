@@ -170,6 +170,7 @@ func funcMap() template.FuncMap {
 		"productId":     productId,
 		"downloadTitle": downloadTitle,
 		"formatBytes":   formatBytes,
+		"justTheDate":   justTheDate,
 	}
 }
 
@@ -305,6 +306,10 @@ func formatBytes(b int) string {
 	}
 	return fmt.Sprintf("%.1f %cB",
 		float64(b)/float64(div), "kMGTPE"[exp])
+}
+
+func justTheDate(s string) string {
+	return strings.Split(s, " ")[0]
 }
 
 func getKeys(client *http.Client, pt vangogh_local_data.ProductType, mt gog_integration.Media) ([]string, error) {

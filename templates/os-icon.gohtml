@@ -1,0 +1,13 @@
+{{define "os-icon"}}
+    <a href="/search?os={{.}}">
+        {{if eq . "windows"}}
+            {{template "svg-windows"}}
+        {{else if eq . "macos"}}
+            {{template "svg-macos"}}
+        {{else if eq . "linux"}}
+            {{template "svg-linux"}}
+        {{else}}
+            {{.}}
+        {{end}}
+    </a>
+{{end}}
