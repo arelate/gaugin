@@ -4,6 +4,7 @@ import (
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
 	"net/http"
+	"strings"
 )
 
 func GetProduct(w http.ResponseWriter, r *http.Request) {
@@ -23,6 +24,15 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	validVideos := make([]string, 0, len(pvm.Videos))
+	for _, v := range pvm.Videos {
+		if strings.Contains(v, "(") {
+			continue
+		}
+		validVideos = append(validVideos, v)
+	}
+	pvm.Videos = validVideos
 
 	dl, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes)
 	if err != nil {

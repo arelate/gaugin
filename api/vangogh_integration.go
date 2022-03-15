@@ -50,7 +50,8 @@ type listViewModel struct {
 }
 
 type productViewModel struct {
-	Id string
+	Id         string
+	Wishlisted bool
 	// text properties
 	Title             string
 	Image             string
@@ -123,7 +124,7 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 	case 1:
 		for id, rdx := range redux {
 
-			return &productViewModel{
+			pvm := &productViewModel{
 				Id:                id,
 				Image:             propertyFromRedux(rdx, vangogh_local_data.ImageProperty),
 				Title:             propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
@@ -146,7 +147,16 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				Types:             propertiesFromRedux(rdx, vangogh_local_data.TypesProperty),
 				Screenshots:       propertiesFromRedux(rdx, vangogh_local_data.ScreenshotsProperty),
 				Videos:            propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
-			}, nil
+			}
+
+			for _, t := range pvm.Types {
+				if t == vangogh_local_data.WishlistProducts.String() {
+					pvm.Wishlisted = true
+					break
+				}
+			}
+
+			return pvm, nil
 		}
 	default:
 		return nil, fmt.Errorf("too many ids, rdx")

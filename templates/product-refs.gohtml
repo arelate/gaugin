@@ -1,12 +1,23 @@
 {{define "product-refs"}}
-    {{range .}}
-        <li>
-            {{$productId := productId .}}
-            {{if $productId}}
-                <a href="/product?id={{$productId}}">{{productTitle .}}</a>
-            {{else}}
-                {{.}}
-            {{end}}
-        </li>
+    {{$len := len .}}
+    {{if gt $len 3}}
+        <details>
+        <summary>{{$len}} product(s)</summary>
+    {{end}}
+    <ul class="property-value">
+
+        {{range .}}
+            <li>
+                {{$productId := productId .}}
+                {{if $productId}}
+                    <a href="/product?id={{$productId}}">{{productTitle .}}</a>
+                {{else}}
+                    {{.}}
+                {{end}}
+            </li>
+        {{end}}
+    </ul>
+    {{if gt $len 3}}
+        </details>
     {{end}}
 {{end}}

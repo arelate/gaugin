@@ -19,9 +19,10 @@
         .product-details .text-properties .text-property {
             width: 100%;
             display: grid;
-            grid-template-columns: 200px 4fr;
+            grid-template-columns: 125px 4fr;
             grid-column-gap: 1em;
             padding: 0.5em 0;
+            align-items: center;
         }
 
         .product-details .text-properties .text-property h2 {
@@ -33,6 +34,18 @@
             list-style: none;
             margin: 0;
             padding-inline-start: 0px;
+        }
+
+        @media only screen and (min-width: 700px) {
+            .product-details .text-properties .text-property ul.flexible {
+                display: flex;
+                flex-direction: row;
+                gap: 0.5em;
+            }
+        }
+
+        .product-details .text-properties .text-property ul li {
+            padding: 0 0 0.25em 0;
         }
 
         .product-details .text-properties .text-property .property-title {
@@ -69,11 +82,19 @@
             width: 100%;
         }
 
-        .product-details details {
+        .product-details > details {
             margin: 1em 0;
             font-weight: bold;
             cursor: pointer;
             font-size: 1.2em;
+        }
+
+        .product-details .text-properties details {
+            cursor: pointer;
+        }
+
+        .product-details .text-properties details ul {
+            padding: 1em 0;
         }
 
         .product-details .downloads .downloads-list {

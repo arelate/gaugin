@@ -5,18 +5,19 @@
     {{end}}
     <div class="product-details" id="{{ .Id }}">
 
-        <h1 class="title">{{ .Title }}</h1>
+        <h1 class="title">{{ .Title }}&nbsp;{{if .Wishlisted}}<span title="Wishlisted">🌟</span>{{end}}</h1>
+
         <div class="text-properties">
             {{if .Tags}}
                 <div class="text-property">
                     <h2 class="property-title">Tags</h2>
-                    <ul class="property-value">{{range .Tags}}
-                            <li><a href="/search?tag={{productTitle .}}">{{.}}</a></li>{{end}}</ul>
+                    <ul class="property-value flexible">{{range .Tags}}
+                            <li><a href="/search?tag={{productTitle .}}">{{productTitle .}}</a></li>{{end}}</ul>
                 </div>
             {{end}}
             <div class="text-property">
                 <h2 class="property-title">Operating Systems</h2>
-                <ul class="property-value">{{range .OperatingSystems}}
+                <ul class="property-value flexible">{{range .OperatingSystems}}
                         <li><a href="/search?os={{.}}">{{.}}</a></li>{{end}}</ul>
             </div>
             {{if (ne .Rating "0")}}
@@ -47,18 +48,26 @@
             {{end}}
             <div class="text-property">
                 <h2 class="property-title">Genres</h2>
-                <ul class="property-value">{{range .Genres}}
+                <ul class="property-value flexible">{{range .Genres}}
                         <li><a href="/search?genres={{.}}">{{.}}</a></li>{{end}}</ul>
             </div>
             <div class="text-property">
                 <h2 class="property-title">Features</h2>
-                <ul class="property-value">{{range .Features}}
+                <ul class="property-value flexible">{{range .Features}}
                         <li><a href="/search?features={{.}}">{{.}}</a></li>{{end}}</ul>
             </div>
             <div class="text-property">
                 <h2 class="property-title">Languages</h2>
-                <ul class="property-value">{{range .LanguageCodes}}
-                        <li><a href="/search?lang-code={{productTitle .}}">{{.}}</a></li>{{end}}</ul>
+                {{$langsLen := len .LanguageCodes}}
+                {{if gt $langsLen 3}}
+                <details>
+                    <summary>{{$langsLen}} language(s)</summary>
+                    {{end}}
+                    <ul class="property-value">{{range .LanguageCodes}}
+                            <li><a href="/search?lang-code={{productTitle .}}">{{.}}</a></li>{{end}}</ul>
+                    {{if gt $langsLen 3}}
+                </details>
+                {{end}}
             </div>
             <div class="text-property">
                 <h2 class="property-title">Global Release Date</h2>
@@ -77,31 +86,40 @@
             {{if .IncludesGames}}
                 <div class="text-property">
                     <h2 class="property-title">Includes</h2>
-                    <ul class="property-value">{{template "product-refs" .IncludesGames}}</ul>
+                    {{template "product-refs" .IncludesGames}}
                 </div>
             {{end}}
             {{if .IsIncludedByGames}}
                 <div class="text-property">
                     <h2 class="property-title">Included By</h2>
-                    <ul class="property-value">{{template "product-refs" .IsIncludedByGames}}</ul>
+                    {{template "product-refs" .IsIncludedByGames}}
                 </div>
             {{end}}
             {{if .RequiresGames}}
                 <div class="text-property">
                     <h2 class="property-title">Requires</h2>
-                    <ul class="property-value">{{template "product-refs"  .RequiresGames}}</ul>
+                    {{template "product-refs"  .RequiresGames}}
                 </div>
             {{end}}
             {{if .IsRequiredByGames}}
                 <div class="text-property">
                     <h2 class="property-title">Required By</h2>
-                    <ul class="property-value">{{template "product-refs" .IsRequiredByGames}}</ul>
+                    {{$requiredByLen := len .Types}}
+                    {{template "product-refs" .IsRequiredByGames}}
                 </div>
             {{end}}
             <div class="text-property">
                 <h2 class="property-title">Types</h2>
-                <ul class="property-value">{{range .Types}}
-                        <li>{{.}}</li>{{end}}</ul>
+                {{$typesLen := len .Types}}
+                {{if gt $typesLen 2}}
+                <details>
+                    <summary>{{len .Types}} type(s)</summary>
+                    {{end}}
+                    <ul class="property-value">{{range .Types}}
+                            <li>{{.}}</li>{{end}}</ul>
+                    {{if gt $typesLen 2}}
+                </details>
+                {{end}}
             </div>
         </div>
         {{if .Screenshots}}
@@ -124,7 +142,7 @@
         {{end}}
         {{if .Downloads}}
             <details class="downloads">
-                <summary>Downloads</summary>
+                <summary>Secure Downloads</summary>
                 {{template "downloads" .Downloads}}
             </details>
         {{end}}
