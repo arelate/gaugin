@@ -1,16 +1,24 @@
 {{define "css-products"}}
     <style>
         .products {
-            padding: 0 15%;
+            /*padding-top: 0;*/
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 300px 300px 300px;
             grid-column-gap: 0.5em;
+            justify-content: center;
         }
 
-        @media only screen and (max-device-width: 800px) {
+        @media only screen and (max-width: 1200px) {
             .products {
-                padding: 0 0.5em;
+                grid-template-columns: 300px 300px;
+            }
+        }
+
+        @media only screen and (max-width: 700px) {
+            .products {
+                padding: 0 1em;
                 grid-template-columns: 1fr;
+                justify-content: start;
             }
         }
 
