@@ -5,7 +5,7 @@
     {{end}}
     <div class="product-details" id="{{ .Id }}">
 
-        <h1 class="title">{{ .Title }}&nbsp;{{if .Wishlisted}}<span title="Wishlisted">🌟</span>{{end}}</h1>
+        <h1 class="title">{{ .Title }}&nbsp;{{if .Wishlisted}}<span title="Wishlisted">⭐️</span>{{end}}</h1>
 
         <div class="text-properties">
             {{if .Tags}}
@@ -127,7 +127,7 @@
                 <summary>Screenshots</summary>
                 {{range .Screenshots}}
                     <a href="/images?id={{.}}">
-                        <img class="screenshot" src="/images?id={{.}}" alt=""/>
+                        <img class="screenshot" loading="lazy" src="/images?id={{.}}" alt=""/>
                     </a>
                 {{end}}
             </details>
