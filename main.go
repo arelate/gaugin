@@ -78,7 +78,7 @@ func ServeHandler(u *url.URL) error {
 
 	api.SetVangoghConnection(vangoghScheme, vangoghAddress, vangoghPort)
 
-	vangoghStateDir := vangogh_local_data.ValueFromUrl(u, "vangogh_state_directory")
+	vangoghStateDir := vangogh_local_data.ValueFromUrl(u, "vangogh_state_dir")
 	if vangoghStateDir == "" {
 		vangoghStateDir = defaultVangoghStateDir
 	}

@@ -25,6 +25,7 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if localVideoPath := vangogh_local_data.AbsLocalVideoPath(videoId); localVideoPath != "" {
+		w.Header().Set("Cache-Control", "max-age=31536000")
 		http.ServeFile(w, r, localVideoPath)
 	} else {
 		_ = nod.Error(fmt.Errorf("no local video for id %s", videoId))
