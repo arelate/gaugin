@@ -67,6 +67,21 @@
             gap: 1em;
         }
 
+        .product-details .text-properties .rating {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .product-details .text-properties .rating .rating-fill {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 1;
+            background-color: var(--background-color);
+        }
+
         .product-details .text-properties .text-property .property-title {
             font-weight: bolder;
             color: var(--system-gray-color)

@@ -171,6 +171,7 @@ func funcMap() template.FuncMap {
 		"downloadTitle": downloadTitle,
 		"formatBytes":   formatBytes,
 		"justTheDate":   justTheDate,
+		"ratingPercent": ratingPercent,
 	}
 }
 
@@ -310,6 +311,17 @@ func formatBytes(b int) string {
 
 func justTheDate(s string) string {
 	return strings.Split(s, " ")[0]
+}
+
+func ratingPercent(r string) int {
+	if r == "" {
+		return 0
+	}
+	if v, err := strconv.Atoi(r); err != nil {
+		return 0
+	} else {
+		return v * 2
+	}
 }
 
 func getKeys(client *http.Client, pt vangogh_local_data.ProductType, mt gog_integration.Media) ([]string, error) {

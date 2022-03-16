@@ -28,9 +28,18 @@
             </div>
             {{if (ne .Rating "0")}}
                 <div class="text-property">
-
                     <h2 class="property-title">Rating</h2>
-                    <div class="property-value">{{.Rating}}</div>
+                    <div class="property-value">
+                        <div class="rating">
+                            {{template "svg-icon" "star"}}
+                            {{template "svg-icon" "star"}}
+                            {{template "svg-icon" "star"}}
+                            {{template "svg-icon" "star"}}
+                            {{template "svg-icon" "star"}}
+                            <div class="rating-fill"
+                                 style="width: calc(100% - {{ratingPercent .Rating}}%)"></div>
+                        </div>
+                    </div>
                 </div>
             {{end}}
             <div class="text-property">
