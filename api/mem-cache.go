@@ -23,7 +23,10 @@ func (bw *bytesWriter) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-var urlStaticCache = make(map[string]*bytesWriter)
+var (
+	urlStaticCache = make(map[string]*bytesWriter)
+	urlTimestamp   = make(map[string]time.Time)
+)
 
 func memCache(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -31,8 +34,9 @@ func memCache(next http.Handler) http.Handler {
 		u := r.URL.String()
 		if _, ok := urlStaticCache[u]; !ok {
 			urlStaticCache[u] = &bytesWriter{bytes: make([]byte, 0, 8*1024*1024)}
+			urlTimestamp[u] = time.Now()
 			next.ServeHTTP(urlStaticCache[u], r)
 		}
-		http.ServeContent(w, r, u, time.Now(), bytes.NewReader(urlStaticCache[u].bytes))
+		http.ServeContent(w, r, u, urlTimestamp[u], bytes.NewReader(urlStaticCache[u].bytes))
 	})
 }

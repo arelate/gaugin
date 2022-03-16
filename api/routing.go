@@ -18,6 +18,7 @@ func HandleFuncs() {
 		"/videos":      nod.RequestLog(http.HandlerFunc(GetVideos)),
 		"/files":       basicHttpAuth(nod.RequestLog(http.HandlerFunc(GetFiles))),
 		"/local-file/": basicHttpAuth(nod.RequestLog(http.HandlerFunc(GetLocalFile))),
+		"/favicon.ico": http.HandlerFunc(http.NotFound),
 	}
 
 	for p, h := range patternHandlers {
