@@ -2,7 +2,7 @@
     {{template "css-product-details"}}
     {{template "svg-icons"}}
     {{if .Image }}
-        <img class="cover-image" src="/images?id={{.Image}}" alt=""/>
+        <img class="cover-image" src="/images?id={{.Image}}" alt="" decoding="auto"/>
     {{end}}
     <div class="product-details" id="{{ .Id }}">
 
@@ -142,7 +142,7 @@
                 <summary>Screenshots</summary>
                 {{range .Screenshots}}
                     <a href="/images?id={{.}}">
-                        <img class="screenshot" loading="lazy" src="/images?id={{.}}" alt=""/>
+                        <img class="screenshot" loading="lazy" decoding="async" src="/images?id={{.}}" alt=""/>
                     </a>
                 {{end}}
             </details>

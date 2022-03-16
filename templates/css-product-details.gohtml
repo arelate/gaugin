@@ -3,6 +3,8 @@
         .cover-image {
             margin: 0;
             width: 100%;
+            aspect-ratio: 2.17;
+            background-color: var(--system-gray-color);
         }
 
         .product-details {
@@ -24,6 +26,7 @@
 
         .product-details h1 svg.icon {
             width: 0.75em;
+            min-width: 0.75em;
             height: 0.75em;
         }
 
@@ -99,6 +102,7 @@
         .product-details .videos {
             display: flex;
             justify-content: center;
+            content-visibility: auto;
         }
 
         .product-details .videos video {
@@ -109,6 +113,7 @@
         .product-details .screenshots {
             display: flex;
             justify-content: center;
+            content-visibility: auto;
         }
 
         .product-details .screenshots a {
@@ -138,6 +143,7 @@
             font-weight: normal;
             font-size: 0.75em;
             margin: 1em 0;
+            content-visibility: auto;
         }
 
         .product-details .downloads-list .download {

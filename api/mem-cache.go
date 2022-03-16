@@ -33,7 +33,7 @@ func memCache(next http.Handler) http.Handler {
 
 		u := r.URL.String()
 		if _, ok := urlStaticCache[u]; !ok {
-			urlStaticCache[u] = &bytesWriter{bytes: make([]byte, 0, 8*1024*1024)}
+			urlStaticCache[u] = &bytesWriter{bytes: make([]byte, 0, 1024*1024)}
 			urlTimestamp[u] = time.Now()
 			next.ServeHTTP(urlStaticCache[u], r)
 		}
