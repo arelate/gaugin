@@ -10,8 +10,8 @@ func HandleFuncs() {
 	patternHandlers := map[string]http.Handler{
 		// start at the account
 		"/":            http.RedirectHandler("/account", http.StatusPermanentRedirect),
-		"/account":     nod.RequestLog(http.HandlerFunc(GetAccount)),
-		"/store":       nod.RequestLog(http.HandlerFunc(GetStore)),
+		"/account":     memCache(nod.RequestLog(http.HandlerFunc(GetAccount))),
+		"/store":       memCache(nod.RequestLog(http.HandlerFunc(GetStore))),
 		"/product":     nod.RequestLog(http.HandlerFunc(GetProduct)),
 		"/search":      nod.RequestLog(http.HandlerFunc(GetSearch)),
 		"/images":      nod.RequestLog(http.HandlerFunc(GetImages)),
