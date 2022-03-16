@@ -1,11 +1,15 @@
 {{define "product-details"}}
     {{template "css-product-details"}}
+    {{template "svg-icons"}}
     {{if .Image }}
         <img class="cover-image" src="/images?id={{.Image}}" alt=""/>
     {{end}}
     <div class="product-details" id="{{ .Id }}">
 
-        <h1 class="title">{{ .Title }}&nbsp;{{if .Wishlisted}}<span title="Wishlisted">⭐️</span>{{end}}</h1>
+        <h1 class="title">{{ .Title }}
+            {{if .Wishlisted}}
+                {{template "svg-icon" "heart"}}
+            {{end}}</h1>
 
         <div class="text-properties">
             {{if .Tags}}
@@ -17,8 +21,10 @@
             {{end}}
             <div class="text-property">
                 <h2 class="property-title">Operating Systems</h2>
-                <ul class="property-value horizontal">{{range .OperatingSystems}}
-                        <li>{{template "os-icon" .}}</li>{{end}}</ul>
+                <ul class="property-value horizontal">
+                    {{range .OperatingSystems}}
+                        <li><a href="/search?os={{.}}">{{template "svg-icon" .}}</a></li>
+                    {{end}}</ul>
             </div>
             {{if (ne .Rating "0")}}
                 <div class="text-property">
