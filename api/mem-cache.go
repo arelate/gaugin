@@ -29,12 +29,10 @@ func memCache(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		u := r.URL.String()
-		if payload, ok := urlStaticCache[u]; ok {
-			http.ServeContent(w, r, u, time.Now(), bytes.NewReader(payload.bytes))
-		} else {
+		if _, ok := urlStaticCache[u]; !ok {
 			urlStaticCache[u] = &bytesWriter{bytes: make([]byte, 0, 8*1024*1024)}
 			next.ServeHTTP(urlStaticCache[u], r)
-			http.ServeContent(w, r, u, time.Now(), bytes.NewReader(urlStaticCache[u].bytes))
 		}
+		http.ServeContent(w, r, u, time.Now(), bytes.NewReader(urlStaticCache[u].bytes))
 	})
 }
