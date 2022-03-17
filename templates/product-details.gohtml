@@ -2,7 +2,9 @@
     {{template "css-product-details"}}
     {{template "svg-icons"}}
     {{if .Image }}
-        <img class="cover-image" src="/images?id={{.Image}}" alt="" decoding="auto"/>
+        <div class="cover-image">
+            <img src="/images?id={{.Image}}" alt="" decoding="auto"/>
+        </div>
     {{end}}
     <div class="product-details" id="{{ .Id }}">
 
