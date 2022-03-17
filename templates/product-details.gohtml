@@ -21,15 +21,15 @@
                             <li><a href="/search?tag={{productTitle .}}">{{productTitle .}}</a></li>{{end}}</ul>
                 </div>
             {{end}}
-            <div class="text-property">
-                <h2 class="property-title">Operating Systems</h2>
+            <div class="text-property center">
+                <h2 class="property-title" title="Operating System">OS</h2>
                 <ul class="property-value horizontal">
                     {{range .OperatingSystems}}
                         <li><a href="/search?os={{.}}">{{template "svg-icon" .}}</a></li>
                     {{end}}</ul>
             </div>
             {{if (ne .Rating "0")}}
-                <div class="text-property">
+                <div class="text-property center">
                     <h2 class="property-title">Rating</h2>
                     <div class="property-value">
                         <div class="rating">
