@@ -1,0 +1,57 @@
+{{define "search-query"}}
+    <div class="search-query">
+        <ul>
+            {{if .Text}}
+                <li><span class="property-title">Any text:</span> <span class="property-value">{{.Text}}</span></li>
+            {{end}}
+            {{if .Title}}
+                <li><span class="property-title">Title:</span> <span class="property-value">{{.Title}}</span></li>
+            {{end}}
+            {{if .Tags}}
+                <li><span class="property-title">Tags:</span> <span class="property-value">{{.Tags}}</span></li>
+            {{end}}
+            {{if .OS}}
+                <li><span class="property-title">Operating Systems:</span> <span class="property-value">{{.OS}}</span>
+                </li>
+            {{end}}
+            {{if .Developers}}
+                <li><span class="property-title">Developers:</span> <span class="property-value">{{.Developers}}</span>
+                </li>
+            {{end}}
+            {{if .Publisher}}
+                <li><span class="property-title">Publisher:</span> <span class="property-value">{{.Publisher}}</span>
+                </li>
+            {{end}}
+            {{if .Series}}
+                <li><span class="property-title">Series:</span><span class="property-value">{{.Series}}</span></li>
+            {{end}}
+            {{if .Genres}}
+                <li><span class="property-title">Genres:</span> <span class="property-value">{{.Genres}}</span></li>
+            {{end}}
+            {{if .Features}}
+                <li><span class="property-title">Features:</span> <span class="property-value">{{.Features}}</span>
+                </li>
+            {{end}}
+            {{if .Languages}}
+                <li><span class="property-title">Languages:</span> <span
+                            class="property-value">{{.Languages}}</span></li>
+            {{end}}
+            {{if .Includes}}
+                <li><span class="property-title">Includes:</span> <span
+                            class="property-value">{{.Includes}}</span></li>
+            {{end}}
+            {{if .IncludedBy}}
+                <li><span class="property-title">Included by:</span> <span
+                            class="property-value">{{.IncludedBy}}</span></li>
+            {{end}}
+            {{if .Requires}}
+                <li><span class="property-title">Requires:</span> <span
+                            class="property-value">{{.Requires}}</span></li>
+            {{end}}
+            {{if .RequiredBy}}
+            <li><span class="property-title">Required by:</span> <span
+                        class="property-value">{{.RequiredBy}}</span></li>
+        </ul>
+        {{end}}
+    </div>
+{{end}}

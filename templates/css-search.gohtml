@@ -1,4 +1,4 @@
-{{define "css-search-form"}}
+{{define "css-search"}}
     <style>
         .search-form {
             margin: 1em calc(50% - 150px);
@@ -34,6 +34,22 @@
             grid-column-gap: 1em;
             width: 100%;
             padding: 0.5em 0 0 0;
+        }
+
+        .search-query ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+            flex-wrap: wrap;
+            padding: 0 15%;
+            margin: 0 0 2em 0;
+            color: var(--system-gray-color);
+        }
+
+        .search-query ul .property-value {
+            font-weight: bold;
         }
     </style>
 {{end}}

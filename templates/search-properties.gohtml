@@ -1,5 +1,5 @@
 {{define "search-properties"}}
-    {{template "css-search-form"}}
+    {{template "css-search"}}
     <form class="search-form" action="/search" xmlns="http://www.w3.org/1999/html">
         <div class="search-text-container">
             <label for="search-text">Find</label>
@@ -22,11 +22,13 @@
             </div>
             <div>
                 <label for="search-developers">Developers</label>
-                <input id="search-developers" type="search" name="developers" placeholder="Developers" value="{{.Developers}}"/>
+                <input id="search-developers" type="search" name="developers" placeholder="Developers"
+                       value="{{.Developers}}"/>
             </div>
             <div>
                 <label for="search-publisher">Publisher</label>
-                <input id="search-publisher" type="search" name="publisher" placeholder="Publisher" value="{{.Publisher}}"/>
+                <input id="search-publisher" type="search" name="publisher" placeholder="Publisher"
+                       value="{{.Publisher}}"/>
             </div>
             <div>
                 <label for="search-series">Series</label>
@@ -42,23 +44,28 @@
             </div>
             <div>
                 <label for="search-languages">Languages</label>
-                <input id="search-languages" type="search" name="lang-code" placeholder="Languages" value="{{.Languages}}"/>
+                <input id="search-languages" type="search" name="lang-code" placeholder="Languages"
+                       value="{{.Languages}}"/>
             </div>
             <div>
                 <label for="search-includes">Includes</label>
-                <input id="search-includes" type="search" name="includes-games" placeholder="Includes" value="{{.Includes}}"/>
+                <input id="search-includes" type="search" name="includes-games" placeholder="Includes"
+                       value="{{.Includes}}"/>
             </div>
             <div>
                 <label for="search-included-by">Included By</label>
-                <input id="search-included-by" type="search" name="is-included-by-games" placeholder="Included By" value="{{.IncludedBy}}"/>
+                <input id="search-included-by" type="search" name="is-included-by-games" placeholder="Included By"
+                       value="{{.IncludedBy}}"/>
             </div>
             <div>
                 <label for="search-requires">Requires</label>
-                <input id="search-requires" type="search" name="requires-games" placeholder="Requires" value="{{.Requires}}"/>
+                <input id="search-requires" type="search" name="requires-games" placeholder="Requires"
+                       value="{{.Requires}}"/>
             </div>
             <div>
                 <label for="search-required-by">Required By</label>
-                <input id="search-required-by" type="search" name="is-required-by-games" placeholder="Required By" value="{{.RequiredBy}}"/>
+                <input id="search-required-by" type="search" name="is-required-by-games" placeholder="Required By"
+                       value="{{.RequiredBy}}"/>
             </div>
         </details>
     </form>

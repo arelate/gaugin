@@ -5,6 +5,7 @@
     <body>
     {{template "nav" .Context}}
     {{template "search-properties" .Query}}
+    {{template "search-query" .Query}}
     {{template "products" .Products}}
     {{if .Products}}
         {{template "footer"}}
