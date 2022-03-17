@@ -37,7 +37,6 @@ func memCache(next http.Handler) http.Handler {
 			urlTimestamp[u] = time.Now()
 			next.ServeHTTP(urlStaticCache[u], r)
 		}
-		w.Header().Set("Cache-Control", "max-age=604800")
 		http.ServeContent(w, r, u, urlTimestamp[u], bytes.NewReader(urlStaticCache[u].bytes))
 	})
 }
