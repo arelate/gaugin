@@ -9,7 +9,7 @@
         .cover-image img {
             aspect-ratio: 2.17;
             width: 100%;
-            max-width: 1000px;
+            max-width: 800px;
         }
 
         .product-details {
@@ -49,7 +49,7 @@
             grid-template-columns: 125px 4fr;
             grid-column-gap: 1em;
             padding: 0.5em 0;
-            align-items: center;
+            align-items: start;
         }
 
         @media screen and (min-width: 1200px) {
@@ -157,8 +157,16 @@
         .product-details .downloads .downloads-list {
             font-weight: normal;
             font-size: 0.75em;
-            margin: 1em 0;
+            margin: 2em 0;
             content-visibility: auto;
+        }
+
+        @media screen and (min-width: 1200px) {
+            .product-details .downloads .downloads-list {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-column-gap: 2em;
+            }
         }
 
         .product-details .downloads-list .download {
