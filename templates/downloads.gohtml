@@ -2,7 +2,7 @@
     <div class="downloads-list">
         {{range .}}
             <div class="download">
-                <a href="/files?manual-url={{.ManualUrl}}">
+                <a href="/files?manual-url={{.ManualUrl}}" aria-label="download {{downloadTitle .}}">
                     <div class="title">{{downloadTitle .}}</div>
                     {{if .Date}}
                         <div class="date">Date: {{.Date}}</div>

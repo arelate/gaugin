@@ -73,8 +73,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	lvm := listViewModelFromRedux(keys, redux)
 	spvm.Products = lvm.Products
 
-	w.Header().Set("Content-Type", "text/html")
-	w.Header().Set("Content-Security-Policy", "default-src: 'self'")
+	defaultHeaders(w)
 
 	if err := tmpl.ExecuteTemplate(w, "search", spvm); err != nil {
 		http.Error(w, "template error", http.StatusInternalServerError)
