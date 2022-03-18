@@ -13,9 +13,9 @@ func HandleFuncs() {
 		"/store":   http.RedirectHandler("/all", http.StatusPermanentRedirect),
 		// start at the account
 		"/": http.RedirectHandler("/downloadable", http.StatusPermanentRedirect),
-		//
-		"/downloadable": Gzip(memCache(nod.RequestLog(http.HandlerFunc(GetDownloadable)))),
-		"/all":          Gzip(memCache(nod.RequestLog(http.HandlerFunc(GetAll)))),
+		// current endpoints
+		"/downloadable": Gzip(nod.RequestLog(http.HandlerFunc(GetDownloadable))),
+		"/all":          Gzip(nod.RequestLog(http.HandlerFunc(GetAll))),
 		"/product":      Gzip(nod.RequestLog(http.HandlerFunc(GetProduct))),
 		"/search":       Gzip(nod.RequestLog(http.HandlerFunc(GetSearch))),
 		"/images":       nod.RequestLog(http.HandlerFunc(GetImages)),
