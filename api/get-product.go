@@ -17,7 +17,8 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Add("Content-Type", "text/html")
+	w.Header().Set("Content-Type", "text/html")
+	w.Header().Set("Content-Security-Policy", "default-src: 'self'")
 
 	pvm, err := productViewModelFromRedux(idRedux)
 	if err != nil {

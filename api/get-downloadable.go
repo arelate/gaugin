@@ -6,6 +6,6 @@ import (
 	"net/http"
 )
 
-func GetAccount(w http.ResponseWriter, r *http.Request) {
+func GetDownloadable(w http.ResponseWriter, r *http.Request) {
 	getProductsList(vangogh_local_data.Details, gog_integration.Game, w)
 }

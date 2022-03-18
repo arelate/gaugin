@@ -30,7 +30,8 @@ func getProductsList(
 	lvm := listViewModelFromRedux(keys, redux)
 	lvm.Context = pt.String()
 
-	w.Header().Add("Content-Type", "text/html")
+	w.Header().Set("Content-Type", "text/html")
+	w.Header().Set("Content-Security-Policy", "default-src: 'self'")
 
 	if err := tmpl.ExecuteTemplate(w, "products-list", lvm); err != nil {
 		http.Error(w, "template error", http.StatusInternalServerError)

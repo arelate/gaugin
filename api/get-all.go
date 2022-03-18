@@ -6,6 +6,6 @@ import (
 	"net/http"
 )
 
-func GetStore(w http.ResponseWriter, r *http.Request) {
+func GetAll(w http.ResponseWriter, r *http.Request) {
 	getProductsList(vangogh_local_data.StoreProducts, gog_integration.Game, w)
 }

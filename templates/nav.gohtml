@@ -1,8 +1,8 @@
 {{define "nav"}}
     {{template "css-nav"}}
     <nav>
-        <a class="details {{if eq . "details"}}{{`current`}}{{end}}" href="/account">Account</a>
-        <a class="store-products {{if eq . "store-products"}}{{`current`}}{{end}}" href="/store">Store</a>
-        <a class="search {{if eq . "search"}}{{`current`}}{{end}}" href="/search">Search</a>
+        <a class="all {{if eq . "store-products"}}{{`current`}}{{end}}" accesskey="a" href="/all">All</a>
+        <a class="downloadable {{if eq . "details"}}{{`current`}}{{end}}" accesskey="d" href="/downloadable">Downloadable</a>
+        <a class="find {{if eq . "search"}}{{`current`}}{{end}}" accesskey="f" href="/search">Find</a>
     </nav>
 {{end}}
