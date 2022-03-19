@@ -1,6 +1,6 @@
 # gaugin
 
-Frontend microservice for [arelate/vangogh](github.com/arelate/vangogh) that provides UI to browse your GOG.com data.
+Frontend microservice for [arelate/vangogh](https://github.com/arelate/vangogh) that provides UI to browse your GOG.com data.
 
 ## Installation
 
