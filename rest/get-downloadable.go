@@ -1,4 +1,4 @@
-package api
+package rest
 
 import (
 	"github.com/arelate/gog_integration"

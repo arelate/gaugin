@@ -1,4 +1,4 @@
-package api
+package rest
 
 // Source: https://gist.github.com/CJEnright/bc2d8b8dc0c1389a9feeddb110f822d7
 // License: MIT

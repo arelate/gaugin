@@ -17,3 +17,5 @@ serve
     language_code$
     username$
     password$
+
+version
