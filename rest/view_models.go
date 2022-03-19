@@ -40,6 +40,13 @@ type productViewModel struct {
 	RequiresGames     []string
 	IsRequiredByGames []string
 	Types             []string
+	// urls
+	StoreUrl   string
+	ForumUrl   string
+	SupportUrl string
+	// long text
+	Changelog   string
+	Description string
 	// screenshots
 	Screenshots []string
 	// video-ids
@@ -113,6 +120,11 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				RequiresGames:     propertiesFromRedux(rdx, vangogh_local_data.RequiresGamesProperty),
 				IsRequiredByGames: propertiesFromRedux(rdx, vangogh_local_data.IsRequiredByGamesProperty),
 				Types:             propertiesFromRedux(rdx, vangogh_local_data.TypesProperty),
+				StoreUrl:          propertyFromRedux(rdx, vangogh_local_data.StoreUrlProperty),
+				ForumUrl:          propertyFromRedux(rdx, vangogh_local_data.ForumUrlProperty),
+				SupportUrl:        propertyFromRedux(rdx, vangogh_local_data.SupportUrlProperty),
+				Changelog:         propertyFromRedux(rdx, vangogh_local_data.ChanglogProperty),
+				Description:       propertyFromRedux(rdx, vangogh_local_data.DescriptionProperty),
 				Screenshots:       propertiesFromRedux(rdx, vangogh_local_data.ScreenshotsProperty),
 				Videos:            propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
 			}

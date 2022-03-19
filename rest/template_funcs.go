@@ -2,8 +2,10 @@ package rest
 
 import (
 	"fmt"
+	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
 	"html/template"
+	"net/url"
 	"strconv"
 	"strings"
 )
@@ -16,6 +18,7 @@ func funcMap() template.FuncMap {
 		"formatBytes":   formatBytes,
 		"justTheDate":   justTheDate,
 		"ratingPercent": ratingPercent,
+		"gogLink":       gogLink,
 	}
 }
 
@@ -66,4 +69,13 @@ func ratingPercent(r string) int {
 	} else {
 		return v * 2
 	}
+}
+
+func gogLink(p string) string {
+	u := url.URL{
+		Scheme: gog_integration.HttpsScheme,
+		Host:   gog_integration.WwwGogHost,
+		Path:   p,
+	}
+	return u.String()
 }
