@@ -54,24 +54,36 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		RequiredBy: q.Get("is-required-by-games"),
 	}
 
-	keys, err := getSearch(dc, q)
-	if err != nil {
-		http.Error(w, "search error", http.StatusInternalServerError)
-		return
+	emptyQuery := true
+	for _, vs := range q {
+		for _, v := range vs {
+			if v != "" {
+				emptyQuery = false
+				break
+			}
+		}
 	}
 
-	redux, err := getRedux(dc,
-		strings.Join(keys, ","),
-		vangogh_local_data.TitleProperty,
-		vangogh_local_data.DevelopersProperty,
-		vangogh_local_data.PublisherProperty)
-	if err != nil {
-		http.Error(w, "error getting all_redux", http.StatusInternalServerError)
-		return
-	}
+	if !emptyQuery {
+		keys, err := getSearch(dc, q)
+		if err != nil {
+			http.Error(w, "search error", http.StatusInternalServerError)
+			return
+		}
 
-	lvm := listViewModelFromRedux(keys, redux)
-	spvm.Products = lvm.Products
+		redux, err := getRedux(dc,
+			strings.Join(keys, ","),
+			vangogh_local_data.TitleProperty,
+			vangogh_local_data.DevelopersProperty,
+			vangogh_local_data.PublisherProperty)
+		if err != nil {
+			http.Error(w, "error getting all_redux", http.StatusInternalServerError)
+			return
+		}
+
+		lvm := listViewModelFromRedux(keys, redux)
+		spvm.Products = lvm.Products
+	}
 
 	defaultHeaders(w)
 
