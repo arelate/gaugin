@@ -3,16 +3,14 @@ RUN apk add --no-cache --update git
 ADD . /go/src/app
 WORKDIR /go/src/app
 RUN go get ./...
-RUN go build \
-    -o gaugin \
-    main.go
+RUN go build -o gg main.go
 
 FROM alpine
-COPY --from=build /go/src/app/gaugin /usr/bin/gaugin
+COPY --from=build /go/src/app/gg /usr/bin/gg
 
 EXPOSE 1848
 #vangogh artifacts: checksums, images, metadata, recycle_bin, videos
 VOLUME /var/lib/vangogh
 
-ENTRYPOINT ["/usr/bin/gaugin"]
+ENTRYPOINT ["/usr/bin/gg"]
 CMD ["serve","-port", "1848", "-stderr"]
