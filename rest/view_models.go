@@ -3,6 +3,7 @@ package rest
 import (
 	"fmt"
 	"github.com/arelate/vangogh_local_data"
+	"html/template"
 )
 
 type listProductViewModel struct {
@@ -45,8 +46,8 @@ type productViewModel struct {
 	ForumUrl   string
 	SupportUrl string
 	// long text
-	Changelog   string
-	Description string
+	Changelog   template.HTML
+	Description template.HTML
 	// screenshots
 	Screenshots []string
 	// video-ids
@@ -123,8 +124,8 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				StoreUrl:          propertyFromRedux(rdx, vangogh_local_data.StoreUrlProperty),
 				ForumUrl:          propertyFromRedux(rdx, vangogh_local_data.ForumUrlProperty),
 				SupportUrl:        propertyFromRedux(rdx, vangogh_local_data.SupportUrlProperty),
-				Changelog:         propertyFromRedux(rdx, vangogh_local_data.ChanglogProperty),
-				Description:       propertyFromRedux(rdx, vangogh_local_data.DescriptionProperty),
+				Changelog:         template.HTML(propertyFromRedux(rdx, vangogh_local_data.ChanglogProperty)),
+				Description:       template.HTML(propertyFromRedux(rdx, vangogh_local_data.DescriptionProperty)),
 				Screenshots:       propertiesFromRedux(rdx, vangogh_local_data.ScreenshotsProperty),
 				Videos:            propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
 			}

@@ -157,6 +157,12 @@
                 {{end}}
             </div>
         </div>
+        {{if .Description}}
+            <details class="description">
+                <summary>Description</summary>
+                <div>{{.Description}}</div>
+            </details>
+        {{end}}
         {{if .Screenshots}}
             <details class="screenshots">
                 <summary>Screenshots</summary>
@@ -173,6 +179,12 @@
                 {{range .Videos}}
                     <video controls src="/videos?id={{.}}"></video>
                 {{end}}
+            </details>
+        {{end}}
+        {{if .Changelog}}
+            <details class="changelog">
+                <summary>Changelog</summary>
+                <div>{{.Changelog}}</div>
             </details>
         {{end}}
         {{if .Downloads}}
