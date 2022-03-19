@@ -1,7 +1,7 @@
 package api
 
 import (
-	"encoding/json"
+	"encoding/gob"
 	"fmt"
 	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
@@ -272,7 +272,7 @@ func getKeys(client *http.Client, pt vangogh_local_data.ProductType, mt gog_inte
 	defer resp.Body.Close()
 
 	var keys []string
-	err = json.NewDecoder(resp.Body).Decode(&keys)
+	err = gob.NewDecoder(resp.Body).Decode(&keys)
 	return keys, err
 }
 
@@ -289,7 +289,7 @@ func getDownloads(
 	defer resp.Body.Close()
 
 	var dl vangogh_local_data.DownloadsList
-	err = json.NewDecoder(resp.Body).Decode(&dl)
+	err = gob.NewDecoder(resp.Body).Decode(&dl)
 	return dl, err
 }
 
@@ -302,7 +302,7 @@ func getSearch(client *http.Client, q url.Values) ([]string, error) {
 	defer resp.Body.Close()
 
 	var keys []string
-	err = json.NewDecoder(resp.Body).Decode(&keys)
+	err = gob.NewDecoder(resp.Body).Decode(&keys)
 	return keys, err
 }
 
@@ -318,7 +318,7 @@ func getAllRedux(
 	defer resp.Body.Close()
 
 	var redux map[string]map[string][]string
-	err = json.NewDecoder(resp.Body).Decode(&redux)
+	err = gob.NewDecoder(resp.Body).Decode(&redux)
 	return redux, err
 }
 
@@ -334,6 +334,6 @@ func getRedux(
 	defer resp.Body.Close()
 
 	var redux map[string]map[string][]string
-	err = json.NewDecoder(resp.Body).Decode(&redux)
+	err = gob.NewDecoder(resp.Body).Decode(&redux)
 	return redux, err
 }
