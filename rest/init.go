@@ -3,7 +3,6 @@ package rest
 import (
 	"crypto/sha256"
 	"github.com/arelate/vangogh_local_data"
-	"github.com/boggydigital/kvas"
 	"html/template"
 	"io/fs"
 )
@@ -12,7 +11,6 @@ var (
 	tmpl             *template.Template
 	operatingSystems []vangogh_local_data.OperatingSystem
 	languageCodes    []string
-	rxa              kvas.ReduxAssets
 	usernameHash     [32]byte
 	passwordHash     [32]byte
 )
@@ -34,12 +32,6 @@ func SetPassword(p string) {
 }
 
 func Init(templatesFS fs.FS) error {
-	var err error
-	if rxa, err = vangogh_local_data.ConnectReduxAssets(
-		vangogh_local_data.LocalManualUrlProperty); err != nil {
-		return err
-	}
-
 	tmpl = template.Must(
 		template.
 			New("").

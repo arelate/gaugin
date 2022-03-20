@@ -1,0 +1,17 @@
+{{define "news"}}
+    <!doctype html>
+    <html lang="en">
+    {{template "head"}}
+    <body>
+    {{template "nav" .Context}}
+    {{template "css-news"}}
+    {{$sectionProducts := .SectionProducts}}
+    {{range .Sections}}
+        <h1 class="section-title">{{.}}</h1>
+        {{$products := index $sectionProducts .}}
+        {{template "products" $products.Products}}
+    {{end}}
+    {{template "footer"}}
+    </body>
+    </html>
+{{end}}

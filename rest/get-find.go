@@ -29,7 +29,7 @@ type searchProductsViewModel struct {
 	Products []listProductViewModel
 }
 
-func GetSearch(w http.ResponseWriter, r *http.Request) {
+func GetFind(w http.ResponseWriter, r *http.Request) {
 	dc := http.DefaultClient
 
 	spvm := &searchProductsViewModel{
@@ -71,17 +71,18 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		redux, err := getRedux(dc,
+		rdx, err := getRedux(dc,
 			strings.Join(keys, ","),
 			vangogh_local_data.TitleProperty,
 			vangogh_local_data.DevelopersProperty,
 			vangogh_local_data.PublisherProperty)
+
 		if err != nil {
 			http.Error(w, "error getting all_redux", http.StatusInternalServerError)
 			return
 		}
 
-		lvm := listViewModelFromRedux(keys, redux)
+		lvm := listViewModelFromRedux(keys, rdx)
 		spvm.Products = lvm.Products
 	}
 

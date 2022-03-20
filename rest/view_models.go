@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/arelate/vangogh_local_data"
 	"html/template"
+	"sort"
 )
 
 type listProductViewModel struct {
@@ -16,6 +17,12 @@ type listProductViewModel struct {
 type listViewModel struct {
 	Context  string
 	Products []listProductViewModel
+}
+
+type updatesViewModel struct {
+	Context         string
+	Sections        []string
+	SectionProducts map[string]*listViewModel
 }
 
 type productViewModel struct {
@@ -74,7 +81,7 @@ func propertiesFromRedux(redux map[string][]string, property string) []string {
 
 func listViewModelFromRedux(order []string, redux map[string]map[string][]string) *listViewModel {
 	lvm := &listViewModel{
-		Products: make([]listProductViewModel, 0, len(redux)),
+		Products: make([]listProductViewModel, 0, len(order)),
 	}
 	for _, id := range order {
 		properties, ok := redux[id]
@@ -143,4 +150,24 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 		return nil, fmt.Errorf("too many ids, rdx")
 	}
 	return nil, nil
+}
+
+func updatesViewModelFromRedux(updates map[string][]string, rdx map[string]map[string][]string) *updatesViewModel {
+
+	sections := make([]string, 0, len(updates))
+	sectionProducts := make(map[string]*listViewModel)
+	for s, ids := range updates {
+		sections = append(sections, s)
+		sectionProducts[s] = listViewModelFromRedux(ids, rdx)
+	}
+
+	sort.Strings(sections)
+
+	uvm := &updatesViewModel{
+		Context:         "news",
+		Sections:        sections,
+		SectionProducts: sectionProducts,
+	}
+
+	return uvm
 }

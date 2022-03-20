@@ -18,14 +18,14 @@
                 <div class="text-property">
                     <h2 class="property-title">Tags</h2>
                     <ul class="property-value flexible">{{range .Tags}}
-                            <li><a href="/search?tag={{productTitle .}}">{{productTitle .}}</a></li>{{end}}</ul>
+                            <li><a href="/find?tag={{productTitle .}}">{{productTitle .}}</a></li>{{end}}</ul>
                 </div>
             {{end}}
             <div class="text-property center">
                 <h2 class="property-title" title="Operating System">OS</h2>
                 <ul class="property-value horizontal">
                     {{range .OperatingSystems}}
-                        <li><a href="/search?os={{.}}" aria-label="{{.}}">{{template "svg-icon" .}}</a></li>
+                        <li><a href="/find?os={{.}}" aria-label="{{.}}">{{template "svg-icon" .}}</a></li>
                     {{end}}</ul>
             </div>
             {{if (ne .Rating "0")}}
@@ -47,13 +47,13 @@
             <div class="text-property">
                 <h2 class="property-title">Developers</h2>
                 <ul class="property-value">{{range .Developers}}
-                        <li><a href="/search?developers={{.}}" aria-label="all products by developers: {{.}}">{{.}}</a>
+                        <li><a href="/find?developers={{.}}" aria-label="all products by developers: {{.}}">{{.}}</a>
                         </li>{{end}}</ul>
             </div>
             <div class="text-property">
                 <h2 class="property-title">Publisher</h2>
                 <ul class="property-value">
-                    <li><a href="/search?publisher={{.Publisher}}"
+                    <li><a href="/find?publisher={{.Publisher}}"
                            aria-label="all products by publisher: {{.Publisher}}">{{.Publisher}}</a></li>
                 </ul>
             </div>
@@ -61,7 +61,7 @@
                 <div class="text-property">
                     <h2 class="property-title">Series</h2>
                     <ul class="property-value">
-                        <li><a href="/search?series={{.Series}}"
+                        <li><a href="/find?series={{.Series}}"
                                aria-label="all products in {{.Series}} series">{{.Series}}</a></li>
                     </ul>
                 </div>
@@ -69,13 +69,13 @@
             <div class="text-property">
                 <h2 class="property-title">Genres</h2>
                 <ul class="property-value flexible">{{range .Genres}}
-                        <li><a href="/search?genres={{.}}" aria-label="all products of {{.}} genre">{{.}}</a>
+                        <li><a href="/find?genres={{.}}" aria-label="all products of {{.}} genre">{{.}}</a>
                         </li>{{end}}</ul>
             </div>
             <div class="text-property">
                 <h2 class="property-title">Features</h2>
                 <ul class="property-value flexible">{{range .Features}}
-                        <li><a href="/search?features={{.}}" aria-label="all products that support {{.}}">{{.}}</a>
+                        <li><a href="/find?features={{.}}" aria-label="all products that support {{.}}">{{.}}</a>
                         </li>{{end}}</ul>
             </div>
             <div class="text-property">
@@ -86,7 +86,7 @@
                     <summary>{{$langsLen}} language(s)</summary>
                     {{end}}
                     <ul class="property-value">{{range .LanguageCodes}}
-                            <li><a href="/search?lang-code={{productTitle .}}"
+                            <li><a href="/find?lang-code={{productTitle .}}"
                                    aria-label="all products supporting {{.}} language">{{.}}</a></li>{{end}}</ul>
                     {{if gt $langsLen 3}}
                 </details>

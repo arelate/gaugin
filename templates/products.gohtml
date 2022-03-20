@@ -1,9 +1,11 @@
 {{define "products"}}
     {{template "css-products"}}
+    {{$count := len .}}
+    <div class="products-count">{{$count}} product{{if ne $count 1}}s{{end}}</div>
     <section class="products">
         {{range .}}
             <a class="product" href="/product?id={{.Id}}">
-                <h1 class="title">{{ .Title }}</h1>
+                <h2 class="title">{{ .Title }}</h2>
                 <div class="text-properties grid-2cols-1fr2fr">
                     <div class="property-title">Developers</div>
                     <div class="property-value">{{range .Developers}}<span>{{.}}</span> {{end}}</div>

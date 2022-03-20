@@ -18,7 +18,7 @@ func getProductsList(
 		return
 	}
 
-	redux, err := getAllRedux(dc, pt, mt,
+	rdx, err := getAllRedux(dc, pt, mt,
 		vangogh_local_data.TitleProperty,
 		vangogh_local_data.DevelopersProperty,
 		vangogh_local_data.PublisherProperty)
@@ -27,7 +27,7 @@ func getProductsList(
 		return
 	}
 
-	lvm := listViewModelFromRedux(keys, redux)
+	lvm := listViewModelFromRedux(keys, rdx)
 	lvm.Context = pt.String()
 
 	defaultHeaders(w)

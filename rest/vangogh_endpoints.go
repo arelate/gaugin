@@ -82,3 +82,19 @@ func getRedux(
 	err = gob.NewDecoder(resp.Body).Decode(&redux)
 	return redux, err
 }
+
+func getUpdates(
+	client *http.Client,
+	mt gog_integration.Media,
+	since int) (map[string][]string, error) {
+	uu := updatesUrl(mt, since)
+	resp, err := client.Get(uu.String())
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var updates map[string][]string
+	err = gob.NewDecoder(resp.Body).Decode(&updates)
+	return updates, err
+}
