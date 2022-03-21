@@ -6,8 +6,11 @@ import (
 	"github.com/boggydigital/nod"
 	"golang.org/x/exp/maps"
 	"net/http"
+	"strconv"
 	"strings"
 )
+
+const defaultSince = 24 * 5
 
 func GetNews(w http.ResponseWriter, r *http.Request) {
 
@@ -15,9 +18,18 @@ func GetNews(w http.ResponseWriter, r *http.Request) {
 
 	dc := http.DefaultClient
 
-	updates, err := getUpdates(dc, gog_integration.Game, 24*7)
+	sinceStr := vangogh_local_data.ValueFromUrl(r.URL, "since")
+	since, err := strconv.Atoi(sinceStr)
 	if err != nil {
-		http.Error(w, nod.Error(err).Error(), 405)
+		since = 0
+	}
+	if since == 0 {
+		since = defaultSince
+	}
+
+	updates, err := getUpdates(dc, gog_integration.Game, since)
+	if err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusMethodNotAllowed)
 		return
 	}
 
