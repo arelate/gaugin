@@ -1,5 +1,4 @@
 {{define "products"}}
-    {{template "css-products"}}
     {{$count := len .}}
     <div class="products-count">{{$count}} product{{if ne $count 1}}s{{end}}</div>
     <section class="products">

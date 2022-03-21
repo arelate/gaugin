@@ -5,5 +5,21 @@
         <meta name="color-scheme" content="dark light">
         <title>Gaugin</title>
         {{template "css-base-themes"}}
+        {{template "css-nav"}}
+        {{if eq . "news"}}
+            {{template "css-news"}}
+            {{template "css-products"}}
+        {{end}}
+        {{if eq . "products-list"}}
+            {{template "css-products"}}
+        {{end}}
+        {{if eq . "product"}}
+            {{template "css-product-details"}}
+        {{end}}
+        {{if eq . "find"}}
+            {{template "css-search"}}
+            {{template "css-products"}}
+        {{end}}
+        {{template "css-footer"}}
     </head>
 {{end}}

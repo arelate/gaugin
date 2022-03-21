@@ -33,7 +33,7 @@ func GetFind(w http.ResponseWriter, r *http.Request) {
 	dc := http.DefaultClient
 
 	spvm := &searchProductsViewModel{
-		Context: "search",
+		Context: "find",
 	}
 
 	q := r.URL.Query()
@@ -88,7 +88,7 @@ func GetFind(w http.ResponseWriter, r *http.Request) {
 
 	defaultHeaders(w)
 
-	if err := tmpl.ExecuteTemplate(w, "search", spvm); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "find", spvm); err != nil {
 		http.Error(w, "template error", http.StatusInternalServerError)
 		return
 	}

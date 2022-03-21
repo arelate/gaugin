@@ -1,10 +1,9 @@
 {{define "news"}}
     <!doctype html>
     <html lang="en">
-    {{template "head"}}
+    {{template "head" "news"}}
     <body>
     {{template "nav" .Context}}
-    {{template "css-news"}}
     {{$sectionProducts := .SectionProducts}}
     {{range .Sections}}
         <h1 class="section-title">{{.}}</h1>
