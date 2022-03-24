@@ -30,12 +30,12 @@ Top nav menu refactor:
 		- Wishlisted
 		- Find
 
-News improvments:
-	- add timeframe switchers:
-		- 1h
-		- 1d
-		- 3d
-		- 5d (default)
+News improvments: @done(2022-03-24)
+	- add timeframe switchers: @done(2022-03-24)
+		- 1h @done(2022-03-24)
+		- 1d @done(2022-03-24)
+		- 3d @done(2022-03-24)
+		- 5d (default) @done(2022-03-24)
 
 More icons, less text:
 	- genres
