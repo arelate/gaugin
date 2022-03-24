@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-const defaultSince = 24 * 5
+const defaultSince = 24
 
 func GetNews(w http.ResponseWriter, r *http.Request) {
 
@@ -51,9 +51,9 @@ func GetNews(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	uvm := updatesViewModelFromRedux(updates, rdx)
+	nvm := newsViewModelFromRedux(updates, since, rdx)
 
-	if err := tmpl.ExecuteTemplate(w, "news", uvm); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "news", nvm); err != nil {
 		http.Error(w, "template error", http.StatusInternalServerError)
 		return
 	}

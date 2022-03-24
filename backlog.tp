@@ -1,33 +1,42 @@
+Description images and video:
+	- scan all descriptions to download items.gog.com files
+	- add /items endpoint
+	- rewrite links in the description to display local files 
+
+Fix description unclosed tags affecting styles:
+	- wrap in iframe
+	- video width issue (horizontal scrollbars on mobile when description has video?)
+
 Wishlisted refactor:
-    - reduce status in vangogh
-        - set false to all store-products
-        - set true to wishlisted
-        - save
-    - consider the same approach for owned
-    - display in lists
-    - update in product details
-    - consider adding to search as new properties
+	- reduce status in vangogh
+		- set false to all store-products
+		- set true to wishlisted
+		- save
+	- consider the same approach for owned
+	- display in lists
+	- update in product details
+	- consider adding to search as new properties
 
 List product display refactor:
-    - remove developer / publisher
-    - add OS, wishlisted, rating, owned?, tags?
+	- remove developer / publisher
+	- add OS, wishlisted, rating, owned?, tags?
 
 Top nav menu refactor:
-    - display icon and a current section
-    - expand to menu:
-        - News
-        - Downloads
-        - All
-        - Wishlisted
-        - Find
+	- display icon and a current section
+	- expand to menu:
+		- News
+		- Downloads
+		- All
+		- Wishlisted
+		- Find
 
 News improvments:
-    - add timeframe switchers:
-        - 1h
-        - 1d
-        - 3d
-        - 5d (default)
+	- add timeframe switchers:
+		- 1h
+		- 1d
+		- 3d
+		- 5d (default)
 
 More icons, less text:
-    - genres
-    - features
+	- genres
+	- features

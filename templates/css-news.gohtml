@@ -7,5 +7,27 @@
             text-transform: capitalize;
             width: 100%;
         }
+
+        .scope {
+            display: flex;
+            justify-content: center;
+            column-gap: 1em;
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2em;
+        }
+
+        .scope a {
+            color: var(--system-gray-color);
+            font-size: 0.8em;
+            text-decoration: none;
+        }
+
+        .scope .current a {
+            font-weight: bold;
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 4px;
+        }
     </style>
 {{end}}

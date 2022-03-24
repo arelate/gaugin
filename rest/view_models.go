@@ -19,7 +19,8 @@ type listViewModel struct {
 	Products []listProductViewModel
 }
 
-type updatesViewModel struct {
+type newsViewModel struct {
+	Since           int
 	Context         string
 	Sections        []string
 	SectionProducts map[string]*listViewModel
@@ -152,7 +153,9 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 	return nil, nil
 }
 
-func updatesViewModelFromRedux(updates map[string][]string, rdx map[string]map[string][]string) *updatesViewModel {
+func newsViewModelFromRedux(updates map[string][]string,
+	since int,
+	rdx map[string]map[string][]string) *newsViewModel {
 
 	sections := make([]string, 0, len(updates))
 	sectionProducts := make(map[string]*listViewModel)
@@ -163,8 +166,9 @@ func updatesViewModelFromRedux(updates map[string][]string, rdx map[string]map[s
 
 	sort.Strings(sections)
 
-	uvm := &updatesViewModel{
+	uvm := &newsViewModel{
 		Context:         "news",
+		Since:           since,
 		Sections:        sections,
 		SectionProducts: sectionProducts,
 	}

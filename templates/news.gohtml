@@ -4,6 +4,11 @@
     {{template "head" "news"}}
     <body>
     {{template "nav" .Context}}
+    <ul class="scope">
+        <li class="{{if eq .Since 4}}{{`current`}}{{end}}"><a href="/news?since=4">recent</a></li>
+        <li class="{{if eq .Since 24}}{{`current`}}{{end}}"><a href="/news?since=24">daily</a></li>
+        <li class="{{if eq .Since 120}}{{`current`}}{{end}}"><a href="/news?since=120">weekly</a></li>
+    </ul>
     {{$sectionProducts := .SectionProducts}}
     {{range .Sections}}
         <h1 class="section-title">{{.}}</h1>
