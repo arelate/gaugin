@@ -8,8 +8,8 @@ import (
 	"net/url"
 )
 
-func getKeys(client *http.Client, pt vangogh_local_data.ProductType, mt gog_integration.Media) ([]string, error) {
-	ku := keysUrl(pt, mt)
+func getKeys(client *http.Client, pt vangogh_local_data.ProductType, mt gog_integration.Media, count int) ([]string, error) {
+	ku := keysUrl(pt, mt, count)
 	resp, err := client.Get(ku.String())
 	if err != nil {
 		return nil, err

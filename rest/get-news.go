@@ -43,8 +43,10 @@ func GetNews(w http.ResponseWriter, r *http.Request) {
 	rdx, err := getRedux(dc,
 		strings.Join(maps.Keys(keys), ","),
 		vangogh_local_data.TitleProperty,
+		vangogh_local_data.Wishlisted,
 		vangogh_local_data.DevelopersProperty,
-		vangogh_local_data.PublisherProperty)
+		vangogh_local_data.PublisherProperty,
+		vangogh_local_data.OperatingSystemsProperty)
 
 	if err != nil {
 		http.Error(w, "error getting all_redux", http.StatusInternalServerError)

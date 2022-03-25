@@ -3,6 +3,7 @@
     <html lang="en">
     {{template "head" "news"}}
     <body>
+    {{template "svg-icons"}}
     {{template "nav" .Context}}
     <ul class="scope">
         <li class="{{if eq .Since 4}}{{`current`}}{{end}}"><a href="/news?since=4">recent</a></li>

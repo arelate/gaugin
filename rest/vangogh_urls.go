@@ -57,7 +57,7 @@ func defaultDesc(pt vangogh_local_data.ProductType) string {
 	}
 }
 
-func keysUrl(pt vangogh_local_data.ProductType, mt gog_integration.Media) *url.URL {
+func keysUrl(pt vangogh_local_data.ProductType, mt gog_integration.Media, count int) *url.URL {
 	u := &url.URL{
 		Scheme: vangoghScheme,
 		Host:   vangoghHost(),
@@ -66,6 +66,9 @@ func keysUrl(pt vangogh_local_data.ProductType, mt gog_integration.Media) *url.U
 	q := u.Query()
 	q.Set("product-type", pt.String())
 	q.Set("media", mt.String())
+	if count > 0 {
+		q.Set("count", strconv.Itoa(count))
+	}
 	q.Set("sort", defaultSort(pt))
 	q.Set("desc", defaultDesc(pt))
 	u.RawQuery = q.Encode()

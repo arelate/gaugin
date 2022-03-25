@@ -8,10 +8,12 @@ import (
 )
 
 type listProductViewModel struct {
-	Id         string
-	Title      string
-	Developers []string
-	Publisher  string
+	Id               string
+	Title            string
+	Developers       []string
+	Publisher        string
+	Wishlisted       bool
+	OperatingSystems []string
 }
 
 type listViewModel struct {
@@ -92,10 +94,12 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 		lvm.Products = append(
 			lvm.Products,
 			listProductViewModel{
-				Id:         id,
-				Title:      propertyFromRedux(properties, "title"),
-				Developers: propertiesFromRedux(properties, "developers"),
-				Publisher:  propertyFromRedux(properties, "publisher"),
+				Id:               id,
+				Title:            propertyFromRedux(properties, vangogh_local_data.TitleProperty),
+				Wishlisted:       propertyFromRedux(properties, vangogh_local_data.Wishlisted) == "true",
+				Developers:       propertiesFromRedux(properties, vangogh_local_data.DevelopersProperty),
+				Publisher:        propertyFromRedux(properties, vangogh_local_data.PublisherProperty),
+				OperatingSystems: propertiesFromRedux(properties, vangogh_local_data.OperatingSystemsProperty),
 			})
 	}
 	return lvm
@@ -136,15 +140,8 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				Description:       template.HTML(propertyFromRedux(rdx, vangogh_local_data.DescriptionProperty)),
 				Screenshots:       propertiesFromRedux(rdx, vangogh_local_data.ScreenshotsProperty),
 				Videos:            propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
+				Wishlisted:        propertyFromRedux(rdx, vangogh_local_data.Wishlisted) == "true",
 			}
-
-			for _, t := range pvm.Types {
-				if t == vangogh_local_data.WishlistProducts.String() {
-					pvm.Wishlisted = true
-					break
-				}
-			}
-
 			return pvm, nil
 		}
 	default:

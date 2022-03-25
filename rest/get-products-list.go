@@ -12,7 +12,7 @@ func getProductsList(
 	w http.ResponseWriter) {
 	dc := http.DefaultClient
 
-	keys, err := getKeys(dc, pt, mt)
+	keys, err := getKeys(dc, pt, mt, -1)
 	if err != nil {
 		http.Error(w, "error getting keys", http.StatusInternalServerError)
 		return
@@ -21,7 +21,9 @@ func getProductsList(
 	rdx, err := getAllRedux(dc, pt, mt,
 		vangogh_local_data.TitleProperty,
 		vangogh_local_data.DevelopersProperty,
-		vangogh_local_data.PublisherProperty)
+		vangogh_local_data.PublisherProperty,
+		vangogh_local_data.Wishlisted,
+		vangogh_local_data.OperatingSystemsProperty)
 	if err != nil {
 		http.Error(w, "error getting all_redux", http.StatusInternalServerError)
 		return
