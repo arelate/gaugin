@@ -3,17 +3,13 @@ Description images and video:
 	- add /items endpoint
 	- rewrite links in the description to display local files 
 
-Improve page title:
-	- <Product> - Gaugin for products
-	- <Section> - Gaugin for news / all / downloads / find
-
 Fix description unclosed tags affecting styles:
 	- wrap in iframe
 	- video width issue (horizontal scrollbars on mobile when description has video?)
 
 List product display refactor:
-	- remove developer / publisher
-	- add OS, wishlisted, rating, owned?, tags?
+	- add 
+		- tags?
 
 Top nav menu refactor:
 	- display icon and a current section
@@ -29,6 +25,14 @@ More icons, less text:
 	- features
 	- 
 Archive:
+	- remove developer / publisher @done(2022-03-24) @project(List product display refactor)
+	- OS, @done(2022-03-24) @project(List product display refactor)
+	- wishlisted, @done(2022-03-24) @project(List product display refactor)
+	- rating, @done(2022-03-24) @project(List product display refactor)
+	- owned?, @done(2022-03-24) @project(List product display refactor)
+	Improve page title: @done(2022-03-24)
+		- <Product> - Gaugin for products @done(2022-03-24)
+		- <Section> - Gaugin for news / all / downloads / find @done(2022-03-24)
 	Wishlisted refactor: @done(2022-03-24)
 		- reduce status in vangogh @done(2022-03-24)
 			- set false to all store-products @done(2022-03-24)

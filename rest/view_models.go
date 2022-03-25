@@ -29,6 +29,7 @@ type newsViewModel struct {
 }
 
 type productViewModel struct {
+	Context    string
 	Id         string
 	Wishlisted bool
 	// text properties
@@ -113,6 +114,7 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 		for id, rdx := range redux {
 
 			pvm := &productViewModel{
+				Context:           "product",
 				Id:                id,
 				Image:             propertyFromRedux(rdx, vangogh_local_data.ImageProperty),
 				Title:             propertyFromRedux(rdx, vangogh_local_data.TitleProperty),

@@ -3,20 +3,25 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="color-scheme" content="dark light">
-        <title>Gaugin</title>
+        <title>
+            {{if eq .Context "news"}}News
+            {{else if eq .Context "store-products"}}All
+            {{else if eq .Context "details"}}Downloads
+            {{else if eq .Context "product"}}{{.Title}}
+            {{else if eq .Context "find"}}Search{{end}}
+            - gaugin</title>
         {{template "css-base-themes"}}
         {{template "css-nav"}}
-        {{if eq . "news"}}
+        {{if eq .Context "news"}}
             {{template "css-news"}}
             {{template "css-products"}}
-        {{end}}
-        {{if eq . "products-list"}}
+        {{else if eq .Context "store-products"}}
             {{template "css-products"}}
-        {{end}}
-        {{if eq . "product"}}
+        {{else if eq .Context "details"}}
+            {{template "css-products"}}
+        {{else if eq .Context "product"}}
             {{template "css-product-details"}}
-        {{end}}
-        {{if eq . "find"}}
+        {{else if eq .Context "find"}}
             {{template "css-search"}}
             {{template "css-products"}}
         {{end}}
