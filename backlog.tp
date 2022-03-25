@@ -3,6 +3,10 @@ Description images and video:
 	- add /items endpoint
 	- rewrite links in the description to display local files 
 
+Improve page title:
+	- <Product> - Gaugin for products
+	- <Section> - Gaugin for news / all / downloads / find
+
 Fix description unclosed tags affecting styles:
 	- wrap in iframe
 	- video width issue (horizontal scrollbars on mobile when description has video?)
