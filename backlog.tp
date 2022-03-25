@@ -7,16 +7,6 @@ Fix description unclosed tags affecting styles:
 	- wrap in iframe
 	- video width issue (horizontal scrollbars on mobile when description has video?)
 
-Wishlisted refactor:
-	- reduce status in vangogh
-		- set false to all store-products
-		- set true to wishlisted
-		- save
-	- consider the same approach for owned
-	- display in lists
-	- update in product details
-	- consider adding to search as new properties
-
 List product display refactor:
 	- remove developer / publisher
 	- add OS, wishlisted, rating, owned?, tags?
@@ -35,6 +25,15 @@ More icons, less text:
 	- features
 	- 
 Archive:
+	Wishlisted refactor: @done(2022-03-24)
+		- reduce status in vangogh @done(2022-03-24)
+			- set false to all store-products @done(2022-03-24)
+			- set true to wishlisted @done(2022-03-24)
+			- save @done(2022-03-24)
+		- consider the same approach for owned @cut @done(2022-03-24)
+		- display in lists @done(2022-03-24)
+		- update in product details @done(2022-03-24)
+		- consider adding to search as new properties @cut @done(2022-03-24)
 	News improvments: @done(2022-03-24)
 		- add timeframe switchers: @done(2022-03-24)
 			- 1h @done(2022-03-24)
