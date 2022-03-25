@@ -7,10 +7,6 @@ Fix description unclosed tags affecting styles:
 	- wrap in iframe
 	- video width issue (horizontal scrollbars on mobile when description has video?)
 
-List product display refactor:
-	- add 
-		- tags?
-
 Top nav menu refactor:
 	- display icon and a current section
 	- expand to menu:
@@ -25,6 +21,9 @@ More icons, less text:
 	- features
 	- 
 Archive:
+	List product display refactor: @done(2022-03-24)
+		- add @done(2022-03-24)
+			- tags? @done(2022-03-24)
 	- remove developer / publisher @done(2022-03-24) @project(List product display refactor)
 	- OS, @done(2022-03-24) @project(List product display refactor)
 	- wishlisted, @done(2022-03-24) @project(List product display refactor)
