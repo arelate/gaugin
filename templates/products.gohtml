@@ -22,6 +22,16 @@
                             {{end}}
                         </ul>
                     </div>
+                    {{if .Tags}}
+                        <div class="property-title">Tags</div>
+                        <div class="property-value">
+                            <ul class="tags">
+                                {{range .Tags}}
+                                    <li class="tag">{{productTitle .}}</li>
+                                {{end}}
+                            </ul>
+                        </div>
+                    {{end}}
                 </div>
             </a>
         {{end}}

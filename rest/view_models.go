@@ -14,6 +14,7 @@ type listProductViewModel struct {
 	Publisher        string
 	Wishlisted       bool
 	OperatingSystems []string
+	Tags             []string
 }
 
 type listViewModel struct {
@@ -88,7 +89,7 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 		Products: make([]listProductViewModel, 0, len(order)),
 	}
 	for _, id := range order {
-		properties, ok := redux[id]
+		rdx, ok := redux[id]
 		if !ok {
 			continue
 		}
@@ -96,11 +97,12 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 			lvm.Products,
 			listProductViewModel{
 				Id:               id,
-				Title:            propertyFromRedux(properties, vangogh_local_data.TitleProperty),
-				Wishlisted:       propertyFromRedux(properties, vangogh_local_data.Wishlisted) == "true",
-				Developers:       propertiesFromRedux(properties, vangogh_local_data.DevelopersProperty),
-				Publisher:        propertyFromRedux(properties, vangogh_local_data.PublisherProperty),
-				OperatingSystems: propertiesFromRedux(properties, vangogh_local_data.OperatingSystemsProperty),
+				Title:            propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
+				Wishlisted:       propertyFromRedux(rdx, vangogh_local_data.Wishlisted) == "true",
+				Developers:       propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
+				Publisher:        propertyFromRedux(rdx, vangogh_local_data.PublisherProperty),
+				OperatingSystems: propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
+				Tags:             propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
 			})
 	}
 	return lvm

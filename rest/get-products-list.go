@@ -23,7 +23,8 @@ func getProductsList(
 		vangogh_local_data.DevelopersProperty,
 		vangogh_local_data.PublisherProperty,
 		vangogh_local_data.Wishlisted,
-		vangogh_local_data.OperatingSystemsProperty)
+		vangogh_local_data.OperatingSystemsProperty,
+		vangogh_local_data.TagIdProperty)
 	if err != nil {
 		http.Error(w, "error getting all_redux", http.StatusInternalServerError)
 		return
