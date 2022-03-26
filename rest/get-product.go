@@ -13,7 +13,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	idRedux, err := getRedux(http.DefaultClient, id, vangogh_local_data.ReduxProperties()...)
 	if err != nil {
-		http.Error(w, "error getting redux", http.StatusInternalServerError)
+		http.Error(w, nod.ErrorStr("error getting redux"), http.StatusInternalServerError)
 		return
 	}
 
@@ -21,7 +21,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	pvm, err := productViewModelFromRedux(idRedux)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -43,7 +43,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	pvm.Downloads = dl
 
 	if err := tmpl.ExecuteTemplate(w, "product", pvm); err != nil {
-		http.Error(w, "template error", http.StatusInternalServerError)
+		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
 		return
 	}
 }

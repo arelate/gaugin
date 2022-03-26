@@ -30,12 +30,12 @@ func GetFiles(w http.ResponseWriter, r *http.Request) {
 
 		relLocalFilePath, ok := rxa.GetFirstVal(vangogh_local_data.LocalManualUrlProperty, manualUrl)
 		if !ok {
-			http.Error(w, fmt.Sprintf("no file for manual-url %s", manualUrl), http.StatusNotFound)
+			http.Error(w, nod.ErrorStr("no file for manual-url %s", manualUrl), http.StatusNotFound)
 			return
 		}
 
 		http.Redirect(w, r, "/local-file/"+relLocalFilePath, http.StatusPermanentRedirect)
 	} else {
-		http.Error(w, "missing manual-url", http.StatusNotFound)
+		http.Error(w, nod.ErrorStr("missing manual-url"), http.StatusNotFound)
 	}
 }

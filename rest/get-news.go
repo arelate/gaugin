@@ -51,14 +51,14 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.ProductTypeProperty)
 
 	if err != nil {
-		http.Error(w, "error getting all_redux", http.StatusInternalServerError)
+		http.Error(w, nod.ErrorStr("error getting all_redux"), http.StatusInternalServerError)
 		return
 	}
 
 	uvm := updatesViewModelFromRedux(updates, since, rdx)
 
 	if err := tmpl.ExecuteTemplate(w, "updates", uvm); err != nil {
-		http.Error(w, "template error", http.StatusInternalServerError)
+		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
 		return
 	}
 }

@@ -3,6 +3,7 @@ package rest
 import (
 	"crypto/sha256"
 	"crypto/subtle"
+	"github.com/boggydigital/nod"
 	"net/http"
 )
 
@@ -22,6 +23,6 @@ func basicHttpAuth(next http.Handler) http.Handler {
 		}
 
 		w.Header().Set("WWW-Authenticate", `Basic realm="Restricted", charset="UTF-8"`)
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		http.Error(w, nod.ErrorStr("Unauthorized"), http.StatusUnauthorized)
 	})
 }

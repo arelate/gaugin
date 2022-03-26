@@ -3,6 +3,7 @@ package rest
 import (
 	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
+	"github.com/boggydigital/nod"
 	"net/http"
 )
 
@@ -14,7 +15,7 @@ func getProductsList(
 
 	keys, err := getKeys(dc, pt, mt, -1)
 	if err != nil {
-		http.Error(w, "error getting keys", http.StatusInternalServerError)
+		http.Error(w, nod.ErrorStr("error getting keys"), http.StatusInternalServerError)
 		return
 	}
 
@@ -27,7 +28,7 @@ func getProductsList(
 		vangogh_local_data.TagIdProperty,
 		vangogh_local_data.ProductTypeProperty)
 	if err != nil {
-		http.Error(w, "error getting all_redux", http.StatusInternalServerError)
+		http.Error(w, nod.ErrorStr("error getting all_redux"), http.StatusInternalServerError)
 		return
 	}
 
@@ -37,7 +38,7 @@ func getProductsList(
 	defaultHeaders(w)
 
 	if err := tmpl.ExecuteTemplate(w, "products-list", lvm); err != nil {
-		http.Error(w, "template error", http.StatusInternalServerError)
+		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
 		return
 	}
 }

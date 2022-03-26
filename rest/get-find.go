@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/vangogh_local_data"
+	"github.com/boggydigital/nod"
 	"net/http"
 	"strings"
 )
@@ -67,7 +68,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	if !emptyQuery {
 		keys, err := getSearch(dc, q)
 		if err != nil {
-			http.Error(w, "search error", http.StatusInternalServerError)
+			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
 		}
 
@@ -82,7 +83,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			vangogh_local_data.ProductTypeProperty)
 
 		if err != nil {
-			http.Error(w, "error getting all_redux", http.StatusInternalServerError)
+			http.Error(w, nod.ErrorStr("error getting all_redux"), http.StatusInternalServerError)
 			return
 		}
 
@@ -93,7 +94,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	defaultHeaders(w)
 
 	if err := tmpl.ExecuteTemplate(w, "search", spvm); err != nil {
-		http.Error(w, "template error", http.StatusInternalServerError)
+		http.Error(w, nod.ErrorStr("template error"), http.StatusInternalServerError)
 		return
 	}
 }
