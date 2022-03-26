@@ -15,6 +15,7 @@ type listProductViewModel struct {
 	Wishlisted       bool
 	OperatingSystems []string
 	Tags             []string
+	ProductType      string
 }
 
 type listViewModel struct {
@@ -34,6 +35,7 @@ type productViewModel struct {
 	Id         string
 	Wishlisted bool
 	// text properties
+	ProductType       string
 	Title             string
 	Image             string
 	Tags              []string
@@ -93,17 +95,18 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 		if !ok {
 			continue
 		}
-		lvm.Products = append(
-			lvm.Products,
-			listProductViewModel{
-				Id:               id,
-				Title:            propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
-				Wishlisted:       propertyFromRedux(rdx, vangogh_local_data.Wishlisted) == "true",
-				Developers:       propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
-				Publisher:        propertyFromRedux(rdx, vangogh_local_data.PublisherProperty),
-				OperatingSystems: propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
-				Tags:             propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
-			})
+		lpvm := listProductViewModel{
+			Id:               id,
+			Title:            propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
+			Wishlisted:       propertyFromRedux(rdx, vangogh_local_data.WishlistedProperty) == "true",
+			Developers:       propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
+			Publisher:        propertyFromRedux(rdx, vangogh_local_data.PublisherProperty),
+			OperatingSystems: propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
+			Tags:             propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
+			ProductType:      propertyFromRedux(rdx, vangogh_local_data.ProductTypeProperty),
+		}
+
+		lvm.Products = append(lvm.Products, lpvm)
 	}
 	return lvm
 }
@@ -119,6 +122,7 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				Context:           "product",
 				Id:                id,
 				Image:             propertyFromRedux(rdx, vangogh_local_data.ImageProperty),
+				ProductType:       propertyFromRedux(rdx, vangogh_local_data.ProductTypeProperty),
 				Title:             propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
 				Tags:              propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
 				OperatingSystems:  propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
@@ -144,7 +148,7 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				Description:       template.HTML(propertyFromRedux(rdx, vangogh_local_data.DescriptionProperty)),
 				Screenshots:       propertiesFromRedux(rdx, vangogh_local_data.ScreenshotsProperty),
 				Videos:            propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
-				Wishlisted:        propertyFromRedux(rdx, vangogh_local_data.Wishlisted) == "true",
+				Wishlisted:        propertyFromRedux(rdx, vangogh_local_data.WishlistedProperty) == "true",
 			}
 			return pvm, nil
 		}

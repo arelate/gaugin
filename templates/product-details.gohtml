@@ -17,8 +17,18 @@
                 <div class="text-property">
                     <h2 class="property-title">Tags</h2>
                     <ul class="property-value flexible">{{range .Tags}}
-                            <li class="tag"><a href="/find?tag={{productTitle .}}">{{productTitle .}}</a></li>{{end}}</ul>
+                            <li class="tag"><a href="/find?tag={{productTitle .}}">{{productTitle .}}</a></li>{{end}}
+                    </ul>
                 </div>
+            {{end}}
+            {{if .ProductType}}
+                {{if ne .ProductType "GAME"}}
+                    <div class="text-property">
+                        <h2 class="property-title">Product Type</h2>
+                        <div class="property-value"><span class="product-type">{{.ProductType}}</span></div>
+
+                    </div>
+                {{end}}
             {{end}}
             <div class="text-property center">
                 <h2 class="property-title" title="Operating System">OS</h2>

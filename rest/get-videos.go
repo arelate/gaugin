@@ -13,7 +13,7 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method != http.MethodGet {
 		err := fmt.Errorf("unsupported method")
-		http.Error(w, nod.Error(err).Error(), 405)
+		http.Error(w, nod.Error(err).Error(), http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -21,7 +21,7 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 	videoId := q.Get("id")
 	if videoId == "" {
 		err := fmt.Errorf("empty video id")
-		http.Error(w, nod.Error(err).Error(), 400)
+		http.Error(w, nod.Error(err).Error(), http.StatusBadRequest)
 		return
 	}
 	if localVideoPath := vangogh_local_data.AbsLocalVideoPath(videoId); localVideoPath != "" {

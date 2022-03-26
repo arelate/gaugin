@@ -14,7 +14,7 @@ func GetLocalFile(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method != http.MethodGet {
 		err := fmt.Errorf("unsupported method")
-		http.Error(w, nod.Error(err).Error(), 405)
+		http.Error(w, nod.Error(err).Error(), http.StatusMethodNotAllowed)
 		return
 	}
 

@@ -13,7 +13,7 @@ func GetImages(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method != http.MethodGet {
 		err := fmt.Errorf("unsupported method")
-		http.Error(w, nod.Error(err).Error(), 405)
+		http.Error(w, nod.Error(err).Error(), http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -21,7 +21,7 @@ func GetImages(w http.ResponseWriter, r *http.Request) {
 	imageId := q.Get("id")
 	if imageId == "" {
 		err := fmt.Errorf("empty image id")
-		http.Error(w, nod.Error(err).Error(), 400)
+		http.Error(w, nod.Error(err).Error(), http.StatusBadRequest)
 		return
 	}
 	if localImagePath := vangogh_local_data.AbsLocalImagePath(imageId); localImagePath != "" {

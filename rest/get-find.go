@@ -74,11 +74,12 @@ func GetFind(w http.ResponseWriter, r *http.Request) {
 		rdx, err := getRedux(dc,
 			strings.Join(keys, ","),
 			vangogh_local_data.TitleProperty,
-			vangogh_local_data.Wishlisted,
+			vangogh_local_data.WishlistedProperty,
 			vangogh_local_data.DevelopersProperty,
 			vangogh_local_data.PublisherProperty,
 			vangogh_local_data.OperatingSystemsProperty,
-			vangogh_local_data.TagIdProperty)
+			vangogh_local_data.TagIdProperty,
+			vangogh_local_data.ProductTypeProperty)
 
 		if err != nil {
 			http.Error(w, "error getting all_redux", http.StatusInternalServerError)

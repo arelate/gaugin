@@ -4,12 +4,30 @@
     <section class="products">
         {{range .}}
             <a class="product" href="/product?id={{.Id}}">
-                <h2 class="title">{{ .Title }}
+
+                <h2 class="title">
+                    {{ .Title }}
                     {{if .Wishlisted}}
                         {{template "svg-icon" "heart"}}
                     {{end}}
                 </h2>
-                <div class="text-properties grid-2cols-1fr2fr">
+                <div class="text-properties">
+                    {{if .ProductType}}
+                        {{if ne .ProductType "GAME"}}
+                            <div class="property-title">Product Type</div>
+                            <div class="property-value"><span class="product-type">{{.ProductType}}</span></div>
+                        {{end}}
+                    {{end}}
+                    {{if .Tags}}
+                        <div class="property-title">Tags</div>
+                        <div class="property-value">
+                            <ul class="tags">
+                                {{range .Tags}}
+                                    <li class="tag">{{productTitle .}}</li>
+                                {{end}}
+                            </ul>
+                        </div>
+                    {{end}}
                     <div class="property-title">Developers</div>
                     <div class="property-value">{{range .Developers}}<span>{{.}}</span> {{end}}</div>
                     <div class="property-title">Publisher</div>
@@ -22,16 +40,6 @@
                             {{end}}
                         </ul>
                     </div>
-                    {{if .Tags}}
-                        <div class="property-title">Tags</div>
-                        <div class="property-value">
-                            <ul class="tags">
-                                {{range .Tags}}
-                                    <li class="tag">{{productTitle .}}</li>
-                                {{end}}
-                            </ul>
-                        </div>
-                    {{end}}
                 </div>
             </a>
         {{end}}
