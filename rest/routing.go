@@ -9,13 +9,13 @@ func HandleFuncs() {
 
 	patternHandlers := map[string]http.Handler{
 		// start at the account
-		"/": http.RedirectHandler("/news", http.StatusPermanentRedirect),
+		"/": http.RedirectHandler("/updates", http.StatusPermanentRedirect),
 		// current endpoints
-		"/news":        Gzip(nod.RequestLog(http.HandlerFunc(GetNews))),
+		"/updates":     Gzip(nod.RequestLog(http.HandlerFunc(GetUpdates))),
 		"/downloads":   Gzip(nod.RequestLog(http.HandlerFunc(GetDownloads))),
 		"/all":         Gzip(nod.RequestLog(http.HandlerFunc(GetAll))),
 		"/product":     Gzip(nod.RequestLog(http.HandlerFunc(GetProduct))),
-		"/find":        Gzip(nod.RequestLog(http.HandlerFunc(GetFind))),
+		"/search":      Gzip(nod.RequestLog(http.HandlerFunc(GetSearch))),
 		"/images":      nod.RequestLog(http.HandlerFunc(GetImages)),
 		"/videos":      nod.RequestLog(http.HandlerFunc(GetVideos)),
 		"/files":       basicHttpAuth(nod.RequestLog(http.HandlerFunc(GetFiles))),

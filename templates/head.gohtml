@@ -4,16 +4,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="color-scheme" content="dark light">
         <title>
-            {{if eq .Context "news"}}News
+            {{if eq .Context "updates"}}Updates
             {{else if eq .Context "store-products"}}All
             {{else if eq .Context "details"}}Downloads
             {{else if eq .Context "product"}}{{.Title}}
-            {{else if eq .Context "find"}}Search{{end}}
+            {{else if eq .Context "search"}}Search{{end}}
             - gaugin</title>
         {{template "css-base-themes"}}
         {{template "css-nav"}}
-        {{if eq .Context "news"}}
-            {{template "css-news"}}
+        {{if eq .Context "updates"}}
+            {{template "css-updates"}}
             {{template "css-products"}}
         {{else if eq .Context "store-products"}}
             {{template "css-products"}}
@@ -21,7 +21,7 @@
             {{template "css-products"}}
         {{else if eq .Context "product"}}
             {{template "css-product-details"}}
-        {{else if eq .Context "find"}}
+        {{else if eq .Context "search"}}
             {{template "css-search"}}
             {{template "css-products"}}
         {{end}}

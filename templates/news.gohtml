@@ -1,4 +1,4 @@
-{{define "news"}}
+{{define "updates"}}
     <!doctype html>
     <html lang="en">
     {{template "head" .}}
@@ -6,9 +6,9 @@
     {{template "svg-icons"}}
     {{template "nav" .Context}}
     <ul class="scope">
-        <li class="{{if eq .Since 4}}{{`current`}}{{end}}"><a href="/news?since=4">recent</a></li>
-        <li class="{{if eq .Since 24}}{{`current`}}{{end}}"><a href="/news?since=24">today</a></li>
-        <li class="{{if eq .Since 120}}{{`current`}}{{end}}"><a href="/news?since=120">weekly</a></li>
+        <li class="{{if eq .Since 4}}{{`current`}}{{end}}"><a href="/updates?since=4">recently</a></li>
+        <li class="{{if eq .Since 24}}{{`current`}}{{end}}"><a href="/updates?since=24">today</a></li>
+        <li class="{{if eq .Since 120}}{{`current`}}{{end}}"><a href="/updates?since=120">this week</a></li>
     </ul>
     {{$sectionProducts := .SectionProducts}}
     {{if $sectionProducts}}

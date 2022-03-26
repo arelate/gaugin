@@ -12,7 +12,7 @@ import (
 
 const defaultSince = 24
 
-func GetNews(w http.ResponseWriter, r *http.Request) {
+func GetUpdates(w http.ResponseWriter, r *http.Request) {
 
 	// GET /new?since-hours-ago
 
@@ -55,9 +55,9 @@ func GetNews(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	nvm := newsViewModelFromRedux(updates, since, rdx)
+	uvm := updatesViewModelFromRedux(updates, since, rdx)
 
-	if err := tmpl.ExecuteTemplate(w, "news", nvm); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "updates", uvm); err != nil {
 		http.Error(w, "template error", http.StatusInternalServerError)
 		return
 	}
