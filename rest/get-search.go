@@ -22,6 +22,7 @@ type searchQuery struct {
 	IncludedBy string
 	Requires   string
 	RequiredBy string
+	Wishlisted string
 }
 
 type searchProductsViewModel struct {
@@ -40,19 +41,20 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
 	spvm.Query = searchQuery{
 		Text:       q.Get("text"),
-		Title:      q.Get("title"),
-		Tags:       q.Get("tag"),
-		OS:         q.Get("os"),
-		Developers: q.Get("developers"),
-		Publisher:  q.Get("publisher"),
-		Series:     q.Get("series"),
-		Genres:     q.Get("genres"),
-		Features:   q.Get("features"),
-		Languages:  q.Get("lang-code"),
-		Includes:   q.Get("includes-games"),
-		IncludedBy: q.Get("is-included-by-games"),
-		Requires:   q.Get("requires-games"),
-		RequiredBy: q.Get("is-required-by-games"),
+		Title:      q.Get(vangogh_local_data.TitleProperty),
+		Tags:       q.Get(vangogh_local_data.TagIdProperty),
+		OS:         q.Get(vangogh_local_data.OperatingSystemsProperty),
+		Developers: q.Get(vangogh_local_data.DevelopersProperty),
+		Publisher:  q.Get(vangogh_local_data.PublisherProperty),
+		Series:     q.Get(vangogh_local_data.SeriesProperty),
+		Genres:     q.Get(vangogh_local_data.GenresProperty),
+		Features:   q.Get(vangogh_local_data.FeaturesProperty),
+		Languages:  q.Get(vangogh_local_data.LanguageCodeProperty),
+		Includes:   q.Get(vangogh_local_data.IncludesGamesProperty),
+		IncludedBy: q.Get(vangogh_local_data.IsIncludedByGamesProperty),
+		Requires:   q.Get(vangogh_local_data.RequiresGamesProperty),
+		RequiredBy: q.Get(vangogh_local_data.IsRequiredByGamesProperty),
+		Wishlisted: q.Get(vangogh_local_data.WishlistedProperty),
 	}
 
 	emptyQuery := true

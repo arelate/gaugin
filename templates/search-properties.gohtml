@@ -2,7 +2,7 @@
     <form class="search-form" action="/search" xmlns="http://www.w3.org/1999/html">
         <div class="search-text-container">
             <label for="search-text">Any text</label>
-            <input id="search-text" type="search" name="text" placeholder="Text" value="{{.Text}}" autofocus />
+            <input id="search-text" type="search" name="text" placeholder="Text" value="{{.Text}}" autofocus/>
             <input type="submit"/>
         </div>
         <details>
@@ -65,6 +65,11 @@
                 <label for="search-required-by">Required By</label>
                 <input id="search-required-by" type="search" name="is-required-by-games" placeholder="Required By"
                        value="{{.RequiredBy}}"/>
+            </div>
+            <div>
+                <label for="search-wishlisted">Wishlisted</label>
+                <input id="search-wishlisted" type="checkbox" name="wishlisted" placeholder="Wishlisted"
+                       value="true" {{if eq .Wishlisted "true"}}checked{{end}}/>
             </div>
         </details>
     </form>

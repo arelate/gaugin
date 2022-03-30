@@ -3,6 +3,12 @@ Description images and video:
 	- add /items endpoint
 	- rewrite links in the description to display local files 
 
+Optimize images:
+	- when adding to collection:
+		- convert to modern format
+		- generate smaller versions
+		- use srcset instead of img to opimize downloading
+
 Fix description unclosed tags affecting styles:
 	- wrap in iframe
 	- video width issue (horizontal scrollbars on mobile when description has video?)
@@ -10,11 +16,24 @@ Fix description unclosed tags affecting styles:
 Top nav menu refactor:
 	- display icon and a current section
 	- expand to menu:
-		- News
+		- Updates
+		- Sales
 		- Downloads
 		- All
 		- Wishlisted
+			- Search using new wishlisted extract (that needs to be searchable)
 		- Find
+
+Implement add to wishlist:
+	- for products that are not owned
+	- Add to wishlist button
+	- Add vangogh /wishlist endpoint
+	- Make sure local changes are happening the way gaugin expects them to (e.g. wishlist reduction)
+
+Sales view:
+	- Reduce prices
+	- Track historic prices?
+	- Show products currently on sale
 
 More icons, less text:
 	- genres

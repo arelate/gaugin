@@ -49,9 +49,13 @@
                             class="property-value">{{.Requires}}</span></li>
             {{end}}
             {{if .RequiredBy}}
-            <li><span class="property-title">Required by:</span> <span
-                        class="property-value">{{.RequiredBy}}</span></li>
+                <li><span class="property-title">Required by:</span> <span
+                            class="property-value">{{.RequiredBy}}</span></li>
+            {{end}}
+            {{if .Wishlisted}}
+                <li><span class="property-title">Wishlisted:</span> <span
+                            class="property-value">{{.Wishlisted}}</span></li>
+            {{end}}
         </ul>
-        {{end}}
     </div>
 {{end}}
