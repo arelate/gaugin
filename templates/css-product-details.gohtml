@@ -205,33 +205,15 @@
             width: 1.2em;
             height: 1.2em;
             color: var(--color);
-            vertical-align: text-bottom;
         }
 
         .product-details .downloads-list .download {
             color: inherit;
             text-decoration: none;
-            border-left: 0.5em solid;
-            padding-left: 0.5em;
-        }
-
-        .product-details .downloads-list .download.installer {
-            border-color: var(--system-teal-color);
-        }
-
-        .product-details .downloads-list .download.downloadable-content {
-            border-color: var(--system-blue-color);
-        }
-
-        .product-details .downloads-list .download.extra {
-            border-color: var(--system-indigo-color);
-        }
-
-        .product-details .downloads-list .download.movie {
-            border-color: var(--system-green-color);
         }
 
         .product-details .downloads-list .download .title {
+            font-size: 1.25em;
             font-weight: bold;
         }
 
@@ -244,10 +226,15 @@
             margin: 0.5em 0;
         }
 
-        .product-details .downloads-list .download li {
+        .product-details .downloads-list .download ul.additional-details {
+            font-size: 0.8em;
+            flex-wrap: wrap;
             color: var(--system-gray-color);
         }
 
+        .product-details .downloads-list .download ul.additional-details .highlight {
+            color: var(--color);
+        }
 
         .product-details details.description div,
         .product-details details.changelog div {

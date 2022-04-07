@@ -2,24 +2,25 @@
     <div class="downloads-list">
         {{range .}}
             <a class="download {{.Type}}" href="/files?manual-url={{.ManualUrl}}" aria-label="download {{dlTitle .}}">
-                <div>
-                    <span class="title">{{dlTitle .}}</span>
-                </div>
+                <div class="title">{{dlTitle .}}</div>
                 <ul>
                     {{$os := toLower .OS.String}}
                     {{if ne $os "any-operating-system"}}
-                        <li class="svg-icon">{{template "svg-icon" $os}}</li>
-                    {{end}}
-                    <li class="type">{{.Type}}</li>
-                    {{if .LanguageCode}}
-                        <li>{{.LanguageCode}}</li>
-                    {{end}}
-                    {{if .Version}}
-                        <li>{{.Version}}</li>
+                        {{template "svg-icon" $os}}
                     {{end}}
                     {{if .EstimatedBytes}}
                         <li class="size">{{formatBytes .EstimatedBytes}}</li>
                     {{end}}
+                </ul>
+                <ul class="additional-details">
+                    <li class="type">Type: <span class="highlight">{{.Type}}</span></li>
+                    {{if .LanguageCode}}
+                        <li>Language: <span class="highlight">{{.LanguageCode}}</span></li>
+                    {{end}}
+                    {{if .Version}}
+                        <li>Version: <span class="highlight">{{.Version}}</span></li>
+                    {{end}}
+
                 </ul>
             </a>
         {{end}}
