@@ -14,15 +14,39 @@ func funcMap() template.FuncMap {
 	return template.FuncMap{
 		"productTitle":  productTitle,
 		"productId":     productId,
-		"downloadTitle": downloadTitle,
 		"formatBytes":   formatBytes,
 		"justTheDate":   justTheDate,
 		"ratingPercent": ratingPercent,
 		"gogLink":       gogLink,
+		"toLower":       toLower,
+		"dlTitle":       dlTitle,
 	}
 }
 
 const titleIdSep = " ("
+
+func dlTitle(dl vangogh_local_data.Download) string {
+	switch dl.Type {
+	case vangogh_local_data.Installer:
+		fallthrough
+	case vangogh_local_data.Movie:
+		fallthrough
+	case vangogh_local_data.DLC:
+		if !strings.HasPrefix(dl.Name, dl.ProductTitle) {
+			return fmt.Sprintf("%s %s", dl.ProductTitle, dl.Name)
+		} else {
+			return dl.Name
+		}
+	case vangogh_local_data.Extra:
+		return dl.Name
+	default:
+		return ""
+	}
+}
+
+func toLower(s string) string {
+	return strings.ToLower(s)
+}
 
 func productTitle(s string) string {
 	if strings.Contains(s, titleIdSep) {
@@ -36,10 +60,6 @@ func productId(s string) string {
 		return s[strings.LastIndex(s, titleIdSep)+len(titleIdSep) : len(s)-1]
 	}
 	return ""
-}
-
-func downloadTitle(d vangogh_local_data.Download) string {
-	return d.String()
 }
 
 func formatBytes(b int) string {
