@@ -1,10 +1,11 @@
 package rest
 
 import (
-	"github.com/arelate/vangogh_local_data"
-	"github.com/boggydigital/nod"
 	"net/http"
 	"strings"
+
+	"github.com/arelate/vangogh_local_data"
+	"github.com/boggydigital/nod"
 )
 
 func GetProduct(w http.ResponseWriter, r *http.Request) {
