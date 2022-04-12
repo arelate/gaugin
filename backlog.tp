@@ -1,8 +1,12 @@
 Description images and video:
-	- scan all descriptions to download items.gog.com files
+	- scan all descriptions to download items.gog.com files @done(2022-04-09)
+	- investigate errors
+	- consider using partitioning
 	- add /items endpoint
 	- rewrite links in the description to display local files 
-
+	- might also need to rewrite links to gog.com products (e.g https://m.bzb.one:1903/product?id=1497289938 -> https://www.gog.com/game/xenonauts_2)
+	- Fix styles - lists are broken
+	
 Optimize images:
 	- when adding to collection:
 		- convert to modern format
