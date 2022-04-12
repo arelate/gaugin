@@ -16,6 +16,7 @@ func HandleFuncs() {
 		"/search":      Gzip(nod.RequestLog(http.HandlerFunc(GetSearch))),
 		"/images":      nod.RequestLog(http.HandlerFunc(GetImages)),
 		"/videos":      nod.RequestLog(http.HandlerFunc(GetVideos)),
+		"/items/":      nod.RequestLog(http.HandlerFunc(GetItems)),
 		"/files":       basicHttpAuth(nod.RequestLog(http.HandlerFunc(GetFiles))),
 		"/local-file/": basicHttpAuth(nod.RequestLog(http.HandlerFunc(GetLocalFile))),
 		"/favicon.ico": http.HandlerFunc(http.NotFound),

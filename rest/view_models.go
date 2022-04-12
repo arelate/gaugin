@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"github.com/arelate/vangogh_local_data"
 	"html/template"
+	"net/url"
 	"sort"
+	"strings"
 )
 
 type listProductViewModel struct {
@@ -111,6 +113,22 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 	return lvm
 }
 
+func rewriteDescriptionItemsLinks(desc string) string {
+
+	itemsUrls := vangogh_local_data.ExtractDescItems(desc)
+
+	for _, itemUrl := range itemsUrls {
+		if u, err := url.Parse(itemUrl); err != nil {
+			continue
+		} else {
+			ggUrl := "/items" + u.Path
+			desc = strings.Replace(desc, itemUrl, ggUrl, -1)
+		}
+	}
+
+	return desc
+}
+
 func productViewModelFromRedux(redux map[string]map[string][]string) (*productViewModel, error) {
 	switch len(redux) {
 	case 0:
@@ -145,11 +163,15 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				ForumUrl:          propertyFromRedux(rdx, vangogh_local_data.ForumUrlProperty),
 				SupportUrl:        propertyFromRedux(rdx, vangogh_local_data.SupportUrlProperty),
 				Changelog:         template.HTML(propertyFromRedux(rdx, vangogh_local_data.ChanglogProperty)),
-				Description:       template.HTML(propertyFromRedux(rdx, vangogh_local_data.DescriptionProperty)),
 				Screenshots:       propertiesFromRedux(rdx, vangogh_local_data.ScreenshotsProperty),
 				Videos:            propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
 				Wishlisted:        propertyFromRedux(rdx, vangogh_local_data.WishlistedProperty) == "true",
 			}
+
+			pvm.Description = template.HTML(
+				rewriteDescriptionItemsLinks(
+					propertyFromRedux(rdx, vangogh_local_data.DescriptionProperty)))
+
 			return pvm, nil
 		}
 	default:

@@ -254,11 +254,6 @@
             cursor: initial;
         }
 
-        .product-details details.description video,
-        .product-details details.description img {
-            display: none !important;
-        }
-
         .product-details details.description a,
         .product-details details.changelog a {
             text-decoration: none;
@@ -269,7 +264,12 @@
         .product-details details.changelog hr {
             margin: 0;
             padding: 0;
-            border: 1px dashed var(--system-gray-color);
+            border: 1px solid var(--system-gray-color);
+        }
+
+        .product-details details.description img,
+        .product-details details.changelog img {
+            width: 100%;
         }
 
 
