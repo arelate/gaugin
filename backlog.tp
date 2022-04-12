@@ -1,11 +1,6 @@
 Description images and video:
-	- scan all descriptions to download items.gog.com files @done(2022-04-09)
-	- investigate errors
-	- consider using partitioning
-	- add /items endpoint
-	- rewrite links in the description to display local files 
 	- might also need to rewrite links to gog.com products (e.g https://m.bzb.one:1903/product?id=1497289938 -> https://www.gog.com/game/xenonauts_2)
-	- Fix styles - lists are broken
+	- consider iframing description
 	
 Optimize images:
 	- when adding to collection:
@@ -44,6 +39,13 @@ More icons, less text:
 	- features
 	- 
 Archive:
+	- scan all descriptions to download items.gog.com files @done(2022-04-09) @project(Description images and video)
+	- investigate errors @done(2022-04-12) @project(Description images and video)
+	- consider using partitioning @done(2022-04-12) @project(Description images and video)
+	- add /items endpoint @done(2022-04-12) @project(Description images and video)
+	- rewrite links in the description to display local files @done(2022-04-12) @project(Description images and video)
+	- Fix styles - lists are broken @done(2022-04-12) @project(Description images and video)
+		- Treat features / what's cool about it with \u2013 in a special way @done(2022-04-12)
 	Videos: @done(2022-04-06)
 		- Use yet to download better quality @done(2022-04-06)
 	List product display refactor: @done(2022-03-24)

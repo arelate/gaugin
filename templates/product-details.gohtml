@@ -170,6 +170,9 @@
             <details class="description">
                 <summary>Description</summary>
                 <div>{{.Description}}</div>
+                {{if .Copyrights}}
+                    <div class="copyrights">{{.Copyrights}}</div>
+                {{end}}
             </details>
         {{end}}
         {{if .Screenshots}}
