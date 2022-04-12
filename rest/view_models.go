@@ -5,6 +5,7 @@ import (
 	"github.com/arelate/vangogh_local_data"
 	"html/template"
 	"net/url"
+	"path"
 	"sort"
 	"strings"
 )
@@ -130,6 +131,22 @@ func rewriteDescriptionItemsLinks(desc string) string {
 	return desc
 }
 
+func rewriteDescriptionGameLinks(desc string) string {
+	gameLinks := vangogh_local_data.ExtractGameLinks(desc)
+
+	for _, gameLink := range gameLinks {
+		if u, err := url.Parse(gameLink); err != nil {
+			continue
+		} else {
+			_, slug := path.Split(u.Path)
+			ggUrl := "/product?slug=" + slug
+			desc = strings.Replace(desc, gameLink, ggUrl, -1)
+		}
+	}
+
+	return desc
+}
+
 func productViewModelFromRedux(redux map[string]map[string][]string) (*productViewModel, error) {
 	switch len(redux) {
 	case 0:
@@ -170,9 +187,11 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				Wishlisted:        propertyFromRedux(rdx, vangogh_local_data.WishlistedProperty) == "true",
 			}
 
-			pvm.Description = template.HTML(
-				rewriteDescriptionItemsLinks(
-					propertyFromRedux(rdx, vangogh_local_data.DescriptionProperty)))
+			desc := propertyFromRedux(rdx, vangogh_local_data.DescriptionProperty)
+			desc = rewriteDescriptionItemsLinks(desc)
+			desc = rewriteDescriptionGameLinks(desc)
+
+			pvm.Description = template.HTML(desc)
 
 			return pvm, nil
 		}

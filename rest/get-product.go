@@ -10,6 +10,23 @@ import (
 
 func GetProduct(w http.ResponseWriter, r *http.Request) {
 
+	if r.URL.Query().Has("slug") {
+		if idSet, err := vangogh_local_data.IdSetFromUrl(r.URL); err == nil {
+			if len(idSet) > 0 {
+				for id := range idSet {
+					http.Redirect(w, r, "/product?id="+id, http.StatusPermanentRedirect)
+					return
+				}
+			} else {
+				http.Error(w, nod.ErrorStr("unknown slug"), http.StatusInternalServerError)
+				return
+			}
+		} else {
+			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+			return
+		}
+	}
+
 	id := r.URL.Query().Get("id")
 
 	idRedux, err := getRedux(http.DefaultClient, id, vangogh_local_data.ReduxProperties()...)

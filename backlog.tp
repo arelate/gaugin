@@ -1,7 +1,3 @@
-Description images and video:
-	- might also need to rewrite links to gog.com products (e.g https://m.bzb.one:1903/product?id=1497289938 -> https://www.gog.com/game/xenonauts_2)
-	- consider iframing description
-	
 Optimize images:
 	- when adding to collection:
 		- convert to modern format
@@ -10,7 +6,6 @@ Optimize images:
 
 Fix description unclosed tags affecting styles:
 	- wrap in iframe
-	- video width issue (horizontal scrollbars on mobile when description has video?)
 
 Top nav menu refactor:
 	- display icon and a current section
@@ -39,6 +34,10 @@ More icons, less text:
 	- features
 	- 
 Archive:
+	Description images and video: @done(2022-04-12)
+		- might also need to rewrite links to gog.com products (e.g https://m.bzb.one:1903/product?id=1497289938 -> https://www.gog.com/game/xenonauts_2) @done(2022-04-12)
+		
+	- video width issue (horizontal scrollbars on mobile when description has video?) @done(2022-04-12) @project(Fix description unclosed tags affecting styles)
 	- scan all descriptions to download items.gog.com files @done(2022-04-09) @project(Description images and video)
 	- investigate errors @done(2022-04-12) @project(Description images and video)
 	- consider using partitioning @done(2022-04-12) @project(Description images and video)
