@@ -1,11 +1,8 @@
-Optimize images:
-	- when adding to collection:
-		- convert to modern format
-		- generate smaller versions
-		- use srcset instead of img to opimize downloading
-
-Fix description unclosed tags affecting styles:
-	- wrap in iframe
+Implement add to wishlist:
+	- for products that are not owned
+	- Add to wishlist button
+	- Add vangogh /wishlist endpoint
+	- Make sure local changes are happening the way gaugin expects them to (e.g. wishlist reduction)
 
 Top nav menu refactor:
 	- display icon and a current section
@@ -18,12 +15,6 @@ Top nav menu refactor:
 			- Search using new wishlisted extract (that needs to be searchable)
 		- Find
 
-Implement add to wishlist:
-	- for products that are not owned
-	- Add to wishlist button
-	- Add vangogh /wishlist endpoint
-	- Make sure local changes are happening the way gaugin expects them to (e.g. wishlist reduction)
-
 Sales view:
 	- Reduce prices
 	- Track historic prices?
@@ -32,8 +23,23 @@ Sales view:
 More icons, less text:
 	- genres
 	- features
-	- 
+
+vangogh/gaugin caching infrastructure:
+	- reductions should provide ModTime
+	- vangogh on data request should return from memroy if ModTime earlier than data load (reload data if not true)
+	- create new endpoint to query keys/reductions modtimes
+	- before doing expensive request - if modTime is earlier than cache - return from cache, otherwise - rebuild cache
+
+Optimize images:
+	- when adding to collection:
+		- convert to modern format
+		- generate smaller versions
+		- use srcset instead of img to opimize downloading
+	
 Archive:
+	Fix description unclosed tags affecting styles: @done(2022-04-12)
+		- wrap in iframe? @done(2022-04-12)
+		- Example: https://m.bzb.one:1903/product?id=1714193985 @done(2022-04-12)
 	Description images and video: @done(2022-04-12)
 		- might also need to rewrite links to gog.com products (e.g https://m.bzb.one:1903/product?id=1497289938 -> https://www.gog.com/game/xenonauts_2) @done(2022-04-12)
 		

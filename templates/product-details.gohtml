@@ -12,7 +12,7 @@
                 {{template "svg-icon" "heart"}}
             {{end}}</h1>
 
-        <div class="text-properties">
+        <section class="text-properties">
             {{if .Tags}}
                 <div class="text-property">
                     <h2 class="property-title">Tags</h2>
@@ -165,45 +165,47 @@
                 </details>
                 {{end}}
             </div>
-        </div>
-        {{if .Description}}
-            <details class="description">
-                <summary>Description</summary>
-                <div>{{.Description}}</div>
-                {{if .Copyrights}}
-                    <div class="copyrights">{{.Copyrights}}</div>
-                {{end}}
-            </details>
-        {{end}}
-        {{if .Screenshots}}
-            <details class="screenshots">
-                <summary>Screenshots</summary>
-                {{range .Screenshots}}
-                    <a href="/images?id={{.}}" aria-label="open original screenshot file">
-                        <img class="screenshot" loading="lazy" decoding="auto" src="/images?id={{.}}" alt=""/>
-                    </a>
-                {{end}}
-            </details>
-        {{end}}
-        {{if .Videos}}
-            <details class="videos">
-                <summary>Videos</summary>
-                {{range .Videos}}
-                    <video controls src="/videos?id={{.}}"></video>
-                {{end}}
-            </details>
-        {{end}}
-        {{if .Changelog}}
-            <details class="changelog">
-                <summary>Changelog</summary>
-                <div>{{.Changelog}}</div>
-            </details>
-        {{end}}
-        {{if .Downloads}}
-            <details class="downloads">
-                <summary>Downloads</summary>
-                {{template "downloads" .Downloads}}
-            </details>
-        {{end}}
+        </section>
+        <section class="additional-properties">
+            {{if .Description}}
+                <details class="description">
+                    <summary>Description</summary>
+                    <div>{{.Description}}</div>
+                    {{if .Copyrights}}
+                        <div class="copyrights">{{.Copyrights}}</div>
+                    {{end}}
+                </details>
+            {{end}}
+            {{if .Screenshots}}
+                <details class="screenshots">
+                    <summary>Screenshots</summary>
+                    {{range .Screenshots}}
+                        <a href="/images?id={{.}}" aria-label="open original screenshot file">
+                            <img class="screenshot" loading="lazy" decoding="auto" src="/images?id={{.}}" alt=""/>
+                        </a>
+                    {{end}}
+                </details>
+            {{end}}
+            {{if .Videos}}
+                <details class="videos">
+                    <summary>Videos</summary>
+                    {{range .Videos}}
+                        <video controls src="/videos?id={{.}}"></video>
+                    {{end}}
+                </details>
+            {{end}}
+            {{if .Changelog}}
+                <details class="changelog">
+                    <summary>Changelog</summary>
+                    <div>{{.Changelog}}</div>
+                </details>
+            {{end}}
+            {{if .Downloads}}
+                <details class="downloads">
+                    <summary>Downloads</summary>
+                    {{template "downloads" .Downloads}}
+                </details>
+            {{end}}
+        </section>
     </div>
 {{end}}
