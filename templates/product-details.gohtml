@@ -170,10 +170,12 @@
             {{if .Description}}
                 <details class="description" open>
                     <summary>Description</summary>
-                    <div class="description-content">{{.Description}}</div>
-                    {{if .Copyrights}}
-                        <div class="copyrights">{{.Copyrights}}</div>
-                    {{end}}
+                    <div class="description-content">
+                        {{.Description}}
+                        {{if .Copyrights}}
+                            <div class="copyrights">{{.Copyrights}}</div>
+                        {{end}}
+                    </div>
                 </details>
             {{end}}
             {{if .Screenshots}}
