@@ -170,7 +170,7 @@
             {{if .Description}}
                 <details class="description" open>
                     <summary>Description</summary>
-                    <div>{{.Description}}</div>
+                    <div class="description-content">{{.Description}}</div>
                     {{if .Copyrights}}
                         <div class="copyrights">{{.Copyrights}}</div>
                     {{end}}
@@ -197,7 +197,7 @@
             {{if .Changelog}}
                 <details class="changelog">
                     <summary>Changelog</summary>
-                    <div>{{.Changelog}}</div>
+                    <div class="changelog-content">{{.Changelog}}</div>
                 </details>
             {{end}}
             {{if .Downloads}}
