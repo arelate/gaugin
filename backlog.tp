@@ -1,8 +1,15 @@
+Get-items fixes:
+	- fix URLs that contain double //, e.g. https://m.bzb.one:1903/product?id=1818710374 that contains: https://items.gog.com//atom_rpg_trudograd/mp4/TGWMap_Night_%281%29.gif.mp4
+	- Fix in extraction as well as in replacement
+
 Implement add to wishlist:
 	- for products that are not owned
-	- Add to wishlist button
+	- "Add to wishlist" button
 	- Add vangogh /wishlist endpoint
+		- PUT
+		- DELETE methods
 	- Make sure local changes are happening the way gaugin expects them to (e.g. wishlist reduction)
+	- Wishlisted should also have "Remove from wishlist" button
 
 Top nav menu refactor:
 	- display icon and a current section
@@ -19,6 +26,12 @@ Sales view:
 	- Reduce prices
 	- Track historic prices?
 	- Show products currently on sale
+
+Sync view:
+	- initiate sync
+	- get current sync status
+	- check past sync results (summaries?)
+	- basic auth protection, same password as downloads
 
 More icons, less text:
 	- genres

@@ -168,7 +168,7 @@
         </section>
         <section class="additional-properties">
             {{if .Description}}
-                <details class="description">
+                <details class="description" open>
                     <summary>Description</summary>
                     <div>{{.Description}}</div>
                     {{if .Copyrights}}
@@ -201,7 +201,7 @@
                 </details>
             {{end}}
             {{if .Downloads}}
-                <details class="downloads">
+                <details class="downloads" open>
                     <summary>Downloads</summary>
                     {{template "downloads" .Downloads}}
                 </details>
