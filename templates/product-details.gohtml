@@ -203,9 +203,15 @@
                 </details>
             {{end}}
             {{if .Downloads}}
-                <details class="downloads" open>
-                    <summary>Downloads</summary>
-                    {{template "downloads" .Downloads}}
+                <details class="downloads current-operating-system" open>
+                    <summary>Current OS downloads</summary>
+                    <div class="downloads-list">
+                        {{template "downloads" .Downloads}}
+                    </div>
+                </details>
+                <details class="downloads other-operating-systems">
+                    <summary>Other OS downloads</summary>
+                    <div class="downloads-list"></div>
                 </details>
             {{end}}
         </section>
