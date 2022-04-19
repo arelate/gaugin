@@ -28,12 +28,14 @@
 
         @media only screen and (max-width: 700px) {
             .product-details {
-                margin: 0 2em;
-                width: calc(100% - 4em);
+                margin: 0 1em;
+                width: calc(100% - 2em);
             }
         }
 
         .product-details h1 {
+            font-size: 2.5rem;
+            padding: 0.5rem 1rem;
             display: flex;
             justify-items: start;
             align-items: center;
@@ -45,6 +47,10 @@
             min-width: 0.75em;
             height: 0.75em;
             color: var(--system-red-color)
+        }
+
+        .product-details .text-properties {
+            padding: 0 1em;
         }
 
         .product-details .text-properties svg.icon {
@@ -177,8 +183,11 @@
             width: 100%;
         }
 
-        .product-details .text-properties details {
+        .product-details .additional-properties details {
             cursor: pointer;
+            border-radius: 0.25em;
+            padding: 0.5em 0.75em;
+            background-color: var(--highlight-background-color);
         }
 
         .product-details .text-properties details ul {
