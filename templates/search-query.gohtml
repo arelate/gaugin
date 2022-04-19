@@ -8,7 +8,7 @@
                 <li><span class="property-title">Title:</span> <span class="property-value">{{.Title}}</span></li>
             {{end}}
             {{if .Tags}}
-                <li><span class="property-title">Tags:</span> <span class="property-value">{{.Tags}}</span></li>
+                <li><span class="property-title">User tags:</span> <span class="property-value">{{.Tags}}</span></li>
             {{end}}
             {{if .OS}}
                 <li><span class="property-title">OS:</span> <span class="property-value">{{.OS}}</span>
@@ -27,6 +27,10 @@
             {{end}}
             {{if .Genres}}
                 <li><span class="property-title">Genres:</span> <span class="property-value">{{.Genres}}</span></li>
+            {{end}}
+            {{if .Properties}}
+                <li><span class="property-title">Store tags:</span> <span class="property-value">{{.Properties}}</span>
+                </li>
             {{end}}
             {{if .Features}}
                 <li><span class="property-title">Features:</span> <span class="property-value">{{.Features}}</span>

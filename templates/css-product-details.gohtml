@@ -51,6 +51,9 @@
 
         .product-details .text-properties {
             padding: 0 1em;
+            display: flex;
+            flex-direction: column;
+            row-gap: 1em;
         }
 
         .product-details .text-properties svg.icon {
@@ -62,13 +65,17 @@
             list-style: none;
             margin: 0;
             padding-inline-start: 0px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            row-gap: 1em;
         }
 
         .product-details .text-properties .text-property ul.horizontal {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            gap: 1em;
+            column-gap: 1em;
         }
 
         .product-details .tag {
@@ -114,6 +121,7 @@
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 grid-column-gap: 2em;
+                grid-row-gap: 1em;
             }
         }
 
@@ -127,7 +135,8 @@
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
-                gap: 0.5em;
+                row-gap: 0.5em;
+                column-gap: 1em;
             }
         }
 
@@ -256,9 +265,9 @@
 
         .product-details details.description .description-content,
         .product-details details.changelog .changelog-content {
-            text-align: justify;
+            line-height: 1.5rem;
             font-weight: normal;
-            font-size: 0.9em;
+            font-size: 0.8em;
             margin: 1em 0;
             cursor: initial;
         }

@@ -16,6 +16,7 @@ type searchQuery struct {
 	Publisher  string
 	Series     string
 	Genres     string
+	Properties string
 	Features   string
 	Languages  string
 	Includes   string
@@ -48,6 +49,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		Publisher:  q.Get(vangogh_local_data.PublisherProperty),
 		Series:     q.Get(vangogh_local_data.SeriesProperty),
 		Genres:     q.Get(vangogh_local_data.GenresProperty),
+		Properties: q.Get(vangogh_local_data.PropertiesProperty),
 		Features:   q.Get(vangogh_local_data.FeaturesProperty),
 		Languages:  q.Get(vangogh_local_data.LanguageCodeProperty),
 		Includes:   q.Get(vangogh_local_data.IncludesGamesProperty),

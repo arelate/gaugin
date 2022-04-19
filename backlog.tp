@@ -1,13 +1,3 @@
-Get-items fixes:
-	- fix URLs that contain double //, e.g. https://m.bzb.one:1903/product?id=1818710374 that contains: https://items.gog.com//atom_rpg_trudograd/mp4/TGWMap_Night_%281%29.gif.mp4 @done(2022-04-18)
-	- Fix in extraction as well as in replacement @done(2022-04-18)
-	- Review and document known issues
-
-Hide other OS downloads by default:
-	- only show current OS and extras (any-operating-system)
-	- ^ if there are downloads for current OS, don't hide anything otherwise
-	- https://developer.mozilla.org/en-US/docs/Web/API/Navigator/platform
-
 Implement add to wishlist:
 	- for products that are not owned
 	- "Add to wishlist" button
@@ -56,6 +46,14 @@ Optimize images:
 		- use srcset instead of img to opimize downloading
 	
 Archive:
+	Get-items fixes: @done(2022-04-18)
+		- Review and document known issues @done(2022-04-18)
+	- fix URLs that contain double //, e.g. https://m.bzb.one:1903/product?id=1818710374 that contains: https://items.gog.com//atom_rpg_trudograd/mp4/TGWMap_Night_%281%29.gif.mp4 @done(2022-04-18) @project(Get-items fixes)
+	- Fix in extraction as well as in replacement @done(2022-04-18) @project(Get-items fixes)
+	Hide other OS downloads by default: @done(2022-04-18)
+		- only show current OS and extras (any-operating-system) @done(2022-04-18)
+		- ^ if there are downloads for current OS, don't hide anything otherwise @done(2022-04-18)
+		- https://developer.mozilla.org/en-US/docs/Web/API/Navigator/platform @done(2022-04-18)
 	Fix description unclosed tags affecting styles: @done(2022-04-12)
 		- wrap in iframe? @done(2022-04-12)
 		- Example: https://m.bzb.one:1903/product?id=1714193985 @done(2022-04-12)
