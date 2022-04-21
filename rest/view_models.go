@@ -148,6 +148,38 @@ func rewriteDescriptionGameLinks(desc string) string {
 	return desc
 }
 
+const doubleNewLineChar = "\n\n"
+const newLineChar = "\n"
+const emDashCode = "\u2013"
+
+//implicitToExplicitList looks for embedded characters
+//that GOG.com is using for <ul> lists creation, e.g.
+//https://www.gog.com/en/game/deaths_gambit
+//and replaces that segment with explicit unordered lists.
+//Currently known characters are listed as consts above this func.
+func implicitToExplicitList(text string) string {
+	var items []string
+	if strings.Contains(text, doubleNewLineChar) {
+		items = strings.Split(text, doubleNewLineChar)
+	} else if strings.Contains(text, newLineChar) {
+		items = strings.Split(text, newLineChar)
+	} else if strings.Contains(text, emDashCode) {
+		items = strings.Split(text, emDashCode)
+	}
+
+	if len(items) > 0 {
+		builder := strings.Builder{}
+		builder.WriteString("<ul>")
+		for _, item := range items {
+			builder.WriteString("<li>" + item + "</li>")
+		}
+		builder.WriteString("</ul>")
+		text = builder.String()
+	}
+
+	return text
+}
+
 func productViewModelFromRedux(redux map[string]map[string][]string) (*productViewModel, error) {
 	switch len(redux) {
 	case 0:
@@ -189,7 +221,15 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				Wishlisted:        propertyFromRedux(rdx, vangogh_local_data.WishlistedProperty) == "true",
 			}
 
-			desc := propertyFromRedux(rdx, vangogh_local_data.DescriptionProperty)
+			//Description content preparation includes the following steps:
+			//1) combining DescriptionOverview and DescriptionFeatures
+			//2) replacing implicit list in DescriptionFeatures with explicit list
+			//3) rewriting https://items.gog.com/... links to gaugin
+			//4) rewriting https://www.gog.com/game/... links to gaugin
+
+			desc := propertyFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty)
+			desc += implicitToExplicitList(propertyFromRedux(rdx, vangogh_local_data.DescriptionFeaturesProperty))
+
 			desc = rewriteDescriptionItemsLinks(desc)
 			desc = rewriteDescriptionGameLinks(desc)
 
