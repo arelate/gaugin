@@ -81,12 +81,15 @@
                         <li><a href="/search?genres={{.}}" aria-label="all products of {{.}} genre">{{.}}</a>
                         </li>{{end}}</ul>
             </div>
-            <div class="text-property">
-                <h2 class="property-title">Store tags</h2>
-                <ul class="property-value flexible">{{range .Properties}}
-                        <li><a href="/search?properties={{.}}" aria-label="all products of {{.}} store tag">{{.}}</a>
-                        </li>{{end}}</ul>
-            </div>
+            {{if .Properties}}
+                <div class="text-property">
+                    <h2 class="property-title">Store tags</h2>
+                    <ul class="property-value flexible">{{range .Properties}}
+                            <li><a href="/search?properties={{.}}"
+                                   aria-label="all products of {{.}} store tag">{{.}}</a>
+                            </li>{{end}}</ul>
+                </div>
+            {{end}}
             <div class="text-property">
                 <h2 class="property-title">Features</h2>
                 <ul class="property-value flexible">{{range .Features}}
