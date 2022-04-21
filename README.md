@@ -47,6 +47,14 @@ NOTE: `gaugin` needs direct access to digital files fetched by `vangogh` (images
 
 Assuming you have vangogh setup correctly and data is available - to use `gaugin` open your browser and navigate to the address of the server you've deployed `gaugin` to, e.g. `https://gaugin.example:1848`. Modern browser with support for [`content-visibility`](https://caniuse.com/?search=content-visibility) and other performance features is highly recommended to use `gaugin`.
 
+## Screenshots
+
+| Section | Dark theme                                        | Light theme                                         |
+|---------|---------------------------------------------------|-----------------------------------------------------|
+| Details | ![Details, dark theme](./images/details-dark.jpg) | ![Details, light theme](./images/details-light.jpg) |
+| All     | ![All, dark theme](./images/all-dark.jpg)         | ![All, light theme](./images/all-light.jpg)         |
+| Search  | ![Search, dark theme](./images/search-dark.jpg)   | ![Search, light theme](./images/search-light.jpg)   |     
+
 ## Sharing games
 
 `gaugin` assumes you follow GOG.com [games sharing guidelines](https://support.gog.com/hc/en-us/articles/212184489-Can-I-share-games-with-others-?product=gog). Just like GOG.com, we trust you that this will not be abused.
