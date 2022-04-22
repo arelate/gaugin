@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func funcMap() template.FuncMap {
@@ -16,6 +17,7 @@ func funcMap() template.FuncMap {
 		"productId":     productId,
 		"formatBytes":   formatBytes,
 		"justTheDate":   justTheDate,
+		"formatDate":    formatDate,
 		"ratingPercent": ratingPercent,
 		"gogLink":       gogLink,
 		"toLower":       toLower,
@@ -78,6 +80,13 @@ func formatBytes(b int) string {
 
 func justTheDate(s string) string {
 	return strings.Split(s, " ")[0]
+}
+
+func formatDate(d string) string {
+	if hd, err := time.Parse("2006-01-02", d); err == nil {
+		return hd.Format("January 2, 2006")
+	}
+	return ""
 }
 
 func ratingPercent(r string) int {

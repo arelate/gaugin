@@ -55,7 +55,6 @@ type productViewModel struct {
 	IsIncludedByGames []string
 	RequiresGames     []string
 	IsRequiredByGames []string
-	Types             []string
 	// urls
 	StoreUrl   string
 	ForumUrl   string
@@ -144,7 +143,6 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				IsIncludedByGames: propertiesFromRedux(rdx, vangogh_local_data.IsIncludedByGamesProperty),
 				RequiresGames:     propertiesFromRedux(rdx, vangogh_local_data.RequiresGamesProperty),
 				IsRequiredByGames: propertiesFromRedux(rdx, vangogh_local_data.IsRequiredByGamesProperty),
-				Types:             propertiesFromRedux(rdx, vangogh_local_data.TypesProperty),
 				StoreUrl:          propertyFromRedux(rdx, vangogh_local_data.StoreUrlProperty),
 				ForumUrl:          propertyFromRedux(rdx, vangogh_local_data.ForumUrlProperty),
 				SupportUrl:        propertyFromRedux(rdx, vangogh_local_data.SupportUrlProperty),

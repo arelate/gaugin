@@ -112,16 +112,16 @@
             </div>
             <div class="text-property">
                 <h2 class="property-title">Global Release Date</h2>
-                <div class="property-value">{{.GlobalReleaseDate}}</div>
+                <div class="property-value">{{formatDate .GlobalReleaseDate}}</div>
             </div>
             <div class="text-property">
                 <h2 class="property-title">GOG.com Release Date</h2>
-                <div class="property-value">{{.GOGReleaseDate}}</div>
+                <div class="property-value">{{formatDate .GOGReleaseDate}}</div>
             </div>
             {{if .GOGOrderDate}}
                 <div class="text-property">
                     <h2 class="property-title">GOG.com Order Date</h2>
-                    <div class="property-value">{{justTheDate .GOGOrderDate}}</div>
+                    <div class="property-value">{{formatDate (justTheDate .GOGOrderDate)}}</div>
                 </div>
             {{end}}
             {{if .IncludesGames}}
@@ -145,7 +145,6 @@
             {{if .IsRequiredByGames}}
                 <div class="text-property">
                     <h2 class="property-title">Required By</h2>
-                    {{$requiredByLen := len .Types}}
                     {{template "product-refs" .IsRequiredByGames}}
                 </div>
             {{end}}
@@ -160,19 +159,6 @@
                         <li><a href="{{gogLink .SupportUrl}}" aria-label="GOG.com Support Link">Support</a></li>
                     {{end}}
                 </ul>
-            </div>
-            <div class="text-property">
-                <h2 class="property-title">Types</h2>
-                {{$typesLen := len .Types}}
-                {{if gt $typesLen 2}}
-                <details>
-                    <summary>{{len .Types}} type(s)</summary>
-                    {{end}}
-                    <ul class="property-value">{{range .Types}}
-                            <li>{{.}}</li>{{end}}</ul>
-                    {{if gt $typesLen 2}}
-                </details>
-                {{end}}
             </div>
         </section>
         <section class="additional-properties">
