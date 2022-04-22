@@ -69,7 +69,8 @@ type productViewModel struct {
 	// video-ids
 	Videos []string
 	// downloads
-	Downloads vangogh_local_data.DownloadsList
+	CurrentOSDownloads vangogh_local_data.DownloadsList
+	OtherOSDownloads   vangogh_local_data.DownloadsList
 }
 
 func propertyFromRedux(redux map[string][]string, property string) string {

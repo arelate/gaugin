@@ -211,16 +211,20 @@
                     <div class="changelog-content">{{.Changelog}}</div>
                 </details>
             {{end}}
-            {{if .Downloads}}
+            {{if .CurrentOSDownloads}}
                 <details class="downloads current-operating-system" open>
                     <summary>Current OS downloads</summary>
                     <div class="downloads-list">
-                        {{template "downloads" .Downloads}}
+                        {{template "downloads" .CurrentOSDownloads}}
                     </div>
                 </details>
-                <details class="downloads other-operating-systems">
+            {{end}}
+            {{if .OtherOSDownloads}}
+                <details class="downloads other-operating-systems" {{if .CurrentOSDownloads}}{{else}}open{{end}}>
                     <summary>Other OS downloads</summary>
-                    <div class="downloads-list"></div>
+                    <div class="downloads-list">
+                        {{template "downloads" .OtherOSDownloads}}
+                    </div>
                 </details>
             {{end}}
         </section>
