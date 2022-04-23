@@ -195,7 +195,7 @@
             cursor: pointer;
             border-radius: 0.75em;
             padding: 1em 1em;
-            background-color: var(--hint-color);
+            background-color: var(--highlight-color);
             content-visibility: auto;
         }
 
@@ -208,6 +208,15 @@
             font-weight: bold;
             cursor: pointer;
             font-size: 1.2em;
+            position: relative;
+        }
+
+        .product-details .additional-properties summary {
+            position: sticky;
+            top: 0em;
+            display: block;
+            padding: 0.5em 0;
+            background-color: var(--highlight-color);
         }
 
         .product-details .downloads .downloads-list {
@@ -267,7 +276,7 @@
             line-height: 1.5rem;
             font-weight: normal;
             font-size: 0.8em;
-            margin: 2.5em 0;
+            margin: 1.5em 0;
             cursor: initial;
         }
 
