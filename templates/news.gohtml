@@ -10,16 +10,18 @@
         <li class="{{if eq .Since 24}}{{`current`}}{{end}}"><a href="/updates?since=24">today</a></li>
         <li class="{{if eq .Since 120}}{{`current`}}{{end}}"><a href="/updates?since=120">this week</a></li>
     </ul>
-    {{$sectionProducts := .SectionProducts}}
-    {{if $sectionProducts}}
-        {{range .Sections}}
-            <h1 class="section-title">{{.}}</h1>
-            {{$products := index $sectionProducts .}}
-            {{template "products" $products.Products}}
+    <section id="updates-container">
+        {{$sectionProducts := .SectionProducts}}
+        {{if $sectionProducts}}
+            {{range .Sections}}
+                <h1 class="section-title">{{.}}</h1>
+                {{$products := index $sectionProducts .}}
+                {{template "products" $products.Products}}
+            {{end}}
+        {{else}}
+            <div class="no-updates">no updates</div>
         {{end}}
-    {{else}}
-        <div class="no-updates">no updates</div>
-    {{end}}
+    </section>
     {{template "footer"}}
     </body>
     </html>
