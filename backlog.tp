@@ -1,5 +1,5 @@
 Design updates:
-	- change footer style to stick to the bottom of the page
+	- change footer style to stick to the bottom of the page @done(2022-04-26)
 	- implement a single Products page
 		- Search is always visible, rename to Filter & Sort
 		- Consider select controls for predefined values (OS, language, tags, store tags - use digest)
@@ -7,11 +7,10 @@ Design updates:
 		- Investigate if vangogh search API supports multi values for a property, add ability to 
 		- similarly to updates add: Downloads (Owned: true, Sort by: GOGOrderDate) Wishlisted (Wishlisted: true, Sort by: ?) All (no filter, Sort by: GOGReleaseDate) links
 		- Consider limiting to ~100 products and add link to show all
+		- When product is displayed - show a top level tab for a length-limited name for consistency with other active tabs
 		
 Ownership:
 	- implement ownership status in vangogh using own function
-	
-- When product is displayed - show a top level tab for a length-limited name for consistency with other active tabs
 
 Implement add to wishlist:
 	- for products that are not owned
