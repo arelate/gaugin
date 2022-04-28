@@ -4,7 +4,6 @@ Design updates:
 		- Consider select controls for predefined values (OS, language, tags, store tags - use digest)
 		- Add sort field with predefined values
 		- similarly to updates add: Downloads (Owned: true, Sort by: GOGOrderDate) Wishlisted (Wishlisted: true, Sort by: ?) All (no filter, Sort by: GOGReleaseDate) links
-		- Consider limiting to ~100 products and add link to show all
 		- When product is displayed - show a top level tab for a length-limited name for consistency with other active tabs
 
 Implement add to wishlist:
@@ -55,6 +54,7 @@ Optimize images:
 		- use srcset instead of img to opimize downloading
 	
 Archive:
+	- Consider limiting to ~100 products and add link to show all @done(2022-04-27) @project(Design updates)
 	Ownership: @done(2022-04-27)
 		- implement ownership status in vangogh using own function @done(2022-04-27)
 		- Implemet support on the gaugin side: @done(2022-04-27)
