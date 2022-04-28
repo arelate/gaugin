@@ -56,6 +56,12 @@
                 <li><span class="property-title">Required by:</span> <span
                             class="property-value">{{.RequiredBy}}</span></li>
             {{end}}
+            {{if .ProductType}}
+                <li>
+                    <span class="property-title">Type:</span>
+                    <span class="property-value">{{.ProductType}}</span>
+                </li>
+            {{end}}
             {{if .Wishlisted}}
                 <li><span class="property-title">Wishlisted:</span> <span
                             class="property-value">{{.Wishlisted}}</span></li>

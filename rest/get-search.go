@@ -8,23 +8,24 @@ import (
 )
 
 type searchQuery struct {
-	Text       string
-	Title      string
-	Tags       string
-	OS         string
-	Developers string
-	Publisher  string
-	Series     string
-	Genres     string
-	Properties string
-	Features   string
-	Languages  string
-	Includes   string
-	IncludedBy string
-	Requires   string
-	RequiredBy string
-	Wishlisted string
-	Owned      string
+	Text        string
+	Title       string
+	Tags        string
+	OS          string
+	Developers  string
+	Publisher   string
+	Series      string
+	Genres      string
+	Properties  string
+	Features    string
+	Languages   string
+	Includes    string
+	IncludedBy  string
+	Requires    string
+	RequiredBy  string
+	ProductType string
+	Wishlisted  string
+	Owned       string
 }
 
 type searchProductsViewModel struct {
@@ -42,23 +43,24 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	q := r.URL.Query()
 	spvm.Query = searchQuery{
-		Text:       q.Get("text"),
-		Title:      q.Get(vangogh_local_data.TitleProperty),
-		Tags:       q.Get(vangogh_local_data.TagIdProperty),
-		OS:         q.Get(vangogh_local_data.OperatingSystemsProperty),
-		Developers: q.Get(vangogh_local_data.DevelopersProperty),
-		Publisher:  q.Get(vangogh_local_data.PublisherProperty),
-		Series:     q.Get(vangogh_local_data.SeriesProperty),
-		Genres:     q.Get(vangogh_local_data.GenresProperty),
-		Properties: q.Get(vangogh_local_data.PropertiesProperty),
-		Features:   q.Get(vangogh_local_data.FeaturesProperty),
-		Languages:  q.Get(vangogh_local_data.LanguageCodeProperty),
-		Includes:   q.Get(vangogh_local_data.IncludesGamesProperty),
-		IncludedBy: q.Get(vangogh_local_data.IsIncludedByGamesProperty),
-		Requires:   q.Get(vangogh_local_data.RequiresGamesProperty),
-		RequiredBy: q.Get(vangogh_local_data.IsRequiredByGamesProperty),
-		Wishlisted: q.Get(vangogh_local_data.WishlistedProperty),
-		Owned:      q.Get(vangogh_local_data.OwnedProperty),
+		Text:        q.Get("text"),
+		Title:       q.Get(vangogh_local_data.TitleProperty),
+		Tags:        q.Get(vangogh_local_data.TagIdProperty),
+		OS:          q.Get(vangogh_local_data.OperatingSystemsProperty),
+		Developers:  q.Get(vangogh_local_data.DevelopersProperty),
+		Publisher:   q.Get(vangogh_local_data.PublisherProperty),
+		Series:      q.Get(vangogh_local_data.SeriesProperty),
+		Genres:      q.Get(vangogh_local_data.GenresProperty),
+		Properties:  q.Get(vangogh_local_data.PropertiesProperty),
+		Features:    q.Get(vangogh_local_data.FeaturesProperty),
+		Languages:   q.Get(vangogh_local_data.LanguageCodeProperty),
+		Includes:    q.Get(vangogh_local_data.IncludesGamesProperty),
+		IncludedBy:  q.Get(vangogh_local_data.IsIncludedByGamesProperty),
+		Requires:    q.Get(vangogh_local_data.RequiresGamesProperty),
+		RequiredBy:  q.Get(vangogh_local_data.IsRequiredByGamesProperty),
+		ProductType: q.Get(vangogh_local_data.ProductTypeProperty),
+		Wishlisted:  q.Get(vangogh_local_data.WishlistedProperty),
+		Owned:       q.Get(vangogh_local_data.OwnedProperty),
 	}
 
 	emptyQuery := true

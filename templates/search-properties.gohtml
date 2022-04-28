@@ -17,7 +17,12 @@
             </div>
             <div>
                 <label for="search-os">OS</label>
-                <input id="search-os" type="search" name="os" placeholder="Operating Systems" value="{{.OS}}"/>
+                <select id="search-os" name="os">
+                    <option {{if eq .OS ""}}selected{{end}} value=""></option>
+                    <option {{if eq .OS "windows"}}selected{{end}} value="windows">Windows</option>
+                    <option {{if eq .OS "macos"}}selected{{end}} value="macos">macOS</option>
+                    <option {{if eq .OS "linux"}}selected{{end}} value="linux">Linux</option>
+                </select>
             </div>
             <div>
                 <label for="search-developers">Developers</label>
@@ -39,7 +44,8 @@
             </div>
             <div>
                 <label for="search-properties">Store tags</label>
-                <input id="search-properties" type="search" name="properties" placeholder="Store tags" value="{{.Properties}}"/>
+                <input id="search-properties" type="search" name="properties" placeholder="Store tags"
+                       value="{{.Properties}}"/>
             </div>
             <div>
                 <label for="search-features">Features</label>
@@ -71,14 +77,29 @@
                        value="{{.RequiredBy}}"/>
             </div>
             <div>
+                <label for="search-product-type">Type</label>
+                <select id="search-product-type" name="product-type">
+                    <option {{if eq .ProductType ""}}selected{{end}} value=""></option>
+                    <option {{if eq .ProductType "game"}}selected{{end}} value="game">GAME</option>
+                    <option {{if eq .ProductType "dlc"}}selected{{end}} value="dlc">DLC</option>
+                    <option {{if eq .ProductType "pack"}}selected{{end}} value="pack">PACK</option>
+                </select>
+            </div>
+            <div>
                 <label for="search-wishlisted">Wishlisted</label>
-                <input id="search-wishlisted" type="checkbox" name="wishlisted" placeholder="Wishlisted"
-                       value="true" {{if eq .Wishlisted "true"}}checked{{end}}/>
+                <select id="search-wishlisted" name="wishlisted">
+                    <option {{if eq .Wishlisted ""}}selected{{end}} value=""></option>
+                    <option {{if eq .Wishlisted "true"}}selected{{end}} value="true">YES</option>
+                    <option {{if eq .Wishlisted "false"}}selected{{end}} value="false">NO</option>
+                </select>
             </div>
             <div>
                 <label for="search-owned">Owned</label>
-                <input id="search-owned" type="checkbox" name="owned" placeholder="Owned"
-                       value="true" {{if eq .Owned "true"}}checked{{end}}/>
+                <select id="search-owned" name="owned">
+                    <option {{if eq .Owned ""}}selected{{end}} value=""></option>
+                    <option {{if eq .Owned "true"}}selected{{end}} value="true">YES</option>
+                    <option {{if eq .Owned "false"}}selected{{end}} value="false">NO</option>
+                </select>
             </div>
         </details>
     </form>
