@@ -75,6 +75,11 @@
                 <input id="search-wishlisted" type="checkbox" name="wishlisted" placeholder="Wishlisted"
                        value="true" {{if eq .Wishlisted "true"}}checked{{end}}/>
             </div>
+            <div>
+                <label for="search-owned">Owned</label>
+                <input id="search-owned" type="checkbox" name="owned" placeholder="Owned"
+                       value="true" {{if eq .Owned "true"}}checked{{end}}/>
+            </div>
         </details>
     </form>
 {{end}}

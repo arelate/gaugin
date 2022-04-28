@@ -11,10 +11,14 @@
                     {{end}}
                 </h2>
                 <div class="text-properties">
+                    {{if .Owned}}
+                        <div class="property-title">Owned</div>
+                        <div class="property-value"><span class="labelled owned">YES</span></div>
+                    {{end}}
                     {{if .ProductType}}
                         {{if ne .ProductType "GAME"}}
                             <div class="property-title">Type</div>
-                            <div class="property-value"><span class="product-type">{{.ProductType}}</span></div>
+                            <div class="property-value"><span class="labelled product-type">{{.ProductType}}</span></div>
                         {{end}}
                     {{end}}
                     {{if .Tags}}
@@ -22,7 +26,7 @@
                         <div class="property-value">
                             <ul class="tags">
                                 {{range .Tags}}
-                                    <li class="tag">{{productTitle .}}</li>
+                                    <li class="labelled tag">{{productTitle .}}</li>
                                 {{end}}
                             </ul>
                         </div>

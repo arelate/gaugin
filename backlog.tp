@@ -1,16 +1,11 @@
 Design updates:
-	- change footer style to stick to the bottom of the page @done(2022-04-26)
 	- implement a single Products page
 		- Search is always visible, rename to Filter & Sort
 		- Consider select controls for predefined values (OS, language, tags, store tags - use digest)
 		- Add sort field with predefined values
-		- Investigate if vangogh search API supports multi values for a property, add ability to 
 		- similarly to updates add: Downloads (Owned: true, Sort by: GOGOrderDate) Wishlisted (Wishlisted: true, Sort by: ?) All (no filter, Sort by: GOGReleaseDate) links
 		- Consider limiting to ~100 products and add link to show all
 		- When product is displayed - show a top level tab for a length-limited name for consistency with other active tabs
-		
-Ownership:
-	- implement ownership status in vangogh using own function
 
 Implement add to wishlist:
 	- for products that are not owned
@@ -60,6 +55,15 @@ Optimize images:
 		- use srcset instead of img to opimize downloading
 	
 Archive:
+	Ownership: @done(2022-04-27)
+		- implement ownership status in vangogh using own function @done(2022-04-27)
+		- Implemet support on the gaugin side: @done(2022-04-27)
+			- list @done(2022-04-27)
+			- details @done(2022-04-27)
+			- search @done(2022-04-27)
+			- fix not all Downloads showing Owned: Yes @done(2022-04-27)
+	- change footer style to stick to the bottom of the page @done(2022-04-26) @project(Design updates)
+	- Investigate if vangogh search API supports multi values for a property, add ability to @done(2022-04-27) @project(Design updates)
 	Get-items fixes: @done(2022-04-18)
 		- Review and document known issues @done(2022-04-18)
 	- fix URLs that contain double //, e.g. https://m.bzb.one:1903/product?id=1818710374 that contains: https://items.gog.com//atom_rpg_trudograd/mp4/TGWMap_Night_%281%29.gif.mp4 @done(2022-04-18) @project(Get-items fixes)

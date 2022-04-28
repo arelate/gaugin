@@ -13,11 +13,17 @@
             {{end}}</h1>
 
         <section class="text-properties">
+            {{if .Owned}}
+                <div class="text-property">
+                    <h2 class="property-title">Owned</h2>
+                    <div class="property-value"><span class="labelled owned">YES</span></div>
+                </div>
+            {{end}}
             {{if .Tags}}
                 <div class="text-property">
                     <h2 class="property-title">User tags</h2>
                     <ul class="property-value flexible">{{range .Tags}}
-                            <li class="tag"><a href="/search?tag={{productTitle .}}">{{productTitle .}}</a></li>{{end}}
+                            <li class="labelled tag"><a href="/search?tag={{productTitle .}}">{{productTitle .}}</a></li>{{end}}
                     </ul>
                 </div>
             {{end}}
@@ -25,8 +31,7 @@
                 {{if ne .ProductType "GAME"}}
                     <div class="text-property">
                         <h2 class="property-title">Type</h2>
-                        <div class="property-value"><span class="product-type">{{.ProductType}}</span></div>
-
+                        <div class="property-value"><span class="labelled product-type">{{.ProductType}}</span></div>
                     </div>
                 {{end}}
             {{end}}

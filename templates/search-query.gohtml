@@ -60,6 +60,10 @@
                 <li><span class="property-title">Wishlisted:</span> <span
                             class="property-value">{{.Wishlisted}}</span></li>
             {{end}}
+            {{if .Owned}}
+                <li><span class="property-title">Owned:</span> <span
+                            class="property-value">{{.Owned}}</span></li>
+            {{end}}
         </ul>
     </div>
 {{end}}

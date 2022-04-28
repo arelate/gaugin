@@ -13,6 +13,7 @@ type listProductViewModel struct {
 	Developers       []string
 	Publisher        string
 	Wishlisted       bool
+	Owned            bool
 	OperatingSystems []string
 	Tags             []string
 	ProductType      string
@@ -34,6 +35,7 @@ type productViewModel struct {
 	Context    string
 	Id         string
 	Wishlisted bool
+	Owned      bool
 	// text properties
 	ProductType       string
 	Title             string
@@ -101,6 +103,7 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 			Id:               id,
 			Title:            propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
 			Wishlisted:       propertyFromRedux(rdx, vangogh_local_data.WishlistedProperty) == "true",
+			Owned:            propertyFromRedux(rdx, vangogh_local_data.OwnedProperty) == "true",
 			Developers:       propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
 			Publisher:        propertyFromRedux(rdx, vangogh_local_data.PublisherProperty),
 			OperatingSystems: propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
@@ -151,6 +154,7 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				Screenshots:       propertiesFromRedux(rdx, vangogh_local_data.ScreenshotsProperty),
 				Videos:            propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
 				Wishlisted:        propertyFromRedux(rdx, vangogh_local_data.WishlistedProperty) == "true",
+				Owned:             propertyFromRedux(rdx, vangogh_local_data.OwnedProperty) == "true",
 			}
 
 			//Description content preparation includes the following steps:

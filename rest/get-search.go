@@ -24,6 +24,7 @@ type searchQuery struct {
 	Requires   string
 	RequiredBy string
 	Wishlisted string
+	Owned      string
 }
 
 type searchProductsViewModel struct {
@@ -57,6 +58,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		Requires:   q.Get(vangogh_local_data.RequiresGamesProperty),
 		RequiredBy: q.Get(vangogh_local_data.IsRequiredByGamesProperty),
 		Wishlisted: q.Get(vangogh_local_data.WishlistedProperty),
+		Owned:      q.Get(vangogh_local_data.OwnedProperty),
 	}
 
 	emptyQuery := true
@@ -80,6 +82,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			strings.Join(keys, ","),
 			vangogh_local_data.TitleProperty,
 			vangogh_local_data.WishlistedProperty,
+			vangogh_local_data.OwnedProperty,
 			vangogh_local_data.DevelopersProperty,
 			vangogh_local_data.PublisherProperty,
 			vangogh_local_data.OperatingSystemsProperty,

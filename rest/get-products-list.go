@@ -24,6 +24,7 @@ func getProductsList(
 		vangogh_local_data.DevelopersProperty,
 		vangogh_local_data.PublisherProperty,
 		vangogh_local_data.WishlistedProperty,
+		vangogh_local_data.OwnedProperty,
 		vangogh_local_data.OperatingSystemsProperty,
 		vangogh_local_data.TagIdProperty,
 		vangogh_local_data.ProductTypeProperty)
