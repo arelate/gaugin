@@ -7,16 +7,19 @@
     {{end}}
     <div class="product-details" id="{{ .Id }}">
 
-        <h1 class="title">{{ .Title }}
-            {{if .Wishlisted}}
-                {{template "svg-icon" "heart"}}
-            {{end}}</h1>
+        <h1 class="title">{{ .Title }}</h1>
 
         <section class="text-properties">
+            {{if .Wishlisted}}
+                <div class="text-property">
+                    <h2 class="property-title">Wishlist</h2>
+                    <div class="property-value"><span class="labelled wishlisted">WISHLISTED</span></div>
+                </div>
+            {{end}}
             {{if .Owned}}
                 <div class="text-property">
-                    <h2 class="property-title">Owned</h2>
-                    <div class="property-value"><span class="labelled owned">YES</span></div>
+                    <h2 class="property-title">Ownership</h2>
+                    <div class="property-value"><span class="labelled owned">OWNED</span></div>
                 </div>
             {{end}}
             {{if .Tags}}

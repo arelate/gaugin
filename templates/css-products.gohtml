@@ -76,13 +76,18 @@
             border-radius: 2px;
             font-size: 0.5em;
             font-weight: bold;
-            display: inline-block;
+            /*display: inline-block;*/
+            list-style: none;
         }
 
         .products .product .owned {
             background-color: var(--color);
             color: var(--background-color);
+        }
 
+        .products .product .wishlisted {
+            background-color: var(--system-pink-color);
+            color: var(--highlight-color);
         }
 
         .products .product .product-type {
@@ -90,7 +95,7 @@
             color: var(--background-color);
         }
 
-        .products .product .tags {
+        .products .product .labels {
             display: flex;
             flex-wrap: wrap;
             column-gap: 0.5em;

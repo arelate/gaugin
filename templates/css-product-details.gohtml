@@ -67,9 +67,9 @@
             margin: 0;
             padding-inline-start: 0px;
             display: flex;
-            flex-direction: column;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             row-gap: 0.5em;
+            column-gap: 1em;
         }
 
         .product-details .text-properties .text-property ul.horizontal {
@@ -84,6 +84,11 @@
             padding: 2px 5px;
             display: inline-block;
             border-radius: 2px;
+        }
+
+        .product-details .wishlisted {
+            background-color: var(--system-pink-color);
+            color: var(--highlight-color);
         }
 
         .product-details .owned {
@@ -135,16 +140,6 @@
         .product-details .text-properties .text-property h2 {
             font-size: 1em;
             margin: 0;
-        }
-
-        @media only screen and (min-width: 700px) {
-            .product-details .text-properties .text-property ul.flexible {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                row-gap: 0.5em;
-                column-gap: 1em;
-            }
         }
 
         .product-details .text-properties .rating {

@@ -22,6 +22,7 @@ func funcMap() template.FuncMap {
 		"gogLink":       gogLink,
 		"toLower":       toLower,
 		"dlTitle":       dlTitle,
+		"hasLabel":      hasLabel,
 	}
 }
 
@@ -107,4 +108,11 @@ func gogLink(p string) string {
 		Path:   p,
 	}
 	return u.String()
+}
+
+func hasLabel(lpvm listProductViewModel) bool {
+	return lpvm.Owned ||
+		lpvm.Wishlisted ||
+		lpvm.ProductType != "GAME" ||
+		len(lpvm.Tags) > 0
 }

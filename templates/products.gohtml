@@ -4,27 +4,22 @@
     <section class="products">
         {{range .}}
             <a class="product" href="/product?id={{.Id}}">
-                <h2 class="title">
-                    {{ .Title }}
-                    {{if .Wishlisted}}
-                        {{template "svg-icon" "heart"}}
-                    {{end}}
-                </h2>
+                <h2 class="title">{{ .Title }}</h2>
                 <div class="text-properties">
-                    {{if .Owned}}
-                        <div class="property-title">Owned</div>
-                        <div class="property-value"><span class="labelled owned">YES</span></div>
-                    {{end}}
-                    {{if .ProductType}}
-                        {{if ne .ProductType "GAME"}}
-                            <div class="property-title">Type</div>
-                            <div class="property-value"><span class="labelled product-type">{{.ProductType}}</span></div>
-                        {{end}}
-                    {{end}}
-                    {{if .Tags}}
-                        <div class="property-title">User tags</div>
+                    {{if hasLabel .}}
+                        <div class="property-title">Labels</div>
                         <div class="property-value">
-                            <ul class="tags">
+                            <ul class="labels">
+                                {{if .Wishlisted}}
+                                    <li class="labelled wishlisted">WISHLISTED</li>
+                                {{end}}
+                                {{if .Owned}}
+                                    <li class="labelled owned">OWNED</li>{{end}}
+                                {{if .ProductType}}
+                                    {{if ne .ProductType "GAME"}}
+                                        <li class="labelled product-type">{{.ProductType}}</li>
+                                    {{end}}
+                                {{end}}
                                 {{range .Tags}}
                                     <li class="labelled tag">{{productTitle .}}</li>
                                 {{end}}
