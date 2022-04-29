@@ -2,104 +2,200 @@
     <form class="search-form" action="/search" xmlns="http://www.w3.org/1999/html">
         <div class="search-text-container">
             <label for="search-text">Any text</label>
-            <input id="search-text" type="search" name="text" placeholder="Text" value="{{.Text}}" autofocus/>
+            <input id="search-text" type="search" name="text" placeholder="Text" value="{{.Query.Text}}" autofocus/>
             <input type="submit"/>
         </div>
         <details>
             <summary>Advanced</summary>
             <div>
                 <label for="search-title">Title</label>
-                <input id="search-title" type="search" name="title" placeholder="Title" value="{{.Title}}"/>
+                <input id="search-title" type="search" name="title" placeholder="Title" value="{{.Query.Title}}"/>
             </div>
             <div>
                 <label for="search-tags">User tags</label>
-                <input id="search-tags" type="search" name="tag" placeholder="User tags" value="{{.Tags}}"/>
+                <input id="search-tags" type="search" name="tag" placeholder="User tags" value="{{.Query.Tags}}"/>
             </div>
             <div>
-                <label for="search-os">OS</label>
-                <select id="search-os" name="os">
-                    <option {{if eq .OS ""}}selected{{end}} value=""></option>
-                    <option {{if eq .OS "windows"}}selected{{end}} value="windows">Windows</option>
-                    <option {{if eq .OS "macos"}}selected{{end}} value="macos">macOS</option>
-                    <option {{if eq .OS "linux"}}selected{{end}} value="linux">Linux</option>
-                </select>
+                {{$pname := "os"}}
+                {{$placeholder := "OS"}}
+                {{$query := .Query.OS}}
+                {{$digests := index .Digests $pname}}
+                <label for="search-{{$pname}}">{{$placeholder}}</label>
+                {{if $digests}}
+                    <select id="search-{{$pname}}" name="{{$pname}}">
+                        <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                        {{range $digests}}
+                            <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                {{else}}
+                    <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                           value="{{$query}}"/>
+                {{end}}
             </div>
             <div>
                 <label for="search-developers">Developers</label>
                 <input id="search-developers" type="search" name="developers" placeholder="Developers"
-                       value="{{.Developers}}"/>
+                       value="{{.Query.Developers}}"/>
             </div>
             <div>
                 <label for="search-publisher">Publisher</label>
                 <input id="search-publisher" type="search" name="publisher" placeholder="Publisher"
-                       value="{{.Publisher}}"/>
+                       value="{{.Query.Publisher}}"/>
             </div>
             <div>
                 <label for="search-series">Series</label>
-                <input id="search-series" type="search" name="series" placeholder="Series" value="{{.Series}}"/>
+                <input id="search-series" type="search" name="series" placeholder="Series" value="{{.Query.Series}}"/>
             </div>
             <div>
-                <label for="search-genres">Genres</label>
-                <input id="search-genres" type="search" name="genres" placeholder="Genres" value="{{.Genres}}"/>
+                {{$pname = "genres"}}
+                {{$placeholder = "Genres"}}
+                {{$query = .Query.Genres}}
+                {{$digests = index .Digests $pname}}
+                <label for="search-{{$pname}}">{{$placeholder}}</label>
+                {{if $digests}}
+                    <select id="search-{{$pname}}" name="{{$pname}}">
+                        <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                        {{range $digests}}
+                            <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                {{else}}
+                    <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                           value="{{$query}}"/>
+                {{end}}
             </div>
             <div>
-                <label for="search-properties">Store tags</label>
-                <input id="search-properties" type="search" name="properties" placeholder="Store tags"
-                       value="{{.Properties}}"/>
+                {{$pname = "properties"}}
+                {{$placeholder = "Store tags"}}
+                {{$query = .Query.Properties}}
+                {{$digests = index .Digests $pname}}
+                <label for="search-{{$pname}}">{{$placeholder}}</label>
+                {{if $digests}}
+                    <select id="search-{{$pname}}" name="{{$pname}}">
+                        <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                        {{range $digests}}
+                            <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                {{else}}
+                    <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                           value="{{$query}}"/>
+                {{end}}
             </div>
             <div>
-                <label for="search-features">Features</label>
-                <input id="search-features" type="search" name="features" placeholder="Features" value="{{.Features}}"/>
+{{/*                <label for="search-features">Features</label>*/}}
+{{/*                <input id="search-features" type="search" name="features" placeholder="Features"*/}}
+{{/*                       value="{{.Query.Features}}"/>*/}}
+                {{$pname = "features"}}
+                {{$placeholder = "Features"}}
+                {{$query = .Query.Features}}
+                {{$digests = index .Digests $pname}}
+                <label for="search-{{$pname}}">{{$placeholder}}</label>
+                {{if $digests}}
+                    <select id="search-{{$pname}}" name="{{$pname}}">
+                        <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                        {{range $digests}}
+                            <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                {{else}}
+                    <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                           value="{{$query}}"/>
+                {{end}}
             </div>
             <div>
-                <label for="search-languages">Languages</label>
-                <input id="search-languages" type="search" name="lang-code" placeholder="Languages"
-                       value="{{.Languages}}"/>
+                {{$pname = "lang-code"}}
+                {{$placeholder = "Languages"}}
+                {{$query = .Query.Languages}}
+                {{$digests = index .Digests $pname}}
+                <label for="search-{{$pname}}">{{$placeholder}}</label>
+                {{if $digests}}
+                    <select id="search-{{$pname}}" name="{{$pname}}">
+                        <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                        {{range $digests}}
+                            {{$lang_title := productTitle .}}
+                            <option {{if eq $query $lang_title}}selected{{end}} value="{{$lang_title}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                {{else}}
+                    <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                           value="{{$query}}"/>
+                {{end}}
             </div>
             <div>
                 <label for="search-includes">Includes</label>
                 <input id="search-includes" type="search" name="includes-games" placeholder="Includes"
-                       value="{{.Includes}}"/>
+                       value="{{.Query.Includes}}"/>
             </div>
             <div>
                 <label for="search-included-by">Included By</label>
                 <input id="search-included-by" type="search" name="is-included-by-games" placeholder="Included By"
-                       value="{{.IncludedBy}}"/>
+                       value="{{.Query.IncludedBy}}"/>
             </div>
             <div>
                 <label for="search-requires">Requires</label>
                 <input id="search-requires" type="search" name="requires-games" placeholder="Requires"
-                       value="{{.Requires}}"/>
+                       value="{{.Query.Requires}}"/>
             </div>
             <div>
                 <label for="search-required-by">Required By</label>
                 <input id="search-required-by" type="search" name="is-required-by-games" placeholder="Required By"
-                       value="{{.RequiredBy}}"/>
+                       value="{{.Query.RequiredBy}}"/>
             </div>
             <div>
-                <label for="search-product-type">Type</label>
-                <select id="search-product-type" name="product-type">
-                    <option {{if eq .ProductType ""}}selected{{end}} value=""></option>
-                    <option {{if eq .ProductType "game"}}selected{{end}} value="game">GAME</option>
-                    <option {{if eq .ProductType "dlc"}}selected{{end}} value="dlc">DLC</option>
-                    <option {{if eq .ProductType "pack"}}selected{{end}} value="pack">PACK</option>
-                </select>
+                {{$pname = "product-type"}}
+                {{$placeholder = "Type"}}
+                {{$query = .Query.ProductType}}
+                {{$digests = index .Digests $pname}}
+                <label for="search-{{$pname}}">{{$placeholder}}</label>
+                {{if $digests}}
+                    <select id="search-{{$pname}}" name="{{$pname}}">
+                        <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                        {{range $digests}}
+                            <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                {{else}}
+                    <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                           value="{{$query}}"/>
+                {{end}}
             </div>
             <div>
-                <label for="search-wishlisted">Wishlisted</label>
-                <select id="search-wishlisted" name="wishlisted">
-                    <option {{if eq .Wishlisted ""}}selected{{end}} value=""></option>
-                    <option {{if eq .Wishlisted "true"}}selected{{end}} value="true">YES</option>
-                    <option {{if eq .Wishlisted "false"}}selected{{end}} value="false">NO</option>
-                </select>
+                {{$pname = "wishlisted"}}
+                {{$placeholder = "Wishlisted"}}
+                {{$query = .Query.Wishlisted}}
+                {{$digests = index .Digests $pname}}
+                <label for="search-{{$pname}}">{{$placeholder}}</label>
+                {{if $digests}}
+                    <select id="search-{{$pname}}" name="{{$pname}}">
+                        <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                        {{range $digests}}
+                            <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                {{else}}
+                    <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                           value="{{$query}}"/>
+                {{end}}
             </div>
             <div>
-                <label for="search-owned">Owned</label>
-                <select id="search-owned" name="owned">
-                    <option {{if eq .Owned ""}}selected{{end}} value=""></option>
-                    <option {{if eq .Owned "true"}}selected{{end}} value="true">YES</option>
-                    <option {{if eq .Owned "false"}}selected{{end}} value="false">NO</option>
-                </select>
+                {{$pname = "owned"}}
+                {{$placeholder = "Owned"}}
+                {{$query = .Query.Owned}}
+                {{$digests = index .Digests $pname}}
+                <label for="search-{{$pname}}">{{$placeholder}}</label>
+                {{if $digests}}
+                    <select id="search-{{$pname}}" name="{{$pname}}">
+                        <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                        {{range $digests}}
+                            <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                {{else}}
+                    <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                           value="{{$query}}"/>
+                {{end}}
             </div>
         </details>
     </form>

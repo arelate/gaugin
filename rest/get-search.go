@@ -31,6 +31,7 @@ type searchQuery struct {
 type searchProductsViewModel struct {
 	Context  string
 	Query    searchQuery
+	Digests  map[string][]string
 	Products []listProductViewModel
 }
 
@@ -99,6 +100,22 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		lvm := listViewModelFromRedux(keys, rdx)
 		spvm.Products = lvm.Products
 	}
+
+	digests, err := getDigests(dc,
+		vangogh_local_data.OperatingSystemsProperty,
+		vangogh_local_data.GenresProperty,
+		vangogh_local_data.PropertiesProperty,
+		vangogh_local_data.FeaturesProperty,
+		vangogh_local_data.LanguageCodeProperty,
+		vangogh_local_data.ProductTypeProperty,
+		vangogh_local_data.WishlistedProperty,
+		vangogh_local_data.OwnedProperty)
+
+	if err != nil {
+		http.Error(w, nod.ErrorStr("error getting digests"), http.StatusInternalServerError)
+		return
+	}
+	spvm.Digests = digests
 
 	defaultHeaders(w)
 

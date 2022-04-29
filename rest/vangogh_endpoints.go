@@ -98,3 +98,17 @@ func getUpdates(
 	err = gob.NewDecoder(resp.Body).Decode(&updates)
 	return updates, err
 }
+
+func getDigests(client *http.Client,
+	properties ...string) (map[string][]string, error) {
+	du := digestUrl(properties...)
+	resp, err := client.Get(du.String())
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var digests map[string][]string
+	err = gob.NewDecoder(resp.Body).Decode(&digests)
+	return digests, err
+}

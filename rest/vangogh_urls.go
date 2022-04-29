@@ -29,9 +29,10 @@ const (
 	cvEndpoint        = "/v1"
 	keysEndpoint      = cvEndpoint + "/keys"
 	allReduxEndpoint  = cvEndpoint + "/all_redux"
+	digestEndpoint    = cvEndpoint + "/digest"
+	downloadsEndpoint = cvEndpoint + "/downloads"
 	reduxEndpoint     = cvEndpoint + "/redux"
 	searchEndpoint    = cvEndpoint + "/search"
-	downloadsEndpoint = cvEndpoint + "/downloads"
 	updatesEndpoint   = cvEndpoint + "/updates"
 )
 
@@ -149,6 +150,19 @@ func updatesUrl(
 	q := u.Query()
 	q.Set("media", mt.String())
 	q.Set("since-hours-ago", strconv.Itoa(since))
+	u.RawQuery = q.Encode()
+
+	return u
+}
+
+func digestUrl(properties ...string) *url.URL {
+	u := &url.URL{
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
+		Path:   digestEndpoint,
+	}
+	q := u.Query()
+	q.Set("property", strings.Join(properties, ","))
 	u.RawQuery = q.Encode()
 
 	return u
