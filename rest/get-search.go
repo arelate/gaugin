@@ -120,7 +120,11 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.OwnedProperty,
 		vangogh_local_data.TypesProperty)
 
-	digests["sort"] = []string{vangogh_local_data.GOGReleaseDateProperty, vangogh_local_data.GOGOrderDateProperty, vangogh_local_data.TitleProperty}
+	digests["sort"] = []string{
+		vangogh_local_data.GOGReleaseDateProperty,
+		vangogh_local_data.GOGOrderDateProperty,
+		vangogh_local_data.TitleProperty,
+		vangogh_local_data.RatingProperty}
 	digests["desc"] = []string{"true", "false"}
 
 	if err != nil {

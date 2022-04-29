@@ -3,43 +3,45 @@
     <div class="products-count">{{$count}} product{{if ne $count 1}}s{{end}}</div>
     <section class="products">
         {{range .}}
-            <a class="product" href="/product?id={{.Id}}">
-                <h2 class="title">{{ .Title }}</h2>
-                <div class="text-properties">
-                    {{if hasLabel .}}
-                        <div class="property-title">Labels</div>
-                        <div class="property-value">
-                            <ul class="labels">
-                                {{if .Wishlisted}}
-                                    <li class="labelled wishlisted">WISHLISTED</li>
-                                {{end}}
-                                {{if .Owned}}
-                                    <li class="labelled owned">OWNED</li>{{end}}
-                                {{if .ProductType}}
-                                    {{if ne .ProductType "GAME"}}
-                                        <li class="labelled product-type">{{.ProductType}}</li>
+            {{if .Title}}
+                <a class="product" href="/product?id={{.Id}}">
+                    <h2 class="title">{{ .Title }}</h2>
+                    <div class="text-properties">
+                        {{if hasLabel .}}
+                            <div class="property-title">Labels</div>
+                            <div class="property-value">
+                                <ul class="labels">
+                                    {{if .Wishlisted}}
+                                        <li class="labelled wishlisted">WISHLISTED</li>
                                     {{end}}
-                                {{end}}
-                                {{range .Tags}}
-                                    <li class="labelled tag">{{productTitle .}}</li>
+                                    {{if .Owned}}
+                                        <li class="labelled owned">OWNED</li>{{end}}
+                                    {{if .ProductType}}
+                                        {{if ne .ProductType "GAME"}}
+                                            <li class="labelled product-type">{{.ProductType}}</li>
+                                        {{end}}
+                                    {{end}}
+                                    {{range .Tags}}
+                                        <li class="labelled tag">{{productTitle .}}</li>
+                                    {{end}}
+                                </ul>
+                            </div>
+                        {{end}}
+                        <div class="property-title">Developers</div>
+                        <div class="property-value">{{range .Developers}}<span>{{.}}</span> {{end}}</div>
+                        <div class="property-title">Publisher</div>
+                        <div class="property-value">{{.Publisher}}</div>
+                        <div class="property-title">OS</div>
+                        <div class="property-value">
+                            <ul class="horizontal">
+                                {{range .OperatingSystems}}
+                                    <li>{{template "svg-icon" .}}</li>
                                 {{end}}
                             </ul>
                         </div>
-                    {{end}}
-                    <div class="property-title">Developers</div>
-                    <div class="property-value">{{range .Developers}}<span>{{.}}</span> {{end}}</div>
-                    <div class="property-title">Publisher</div>
-                    <div class="property-value">{{.Publisher}}</div>
-                    <div class="property-title">OS</div>
-                    <div class="property-value">
-                        <ul class="horizontal">
-                            {{range .OperatingSystems}}
-                                <li>{{template "svg-icon" .}}</li>
-                            {{end}}
-                        </ul>
                     </div>
-                </div>
-            </a>
+                </a>
+            {{end}}
         {{end}}
     </section>
 {{end}}
