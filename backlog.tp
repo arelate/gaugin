@@ -1,11 +1,3 @@
-Design updates:
-	- implement a single Products page
-		- Search is always visible, rename to Filter & Sort
-		- Consider select controls for predefined values (OS, language, tags, store tags - use digest)
-		- Add sort field with predefined values
-		- similarly to updates add: Downloads (Owned: true, Sort by: GOGOrderDate) Wishlisted (Wishlisted: true, Sort by: ?) All (no filter, Sort by: GOGReleaseDate) links
-		- When product is displayed - show a top level tab for a length-limited name for consistency with other active tabs
-
 Implement add to wishlist:
 	- for products that are not owned
 	- "Add to wishlist" button
@@ -54,6 +46,13 @@ Optimize images:
 		- use srcset instead of img to opimize downloading
 	
 Archive:
+	Design updates: @done(2022-04-28)
+		- implement a single Products page @done(2022-04-28)
+			- Search is always visible, rename to Filter & Sort @done(2022-04-28)
+			- Consider select controls for predefined values (OS, language, tags, store tags - use digest) @done(2022-04-28)
+			- Add sort field with predefined values @done(2022-04-28)
+			- similarly to updates add: Downloads (Owned: true, Sort by: GOGOrderDate) Wishlisted (Wishlisted: true, Sort by: ?) All (no filter, Sort by: GOGReleaseDate) links @done(2022-04-28)
+			- When product is displayed - show a top level tab for a length-limited name for consistency with other active tabs @done(2022-04-28)
 	- Consider limiting to ~100 products and add link to show all @done(2022-04-27) @project(Design updates)
 	Ownership: @done(2022-04-27)
 		- implement ownership status in vangogh using own function @done(2022-04-27)

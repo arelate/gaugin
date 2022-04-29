@@ -1,6 +1,6 @@
 {{define "nav"}}
     <nav>
-        <a class="updates {{if eq . "updates"}}{{`current`}}{{end}}" accesskey="u" href="/updates">Updates</a>
-        <a class="filter-products {{if eq . "filter-products"}}{{`current`}}{{end}}" accesskey="p" href="/search">Products</a>
+        <a class="{{if eq . "updates"}}{{`current`}}{{end}}" accesskey="u" href="/updates">Updates</a>
+        <a class="{{if eq . "filter-products"}}{{`current`}}{{end}}" accesskey="p" href="/products">Products</a>
     </nav>
 {{end}}
