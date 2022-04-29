@@ -1,8 +1,8 @@
 {{define "css-updates"}}
     <style id="css-updates">
 
-        section#updates-container {
-            padding-bottom: 5em;
+        section.updates-container {
+            padding: 1em 0 4em;
         }
 
         .no-updates {
@@ -15,32 +15,6 @@
             text-align: center;
             text-transform: uppercase;
             width: 100%;
-        }
-
-        .scope {
-            display: flex;
-            justify-content: center;
-            column-gap: 1em;
-            list-style: none;
-            padding: 0;
-            margin-bottom: 2em;
-        }
-
-        .scope a {
-            color: var(--subtle-color);
-            font-size: 0.8em;
-            padding: 0.5em;
-            text-decoration: none;
-        }
-
-        .scope .current a {
-            font-weight: bold;
-            background-color: var(--subtle-color);
-            color: var(--highlight-color);
-            border-radius: 4px;
-            /*text-decoration: underline;*/
-            /*text-decoration-thickness: 2px;*/
-            /*text-underline-offset: 4px;*/
         }
     </style>
 {{end}}

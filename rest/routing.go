@@ -10,8 +10,6 @@ func HandleFuncs() {
 	patternHandlers := map[string]http.Handler{
 		// current endpoints
 		"/updates":     Gzip(nod.RequestLog(http.HandlerFunc(GetUpdates))),
-		"/downloads":   Gzip(nod.RequestLog(http.HandlerFunc(GetDownloads))),
-		"/all":         Gzip(nod.RequestLog(http.HandlerFunc(GetAll))),
 		"/product":     Gzip(nod.RequestLog(http.HandlerFunc(GetProduct))),
 		"/search":      Gzip(nod.RequestLog(http.HandlerFunc(GetSearch))),
 		"/images":      nod.RequestLog(http.HandlerFunc(GetImages)),

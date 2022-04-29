@@ -1,0 +1,26 @@
+{{define "css-scope"}}
+    <style id="css-scope">
+        .scope {
+            display: flex;
+            justify-content: center;
+            column-gap: 1em;
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1em;
+        }
+
+        .scope a {
+            color: var(--subtle-color);
+            font-size: 0.8em;
+            padding: 0.5em;
+            text-decoration: none;
+        }
+
+        .scope .current a {
+            font-weight: bold;
+            background-color: var(--subtle-color);
+            color: var(--highlight-color);
+            border-radius: 4px;
+        }
+    </style>
+{{end}}

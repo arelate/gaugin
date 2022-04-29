@@ -1,12 +1,14 @@
 {{define "search-properties"}}
     <form class="search-form" action="/search" xmlns="http://www.w3.org/1999/html">
         <div class="search-text-container">
-            <label for="search-text">Any text</label>
-            <input id="search-text" type="search" name="text" placeholder="Text" value="{{.Query.Text}}" autofocus/>
-            <input type="submit"/>
+
         </div>
         <details>
-            <summary>Advanced</summary>
+            <summary>Filter & Search</summary>
+            <div>
+                <label for="search-text">Any text</label>
+                <input id="search-text" type="search" name="text" placeholder="Text" value="{{.Query.Text}}" autofocus/>
+            </div>
             <div>
                 <label for="search-title">Title</label>
                 <input id="search-title" type="search" name="title" placeholder="Title" value="{{.Query.Title}}"/>
@@ -193,6 +195,64 @@
                     <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
                            value="{{$query}}"/>
                 {{end}}
+            </div>
+            <div>
+                {{$pname = "types"}}
+                {{$placeholder = "Data Type"}}
+                {{$query = .Query.DataType}}
+                {{$digests = index .Digests $pname}}
+                <label for="search-{{$pname}}">{{$placeholder}}</label>
+                {{if $digests}}
+                    <select id="search-{{$pname}}" name="{{$pname}}">
+                        <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                        {{range $digests}}
+                            <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                {{else}}
+                    <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                           value="{{$query}}"/>
+                {{end}}
+            </div>
+            <div>
+                {{$pname = "sort"}}
+                {{$placeholder = "Sort"}}
+                {{$query = .Query.Sort}}
+                {{$digests = index .Digests $pname}}
+                <label for="search-{{$pname}}">{{$placeholder}}</label>
+                {{if $digests}}
+                    <select id="search-{{$pname}}" name="{{$pname}}">
+                        <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                        {{range $digests}}
+                            <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                {{else}}
+                    <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                           value="{{$query}}"/>
+                {{end}}
+            </div>
+            <div>
+                {{$pname = "desc"}}
+                {{$placeholder = "Descending"}}
+                {{$query = .Query.Desc}}
+                {{$digests = index .Digests $pname}}
+                <label for="search-{{$pname}}">{{$placeholder}}</label>
+                {{if $digests}}
+                    <select id="search-{{$pname}}" name="{{$pname}}">
+                        <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                        {{range $digests}}
+                            <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                {{else}}
+                    <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                           value="{{$query}}"/>
+                {{end}}
+            </div>
+            <div>
+                <label for="submit"></label>
+                <input id="submit" type="submit"/>
             </div>
         </details>
     </form>

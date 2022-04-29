@@ -1,8 +1,6 @@
 {{define "nav"}}
     <nav>
         <a class="updates {{if eq . "updates"}}{{`current`}}{{end}}" accesskey="u" href="/updates">Updates</a>
-        <a class="downloads {{if eq . "details"}}{{`current`}}{{end}}" accesskey="d" href="/downloads">Downloads</a>
-        <a class="all {{if eq . "store-products"}}{{`current`}}{{end}}" accesskey="a" href="/all">All</a>
-        <a class="search {{if eq . "search"}}{{`current`}}{{end}}" accesskey="s" href="/search">Search</a>
+        <a class="filter-products {{if eq . "filter-products"}}{{`current`}}{{end}}" accesskey="p" href="/search">Products</a>
     </nav>
 {{end}}

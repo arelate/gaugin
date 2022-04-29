@@ -26,10 +26,14 @@ type searchQuery struct {
 	ProductType string
 	Wishlisted  string
 	Owned       string
+	DataType    string
+	Sort        string
+	Desc        string
 }
 
 type searchProductsViewModel struct {
 	Context  string
+	Scope    string
 	Query    searchQuery
 	Digests  map[string][]string
 	Products []listProductViewModel
@@ -39,7 +43,8 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	dc := http.DefaultClient
 
 	spvm := &searchProductsViewModel{
-		Context: "search",
+		Context: "filter-products",
+		Scope:   r.URL.Query().Get("scope"),
 	}
 
 	q := r.URL.Query()
@@ -62,6 +67,9 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		ProductType: q.Get(vangogh_local_data.ProductTypeProperty),
 		Wishlisted:  q.Get(vangogh_local_data.WishlistedProperty),
 		Owned:       q.Get(vangogh_local_data.OwnedProperty),
+		DataType:    q.Get(vangogh_local_data.TypesProperty),
+		Sort:        q.Get("sort"),
+		Desc:        q.Get("desc"),
 	}
 
 	emptyQuery := true
@@ -109,7 +117,11 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.LanguageCodeProperty,
 		vangogh_local_data.ProductTypeProperty,
 		vangogh_local_data.WishlistedProperty,
-		vangogh_local_data.OwnedProperty)
+		vangogh_local_data.OwnedProperty,
+		vangogh_local_data.TypesProperty)
+
+	digests["sort"] = []string{vangogh_local_data.GOGReleaseDateProperty, vangogh_local_data.GOGOrderDateProperty, vangogh_local_data.TitleProperty}
+	digests["desc"] = []string{"true", "false"}
 
 	if err != nil {
 		http.Error(w, nod.ErrorStr("error getting digests"), http.StatusInternalServerError)

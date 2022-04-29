@@ -10,7 +10,7 @@
         <li class="{{if eq .Since 24}}{{`current`}}{{end}}"><a href="/updates?since=24">today</a></li>
         <li class="{{if eq .Since 120}}{{`current`}}{{end}}"><a href="/updates?since=120">this week</a></li>
     </ul>
-    <section id="updates-container">
+    <section class="updates-container">
         {{$sectionProducts := .SectionProducts}}
         {{if $sectionProducts}}
             {{range .Sections}}

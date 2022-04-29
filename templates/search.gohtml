@@ -5,6 +5,11 @@
     <body>
     {{template "svg-icons"}}
     {{template "nav" .Context}}
+    <ul class="scope">
+        <li class="{{if eq .Scope "owned"}}{{`current`}}{{end}}"><a href="/search?scope=owned&owned=true&sort=gog-order-date&desc=true">Owned</a></li>
+        <li class="{{if eq .Scope "wishlisted"}}{{`current`}}{{end}}"><a href="/search?scope=wishlisted&wishlisted=true">Wishlisted</a></li>
+        <li class="{{if eq .Scope "store"}}{{`current`}}{{end}}"><a href="/search?scope=store&types=store-products&sort=gog-release-date&desc=true">Store</a></li>
+    </ul>
     {{template "search-properties" .}}
     {{template "search-query" .Query}}
     {{template "products" .Products}}

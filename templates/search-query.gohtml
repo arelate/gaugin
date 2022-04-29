@@ -70,6 +70,18 @@
                 <li><span class="property-title">Owned:</span> <span
                             class="property-value">{{.Owned}}</span></li>
             {{end}}
+            {{if .DataType}}
+                <li><span class="property-title">Data Type:</span> <span
+                            class="property-value">{{.DataType}}</span></li>
+            {{end}}
+            {{if .Sort}}
+                <li><span class="property-title">Sort:</span> <span
+                            class="property-value">{{.Sort}}</span></li>
+            {{end}}
+            {{if .Desc}}
+                <li><span class="property-title">Descending:</span> <span
+                            class="property-value">{{.Desc}}</span></li>
+            {{end}}
         </ul>
     </div>
 {{end}}

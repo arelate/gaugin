@@ -5,23 +5,19 @@
         <meta name="color-scheme" content="dark light">
         <title>
             {{if eq .Context "updates"}}Updates
-            {{else if eq .Context "store-products"}}All
-            {{else if eq .Context "details"}}Downloads
             {{else if eq .Context "product"}}{{.Title}}
-            {{else if eq .Context "search"}}Search{{end}}
+            {{else if eq .Context "filter-products"}}Products{{end}}
             - gaugin</title>
         {{template "css-base-themes"}}
         {{template "css-nav"}}
         {{if eq .Context "updates"}}
+            {{template "css-scope"}}
             {{template "css-updates"}}
-            {{template "css-products"}}
-        {{else if eq .Context "store-products"}}
-            {{template "css-products"}}
-        {{else if eq .Context "details"}}
             {{template "css-products"}}
         {{else if eq .Context "product"}}
             {{template "css-product-details"}}
-        {{else if eq .Context "search"}}
+        {{else if eq .Context "filter-products"}}
+            {{template "css-scope"}}
             {{template "css-search"}}
             {{template "css-products"}}
         {{end}}
