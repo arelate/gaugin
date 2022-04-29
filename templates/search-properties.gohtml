@@ -12,8 +12,8 @@
                 <input id="search-title" type="search" name="title" placeholder="Title" value="{{.Query.Title}}"/>
             </div>
             <div>
-                <label for="search-tags">User tags</label>
-                <input id="search-tags" type="search" name="tag" placeholder="User tags" value="{{.Query.Tags}}"/>
+                <label for="search-tags">User Tags</label>
+                <input id="search-tags" type="search" name="tag" placeholder="User Tags" value="{{.Query.Tags}}"/>
             </div>
             <div>
                 {{$pname := "os"}}
@@ -67,7 +67,7 @@
             </div>
             <div>
                 {{$pname = "properties"}}
-                {{$placeholder = "Store tags"}}
+                {{$placeholder = "Store Tags"}}
                 {{$query = .Query.Properties}}
                 {{$digests = index .Digests $pname}}
                 <label for="search-{{$pname}}">{{$placeholder}}</label>
@@ -84,9 +84,6 @@
                 {{end}}
             </div>
             <div>
-{{/*                <label for="search-features">Features</label>*/}}
-{{/*                <input id="search-features" type="search" name="features" placeholder="Features"*/}}
-{{/*                       value="{{.Query.Features}}"/>*/}}
                 {{$pname = "features"}}
                 {{$placeholder = "Features"}}
                 {{$query = .Query.Features}}
@@ -145,7 +142,7 @@
             </div>
             <div>
                 {{$pname = "product-type"}}
-                {{$placeholder = "Type"}}
+                {{$placeholder = "Product Type"}}
                 {{$query = .Query.ProductType}}
                 {{$digests = index .Digests $pname}}
                 <label for="search-{{$pname}}">{{$placeholder}}</label>
