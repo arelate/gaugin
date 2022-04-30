@@ -64,7 +64,7 @@ type productViewModel struct {
 	// long text
 	Changelog   template.HTML
 	Description template.HTML
-	Copyrights  string
+	Copyrights  template.HTML
 	// screenshots
 	Screenshots []string
 	// video-ids
@@ -150,7 +150,7 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				ForumUrl:          propertyFromRedux(rdx, vangogh_local_data.ForumUrlProperty),
 				SupportUrl:        propertyFromRedux(rdx, vangogh_local_data.SupportUrlProperty),
 				Changelog:         template.HTML(propertyFromRedux(rdx, vangogh_local_data.ChanglogProperty)),
-				Copyrights:        propertyFromRedux(rdx, vangogh_local_data.CopyrightsProperty),
+				Copyrights:        template.HTML(propertyFromRedux(rdx, vangogh_local_data.CopyrightsProperty)),
 				Screenshots:       propertiesFromRedux(rdx, vangogh_local_data.ScreenshotsProperty),
 				Videos:            propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
 				Wishlisted:        propertyFromRedux(rdx, vangogh_local_data.WishlistedProperty) == "true",
