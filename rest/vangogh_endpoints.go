@@ -6,7 +6,11 @@ import (
 	"github.com/arelate/vangogh_local_data"
 	"net/http"
 	"net/url"
+	"time"
 )
+
+var urlLastModified = make(map[string]int64)
+var searchKeysCache = make(map[string][]string)
 
 func getKeys(client *http.Client, pt vangogh_local_data.ProductType, mt gog_integration.Media, count int) ([]string, error) {
 	ku := keysUrl(pt, mt, count)
@@ -40,14 +44,37 @@ func getDownloads(
 
 func getSearch(client *http.Client, q url.Values) ([]string, error) {
 	su := searchUrl(q)
-	resp, err := client.Get(su.String())
+	req, err := http.NewRequest(http.MethodGet, su.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+	if lmt, ok := urlLastModified[su.String()]; ok {
+		req.Header.Set("If-Modified-Since", time.Unix(lmt, 0).UTC().Format(time.RFC1123))
+	}
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
 
+	if lm := resp.Header.Get("Last-Modified"); lm != "" {
+		if lmt, err := time.Parse(time.RFC1123, lm); err != nil {
+			return nil, err
+		} else {
+			urlLastModified[su.String()] = lmt.UTC().Unix()
+		}
+	}
+
+	if resp.StatusCode == http.StatusNotModified {
+		return searchKeysCache[su.String()], nil
+	}
+
 	var keys []string
 	err = gob.NewDecoder(resp.Body).Decode(&keys)
+
+	searchKeysCache[su.String()] = keys
+
 	return keys, err
 }
 

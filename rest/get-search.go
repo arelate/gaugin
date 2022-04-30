@@ -5,6 +5,7 @@ import (
 	"github.com/boggydigital/nod"
 	"net/http"
 	"strings"
+	"time"
 )
 
 type searchQuery struct {
@@ -40,6 +41,7 @@ type searchProductsViewModel struct {
 }
 
 func GetSearch(w http.ResponseWriter, r *http.Request) {
+
 	dc := http.DefaultClient
 
 	spvm := &searchProductsViewModel{
@@ -87,6 +89,19 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
+		}
+
+		su := searchUrl(q)
+
+		lmu := time.Unix(urlLastModified[su.String()], 0).UTC()
+		w.Header().Set("Last-Modified", lmu.Format(time.RFC1123))
+		if ims := r.Header.Get("If-Modified-Since"); ims != "" {
+			if imst, err := time.Parse(time.RFC1123, ims); err == nil {
+				if imst.UTC().Unix() <= lmu.Unix() {
+					w.WriteHeader(http.StatusNotModified)
+					return
+				}
+			}
 		}
 
 		rdx, err := getRedux(dc,
