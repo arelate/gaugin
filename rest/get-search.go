@@ -49,9 +49,17 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	dc := http.DefaultClient
 
+	scope := ""
+	for s, rp := range predefinedSearchPaths {
+		if r.URL.RawQuery != "" && strings.HasSuffix(rp, r.URL.RawQuery) {
+			scope = s
+			break
+		}
+	}
+
 	spvm := &searchProductsViewModel{
 		Context: "filter-products",
-		Scope:   r.URL.Query().Get("scope"),
+		Scope:   scope,
 	}
 
 	q := r.URL.Query()
@@ -105,6 +113,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 		lmu := time.Unix(urlLastModified[su.String()], 0).UTC()
 		w.Header().Set("Last-Modified", lmu.Format(time.RFC1123))
+
 		if ims := r.Header.Get("If-Modified-Since"); ims != "" {
 			if imst, err := time.Parse(time.RFC1123, ims); err == nil {
 				if imst.UTC().Unix() <= lmu.Unix() {
