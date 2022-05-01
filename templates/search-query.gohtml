@@ -70,6 +70,26 @@
                 <li><span class="property-title">Owned:</span> <span
                             class="property-value">{{.Owned}}</span></li>
             {{end}}
+            {{if .PreOrder}}
+                <li><span class="property-title">Pre-order:</span> <span
+                            class="property-value">{{.PreOrder}}</span></li>
+            {{end}}
+            {{if .ComingSoon}}
+                <li><span class="property-title">Coming soon:</span> <span
+                            class="property-value">{{.ComingSoon}}</span></li>
+            {{end}}
+            {{if .TBA}}
+                <li><span class="property-title">To be announced:</span> <span
+                            class="property-value">{{.TBA}}</span></li>
+            {{end}}
+            {{if .InDevelopment}}
+                <li><span class="property-title">In development:</span> <span
+                            class="property-value">{{.InDevelopment}}</span></li>
+            {{end}}
+            {{if .IsUsingDOSBox}}
+                <li><span class="property-title">Is using DOSBox:</span> <span
+                            class="property-value">{{.IsUsingDOSBox}}</span></li>
+            {{end}}
             {{if .DataType}}
                 <li><span class="property-title">Data Type:</span> <span
                             class="property-value">{{.DataType}}</span></li>

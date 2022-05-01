@@ -113,6 +113,10 @@ func gogLink(p string) string {
 func hasLabel(lpvm listProductViewModel) bool {
 	return lpvm.Owned ||
 		lpvm.Wishlisted ||
+		lpvm.PreOrder ||
+		lpvm.ComingSoon ||
+		lpvm.TBA ||
+		lpvm.InDevelopment ||
 		lpvm.ProductType != "GAME" ||
 		len(lpvm.Tags) > 0
 }

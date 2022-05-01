@@ -202,6 +202,96 @@
                     {{end}}
                 </div>
                 <div>
+                    {{$pname = "pre-order"}}
+                    {{$placeholder = "Pre-order"}}
+                    {{$query = .Query.PreOrder}}
+                    {{$digests = index .Digests $pname}}
+                    <label for="search-{{$pname}}">{{$placeholder}}</label>
+                    {{if $digests}}
+                        <select id="search-{{$pname}}" name="{{$pname}}">
+                            <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                            {{range $digests}}
+                                <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                            {{end}}
+                        </select>
+                    {{else}}
+                        <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                               value="{{$query}}"/>
+                    {{end}}
+                </div>
+                <div>
+                    {{$pname = "coming-soon"}}
+                    {{$placeholder = "Coming soon"}}
+                    {{$query = .Query.ComingSoon}}
+                    {{$digests = index .Digests $pname}}
+                    <label for="search-{{$pname}}">{{$placeholder}}</label>
+                    {{if $digests}}
+                        <select id="search-{{$pname}}" name="{{$pname}}">
+                            <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                            {{range $digests}}
+                                <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                            {{end}}
+                        </select>
+                    {{else}}
+                        <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                               value="{{$query}}"/>
+                    {{end}}
+                </div>
+                <div>
+                    {{$pname = "tba"}}
+                    {{$placeholder = "To be announced"}}
+                    {{$query = .Query.TBA}}
+                    {{$digests = index .Digests $pname}}
+                    <label for="search-{{$pname}}">{{$placeholder}}</label>
+                    {{if $digests}}
+                        <select id="search-{{$pname}}" name="{{$pname}}">
+                            <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                            {{range $digests}}
+                                <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                            {{end}}
+                        </select>
+                    {{else}}
+                        <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                               value="{{$query}}"/>
+                    {{end}}
+                </div>
+                <div>
+                    {{$pname = "in-development"}}
+                    {{$placeholder = "In development"}}
+                    {{$query = .Query.InDevelopment}}
+                    {{$digests = index .Digests $pname}}
+                    <label for="search-{{$pname}}">{{$placeholder}}</label>
+                    {{if $digests}}
+                        <select id="search-{{$pname}}" name="{{$pname}}">
+                            <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                            {{range $digests}}
+                                <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                            {{end}}
+                        </select>
+                    {{else}}
+                        <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                               value="{{$query}}"/>
+                    {{end}}
+                </div>
+                <div>
+                    {{$pname = "is-using-dosbox"}}
+                    {{$placeholder = "Is using DOSBox"}}
+                    {{$query = .Query.IsUsingDOSBox}}
+                    {{$digests = index .Digests $pname}}
+                    <label for="search-{{$pname}}">{{$placeholder}}</label>
+                    {{if $digests}}
+                        <select id="search-{{$pname}}" name="{{$pname}}">
+                            <option {{if eq $query ""}}selected{{end}} value="">Any {{$placeholder}}</option>
+                            {{range $digests}}
+                                <option {{if eq $query .}}selected{{end}} value="{{.}}">{{.}}</option>
+                            {{end}}
+                        </select>
+                    {{else}}
+                        <input id="search-{{$pname}}" type="search" name="{{$pname}}" placeholder="{{$placeholder}}"
+                               value="{{$query}}"/>
+                    {{end}}
+                </div>
+                <div>
                     {{$pname = "types"}}
                     {{$placeholder = "Data Type"}}
                     {{$query = .Query.DataType}}

@@ -9,27 +9,32 @@ import (
 )
 
 type searchQuery struct {
-	Text        string
-	Title       string
-	Tags        string
-	OS          string
-	Developers  string
-	Publisher   string
-	Series      string
-	Genres      string
-	Properties  string
-	Features    string
-	Languages   string
-	Includes    string
-	IncludedBy  string
-	Requires    string
-	RequiredBy  string
-	ProductType string
-	Wishlisted  string
-	Owned       string
-	DataType    string
-	Sort        string
-	Desc        string
+	Text          string
+	Title         string
+	Tags          string
+	OS            string
+	Developers    string
+	Publisher     string
+	Series        string
+	Genres        string
+	Properties    string
+	Features      string
+	Languages     string
+	Includes      string
+	IncludedBy    string
+	Requires      string
+	RequiredBy    string
+	ProductType   string
+	Wishlisted    string
+	Owned         string
+	PreOrder      string
+	ComingSoon    string
+	TBA           string
+	InDevelopment string
+	IsUsingDOSBox string
+	DataType      string
+	Sort          string
+	Desc          string
 }
 
 type searchProductsViewModel struct {
@@ -51,27 +56,32 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	q := r.URL.Query()
 	spvm.Query = searchQuery{
-		Text:        q.Get("text"),
-		Title:       q.Get(vangogh_local_data.TitleProperty),
-		Tags:        q.Get(vangogh_local_data.TagIdProperty),
-		OS:          q.Get(vangogh_local_data.OperatingSystemsProperty),
-		Developers:  q.Get(vangogh_local_data.DevelopersProperty),
-		Publisher:   q.Get(vangogh_local_data.PublisherProperty),
-		Series:      q.Get(vangogh_local_data.SeriesProperty),
-		Genres:      q.Get(vangogh_local_data.GenresProperty),
-		Properties:  q.Get(vangogh_local_data.PropertiesProperty),
-		Features:    q.Get(vangogh_local_data.FeaturesProperty),
-		Languages:   q.Get(vangogh_local_data.LanguageCodeProperty),
-		Includes:    q.Get(vangogh_local_data.IncludesGamesProperty),
-		IncludedBy:  q.Get(vangogh_local_data.IsIncludedByGamesProperty),
-		Requires:    q.Get(vangogh_local_data.RequiresGamesProperty),
-		RequiredBy:  q.Get(vangogh_local_data.IsRequiredByGamesProperty),
-		ProductType: q.Get(vangogh_local_data.ProductTypeProperty),
-		Wishlisted:  q.Get(vangogh_local_data.WishlistedProperty),
-		Owned:       q.Get(vangogh_local_data.OwnedProperty),
-		DataType:    q.Get(vangogh_local_data.TypesProperty),
-		Sort:        q.Get("sort"),
-		Desc:        q.Get("desc"),
+		Text:          q.Get("text"),
+		Title:         q.Get(vangogh_local_data.TitleProperty),
+		Tags:          q.Get(vangogh_local_data.TagIdProperty),
+		OS:            q.Get(vangogh_local_data.OperatingSystemsProperty),
+		Developers:    q.Get(vangogh_local_data.DevelopersProperty),
+		Publisher:     q.Get(vangogh_local_data.PublisherProperty),
+		Series:        q.Get(vangogh_local_data.SeriesProperty),
+		Genres:        q.Get(vangogh_local_data.GenresProperty),
+		Properties:    q.Get(vangogh_local_data.PropertiesProperty),
+		Features:      q.Get(vangogh_local_data.FeaturesProperty),
+		Languages:     q.Get(vangogh_local_data.LanguageCodeProperty),
+		Includes:      q.Get(vangogh_local_data.IncludesGamesProperty),
+		IncludedBy:    q.Get(vangogh_local_data.IsIncludedByGamesProperty),
+		Requires:      q.Get(vangogh_local_data.RequiresGamesProperty),
+		RequiredBy:    q.Get(vangogh_local_data.IsRequiredByGamesProperty),
+		ProductType:   q.Get(vangogh_local_data.ProductTypeProperty),
+		Wishlisted:    q.Get(vangogh_local_data.WishlistedProperty),
+		Owned:         q.Get(vangogh_local_data.OwnedProperty),
+		PreOrder:      q.Get(vangogh_local_data.PreOrderProperty),
+		ComingSoon:    q.Get(vangogh_local_data.ComingSoonProperty),
+		TBA:           q.Get(vangogh_local_data.TBAProperty),
+		InDevelopment: q.Get(vangogh_local_data.InDevelopmentProperty),
+		IsUsingDOSBox: q.Get(vangogh_local_data.IsUsingDOSBoxProperty),
+		DataType:      q.Get(vangogh_local_data.TypesProperty),
+		Sort:          q.Get("sort"),
+		Desc:          q.Get("desc"),
 	}
 
 	emptyQuery := true
@@ -109,6 +119,10 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			vangogh_local_data.TitleProperty,
 			vangogh_local_data.WishlistedProperty,
 			vangogh_local_data.OwnedProperty,
+			vangogh_local_data.ComingSoonProperty,
+			vangogh_local_data.PreOrderProperty,
+			vangogh_local_data.TBAProperty,
+			vangogh_local_data.InDevelopmentProperty,
 			vangogh_local_data.DevelopersProperty,
 			vangogh_local_data.PublisherProperty,
 			vangogh_local_data.OperatingSystemsProperty,
@@ -133,6 +147,11 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.ProductTypeProperty,
 		vangogh_local_data.WishlistedProperty,
 		vangogh_local_data.OwnedProperty,
+		vangogh_local_data.PreOrderProperty,
+		vangogh_local_data.ComingSoonProperty,
+		vangogh_local_data.TBAProperty,
+		vangogh_local_data.InDevelopmentProperty,
+		vangogh_local_data.IsUsingDOSBoxProperty,
 		vangogh_local_data.TypesProperty)
 
 	digests["sort"] = []string{

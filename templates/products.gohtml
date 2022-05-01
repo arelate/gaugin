@@ -21,6 +21,18 @@
                                             <li class="labelled product-type">{{.ProductType}}</li>
                                         {{end}}
                                     {{end}}
+                                    {{if .PreOrder}}
+                                        <li class="labelled preorder">PRE-ORDER</li>
+                                    {{end}}
+                                    {{if .ComingSoon}}
+                                        <li class="labelled coming-soon">COMING SOON</li>
+                                    {{end}}
+                                    {{if .TBA}}
+                                        <li class="labelled tba">TBA</li>
+                                    {{end}}
+                                    {{if .InDevelopment}}
+                                        <li class="labelled in-development">IN DEV</li>
+                                    {{end}}
                                     {{range .Tags}}
                                         <li class="labelled tag">{{productTitle .}}</li>
                                     {{end}}

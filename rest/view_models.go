@@ -14,6 +14,10 @@ type listProductViewModel struct {
 	Publisher        string
 	Wishlisted       bool
 	Owned            bool
+	PreOrder         bool
+	InDevelopment    bool
+	TBA              bool
+	ComingSoon       bool
 	OperatingSystems []string
 	Tags             []string
 	ProductType      string
@@ -32,10 +36,8 @@ type updatesViewModel struct {
 }
 
 type productViewModel struct {
-	Context    string
-	Id         string
-	Wishlisted bool
-	Owned      bool
+	Context string
+	Id      string
 	// text properties
 	ProductType       string
 	Title             string
@@ -72,6 +74,14 @@ type productViewModel struct {
 	// downloads
 	CurrentOSDownloads vangogh_local_data.DownloadsList
 	OtherOSDownloads   vangogh_local_data.DownloadsList
+	// labels
+	Wishlisted    bool
+	Owned         bool
+	PreOrder      bool
+	TBA           bool
+	ComingSoon    bool
+	InDevelopment bool
+	IsUsingDOXBox bool
 }
 
 func propertyFromRedux(redux map[string][]string, property string) string {
@@ -104,6 +114,10 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 			Title:            propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
 			Wishlisted:       propertyFromRedux(rdx, vangogh_local_data.WishlistedProperty) == "true",
 			Owned:            propertyFromRedux(rdx, vangogh_local_data.OwnedProperty) == "true",
+			PreOrder:         propertyFromRedux(rdx, vangogh_local_data.PreOrderProperty) == "true",
+			ComingSoon:       propertyFromRedux(rdx, vangogh_local_data.ComingSoonProperty) == "true",
+			InDevelopment:    propertyFromRedux(rdx, vangogh_local_data.InDevelopmentProperty) == "true",
+			TBA:              propertyFromRedux(rdx, vangogh_local_data.TBAProperty) == "true",
 			Developers:       propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
 			Publisher:        propertyFromRedux(rdx, vangogh_local_data.PublisherProperty),
 			OperatingSystems: propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
@@ -155,6 +169,11 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				Videos:            propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
 				Wishlisted:        propertyFromRedux(rdx, vangogh_local_data.WishlistedProperty) == "true",
 				Owned:             propertyFromRedux(rdx, vangogh_local_data.OwnedProperty) == "true",
+				PreOrder:          propertyFromRedux(rdx, vangogh_local_data.PreOrderProperty) == "true",
+				TBA:               propertyFromRedux(rdx, vangogh_local_data.TBAProperty) == "true",
+				ComingSoon:        propertyFromRedux(rdx, vangogh_local_data.ComingSoonProperty) == "true",
+				InDevelopment:     propertyFromRedux(rdx, vangogh_local_data.InDevelopmentProperty) == "true",
+				IsUsingDOXBox:     propertyFromRedux(rdx, vangogh_local_data.IsUsingDOSBoxProperty) == "true",
 			}
 
 			//Description content preparation includes the following steps:
