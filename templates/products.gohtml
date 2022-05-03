@@ -6,39 +6,39 @@
             {{if .Title}}
                 <a class="product" href="/product?id={{.Id}}">
                     <h2 class="title">{{ .Title }}</h2>
+                    {{if hasLabel .}}
+                        {{/*                            <div class="property-title">Labels</div>*/}}
+                        {{/*                            <div class="property-value">*/}}
+                        <ul class="labels">
+                            {{if .Wishlisted}}
+                                <li class="labelled wishlisted">WISHLISTED</li>
+                            {{end}}
+                            {{if .Owned}}
+                                <li class="labelled owned">OWNED</li>{{end}}
+                            {{if .ProductType}}
+                                {{if ne .ProductType "GAME"}}
+                                    <li class="labelled product-type">{{.ProductType}}</li>
+                                {{end}}
+                            {{end}}
+                            {{if .PreOrder}}
+                                <li class="labelled preorder">PRE-ORDER</li>
+                            {{end}}
+                            {{if .ComingSoon}}
+                                <li class="labelled coming-soon">COMING SOON</li>
+                            {{end}}
+                            {{if .TBA}}
+                                <li class="labelled tba">TBA</li>
+                            {{end}}
+                            {{if .InDevelopment}}
+                                <li class="labelled in-development">IN DEV</li>
+                            {{end}}
+                            {{range .Tags}}
+                                <li class="labelled tag">{{productTitle .}}</li>
+                            {{end}}
+                        </ul>
+                        {{/*                            </div>*/}}
+                    {{end}}
                     <div class="text-properties">
-                        {{if hasLabel .}}
-                            <div class="property-title">Labels</div>
-                            <div class="property-value">
-                                <ul class="labels">
-                                    {{if .Wishlisted}}
-                                        <li class="labelled wishlisted">WISHLISTED</li>
-                                    {{end}}
-                                    {{if .Owned}}
-                                        <li class="labelled owned">OWNED</li>{{end}}
-                                    {{if .ProductType}}
-                                        {{if ne .ProductType "GAME"}}
-                                            <li class="labelled product-type">{{.ProductType}}</li>
-                                        {{end}}
-                                    {{end}}
-                                    {{if .PreOrder}}
-                                        <li class="labelled preorder">PRE-ORDER</li>
-                                    {{end}}
-                                    {{if .ComingSoon}}
-                                        <li class="labelled coming-soon">COMING SOON</li>
-                                    {{end}}
-                                    {{if .TBA}}
-                                        <li class="labelled tba">TBA</li>
-                                    {{end}}
-                                    {{if .InDevelopment}}
-                                        <li class="labelled in-development">IN DEV</li>
-                                    {{end}}
-                                    {{range .Tags}}
-                                        <li class="labelled tag">{{productTitle .}}</li>
-                                    {{end}}
-                                </ul>
-                            </div>
-                        {{end}}
                         <div class="property-title">Developers</div>
                         <div class="property-value">{{range .Developers}}<span>{{.}}</span> {{end}}</div>
                         <div class="property-title">Publisher</div>

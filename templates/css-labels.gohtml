@@ -1,5 +1,15 @@
 {{define "css-labels"}}
     <style id="css-labels">
+
+        ul.labels {
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: 0.5em;
+            row-gap: 0.25em;
+            padding-inline-start: 1em;
+            /*padding: 0;*/
+        }
+
         .labelled.wishlisted {
             background-color: var(--system-pink-color);
             color: var(--highlight-color);

@@ -66,7 +66,7 @@
             padding: 0.5em 1em;
             text-decoration: none;
             content-visibility: auto;
-            /* 135px is the average size of the element in "All" section */
+            /* 135px is the average size of the element in "Products > store" section */
             contain-intrinsic-size: 300px 135px;
         }
 
@@ -76,30 +76,18 @@
             padding-bottom: 0.25em;
         }
 
+        .products .product ul.labels {
+            margin: 0 0 0.25em 0;
+            padding: 0;
+            column-gap: 0.25em;
+        }
+
         .products .product .labelled {
             padding: 0 4px;
             border-radius: 2px;
             font-size: 0.5em;
             font-weight: bold;
-            /*display: inline-block;*/
             list-style: none;
-        }
-
-        .products .product .owned {
-            background-color: var(--color);
-            color: var(--background-color);
-        }
-
-        .products .product .labels {
-            display: flex;
-            flex-wrap: wrap;
-            column-gap: 0.5em;
-            row-gap: 0.25em;
-        }
-
-        .products .product .tag {
-            background: var(--system-indigo-color);
-            color: var(--highlight-color);
         }
 
         .products .product .text-properties {
@@ -107,7 +95,7 @@
             font-size: 0.5em;
             font-weight: normal;
             display: grid;
-            grid-template-columns: 1fr 3fr;
+            grid-template-columns: 7em auto;
             align-content: center;
             grid-column-gap: 0.5em;
             grid-row-gap: 0.25em;
