@@ -52,31 +52,33 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	pvm.Videos = validVideos
 
-	dls, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes)
-	if err != nil {
-		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
-	}
+	if pvm.Owned {
+		dls, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes)
+		if err != nil {
+			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+			return
+		}
 
-	var currentOS vangogh_local_data.OperatingSystem
-	userAgent := r.Header.Get("User-Agent")
-	if strings.Contains(userAgent, "Windows") {
-		currentOS = vangogh_local_data.Windows
-	} else if strings.Contains(userAgent, "Mac OS X") {
-		currentOS = vangogh_local_data.MacOS
-	} else if strings.Contains(userAgent, "Linux") {
-		currentOS = vangogh_local_data.Linux
-	}
+		var currentOS vangogh_local_data.OperatingSystem
+		userAgent := r.Header.Get("User-Agent")
+		if strings.Contains(userAgent, "Windows") {
+			currentOS = vangogh_local_data.Windows
+		} else if strings.Contains(userAgent, "Mac OS X") {
+			currentOS = vangogh_local_data.MacOS
+		} else if strings.Contains(userAgent, "Linux") {
+			currentOS = vangogh_local_data.Linux
+		}
 
-	pvm.CurrentOSDownloads = make(vangogh_local_data.DownloadsList, 0, len(dls))
-	pvm.OtherOSDownloads = make(vangogh_local_data.DownloadsList, 0, len(dls))
+		pvm.CurrentOSDownloads = make(vangogh_local_data.DownloadsList, 0, len(dls))
+		pvm.OtherOSDownloads = make(vangogh_local_data.DownloadsList, 0, len(dls))
 
-	for _, dl := range dls {
-		if dl.OS == currentOS ||
-			dl.OS == vangogh_local_data.AnyOperatingSystem {
-			pvm.CurrentOSDownloads = append(pvm.CurrentOSDownloads, dl)
-		} else {
-			pvm.OtherOSDownloads = append(pvm.OtherOSDownloads, dl)
+		for _, dl := range dls {
+			if dl.OS == currentOS ||
+				dl.OS == vangogh_local_data.AnyOperatingSystem {
+				pvm.CurrentOSDownloads = append(pvm.CurrentOSDownloads, dl)
+			} else {
+				pvm.OtherOSDownloads = append(pvm.OtherOSDownloads, dl)
+			}
 		}
 	}
 

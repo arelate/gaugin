@@ -1,3 +1,6 @@
+Finish If-Modified-Since implementation:
+	- generalize search caching middleware in gaugin to support any endpoint by URL and apply to digest, redux
+
 Implement add to wishlist:
 	- for products that are not owned
 	- "Add to wishlist" button
