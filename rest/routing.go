@@ -7,7 +7,7 @@ import (
 
 var predefinedSearchPaths = map[string]string{
 	"downloads": "/search?types=account-products&sort=gog-order-date&desc=true",
-	"wishlist":  "/search?wishlisted=true&sort=rating&desc=true",
+	"wishlist":  "/search?wishlisted=true&sort=gog-release-date&desc=true",
 	"store":     "/search?types=store-products&sort=gog-release-date&desc=true",
 }
 
