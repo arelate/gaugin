@@ -13,12 +13,12 @@
                 {{end}}
             </ul>
             <ul class="additional-details">
-                <li class="type">Type: <span class="highlight">{{.Type}}</span></li>
+                <li class="type highlight labelled {{.Type}}">{{.Type}}</li>
                 {{if .LanguageCode}}
-                    <li>Language: <span class="highlight">{{.LanguageCode}}</span></li>
+                    <li>Lang: <span class="highlight">{{.LanguageCode}}</span></li>
                 {{end}}
                 {{if .Version}}
-                    <li>Version: <span class="highlight">{{.Version}}</span></li>
+                    <li>Ver: <span class="highlight">{{.Version}}</span></li>
                 {{end}}
 
             </ul>

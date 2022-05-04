@@ -38,11 +38,12 @@ type searchQuery struct {
 }
 
 type searchProductsViewModel struct {
-	Context  string
-	Scope    string
-	Query    searchQuery
-	Digests  map[string][]string
-	Products []listProductViewModel
+	Context    string
+	Scope      string
+	Query      searchQuery
+	EmptyQuery bool
+	Digests    map[string][]string
+	Products   []listProductViewModel
 }
 
 func GetSearch(w http.ResponseWriter, r *http.Request) {
@@ -58,8 +59,8 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	}
 
 	spvm := &searchProductsViewModel{
-		Context: "filter-products",
 		Scope:   scope,
+		Context: "filter-products",
 	}
 
 	q := r.URL.Query()
@@ -102,7 +103,10 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	if !emptyQuery {
+	if emptyQuery {
+		spvm.EmptyQuery = true
+	} else {
+
 		keys, err := getSearch(dc, q)
 		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
@@ -148,6 +152,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	}
 
 	digests, err := getDigests(dc,
+		vangogh_local_data.TagIdProperty,
 		vangogh_local_data.OperatingSystemsProperty,
 		vangogh_local_data.GenresProperty,
 		vangogh_local_data.PropertiesProperty,
