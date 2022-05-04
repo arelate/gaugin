@@ -11,30 +11,32 @@
 
         <ul class="labels">
             {{if .Wishlisted}}
-                <li class="labelled wishlisted">WISHLISTED</li>
+                <li class="labelled wishlisted"><a href="/search?wishlisted=true">WISHLISTED</a></li>
             {{end}}
             {{if .Owned}}
-                <li class="labelled owned">OWNED</li>
+                <li class="labelled owned"><a href="/search?owned=true">OWNED</a></li>
             {{end}}
             {{if .ProductType}}
                 {{if ne .ProductType "GAME"}}
-                    <li class="labelled product-type">{{.ProductType}}</li>
+                    <li class="labelled product-type"><a href="/search?product-type={{.ProductType}}">{{.ProductType}}</a></li>
                 {{end}}
             {{end}}
             {{if .PreOrder}}
-                <li class="labelled preorder">PRE-ORDER</li>
+                <li class="labelled preorder"><a href="/search?pre-order=true">PRE-ORDER</a></li>
             {{end}}
             {{if .ComingSoon}}
-                <li class="labelled coming-soon">COMING SOON</li>
+                <li class="labelled coming-soon"><a href="/search?coming-soon=true">COMING SOON</a></li>
             {{end}}
             {{if .TBA}}
-                <li class="labelled tba">TBA</li>
+                <li class="labelled tba"><a href="/search?tba=true">TBA</a></li>
             {{end}}
             {{if .InDevelopment}}
-                <li class="labelled in-development">IN DEV</li>
+                <li class="labelled in-development"><a href="/search?in-development=true">IN DEV</a></li>
             {{end}}
             {{if .Tags}}
-                <li class="labelled tag"><a href="/search?tag={{productTitle .}}">{{productTitle .}}</a></li>
+                {{range .Tags}}
+                    <li class="labelled tag"><a href="/search?tag={{productTitle .}}">{{productTitle .}}</a></li>
+                {{end}}
             {{end}}
         </ul>
 
