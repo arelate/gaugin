@@ -8,45 +8,97 @@ import (
 	"time"
 )
 
-type searchQuery struct {
-	Text          string
-	Title         string
-	Tags          string
-	OS            string
-	Developers    string
-	Publisher     string
-	Series        string
-	Genres        string
-	Properties    string
-	Features      string
-	Languages     string
-	Includes      string
-	IncludedBy    string
-	Requires      string
-	RequiredBy    string
-	ProductType   string
-	Wishlisted    string
-	Owned         string
-	PreOrder      string
-	ComingSoon    string
-	TBA           string
-	InDevelopment string
-	IsUsingDOSBox string
-	DataType      string
-	Sort          string
-	Desc          string
+var gauginSearchProperties = []string{
+	vangogh_local_data.TextProperty,
+	vangogh_local_data.TitleProperty,
+	vangogh_local_data.TagIdProperty,
+	vangogh_local_data.OperatingSystemsProperty,
+	vangogh_local_data.DevelopersProperty,
+	vangogh_local_data.PublisherProperty,
+	vangogh_local_data.SeriesProperty,
+	vangogh_local_data.GenresProperty,
+	vangogh_local_data.PropertiesProperty,
+	vangogh_local_data.FeaturesProperty,
+	vangogh_local_data.LanguageCodeProperty,
+	vangogh_local_data.IncludesGamesProperty,
+	vangogh_local_data.IsIncludedByGamesProperty,
+	vangogh_local_data.RequiresGamesProperty,
+	vangogh_local_data.IsRequiredByGamesProperty,
+	vangogh_local_data.ProductTypeProperty,
+	vangogh_local_data.WishlistedProperty,
+	vangogh_local_data.OwnedProperty,
+	vangogh_local_data.PreOrderProperty,
+	vangogh_local_data.ComingSoonProperty,
+	vangogh_local_data.TBAProperty,
+	vangogh_local_data.InDevelopmentProperty,
+	vangogh_local_data.IsUsingDOSBoxProperty,
+	vangogh_local_data.TypesProperty,
+	//
+	"sort",
+	"desc",
+}
+
+var searchPropertyNames = map[string]string{
+	vangogh_local_data.TextProperty:              "Any Text",
+	vangogh_local_data.TitleProperty:             "Title",
+	vangogh_local_data.TagIdProperty:             "User Tags",
+	vangogh_local_data.OperatingSystemsProperty:  "OS",
+	vangogh_local_data.DevelopersProperty:        "Developers",
+	vangogh_local_data.PublisherProperty:         "Publisher",
+	vangogh_local_data.SeriesProperty:            "Series",
+	vangogh_local_data.GenresProperty:            "Genres",
+	vangogh_local_data.PropertiesProperty:        "Store Tags",
+	vangogh_local_data.FeaturesProperty:          "Features",
+	vangogh_local_data.LanguageCodeProperty:      "Language",
+	vangogh_local_data.IncludesGamesProperty:     "Includes",
+	vangogh_local_data.IsIncludedByGamesProperty: "Included By",
+	vangogh_local_data.RequiresGamesProperty:     "Requires",
+	vangogh_local_data.IsRequiredByGamesProperty: "Required By",
+	vangogh_local_data.ProductTypeProperty:       "Product Type",
+	vangogh_local_data.WishlistedProperty:        "Wishlisted",
+	vangogh_local_data.OwnedProperty:             "Owned",
+	vangogh_local_data.PreOrderProperty:          "Pre-order",
+	vangogh_local_data.ComingSoonProperty:        "Coming Soon",
+	vangogh_local_data.TBAProperty:               "TBA",
+	vangogh_local_data.InDevelopmentProperty:     "In Development",
+	vangogh_local_data.IsUsingDOSBoxProperty:     "Using DOSBox",
+	vangogh_local_data.TypesProperty:             "Data Type",
+	//
+	"sort": "Sort",
+	"desc": "Descending",
+}
+
+var gauginDigestibleProperties = []string{
+	vangogh_local_data.TagIdProperty,
+	vangogh_local_data.OperatingSystemsProperty,
+	vangogh_local_data.GenresProperty,
+	vangogh_local_data.PropertiesProperty,
+	vangogh_local_data.FeaturesProperty,
+	vangogh_local_data.LanguageCodeProperty,
+	vangogh_local_data.ProductTypeProperty,
+	vangogh_local_data.WishlistedProperty,
+	vangogh_local_data.OwnedProperty,
+	vangogh_local_data.PreOrderProperty,
+	vangogh_local_data.ComingSoonProperty,
+	vangogh_local_data.TBAProperty,
+	vangogh_local_data.InDevelopmentProperty,
+	vangogh_local_data.IsUsingDOSBoxProperty,
+	vangogh_local_data.TypesProperty,
 }
 
 type searchProductsViewModel struct {
-	Context    string
-	Scope      string
-	Query      searchQuery
-	EmptyQuery bool
-	Digests    map[string][]string
-	Products   []listProductViewModel
+	Context          string
+	Scope            string
+	SearchProperties []string
+	Query            map[string]string
+	EmptyQuery       bool
+	Digests          map[string][]string
+	Products         []listProductViewModel
 }
 
 func GetSearch(w http.ResponseWriter, r *http.Request) {
+
+	// GET /search?(search_params)
 
 	dc := http.DefaultClient
 
@@ -58,39 +110,18 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	q := r.URL.Query()
+
 	spvm := &searchProductsViewModel{
-		Scope:   scope,
-		Context: "filter-products",
+		Scope:            scope,
+		Context:          "filter-products",
+		SearchProperties: gauginSearchProperties,
+		Query:            make(map[string]string, len(q)),
 	}
 
-	q := r.URL.Query()
-	spvm.Query = searchQuery{
-		Text:          q.Get("text"),
-		Title:         q.Get(vangogh_local_data.TitleProperty),
-		Tags:          q.Get(vangogh_local_data.TagIdProperty),
-		OS:            q.Get(vangogh_local_data.OperatingSystemsProperty),
-		Developers:    q.Get(vangogh_local_data.DevelopersProperty),
-		Publisher:     q.Get(vangogh_local_data.PublisherProperty),
-		Series:        q.Get(vangogh_local_data.SeriesProperty),
-		Genres:        q.Get(vangogh_local_data.GenresProperty),
-		Properties:    q.Get(vangogh_local_data.PropertiesProperty),
-		Features:      q.Get(vangogh_local_data.FeaturesProperty),
-		Languages:     q.Get(vangogh_local_data.LanguageCodeProperty),
-		Includes:      q.Get(vangogh_local_data.IncludesGamesProperty),
-		IncludedBy:    q.Get(vangogh_local_data.IsIncludedByGamesProperty),
-		Requires:      q.Get(vangogh_local_data.RequiresGamesProperty),
-		RequiredBy:    q.Get(vangogh_local_data.IsRequiredByGamesProperty),
-		ProductType:   q.Get(vangogh_local_data.ProductTypeProperty),
-		Wishlisted:    q.Get(vangogh_local_data.WishlistedProperty),
-		Owned:         q.Get(vangogh_local_data.OwnedProperty),
-		PreOrder:      q.Get(vangogh_local_data.PreOrderProperty),
-		ComingSoon:    q.Get(vangogh_local_data.ComingSoonProperty),
-		TBA:           q.Get(vangogh_local_data.TBAProperty),
-		InDevelopment: q.Get(vangogh_local_data.InDevelopmentProperty),
-		IsUsingDOSBox: q.Get(vangogh_local_data.IsUsingDOSBoxProperty),
-		DataType:      q.Get(vangogh_local_data.TypesProperty),
-		Sort:          q.Get("sort"),
-		Desc:          q.Get("desc"),
+	queryProperties := append(gauginSearchProperties)
+	for _, p := range queryProperties {
+		spvm.Query[p] = q.Get(p)
 	}
 
 	emptyQuery := true
@@ -127,20 +158,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
-		rdx, err := getRedux(dc,
-			strings.Join(keys, ","),
-			vangogh_local_data.TitleProperty,
-			vangogh_local_data.WishlistedProperty,
-			vangogh_local_data.OwnedProperty,
-			vangogh_local_data.ComingSoonProperty,
-			vangogh_local_data.PreOrderProperty,
-			vangogh_local_data.TBAProperty,
-			vangogh_local_data.InDevelopmentProperty,
-			vangogh_local_data.DevelopersProperty,
-			vangogh_local_data.PublisherProperty,
-			vangogh_local_data.OperatingSystemsProperty,
-			vangogh_local_data.TagIdProperty,
-			vangogh_local_data.ProductTypeProperty)
+		rdx, err := getRedux(dc, strings.Join(keys, ","), listReduxProperties...)
 
 		if err != nil {
 			http.Error(w, nod.ErrorStr("error getting all_redux"), http.StatusInternalServerError)
@@ -151,28 +169,14 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		spvm.Products = lvm.Products
 	}
 
-	digests, err := getDigests(dc,
-		vangogh_local_data.TagIdProperty,
-		vangogh_local_data.OperatingSystemsProperty,
-		vangogh_local_data.GenresProperty,
-		vangogh_local_data.PropertiesProperty,
-		vangogh_local_data.FeaturesProperty,
-		vangogh_local_data.LanguageCodeProperty,
-		vangogh_local_data.ProductTypeProperty,
-		vangogh_local_data.WishlistedProperty,
-		vangogh_local_data.OwnedProperty,
-		vangogh_local_data.PreOrderProperty,
-		vangogh_local_data.ComingSoonProperty,
-		vangogh_local_data.TBAProperty,
-		vangogh_local_data.InDevelopmentProperty,
-		vangogh_local_data.IsUsingDOSBoxProperty,
-		vangogh_local_data.TypesProperty)
+	digests, err := getDigests(dc, gauginDigestibleProperties...)
 
 	digests["sort"] = []string{
 		vangogh_local_data.GOGReleaseDateProperty,
 		vangogh_local_data.GOGOrderDateProperty,
 		vangogh_local_data.TitleProperty,
 		vangogh_local_data.RatingProperty}
+
 	digests["desc"] = []string{"true", "false"}
 
 	if err != nil {

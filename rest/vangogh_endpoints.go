@@ -97,7 +97,6 @@ func getSearch(client *http.Client, q url.Values) ([]string, error) {
 	return getThroughCache(client, searchUrl(q), searchCache)
 }
 
-func getDigests(client *http.Client,
-	properties ...string) (map[string][]string, error) {
+func getDigests(client *http.Client, properties ...string) (map[string][]string, error) {
 	return getThroughCache(client, digestUrl(properties...), digestsCache)
 }

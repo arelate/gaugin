@@ -13,16 +13,17 @@ import (
 
 func funcMap() template.FuncMap {
 	return template.FuncMap{
-		"productTitle":  productTitle,
-		"productId":     productId,
-		"formatBytes":   formatBytes,
-		"justTheDate":   justTheDate,
-		"formatDate":    formatDate,
-		"ratingPercent": ratingPercent,
-		"gogLink":       gogLink,
-		"toLower":       toLower,
-		"dlTitle":       dlTitle,
-		"hasLabel":      hasLabel,
+		"productTitle":       productTitle,
+		"productId":          productId,
+		"formatBytes":        formatBytes,
+		"justTheDate":        justTheDate,
+		"formatDate":         formatDate,
+		"ratingPercent":      ratingPercent,
+		"gogLink":            gogLink,
+		"toLower":            toLower,
+		"dlTitle":            dlTitle,
+		"hasLabel":           hasLabel,
+		"searchPropertyName": searchPropertyName,
 	}
 }
 
@@ -119,4 +120,8 @@ func hasLabel(lpvm listProductViewModel) bool {
 		lpvm.InDevelopment ||
 		lpvm.ProductType != "GAME" ||
 		len(lpvm.Tags) > 0
+}
+
+func searchPropertyName(p string) string {
+	return searchPropertyNames[p]
 }

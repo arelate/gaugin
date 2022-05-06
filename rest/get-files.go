@@ -1,7 +1,6 @@
 package rest
 
 import (
-	"fmt"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
 	"net/http"
@@ -10,12 +9,6 @@ import (
 func GetFiles(w http.ResponseWriter, r *http.Request) {
 
 	// GET /files?manual-url
-
-	if r.Method != http.MethodGet {
-		err := fmt.Errorf("unsupported method")
-		http.Error(w, nod.Error(err).Error(), http.StatusMethodNotAllowed)
-		return
-	}
 
 	q := r.URL.Query()
 

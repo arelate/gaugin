@@ -15,14 +15,14 @@ func HandleFuncs() {
 
 	patternHandlers := map[string]http.Handler{
 		// current endpoints
-		"/updates":     Gzip(nod.RequestLog(http.HandlerFunc(GetUpdates))),
-		"/product":     Gzip(nod.RequestLog(http.HandlerFunc(GetProduct))),
-		"/search":      Gzip(nod.RequestLog(http.HandlerFunc(GetSearch))),
-		"/images":      nod.RequestLog(http.HandlerFunc(GetImages)),
-		"/videos":      nod.RequestLog(http.HandlerFunc(GetVideos)),
-		"/items/":      nod.RequestLog(http.HandlerFunc(GetItems)),
-		"/files":       basicHttpAuth(nod.RequestLog(http.HandlerFunc(GetFiles))),
-		"/local-file/": basicHttpAuth(nod.RequestLog(http.HandlerFunc(GetLocalFile))),
+		"/updates":     Gzip(GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetUpdates)))),
+		"/product":     Gzip(GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetProduct)))),
+		"/search":      Gzip(GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetSearch)))),
+		"/images":      GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetImages))),
+		"/videos":      GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetVideos))),
+		"/items/":      GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetItems))),
+		"/files":       basicHttpAuth(GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetFiles)))),
+		"/local-file/": basicHttpAuth(GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetLocalFile)))),
 		"/favicon.ico": http.HandlerFunc(http.NotFound),
 
 		// updates redirects
@@ -36,7 +36,7 @@ func HandleFuncs() {
 		"/products/store":     http.RedirectHandler(predefinedSearchPaths["store"], http.StatusPermanentRedirect),
 		"/products":           http.RedirectHandler("/search", http.StatusPermanentRedirect),
 
-		// start at the account
+		// start at the updates
 		"/": http.RedirectHandler("/updates", http.StatusPermanentRedirect),
 	}
 

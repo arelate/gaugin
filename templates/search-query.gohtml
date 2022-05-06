@@ -1,107 +1,12 @@
 {{define "search-query"}}
-    <div class="search-query">
-        <ul>
-            {{if .Text}}
-                <li><span class="property-title">Any text:</span> <span class="property-value">{{.Text}}</span></li>
-            {{end}}
-            {{if .Title}}
-                <li><span class="property-title">Title:</span> <span class="property-value">{{.Title}}</span></li>
-            {{end}}
-            {{if .Tags}}
-                <li><span class="property-title">User tags:</span> <span class="property-value">{{.Tags}}</span></li>
-            {{end}}
-            {{if .OS}}
-                <li><span class="property-title">OS:</span> <span class="property-value">{{.OS}}</span>
-                </li>
-            {{end}}
-            {{if .Developers}}
-                <li><span class="property-title">Developers:</span> <span class="property-value">{{.Developers}}</span>
-                </li>
-            {{end}}
-            {{if .Publisher}}
-                <li><span class="property-title">Publisher:</span> <span class="property-value">{{.Publisher}}</span>
-                </li>
-            {{end}}
-            {{if .Series}}
-                <li><span class="property-title">Series:</span><span class="property-value">{{.Series}}</span></li>
-            {{end}}
-            {{if .Genres}}
-                <li><span class="property-title">Genres:</span> <span class="property-value">{{.Genres}}</span></li>
-            {{end}}
-            {{if .Properties}}
-                <li><span class="property-title">Store tags:</span> <span class="property-value">{{.Properties}}</span>
-                </li>
-            {{end}}
-            {{if .Features}}
-                <li><span class="property-title">Features:</span> <span class="property-value">{{.Features}}</span>
-                </li>
-            {{end}}
-            {{if .Languages}}
-                <li><span class="property-title">Languages:</span> <span
-                            class="property-value">{{.Languages}}</span></li>
-            {{end}}
-            {{if .Includes}}
-                <li><span class="property-title">Includes:</span> <span
-                            class="property-value">{{.Includes}}</span></li>
-            {{end}}
-            {{if .IncludedBy}}
-                <li><span class="property-title">Included by:</span> <span
-                            class="property-value">{{.IncludedBy}}</span></li>
-            {{end}}
-            {{if .Requires}}
-                <li><span class="property-title">Requires:</span> <span
-                            class="property-value">{{.Requires}}</span></li>
-            {{end}}
-            {{if .RequiredBy}}
-                <li><span class="property-title">Required by:</span> <span
-                            class="property-value">{{.RequiredBy}}</span></li>
-            {{end}}
-            {{if .ProductType}}
+    <ul class="search-query">
+        {{range $property, $value := .}}
+            {{if $value}}
                 <li>
-                    <span class="property-title">Product Type:</span>
-                    <span class="property-value">{{.ProductType}}</span>
+                    <span class="property-title">{{searchPropertyName $property}}:</span>
+                    <span class="property-value">{{$value}}</span>
                 </li>
             {{end}}
-            {{if .Wishlisted}}
-                <li><span class="property-title">Wishlisted:</span> <span
-                            class="property-value">{{.Wishlisted}}</span></li>
-            {{end}}
-            {{if .Owned}}
-                <li><span class="property-title">Owned:</span> <span
-                            class="property-value">{{.Owned}}</span></li>
-            {{end}}
-            {{if .PreOrder}}
-                <li><span class="property-title">Pre-order:</span> <span
-                            class="property-value">{{.PreOrder}}</span></li>
-            {{end}}
-            {{if .ComingSoon}}
-                <li><span class="property-title">Coming soon:</span> <span
-                            class="property-value">{{.ComingSoon}}</span></li>
-            {{end}}
-            {{if .TBA}}
-                <li><span class="property-title">To be announced:</span> <span
-                            class="property-value">{{.TBA}}</span></li>
-            {{end}}
-            {{if .InDevelopment}}
-                <li><span class="property-title">In development:</span> <span
-                            class="property-value">{{.InDevelopment}}</span></li>
-            {{end}}
-            {{if .IsUsingDOSBox}}
-                <li><span class="property-title">Is using DOSBox:</span> <span
-                            class="property-value">{{.IsUsingDOSBox}}</span></li>
-            {{end}}
-            {{if .DataType}}
-                <li><span class="property-title">Data Type:</span> <span
-                            class="property-value">{{.DataType}}</span></li>
-            {{end}}
-            {{if .Sort}}
-                <li><span class="property-title">Sort:</span> <span
-                            class="property-value">{{.Sort}}</span></li>
-            {{end}}
-            {{if .Desc}}
-                <li><span class="property-title">Descending:</span> <span
-                            class="property-value">{{.Desc}}</span></li>
-            {{end}}
-        </ul>
-    </div>
+        {{end}}
+    </ul>
 {{end}}

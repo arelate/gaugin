@@ -12,22 +12,34 @@ import (
 
 const defaultSince = 24
 
+var listReduxProperties = []string{
+	vangogh_local_data.TitleProperty,
+	vangogh_local_data.WishlistedProperty,
+	vangogh_local_data.OwnedProperty,
+	vangogh_local_data.PreOrderProperty,
+	vangogh_local_data.ComingSoonProperty,
+	vangogh_local_data.TBAProperty,
+	vangogh_local_data.InDevelopmentProperty,
+	vangogh_local_data.DevelopersProperty,
+	vangogh_local_data.PublisherProperty,
+	vangogh_local_data.OperatingSystemsProperty,
+	vangogh_local_data.TagIdProperty,
+	vangogh_local_data.ProductTypeProperty}
+
 func GetUpdates(w http.ResponseWriter, r *http.Request) {
 
-	// GET /new?since-hours-ago
-
-	dc := http.DefaultClient
+	// GET /updates?since=hours-ago
 
 	sinceStr := vangogh_local_data.ValueFromUrl(r.URL, "since")
 	since, err := strconv.Atoi(sinceStr)
 	if err != nil {
 		since = 0
 	}
-	if since == 0 {
+	if since <= 0 {
 		since = defaultSince
 	}
 
-	updates, err := getUpdates(dc, gog_integration.Game, since)
+	updates, err := getUpdates(http.DefaultClient, gog_integration.Game, since)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusMethodNotAllowed)
 		return
@@ -40,20 +52,10 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	rdx, err := getRedux(dc,
+	rdx, err := getRedux(
+		http.DefaultClient,
 		strings.Join(maps.Keys(keys), ","),
-		vangogh_local_data.TitleProperty,
-		vangogh_local_data.WishlistedProperty,
-		vangogh_local_data.OwnedProperty,
-		vangogh_local_data.PreOrderProperty,
-		vangogh_local_data.ComingSoonProperty,
-		vangogh_local_data.TBAProperty,
-		vangogh_local_data.InDevelopmentProperty,
-		vangogh_local_data.DevelopersProperty,
-		vangogh_local_data.PublisherProperty,
-		vangogh_local_data.OperatingSystemsProperty,
-		vangogh_local_data.TagIdProperty,
-		vangogh_local_data.ProductTypeProperty)
+		listReduxProperties...)
 
 	if err != nil {
 		http.Error(w, nod.ErrorStr("error getting all_redux"), http.StatusInternalServerError)

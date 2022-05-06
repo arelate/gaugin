@@ -12,12 +12,6 @@ func GetLocalFile(w http.ResponseWriter, r *http.Request) {
 
 	// GET /local-file/{rel-local-path}
 
-	if r.Method != http.MethodGet {
-		err := fmt.Errorf("unsupported method")
-		http.Error(w, nod.Error(err).Error(), http.StatusMethodNotAllowed)
-		return
-	}
-
 	localPath, err := filepath.Rel("/local-file/", r.URL.Path)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusMisdirectedRequest)

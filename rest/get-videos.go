@@ -12,12 +12,6 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 
 	// GET /videos?id
 
-	if r.Method != http.MethodGet {
-		err := fmt.Errorf("unsupported method")
-		http.Error(w, nod.Error(err).Error(), http.StatusMethodNotAllowed)
-		return
-	}
-
 	q := r.URL.Query()
 	videoId := q.Get("id")
 	if videoId == "" {

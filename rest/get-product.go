@@ -10,6 +10,8 @@ import (
 
 func GetProduct(w http.ResponseWriter, r *http.Request) {
 
+	// GET /product?slug -> /product?id
+
 	if r.URL.Query().Has("slug") {
 		if idSet, err := vangogh_local_data.IdSetFromUrl(r.URL); err == nil {
 			if len(idSet) > 0 {
