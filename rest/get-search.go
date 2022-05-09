@@ -91,7 +91,6 @@ type searchProductsViewModel struct {
 	Scope            string
 	SearchProperties []string
 	Query            map[string]string
-	EmptyQuery       bool
 	Digests          map[string][]string
 	Products         []listProductViewModel
 }
@@ -121,23 +120,12 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	queryProperties := append(gauginSearchProperties)
 	for _, p := range queryProperties {
-		spvm.Query[p] = q.Get(p)
-	}
-
-	emptyQuery := true
-	for _, vs := range q {
-		for _, v := range vs {
-			if v != "" {
-				emptyQuery = false
-				break
-			}
+		if v := q.Get(p); v != "" {
+			spvm.Query[p] = v
 		}
 	}
 
-	if emptyQuery {
-		spvm.EmptyQuery = true
-	} else {
-
+	if len(spvm.Query) > 0 {
 		keys, err := getSearch(dc, q)
 		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
