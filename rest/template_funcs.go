@@ -119,6 +119,7 @@ func hasLabel(lpvm listProductViewModel) bool {
 		lpvm.TBA ||
 		lpvm.InDevelopment ||
 		lpvm.ProductType != "GAME" ||
+		lpvm.IsUsingDOSBox ||
 		len(lpvm.Tags) > 0
 }
 

@@ -18,6 +18,7 @@ type listProductViewModel struct {
 	InDevelopment    bool
 	TBA              bool
 	ComingSoon       bool
+	IsUsingDOSBox    bool
 	OperatingSystems []string
 	Tags             []string
 	ProductType      string
@@ -81,7 +82,7 @@ type productViewModel struct {
 	TBA           bool
 	ComingSoon    bool
 	InDevelopment bool
-	IsUsingDOXBox bool
+	IsUsingDOSBox bool
 }
 
 func propertyFromRedux(redux map[string][]string, property string) string {
@@ -90,6 +91,10 @@ func propertyFromRedux(redux map[string][]string, property string) string {
 		return properties[0]
 	}
 	return ""
+}
+
+func flagFromRedux(redux map[string][]string, property string) bool {
+	return propertyFromRedux(redux, property) == "true"
 }
 
 func propertiesFromRedux(redux map[string][]string, property string) []string {
@@ -112,12 +117,13 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 		lpvm := listProductViewModel{
 			Id:               id,
 			Title:            propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
-			Wishlisted:       propertyFromRedux(rdx, vangogh_local_data.WishlistedProperty) == "true",
-			Owned:            propertyFromRedux(rdx, vangogh_local_data.OwnedProperty) == "true",
-			PreOrder:         propertyFromRedux(rdx, vangogh_local_data.PreOrderProperty) == "true",
-			ComingSoon:       propertyFromRedux(rdx, vangogh_local_data.ComingSoonProperty) == "true",
-			InDevelopment:    propertyFromRedux(rdx, vangogh_local_data.InDevelopmentProperty) == "true",
-			TBA:              propertyFromRedux(rdx, vangogh_local_data.TBAProperty) == "true",
+			Wishlisted:       flagFromRedux(rdx, vangogh_local_data.WishlistedProperty),
+			Owned:            flagFromRedux(rdx, vangogh_local_data.OwnedProperty),
+			PreOrder:         flagFromRedux(rdx, vangogh_local_data.PreOrderProperty),
+			ComingSoon:       flagFromRedux(rdx, vangogh_local_data.ComingSoonProperty),
+			InDevelopment:    flagFromRedux(rdx, vangogh_local_data.InDevelopmentProperty),
+			TBA:              flagFromRedux(rdx, vangogh_local_data.TBAProperty),
+			IsUsingDOSBox:    flagFromRedux(rdx, vangogh_local_data.IsUsingDOSBoxProperty),
 			Developers:       propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
 			Publisher:        propertyFromRedux(rdx, vangogh_local_data.PublisherProperty),
 			OperatingSystems: propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
@@ -167,13 +173,13 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				Copyrights:        template.HTML(propertyFromRedux(rdx, vangogh_local_data.CopyrightsProperty)),
 				Screenshots:       propertiesFromRedux(rdx, vangogh_local_data.ScreenshotsProperty),
 				Videos:            propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
-				Wishlisted:        propertyFromRedux(rdx, vangogh_local_data.WishlistedProperty) == "true",
-				Owned:             propertyFromRedux(rdx, vangogh_local_data.OwnedProperty) == "true",
-				PreOrder:          propertyFromRedux(rdx, vangogh_local_data.PreOrderProperty) == "true",
-				TBA:               propertyFromRedux(rdx, vangogh_local_data.TBAProperty) == "true",
-				ComingSoon:        propertyFromRedux(rdx, vangogh_local_data.ComingSoonProperty) == "true",
-				InDevelopment:     propertyFromRedux(rdx, vangogh_local_data.InDevelopmentProperty) == "true",
-				IsUsingDOXBox:     propertyFromRedux(rdx, vangogh_local_data.IsUsingDOSBoxProperty) == "true",
+				Wishlisted:        flagFromRedux(rdx, vangogh_local_data.WishlistedProperty),
+				Owned:             flagFromRedux(rdx, vangogh_local_data.OwnedProperty),
+				PreOrder:          flagFromRedux(rdx, vangogh_local_data.PreOrderProperty),
+				TBA:               flagFromRedux(rdx, vangogh_local_data.TBAProperty),
+				ComingSoon:        flagFromRedux(rdx, vangogh_local_data.ComingSoonProperty),
+				InDevelopment:     flagFromRedux(rdx, vangogh_local_data.InDevelopmentProperty),
+				IsUsingDOSBox:     flagFromRedux(rdx, vangogh_local_data.IsUsingDOSBoxProperty),
 			}
 
 			//Description content preparation includes the following steps:

@@ -33,6 +33,9 @@
             {{if .InDevelopment}}
                 <li class="labelled in-development"><a href="/search?in-development=true">IN DEV</a></li>
             {{end}}
+            {{if .IsUsingDOSBox}}
+                <li class="labelled dosbox"><a href="/search?is-using-dosbox=true">DOSBox</a></li>
+            {{end}}
             {{if .Tags}}
                 {{range .Tags}}
                     <li class="labelled tag"><a href="/search?tag={{productTitle .}}">{{productTitle .}}</a></li>
@@ -48,12 +51,6 @@
                         <li><a href="/search?os={{.}}" aria-label="{{.}}">{{template "svg-icon" .}}</a></li>
                     {{end}}</ul>
             </div>
-            {{if .IsUsingDOXBox}}
-                <div class="text-property">
-                    <h2 class="property-title">Is using DOSBox</h2>
-                    <div class="property-value"><span class="is-using-dosbox">Yes</span></div>
-                </div>
-            {{end}}
             {{if (ne .Rating "0")}}
                 <div class="text-property center">
                     <h2 class="property-title">Rating</h2>

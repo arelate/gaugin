@@ -7,8 +7,6 @@
                 <a class="product" href="/product?id={{.Id}}">
                     <h2 class="title">{{ .Title }}</h2>
                     {{if hasLabel .}}
-                        {{/*                            <div class="property-title">Labels</div>*/}}
-                        {{/*                            <div class="property-value">*/}}
                         <ul class="labels">
                             {{if .Wishlisted}}
                                 <li class="labelled wishlisted">WISHLISTED</li>
@@ -32,11 +30,13 @@
                             {{if .InDevelopment}}
                                 <li class="labelled in-development">IN DEV</li>
                             {{end}}
+                            {{if .IsUsingDOSBox}}
+                                <li class="labelled dosbox">DOSBox</li>
+                            {{end}}
                             {{range .Tags}}
                                 <li class="labelled tag">{{productTitle .}}</li>
                             {{end}}
                         </ul>
-                        {{/*                            </div>*/}}
                     {{end}}
                     <div class="text-properties">
                         <div class="property-title">Developers</div>
