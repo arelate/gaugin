@@ -1,0 +1,51 @@
+{{define "labels"}}
+    <ul class="labels">
+        {{/* Owned products with downloads */}}
+        {{if .Owned}}
+            <li class="label owned">OWNED</li>
+        {{end}}
+
+        {{/* GAME, DLC, PACK */}}
+        {{if .ProductType}}
+            {{if ne .ProductType "GAME"}}
+                <li class="label product-type">{{.ProductType}}</li>
+            {{end}}
+        {{end}}
+
+        {{/* Release timeline labels */}}
+        {{if .TBA}}
+            <li class="label tba">TBA</li>
+        {{end}}
+        {{if .ComingSoon}}
+            <li class="label coming-soon">SOON</li>
+        {{end}}
+        {{if .PreOrder}}
+            <li class="label preorder">PRE-ORDER</li>
+        {{end}}
+        {{if .InDevelopment}}
+            <li class="label in-development">IN DEV</li>
+        {{end}}
+
+        {{/* Engine/Source-port labels */}}
+        {{if .IsUsingDOSBox}}
+            <li class="label dosbox">DOSBox</li>
+        {{end}}
+        {{if .IsUsingScummVM}}
+            <li class="label scummvm">ScummVM</li>
+        {{end}}
+        {{range .Tags}}
+            <li class="label tag">{{productTitle .}}</li>
+        {{end}}
+
+        {{/* Sale/price lifecycle labels */}}
+        {{if .Free}}
+            <li class="label free">FREE</li>
+        {{end}}
+        {{if .Discounted}}
+            <li class="label discounted">SALE</li>
+        {{end}}
+        {{if .Wishlisted}}
+            <li class="label wishlisted">WISHLISTED</li>
+        {{end}}
+    </ul>
+{{end}}

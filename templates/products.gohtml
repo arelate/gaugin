@@ -6,48 +6,7 @@
             {{if .Title}}
                 <a class="product" href="/product?id={{.Id}}">
                     <h2 class="title">{{ .Title }}</h2>
-                    {{if hasLabel .}}
-                        <ul class="labels">
-                            {{if .Wishlisted}}
-                                <li class="labelled wishlisted">WISHLISTED</li>
-                            {{end}}
-                            {{if .Owned}}
-                                <li class="labelled owned">OWNED</li>
-                            {{end}}
-                            {{if .Free}}
-                                <li class="labelled free">FREE</li>
-                            {{end}}
-                            {{if .Discounted}}
-                                <li class="labelled discounted">SALE</li>
-                            {{end}}
-                            {{if .ProductType}}
-                                {{if ne .ProductType "GAME"}}
-                                    <li class="labelled product-type">{{.ProductType}}</li>
-                                {{end}}
-                            {{end}}
-                            {{if .PreOrder}}
-                                <li class="labelled preorder">PRE-ORDER</li>
-                            {{end}}
-                            {{if .ComingSoon}}
-                                <li class="labelled coming-soon">SOON</li>
-                            {{end}}
-                            {{if .TBA}}
-                                <li class="labelled tba">TBA</li>
-                            {{end}}
-                            {{if .InDevelopment}}
-                                <li class="labelled in-development">IN DEV</li>
-                            {{end}}
-                            {{if .IsUsingDOSBox}}
-                                <li class="labelled dosbox">DOSBox</li>
-                            {{end}}
-                            {{if .IsUsingScummVM}}
-                                <li class="labelled scummvm">ScummVM</li>
-                            {{end}}
-                            {{range .Tags}}
-                                <li class="labelled tag">{{productTitle .}}</li>
-                            {{end}}
-                        </ul>
-                    {{end}}
+                    {{if hasLabel .}}{{template "labels" .}}{{end}}
                     <div class="text-properties">
                         <div class="property-title">Developers</div>
                         <div class="property-value">{{range .Developers}}<span>{{.}}</span> {{end}}</div>

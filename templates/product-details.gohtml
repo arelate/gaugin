@@ -9,51 +9,7 @@
 
         <h1 class="title">{{ .Title }}</h1>
 
-        <ul class="labels">
-            {{if .Wishlisted}}
-                <li class="labelled wishlisted"><a href="/search?wishlisted=true">WISHLISTED</a></li>
-            {{end}}
-            {{if .Owned}}
-                <li class="labelled owned"><a href="/search?owned=true">OWNED</a></li>
-            {{end}}
-
-            {{if .Free}}
-                <li class="labelled free"><a href="/search?is-free=true">FREE</a></li>
-            {{end}}
-            {{if .Discounted}}
-                <li class="labelled discounted"><a href="/search?is-discounted=true">SALE</a></li>
-            {{end}}
-
-            {{if .ProductType}}
-                {{if ne .ProductType "GAME"}}
-                    <li class="labelled product-type"><a
-                                href="/search?product-type={{.ProductType}}">{{.ProductType}}</a></li>
-                {{end}}
-            {{end}}
-            {{if .PreOrder}}
-                <li class="labelled preorder"><a href="/search?pre-order=true">PRE-ORDER</a></li>
-            {{end}}
-            {{if .ComingSoon}}
-                <li class="labelled coming-soon"><a href="/search?coming-soon=true">SOON</a></li>
-            {{end}}
-            {{if .TBA}}
-                <li class="labelled tba"><a href="/search?tba=true">TBA</a></li>
-            {{end}}
-            {{if .InDevelopment}}
-                <li class="labelled in-development"><a href="/search?in-development=true">IN DEV</a></li>
-            {{end}}
-            {{if .IsUsingDOSBox}}
-                <li class="labelled dosbox"><a href="/search?is-using-dosbox=true">DOSBox</a></li>
-            {{end}}
-            {{if .IsUsingScummVM}}
-                <li class="labelled scummvm"><a href="/search?is-using-scummvm=true">ScummVM</a></li>
-            {{end}}
-            {{if .Tags}}
-                {{range .Tags}}
-                    <li class="labelled tag"><a href="/search?tag={{productTitle .}}">{{productTitle .}}</a></li>
-                {{end}}
-            {{end}}
-        </ul>
+        {{template "labels" .}}
 
         <section class="text-properties">
             {{if showPrice .}}
@@ -61,7 +17,7 @@
                     <h2 class="property-title">Price</h2>
                     <ul class="property-value prices">
                         {{if .Discounted}}
-                            <li class="labelled discount-percentage">-{{.DiscountPercentage}}%</li>
+                            <li class="label discount-percentage">-{{.DiscountPercentage}}%</li>
                             <li class="base-price">{{.BasePrice}}</li>{{end}}
                         <li class="price">{{.Price}}</li>
                     </ul>

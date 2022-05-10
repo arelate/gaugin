@@ -9,65 +9,65 @@
             padding-inline-start: 1em;
         }
 
-        .labelled a {
+        .label a {
             text-decoration: none;
             color: inherit;
         }
 
-        .labelled {
+        .label {
             border: 1px solid var(--color);
             border-color: inherit;
-
         }
 
-        .labelled.owned,
-        .labelled.wishlisted {
-            color: var(--system-pink-color);
-        }
+        /* Owned products with downloads */
 
-        .labelled.product-type {
-            color: var(--color);
-        }
-
-        .labelled.in-development {
-            color: var(--system-orange-color);
-        }
-
-        .labelled.tba,
-        .labelled.coming-soon {
-            color: var(--system-teal-color);
-        }
-
-        .labelled.preorder {
+        .label.owned {
             color: var(--system-gray-color);
         }
 
-        .labelled.dosbox {
+        /* GAME, DLC, PACK */
+
+        .label.product-type {
+            color: var(--color);
+        }
+
+        /* Release timeline labels */
+        .label.tba,
+        .label.coming-soon,
+        .label.preorder,
+        .label.in-development {
+            color: var(--system-teal-color);
+        }
+
+        /* Engine/Source-port labels */
+        .label.dosbox,
+        .label.scummvm {
             color: var(--system-blue-color);
         }
 
-        .labelled.scummvm {
-            color: var(--system-green-color);
-        }
+        /* User tags */
 
-        .labelled.tag {
+        .label.tag {
             color: var(--system-indigo-color);
         }
 
-        .labelled.free,
-        .labelled.discounted {
+        /* Sale/price lifecycle labels */
+        .label.free,
+        .label.discounted,
+        .label.wishlisted {
             color: var(--system-red-color);
         }
 
-        .labelled.installer {
+        /* Download types */
+        .label.installer {
             color: var(--system-purple-color);
         }
 
-        .labelled.downloadable-content {
+        .label.downloadable-content {
             color: var(--system-green-color);
         }
 
-        .labelled.extra {
+        .label.extra {
             color: var(--system-orange-color);
         }
 
