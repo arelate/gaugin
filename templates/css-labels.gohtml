@@ -7,7 +7,6 @@
             column-gap: 0.5em;
             row-gap: 0.25em;
             padding-inline-start: 1em;
-            /*padding: 0;*/
         }
 
         .labelled a {
@@ -15,60 +14,62 @@
             color: inherit;
         }
 
+        .labelled {
+            border: 1px solid var(--color);
+            border-color: inherit;
+
+        }
+
+        .labelled.owned,
         .labelled.wishlisted {
-            background-color: var(--system-pink-color);
-            color: var(--highlight-color);
+            color: var(--system-pink-color);
         }
 
         .labelled.product-type {
-            border: 1px solid var(--color);
+            color: var(--color);
         }
 
         .labelled.in-development {
-            background-color: var(--system-orange-color);
-            color: var(--highlight-color);
+            color: var(--system-orange-color);
         }
 
         .labelled.tba,
         .labelled.coming-soon {
-            background-color: var(--system-teal-color);
-            color: var(--highlight-color);
+            color: var(--system-teal-color);
         }
 
         .labelled.preorder {
-            background-color: var(--system-gray-color);
-            color: var(--highlight-color);
+            color: var(--system-gray-color);
         }
 
         .labelled.dosbox {
-            background-color: var(--system-yellow-color);
-            color: black;
+            color: var(--system-blue-color);
         }
 
         .labelled.scummvm {
-            background-color: var(--system-green-color);
-            color: var(--background-color);
+            color: var(--system-green-color);
         }
 
         .labelled.tag {
-            background: var(--system-indigo-color);
-            color: var(--highlight-color);
-        }
-
-        .labelled.owned {
-            background-color: var(--color);
-            color: var(--background-color);
+            color: var(--system-indigo-color);
         }
 
         .labelled.free,
         .labelled.discounted {
-            border: 1px solid var(--system-red-color);
             color: var(--system-red-color);
         }
 
         .labelled.installer {
-            border: 1px solid var(--system-purple-color);
             color: var(--system-purple-color);
         }
+
+        .labelled.downloadable-content {
+            color: var(--system-green-color);
+        }
+
+        .labelled.extra {
+            color: var(--system-orange-color);
+        }
+
     </style>
 {{end}}
