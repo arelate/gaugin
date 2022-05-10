@@ -54,7 +54,7 @@
             display: flex;
             flex-direction: column;
             row-gap: 0.5em;
-            margin-bottom: 3em;
+            margin: 2em 0 3em;
         }
 
         .product-details .text-properties svg.icon {
@@ -147,6 +147,24 @@
         .product-details .text-properties .text-property .property-value a {
             color: var(--color);
             text-decoration: none;
+            font-weight: bold;
+        }
+
+        .product-details .text-properties .prices {
+            align-items: center;
+        }
+
+        .product-details .text-properties .discount-percentage {
+            background-color: var(--system-red-color);
+            color: var(--background-color);
+        }
+
+        .product-details .text-properties .base-price {
+            text-decoration: line-through;
+            color: var(--subtle-color);
+        }
+
+        .product-details .text-properties .price {
             font-weight: bold;
         }
 

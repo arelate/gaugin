@@ -20,6 +20,8 @@ type listProductViewModel struct {
 	ComingSoon       bool
 	IsUsingDOSBox    bool
 	IsUsingScummVM   bool
+	Free             bool
+	Discounted       bool
 	OperatingSystems []string
 	Tags             []string
 	ProductType      string
@@ -80,12 +82,18 @@ type productViewModel struct {
 	// labels
 	Wishlisted     bool
 	Owned          bool
+	Free           bool
+	Discounted     bool
 	PreOrder       bool
 	TBA            bool
 	ComingSoon     bool
 	InDevelopment  bool
 	IsUsingDOSBox  bool
 	IsUsingScummVM bool
+	// price
+	BasePrice          string
+	Price              string
+	DiscountPercentage string
 }
 
 func propertyFromRedux(redux map[string][]string, property string) string {
@@ -122,6 +130,8 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 			Title:            propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
 			Wishlisted:       flagFromRedux(rdx, vangogh_local_data.WishlistedProperty),
 			Owned:            flagFromRedux(rdx, vangogh_local_data.OwnedProperty),
+			Free:             flagFromRedux(rdx, vangogh_local_data.IsFreeProperty),
+			Discounted:       flagFromRedux(rdx, vangogh_local_data.IsDiscountedProperty),
 			PreOrder:         flagFromRedux(rdx, vangogh_local_data.PreOrderProperty),
 			ComingSoon:       flagFromRedux(rdx, vangogh_local_data.ComingSoonProperty),
 			InDevelopment:    flagFromRedux(rdx, vangogh_local_data.InDevelopmentProperty),
@@ -180,12 +190,17 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				Videos:                 propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
 				Wishlisted:             flagFromRedux(rdx, vangogh_local_data.WishlistedProperty),
 				Owned:                  flagFromRedux(rdx, vangogh_local_data.OwnedProperty),
+				Free:                   flagFromRedux(rdx, vangogh_local_data.IsFreeProperty),
+				Discounted:             flagFromRedux(rdx, vangogh_local_data.IsDiscountedProperty),
 				PreOrder:               flagFromRedux(rdx, vangogh_local_data.PreOrderProperty),
 				TBA:                    flagFromRedux(rdx, vangogh_local_data.TBAProperty),
 				ComingSoon:             flagFromRedux(rdx, vangogh_local_data.ComingSoonProperty),
 				InDevelopment:          flagFromRedux(rdx, vangogh_local_data.InDevelopmentProperty),
 				IsUsingDOSBox:          flagFromRedux(rdx, vangogh_local_data.IsUsingDOSBoxProperty),
 				IsUsingScummVM:         flagFromRedux(rdx, vangogh_local_data.IsUsingScummVMProperty),
+				BasePrice:              propertyFromRedux(rdx, vangogh_local_data.BasePriceProperty),
+				Price:                  propertyFromRedux(rdx, vangogh_local_data.PriceProperty),
+				DiscountPercentage:     propertyFromRedux(rdx, vangogh_local_data.DiscountPercentageProperty),
 			}
 
 			//Description content preparation includes the following steps:

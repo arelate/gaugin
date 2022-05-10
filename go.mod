@@ -3,8 +3,8 @@ module github.com/arelate/gaugin
 go 1.18
 
 require (
-	github.com/arelate/gog_integration v0.1.18
-	github.com/arelate/vangogh_local_data v0.1.47
+	github.com/arelate/gog_integration v0.1.19
+	github.com/arelate/vangogh_local_data v0.1.48
 	github.com/boggydigital/clo v0.3.1
 	github.com/boggydigital/nod v0.1.19
 	golang.org/x/exp v0.0.0-20220426173459-3bcf042a4bf5

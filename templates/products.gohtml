@@ -12,7 +12,14 @@
                                 <li class="labelled wishlisted">WISHLISTED</li>
                             {{end}}
                             {{if .Owned}}
-                                <li class="labelled owned">OWNED</li>{{end}}
+                                <li class="labelled owned">OWNED</li>
+                            {{end}}
+                            {{if .Free}}
+                                <li class="labelled free">FREE</li>
+                            {{end}}
+                            {{if .Discounted}}
+                                <li class="labelled discounted">SALE</li>
+                            {{end}}
                             {{if .ProductType}}
                                 {{if ne .ProductType "GAME"}}
                                     <li class="labelled product-type">{{.ProductType}}</li>

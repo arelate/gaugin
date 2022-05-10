@@ -16,6 +16,14 @@
             {{if .Owned}}
                 <li class="labelled owned"><a href="/search?owned=true">OWNED</a></li>
             {{end}}
+
+            {{if .Free}}
+                <li class="labelled free"><a href="/search?is-free=true">FREE</a></li>
+            {{end}}
+            {{if .Discounted}}
+                <li class="labelled discounted"><a href="/search?is-discounted=true">SALE</a></li>
+            {{end}}
+
             {{if .ProductType}}
                 {{if ne .ProductType "GAME"}}
                     <li class="labelled product-type"><a
@@ -48,6 +56,17 @@
         </ul>
 
         <section class="text-properties">
+            {{if showPrice .}}
+                <div class="text-property center">
+                    <h2 class="property-title">Price</h2>
+                    <ul class="property-value prices">
+                        {{if .Discounted}}
+                            <li class="labelled discount-percentage">-{{.DiscountPercentage}}%</li>
+                            <li class="base-price">{{.BasePrice}}</li>{{end}}
+                        <li class="price">{{.Price}}</li>
+                    </ul>
+                </div>
+            {{end}}
             <div class="text-property center">
                 <h2 class="property-title" title="Operating System">OS</h2>
                 <ul class="property-value horizontal">
@@ -74,7 +93,8 @@
             <div class="text-property">
                 <h2 class="property-title">Developers</h2>
                 <ul class="property-value">{{range .Developers}}
-                        <li><a href="/search?developers={{.}}" aria-label="all products by developers: {{.}}">{{.}}</a>
+                        <li><a href="/search?developers={{.}}"
+                               aria-label="all products by developers: {{.}}">{{.}}</a>
                         </li>{{end}}</ul>
             </div>
             <div class="text-property">

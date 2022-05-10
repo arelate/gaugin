@@ -23,6 +23,7 @@ func funcMap() template.FuncMap {
 		"toLower":            toLower,
 		"dlTitle":            dlTitle,
 		"hasLabel":           hasLabel,
+		"showPrice":          showPrice,
 		"searchPropertyName": searchPropertyName,
 	}
 }
@@ -120,7 +121,19 @@ func hasLabel(lpvm listProductViewModel) bool {
 		lpvm.InDevelopment ||
 		lpvm.ProductType != "GAME" ||
 		lpvm.IsUsingDOSBox ||
+		lpvm.IsUsingScummVM ||
+		lpvm.Free ||
+		lpvm.Discounted ||
 		len(lpvm.Tags) > 0
+}
+
+func showPrice(pvm productViewModel) bool {
+	if pvm.Free ||
+		pvm.TBA ||
+		(pvm.Owned && !pvm.Discounted) {
+		return false
+	}
+	return true
 }
 
 func searchPropertyName(p string) string {
