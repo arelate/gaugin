@@ -18,7 +18,8 @@
             {{end}}
             {{if .ProductType}}
                 {{if ne .ProductType "GAME"}}
-                    <li class="labelled product-type"><a href="/search?product-type={{.ProductType}}">{{.ProductType}}</a></li>
+                    <li class="labelled product-type"><a
+                                href="/search?product-type={{.ProductType}}">{{.ProductType}}</a></li>
                 {{end}}
             {{end}}
             {{if .PreOrder}}
@@ -35,6 +36,9 @@
             {{end}}
             {{if .IsUsingDOSBox}}
                 <li class="labelled dosbox"><a href="/search?is-using-dosbox=true">DOSBox</a></li>
+            {{end}}
+            {{if .IsUsingScummVM}}
+                <li class="labelled scummvm"><a href="/search?is-using-scummvm=true">ScummVM</a></li>
             {{end}}
             {{if .Tags}}
                 {{range .Tags}}
@@ -181,6 +185,9 @@
                     <summary>Description</summary>
                     <div class="description-content">
                         {{.Description}}
+                        {{if .AdditionalRequirements}}
+                            <div class="additional-requirements">{{.AdditionalRequirements}}</div>
+                        {{end}}
                         {{if .Copyrights}}
                             <div class="copyrights">{{.Copyrights}}</div>
                         {{end}}

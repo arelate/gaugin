@@ -33,6 +33,9 @@
                             {{if .IsUsingDOSBox}}
                                 <li class="labelled dosbox">DOSBox</li>
                             {{end}}
+                            {{if .IsUsingScummVM}}
+                                <li class="labelled scummvm">ScummVM</li>
+                            {{end}}
                             {{range .Tags}}
                                 <li class="labelled tag">{{productTitle .}}</li>
                             {{end}}

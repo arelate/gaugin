@@ -21,6 +21,7 @@ var listReduxProperties = []string{
 	vangogh_local_data.TBAProperty,
 	vangogh_local_data.InDevelopmentProperty,
 	vangogh_local_data.IsUsingDOSBoxProperty,
+	vangogh_local_data.IsUsingScummVMProperty,
 	vangogh_local_data.DevelopersProperty,
 	vangogh_local_data.PublisherProperty,
 	vangogh_local_data.OperatingSystemsProperty,

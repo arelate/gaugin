@@ -32,6 +32,7 @@ var gauginSearchProperties = []string{
 	vangogh_local_data.TBAProperty,
 	vangogh_local_data.InDevelopmentProperty,
 	vangogh_local_data.IsUsingDOSBoxProperty,
+	vangogh_local_data.IsUsingScummVMProperty,
 	vangogh_local_data.TypesProperty,
 	//
 	"sort",
@@ -62,6 +63,7 @@ var searchPropertyNames = map[string]string{
 	vangogh_local_data.TBAProperty:               "TBA",
 	vangogh_local_data.InDevelopmentProperty:     "In Development",
 	vangogh_local_data.IsUsingDOSBoxProperty:     "Using DOSBox",
+	vangogh_local_data.IsUsingScummVMProperty:    "Using ScummVM",
 	vangogh_local_data.TypesProperty:             "Data Type",
 	//
 	"sort": "Sort",
@@ -83,6 +85,7 @@ var gauginDigestibleProperties = []string{
 	vangogh_local_data.TBAProperty,
 	vangogh_local_data.InDevelopmentProperty,
 	vangogh_local_data.IsUsingDOSBoxProperty,
+	vangogh_local_data.IsUsingScummVMProperty,
 	vangogh_local_data.TypesProperty,
 }
 
