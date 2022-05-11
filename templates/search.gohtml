@@ -6,11 +6,14 @@
     {{template "svg-icons"}}
     {{template "nav" .Context}}
     <ul class="scope">
-        <li class="{{if eq .Scope "downloads"}}{{`current`}}{{end}}">
-            <a href="/products/downloads">downloads</a>
+        <li class="{{if eq .Scope "owned"}}{{`current`}}{{end}}">
+            <a href="/products/owned">owned</a>
         </li>
         <li class="{{if eq .Scope "wishlist"}}{{`current`}}{{end}}">
             <a href="/products/wishlist">wishlist</a>
+        </li>
+        <li class="{{if eq .Scope "sale"}}{{`current`}}{{end}}">
+            <a href="/products/sale">sale</a>
         </li>
         <li class="{{if eq .Scope "store"}}{{`current`}}{{end}}">
             <a href="/products/store">store</a>

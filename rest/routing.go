@@ -6,9 +6,10 @@ import (
 )
 
 var predefinedSearchPaths = map[string]string{
-	"downloads": "/search?types=account-products&sort=gog-order-date&desc=true",
-	"wishlist":  "/search?wishlisted=true&sort=gog-release-date&desc=true",
-	"store":     "/search?types=store-products&sort=gog-release-date&desc=true",
+	"owned":    "/search?types=account-products&sort=gog-order-date&desc=true",
+	"wishlist": "/search?wishlisted=true&sort=gog-release-date&desc=true",
+	"sale":     "/search?owned=false&is-discounted=true",
+	"store":    "/search?types=store-products&sort=gog-release-date&desc=true",
 }
 
 func HandleFuncs() {
@@ -31,10 +32,11 @@ func HandleFuncs() {
 		"/updates/this_week": http.RedirectHandler("/updates?since=120", http.StatusPermanentRedirect),
 
 		// products redirects
-		"/products/downloads": http.RedirectHandler(predefinedSearchPaths["downloads"], http.StatusPermanentRedirect),
-		"/products/wishlist":  http.RedirectHandler(predefinedSearchPaths["wishlist"], http.StatusPermanentRedirect),
-		"/products/store":     http.RedirectHandler(predefinedSearchPaths["store"], http.StatusPermanentRedirect),
-		"/products":           http.RedirectHandler("/search", http.StatusPermanentRedirect),
+		"/products/owned":    http.RedirectHandler(predefinedSearchPaths["owned"], http.StatusPermanentRedirect),
+		"/products/wishlist": http.RedirectHandler(predefinedSearchPaths["wishlist"], http.StatusPermanentRedirect),
+		"/products/sale":     http.RedirectHandler(predefinedSearchPaths["sale"], http.StatusPermanentRedirect),
+		"/products/store":    http.RedirectHandler(predefinedSearchPaths["store"], http.StatusPermanentRedirect),
+		"/products":          http.RedirectHandler("/search", http.StatusPermanentRedirect),
 
 		// start at the updates
 		"/": http.RedirectHandler("/updates", http.StatusPermanentRedirect),
