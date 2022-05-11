@@ -5,6 +5,7 @@ import (
 	"github.com/arelate/vangogh_local_data"
 	"html/template"
 	"sort"
+	"strconv"
 )
 
 type listProductViewModel struct {
@@ -22,6 +23,7 @@ type listProductViewModel struct {
 	IsUsingScummVM   bool
 	Free             bool
 	Discounted       bool
+	DiscountAmount   string
 	OperatingSystems []string
 	Tags             []string
 	ProductType      string
@@ -94,6 +96,7 @@ type productViewModel struct {
 	BasePrice          string
 	Price              string
 	DiscountPercentage string
+	DiscountAmount     string
 }
 
 func propertyFromRedux(redux map[string][]string, property string) string {
@@ -116,6 +119,32 @@ func propertiesFromRedux(redux map[string][]string, property string) []string {
 	}
 }
 
+func discountAmountFromRedux(redux map[string][]string) string {
+	da := ""
+	if dp, err := strconv.Atoi(propertyFromRedux(redux, vangogh_local_data.DiscountPercentageProperty)); err == nil {
+		if dp >= 80 {
+			da = "\u2158" // 4/5
+		} else if dp >= 75 {
+			da = "\u00be" // 3/4
+		} else if dp >= 66 {
+			da = "\u2154" // 2/3
+		} else if dp >= 60 {
+			da = "\u2157" // 3/5
+		} else if dp >= 50 {
+			da = "\u00bd" // 1/2
+		} else if dp >= 40 {
+			da = "\u2156" // 2/5
+		} else if dp >= 33 {
+			da = "\u2153" // 1/3
+		} else if dp >= 25 {
+			da = "\u00bc" // 1/4
+		} else if dp >= 20 {
+			da = "\u2155" // 1/5
+		}
+	}
+	return da
+}
+
 func listViewModelFromRedux(order []string, redux map[string]map[string][]string) *listViewModel {
 	lvm := &listViewModel{
 		Products: make([]listProductViewModel, 0, len(order)),
@@ -132,6 +161,7 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 			Owned:            flagFromRedux(rdx, vangogh_local_data.OwnedProperty),
 			Free:             flagFromRedux(rdx, vangogh_local_data.IsFreeProperty),
 			Discounted:       flagFromRedux(rdx, vangogh_local_data.IsDiscountedProperty),
+			DiscountAmount:   discountAmountFromRedux(rdx),
 			PreOrder:         flagFromRedux(rdx, vangogh_local_data.PreOrderProperty),
 			ComingSoon:       flagFromRedux(rdx, vangogh_local_data.ComingSoonProperty),
 			InDevelopment:    flagFromRedux(rdx, vangogh_local_data.InDevelopmentProperty),
@@ -201,6 +231,7 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				BasePrice:              propertyFromRedux(rdx, vangogh_local_data.BasePriceProperty),
 				Price:                  propertyFromRedux(rdx, vangogh_local_data.PriceProperty),
 				DiscountPercentage:     propertyFromRedux(rdx, vangogh_local_data.DiscountPercentageProperty),
+				DiscountAmount:         discountAmountFromRedux(rdx),
 			}
 
 			//Description content preparation includes the following steps:
