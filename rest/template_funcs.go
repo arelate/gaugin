@@ -130,7 +130,8 @@ func hasLabel(lpvm listProductViewModel) bool {
 func showPrice(pvm productViewModel) bool {
 	if pvm.Free ||
 		pvm.TBA ||
-		(pvm.Owned && !pvm.Discounted) {
+		(pvm.Owned && !pvm.Discounted) ||
+		pvm.Price == "" {
 		return false
 	}
 	return true
