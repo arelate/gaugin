@@ -53,7 +53,7 @@ Assuming you have vangogh setup correctly and data is available - to use `gaugin
 |---------|---------------------------------------------------|-----------------------------------------------------|
 | Details | ![Details, dark theme](./images/details-dark.jpg) | ![Details, light theme](./images/details-light.jpg) |
 | All     | ![All, dark theme](./images/all-dark.jpg)         | ![All, light theme](./images/all-light.jpg)         |
-| Search  | ![Search, dark theme](./images/search-dark.jpg)   | ![Search, light theme](./images/search-light.jpg)   |     
+| Sale    | ![Sale, dark theme](./images/sale-dark.jpg)       | ![Sale, light theme](./images/sale-light.jpg)       |     
 
 ## Sharing games
 
