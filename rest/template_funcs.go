@@ -143,6 +143,9 @@ func searchPropertyName(p string) string {
 }
 
 func hasDownloads(pd *productDownloads) bool {
+	if pd == nil {
+		return false
+	}
 	return len(pd.Installers) > 0 ||
 		len(pd.DLCs) > 0 ||
 		len(pd.Extras) > 0

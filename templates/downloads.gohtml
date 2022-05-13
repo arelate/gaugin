@@ -1,26 +1,30 @@
 {{define "downloads"}}
     <details class="downloads {{.Context}}" {{if eq .Context "current-operating-system"}}open{{end}}>
         <summary>{{if eq .Context "current-operating-system"}}Current{{else}}Other{{end}} OS downloads</summary>
-        <div class="downloads-list">
-            {{if .Installers}}
-                <details class="downloads-type installers" open>
-                    <summary>Installers</summary>
+        {{if .Installers}}
+            <details class="downloads-type installers" open>
+                <summary>Installers</summary>
+                <div class="downloads-list">
                     {{template "download" .Installers}}
-                </details>
-            {{end}}
-            {{if .DLCs}}
-                <details class="downloads-type downloadable-content">
-                    <summary>Downloadable content</summary>
+                </div>
+            </details>
+        {{end}}
+        {{if .DLCs}}
+            <details class="downloads-type downloadable-content">
+                <summary>Downloadable content</summary>
+                <div class="downloads-list">
                     {{template "download" .DLCs}}
-                </details>
-            {{end}}
-            {{if .Extras}}
-                <details class="downloads-type extras">
-                    <summary>Extras</summary>
+                </div>
+            </details>
+        {{end}}
+        {{if .Extras}}
+            <details class="downloads-type extras">
+                <summary>Extras</summary>
+                <div class="downloads-list">
                     {{template "download" .Extras}}
-                </details>
-            {{end}}
-        </div>
+                </div>
+            </details>
+        {{end}}
     </details>
 {{end}}
 {{define "download"}}
