@@ -41,6 +41,13 @@ type updatesViewModel struct {
 	SectionProducts map[string]*listViewModel
 }
 
+type productDownloads struct {
+	Context    string
+	Installers vangogh_local_data.DownloadsList
+	DLCs       vangogh_local_data.DownloadsList
+	Extras     vangogh_local_data.DownloadsList
+}
+
 type productViewModel struct {
 	Context string
 	Id      string
@@ -79,8 +86,10 @@ type productViewModel struct {
 	// video-ids
 	Videos []string
 	// downloads
-	CurrentOSDownloads vangogh_local_data.DownloadsList
-	OtherOSDownloads   vangogh_local_data.DownloadsList
+	//CurrentOSDownloads vangogh_local_data.DownloadsList
+	//OtherOSDownloads   vangogh_local_data.DownloadsList
+	CurrentOS *productDownloads
+	OtherOS   *productDownloads
 	// labels
 	Wishlisted     bool
 	Owned          bool

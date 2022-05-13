@@ -1,4 +1,29 @@
 {{define "downloads"}}
+    <details class="downloads {{.Context}}" {{if eq .Context "current-operating-system"}}open{{end}}>
+        <summary>{{if eq .Context "current-operating-system"}}Current{{else}}Other{{end}} OS downloads</summary>
+        <div class="downloads-list">
+            {{if .Installers}}
+                <details class="downloads-type installers" open>
+                    <summary>Installers</summary>
+                    {{template "download" .Installers}}
+                </details>
+            {{end}}
+            {{if .DLCs}}
+                <details class="downloads-type downloadable-content">
+                    <summary>Downloadable content</summary>
+                    {{template "download" .DLCs}}
+                </details>
+            {{end}}
+            {{if .Extras}}
+                <details class="downloads-type extras">
+                    <summary>Extras</summary>
+                    {{template "download" .Extras}}
+                </details>
+            {{end}}
+        </div>
+    </details>
+{{end}}
+{{define "download"}}
     {{range .}}
         <a class="download {{.Type}} {{.OS.String}}" href="/files?manual-url={{.ManualUrl}}"
            aria-label="download {{dlTitle .}}">

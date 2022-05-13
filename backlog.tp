@@ -1,5 +1,4 @@
-Finish If-Modified-Since implementation:
-	- generalize search caching middleware in gaugin to support any endpoint by URL and apply to digest, redux
+
 
 Implement add to wishlist:
 	- for products that are not owned
@@ -49,6 +48,8 @@ Optimize images:
 		- use srcset instead of img to opimize downloading
 	
 Archive:
+	Finish If-Modified-Since implementation: @done(2022-05-12)
+		- generalize search caching middleware in gaugin to support any endpoint by URL and apply to digest, redux @done(2022-05-12)
 	Design updates: @done(2022-04-28)
 		- implement a single Products page @done(2022-04-28)
 			- Search is always visible, rename to Filter & Sort @done(2022-04-28)

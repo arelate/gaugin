@@ -25,6 +25,7 @@ func funcMap() template.FuncMap {
 		"hasLabel":           hasLabel,
 		"showPrice":          showPrice,
 		"searchPropertyName": searchPropertyName,
+		"hasDownloads":       hasDownloads,
 	}
 }
 
@@ -139,4 +140,10 @@ func showPrice(pvm productViewModel) bool {
 
 func searchPropertyName(p string) string {
 	return searchPropertyNames[p]
+}
+
+func hasDownloads(pd *productDownloads) bool {
+	return len(pd.Installers) > 0 ||
+		len(pd.DLCs) > 0 ||
+		len(pd.Extras) > 0
 }

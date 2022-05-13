@@ -71,15 +71,37 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 			currentOS = vangogh_local_data.Linux
 		}
 
-		pvm.CurrentOSDownloads = make(vangogh_local_data.DownloadsList, 0, len(dls))
-		pvm.OtherOSDownloads = make(vangogh_local_data.DownloadsList, 0, len(dls))
+		pvm.CurrentOS = &productDownloads{
+			Context:    "current-operating-system",
+			Installers: make(vangogh_local_data.DownloadsList, 0, len(dls)),
+			DLCs:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
+			Extras:     make(vangogh_local_data.DownloadsList, 0, len(dls)),
+		}
+		pvm.OtherOS = &productDownloads{
+			Context:    "other-operating-system",
+			Installers: make(vangogh_local_data.DownloadsList, 0, len(dls)),
+			DLCs:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
+			Extras:     make(vangogh_local_data.DownloadsList, 0, len(dls)),
+		}
 
+		var osd *productDownloads
 		for _, dl := range dls {
 			if dl.OS == currentOS ||
 				dl.OS == vangogh_local_data.AnyOperatingSystem {
-				pvm.CurrentOSDownloads = append(pvm.CurrentOSDownloads, dl)
+				osd = pvm.CurrentOS
 			} else {
-				pvm.OtherOSDownloads = append(pvm.OtherOSDownloads, dl)
+				osd = pvm.OtherOS
+			}
+
+			switch dl.Type {
+			case vangogh_local_data.Installer:
+				osd.Installers = append(osd.Installers, dl)
+			case vangogh_local_data.DLC:
+				osd.DLCs = append(osd.DLCs, dl)
+			case vangogh_local_data.Extra:
+				fallthrough
+			default:
+				osd.Extras = append(osd.Extras, dl)
 			}
 		}
 	}
