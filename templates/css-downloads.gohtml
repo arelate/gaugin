@@ -1,0 +1,63 @@
+{{define "css-downloads"}}
+    <style id="css-downloads">
+        .product-details .downloads .downloads-type .downloads-list {
+            font-weight: normal;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-row-gap: 0.75em;
+            grid-column-gap: 2em;
+            padding-top: 1em;
+            content-visibility: auto;
+        }
+
+        .product-details .downloads .downloads-type summary {
+            font-size: 0.75em;
+            padding: 0 0.25em;
+            color: var(--subtle-color);
+            font-weight: lighter;
+        }
+
+        @media screen and (min-width: 900px) {
+            .product-details .downloads .downloads-type .downloads-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .product-details .downloads .downloads-type .downloads-list .download svg.icon {
+            width: 1.2em;
+            height: 1.2em;
+            color: var(--color);
+        }
+
+        .product-details .downloads .downloads-type .downloads-list .download {
+            font-size: 0.75em;
+            color: inherit;
+            text-decoration: none;
+            padding: 0.5em;
+        }
+
+        .product-details .downloads .downloads-type .downloads-list .download .title {
+            font-size: 1.25em;
+            font-weight: bold;
+        }
+
+        .product-details .downloads .downloads-type .downloads-list .download ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            column-gap: 0.5em;
+            padding: 0;
+            margin: 0.5em 0;
+        }
+
+        .product-details .downloads .downloads-type .downloads-list .download ul.additional-details {
+            font-size: 0.8em;
+            flex-wrap: wrap;
+            color: var(--subtle-color);
+        }
+
+        .product-details .downloads .downloads-type .downloads-list .download ul.additional-details .highlight {
+            font-weight: bold;
+        }
+    </style>
+{{end}}

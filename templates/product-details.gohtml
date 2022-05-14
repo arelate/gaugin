@@ -78,10 +78,18 @@
             {{if .Properties}}
                 <div class="text-property">
                     <h2 class="property-title">Store tags</h2>
-                    <ul class="property-value flexible">{{range .Properties}}
-                            <li><a href="/search?properties={{.}}"
-                                   aria-label="all products of {{.}} store tag">{{.}}</a>
-                            </li>{{end}}</ul>
+                    {{$propertiesLen := len .Properties}}
+                    {{if gt $propertiesLen 3}}
+                    <details>
+                        <summary>{{$propertiesLen}} store tag(s)</summary>
+                        {{end}}
+                        <ul class="property-value flexible">{{range .Properties}}
+                                <li><a href="/search?properties={{.}}"
+                                       aria-label="all products of {{.}} store tag">{{.}}</a>
+                                </li>{{end}}</ul>
+                        {{if gt $propertiesLen 3}}
+                    </details>
+                    {{end}}
                 </div>
             {{end}}
             <div class="text-property">
