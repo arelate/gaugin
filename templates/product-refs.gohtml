@@ -4,7 +4,7 @@
         <details>
         <summary>{{$len}} product(s)</summary>
     {{end}}
-    <ul class="property-value">
+    <ul class="property-value {{if gt $len 3}}vertical{{end}}">
         {{range .}}
             <li>
                 {{$productId := productId .}}

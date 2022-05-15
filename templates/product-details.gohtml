@@ -83,7 +83,7 @@
                     <details>
                         <summary>{{$propertiesLen}} store tag(s)</summary>
                         {{end}}
-                        <ul class="property-value flexible">{{range .Properties}}
+                        <ul class="property-value flexible {{if gt $propertiesLen 3}}vertical{{end}}">{{range .Properties}}
                                 <li><a href="/search?properties={{.}}"
                                        aria-label="all products of {{.}} store tag">{{.}}</a>
                                 </li>{{end}}</ul>
@@ -105,7 +105,7 @@
                 <details>
                     <summary>{{$langsLen}} language(s)</summary>
                     {{end}}
-                    <ul class="property-value">{{range .LanguageCodes}}
+                    <ul class="property-value {{if gt $langsLen 3}}vertical{{end}}">{{range .LanguageCodes}}
                             <li><a href="/search?lang-code={{productTitle .}}"
                                    aria-label="all products supporting {{.}} language">{{.}}</a></li>{{end}}</ul>
                     {{if gt $langsLen 3}}
