@@ -1,5 +1,12 @@
 {{define "css-search"}}
     <style id="css-search">
+
+        input, select {
+            border: none;
+            border-radius: 4px;
+            padding: 4px;
+        }
+
         .search-form {
             margin: 0 calc(50% - 160px);
             width: 320px;
@@ -75,11 +82,13 @@
             flex-direction: row;
             list-style: none;
             column-gap: 1em;
+            row-gap: 0.5em;
             flex-wrap: wrap;
             padding: 0.75em;
             background-color: var(--highlight-color);
             color: var(--subtle-color);
             border-radius: 4px;
+            justify-content: center;
         }
 
         .search-query .property-value {
