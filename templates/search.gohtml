@@ -20,7 +20,9 @@
         </li>
     </ul>
     {{template "search-properties" .}}
-    {{template "search-query" .Query}}
+    {{if .Query}}
+        {{template "search-query" .Query}}
+    {{end}}
     {{template "products" .Products}}
     {{template "footer"}}
     </body>

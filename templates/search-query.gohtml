@@ -1,12 +1,14 @@
 {{define "search-query"}}
-    <ul class="search-query">
-        {{range $property, $value := .}}
-            {{if $value}}
-                <li>
-                    <span class="property-title">{{searchPropertyName $property}}:</span>
-                    <span class="property-value">{{$value}}</span>
-                </li>
+    <section class="search-query-container">
+        <ul class="search-query">
+            {{range $property, $value := .}}
+                {{if $value}}
+                    <li>
+                        <span class="property-title">{{searchPropertyName $property}}:</span>
+                        <span class="property-value">{{$value}}</span>
+                    </li>
+                {{end}}
             {{end}}
-        {{end}}
-    </ul>
+        </ul>
+    </section>
 {{end}}

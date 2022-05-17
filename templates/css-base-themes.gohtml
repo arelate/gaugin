@@ -58,5 +58,25 @@
         body {
             margin: 0;
         }
+
+        details summary {
+            list-style: none;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details > summary::before {
+            content: '\002b';
+            font-weight: normal;
+            margin-right: 0.5em;
+            font-size: 1.25em;
+            color: var(--subtle-color);
+        }
+
+        details[open] > summary::before {
+            content: '\00d7';
+        }
     </style>
 {{end}}

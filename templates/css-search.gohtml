@@ -1,12 +1,17 @@
 {{define "css-search"}}
     <style id="css-search">
         .search-form {
-            margin: 0 calc(50% - 160px) 1em;
+            margin: 0 calc(50% - 160px);
             width: 320px;
             display: inline-flex;
             justify-items: center;
             flex-direction: column;
             align-items: start;
+        }
+
+        .search-form details summary {
+            font-size: 0.9em;
+            font-weight: bold;
         }
 
         .search-form section {
@@ -22,8 +27,9 @@
             font-weight: bold;
         }
 
-        .search-form label.emphasis {
-            font-weight: bold;
+        .search-form label {
+            font-size: 0.75em;
+            text-align: right;
         }
 
         .search-form input[type="search"]::placeholder {
@@ -59,19 +65,26 @@
             padding: 0.5em 0 0 0;
         }
 
-        .search-query {
-            list-style: none;
+        .search-query-container {
             display: flex;
             justify-content: center;
+        }
+
+        .search-query {
+            display: flex;
+            flex-direction: row;
+            list-style: none;
             column-gap: 1em;
             flex-wrap: wrap;
-            padding: 0 15%;
-            margin: 0 0 0.5em 0;
+            padding: 0.75em;
+            background-color: var(--highlight-color);
             color: var(--subtle-color);
+            border-radius: 4px;
         }
 
         .search-query .property-value {
-            font-weight: bold;
+            font-weight: bolder;
+            color: var(--color);
         }
     </style>
 {{end}}
