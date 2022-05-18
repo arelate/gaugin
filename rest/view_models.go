@@ -23,6 +23,7 @@ type listProductViewModel struct {
 	IsUsingScummVM   bool
 	Free             bool
 	Discounted       bool
+	LargeDiscount    bool
 	DiscountAmount   string
 	OperatingSystems []string
 	Tags             []string
@@ -95,6 +96,7 @@ type productViewModel struct {
 	Owned          bool
 	Free           bool
 	Discounted     bool
+	LargeDiscount  bool
 	PreOrder       bool
 	TBA            bool
 	ComingSoon     bool
@@ -128,9 +130,11 @@ func propertiesFromRedux(redux map[string][]string, property string) []string {
 	}
 }
 
-func discountAmountFromRedux(redux map[string][]string) string {
+func discountAmountFromRedux(redux map[string][]string) (string, bool) {
 	da := ""
+	ld := false
 	if dp, err := strconv.Atoi(propertyFromRedux(redux, vangogh_local_data.DiscountPercentageProperty)); err == nil {
+		ld = dp > 50
 		if dp >= 80 {
 			da = "\u2158" // 4/5
 		} else if dp >= 75 {
@@ -151,7 +155,7 @@ func discountAmountFromRedux(redux map[string][]string) string {
 			da = "\u2155" // 1/5
 		}
 	}
-	return da
+	return da, ld
 }
 
 func listViewModelFromRedux(order []string, redux map[string]map[string][]string) *listViewModel {
@@ -170,7 +174,6 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 			Owned:            flagFromRedux(rdx, vangogh_local_data.OwnedProperty),
 			Free:             flagFromRedux(rdx, vangogh_local_data.IsFreeProperty),
 			Discounted:       flagFromRedux(rdx, vangogh_local_data.IsDiscountedProperty),
-			DiscountAmount:   discountAmountFromRedux(rdx),
 			PreOrder:         flagFromRedux(rdx, vangogh_local_data.PreOrderProperty),
 			ComingSoon:       flagFromRedux(rdx, vangogh_local_data.ComingSoonProperty),
 			InDevelopment:    flagFromRedux(rdx, vangogh_local_data.InDevelopmentProperty),
@@ -183,6 +186,8 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 			Tags:             propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
 			ProductType:      propertyFromRedux(rdx, vangogh_local_data.ProductTypeProperty),
 		}
+
+		lpvm.DiscountAmount, lpvm.LargeDiscount = discountAmountFromRedux(rdx)
 
 		lvm.Products = append(lvm.Products, lpvm)
 	}
@@ -240,8 +245,9 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				BasePrice:              propertyFromRedux(rdx, vangogh_local_data.BasePriceProperty),
 				Price:                  propertyFromRedux(rdx, vangogh_local_data.PriceProperty),
 				DiscountPercentage:     propertyFromRedux(rdx, vangogh_local_data.DiscountPercentageProperty),
-				DiscountAmount:         discountAmountFromRedux(rdx),
 			}
+
+			pvm.DiscountAmount, pvm.LargeDiscount = discountAmountFromRedux(rdx)
 
 			//Description content preparation includes the following steps:
 			//1) combining DescriptionOverview and DescriptionFeatures
