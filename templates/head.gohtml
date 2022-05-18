@@ -7,22 +7,26 @@
             {{if eq .Context "updates"}}Updates
             {{else if eq .Context "product"}}{{.Title}}
             {{else if eq .Context "filter-products"}}Products{{end}}
-            - gaugin</title>
+            - gaugin
+        </title>
+
         {{template "css-base-themes"}}
         {{template "css-nav"}}
         {{template "css-labels"}}
+
         {{if eq .Context "updates"}}
             {{template "css-scope"}}
             {{template "css-updates"}}
-            {{template "css-products"}}
+            {{template "css-products-list"}}
         {{else if eq .Context "product"}}
             {{template "css-product-details"}}
-            {{template "css-downloads"}}
+            {{template "css-product-details-downloads"}}
         {{else if eq .Context "filter-products"}}
             {{template "css-scope"}}
             {{template "css-search"}}
-            {{template "css-products"}}
+            {{template "css-products-list"}}
         {{end}}
+
         {{template "css-footer"}}
     </head>
 {{end}}

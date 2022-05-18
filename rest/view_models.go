@@ -43,7 +43,7 @@ type updatesViewModel struct {
 }
 
 type productDownloads struct {
-	Context    string
+	CurrentOS  bool
 	Installers vangogh_local_data.DownloadsList
 	DLCs       vangogh_local_data.DownloadsList
 	Extras     vangogh_local_data.DownloadsList

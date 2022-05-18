@@ -1,4 +1,4 @@
-{{define "updates"}}
+{{define "updates-page"}}
     <!doctype html>
     <html lang="en">
     {{template "head" .}}
@@ -6,9 +6,15 @@
     {{template "svg-icons"}}
     {{template "nav" .Context}}
     <ul class="scope">
-        <li class="{{if eq .Since 4}}{{`current`}}{{end}}"><a href="/updates/recent">recent</a></li>
-        <li class="{{if eq .Since 24}}{{`current`}}{{end}}"><a href="/updates/today">today</a></li>
-        <li class="{{if eq .Since 120}}{{`current`}}{{end}}"><a href="/updates/this_week">this week</a></li>
+        <li class="{{if eq .Since 4}}{{`current`}}{{end}}">
+            <a href="/updates/recent" accesskey="r">recent</a>
+        </li>
+        <li class="{{if eq .Since 24}}{{`current`}}{{end}}">
+            <a href="/updates/today" accesskey="t">today</a>
+        </li>
+        <li class="{{if eq .Since 120}}{{`current`}}{{end}}">
+            <a href="/updates/this_week" accesskey="w">this week</a>
+        </li>
     </ul>
     <section class="updates-container">
         {{$sectionProducts := .SectionProducts}}
@@ -16,7 +22,7 @@
             {{range .Sections}}
                 <h1 class="section-title">{{.}}</h1>
                 {{$products := index $sectionProducts .}}
-                {{template "products" $products.Products}}
+                {{template "products-list" $products.Products}}
             {{end}}
         {{else}}
             <div class="no-updates">no updates</div>

@@ -129,25 +129,25 @@
             {{if .IncludesGames}}
                 <div class="text-property">
                     <h2 class="property-title">Includes</h2>
-                    {{template "product-refs" .IncludesGames}}
+                    {{template "product-details-refs" .IncludesGames}}
                 </div>
             {{end}}
             {{if .IsIncludedByGames}}
                 <div class="text-property">
                     <h2 class="property-title">Included By</h2>
-                    {{template "product-refs" .IsIncludedByGames}}
+                    {{template "product-details-refs" .IsIncludedByGames}}
                 </div>
             {{end}}
             {{if .RequiresGames}}
                 <div class="text-property">
                     <h2 class="property-title">Requires</h2>
-                    {{template "product-refs"  .RequiresGames}}
+                    {{template "product-details-refs"  .RequiresGames}}
                 </div>
             {{end}}
             {{if .IsRequiredByGames}}
                 <div class="text-property">
                     <h2 class="property-title">Required By</h2>
-                    {{template "product-refs" .IsRequiredByGames}}
+                    {{template "product-details-refs" .IsRequiredByGames}}
                 </div>
             {{end}}
             <div class="text-property">
@@ -165,7 +165,7 @@
         </section>
         <section class="additional-properties">
             {{if .Description}}
-                <details id="description" class="description" open>
+                <details id="description" class="description" open accesskey="d" tabindex="10">
                     <summary>Description</summary>
                     <div class="description-content">
                         {{.Description}}
@@ -179,7 +179,7 @@
                 </details>
             {{end}}
             {{if .Screenshots}}
-                <details class="screenshots">
+                <details class="screenshots" accesskey="s" tabindex="11">
                     <summary>Screenshots</summary>
                     {{range .Screenshots}}
                         <a href="/images?id={{.}}" aria-label="open original screenshot file">
@@ -189,7 +189,7 @@
                 </details>
             {{end}}
             {{if .Videos}}
-                <details class="videos">
+                <details class="videos" accesskey="v" tabindex="12">
                     <summary>Videos</summary>
                     {{range .Videos}}
                         <video controls src="/videos?id={{.}}"></video>
@@ -197,16 +197,16 @@
                 </details>
             {{end}}
             {{if .Changelog}}
-                <details class="changelog">
+                <details class="changelog" accesskey="c" tabindex="13">
                     <summary>Changelog</summary>
                     <div class="changelog-content">{{.Changelog}}</div>
                 </details>
             {{end}}
             {{if hasDownloads .CurrentOS}}
-                {{template "downloads" .CurrentOS}}
+                {{template "product-details-downloads" .CurrentOS}}
             {{end}}
             {{if hasDownloads .OtherOS}}
-                {{template "downloads" .OtherOS}}
+                {{template "product-details-downloads" .OtherOS}}
             {{end}}
         </section>
     </div>

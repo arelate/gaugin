@@ -69,7 +69,7 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 
 	uvm := updatesViewModelFromRedux(updates, since, rdx)
 
-	if err := tmpl.ExecuteTemplate(w, "updates", uvm); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "updates-page", uvm); err != nil {
 		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
 		return
 	}

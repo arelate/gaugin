@@ -184,7 +184,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	defaultHeaders(w)
 
-	if err := tmpl.ExecuteTemplate(w, "search", spvm); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "search-page", spvm); err != nil {
 		http.Error(w, nod.ErrorStr("template error"), http.StatusInternalServerError)
 		return
 	}

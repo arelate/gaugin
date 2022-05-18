@@ -1,4 +1,4 @@
-{{define "search"}}
+{{define "search-page"}}
     <!doctype html>
     <html lang="en">
     {{template "head" .}}
@@ -7,23 +7,23 @@
     {{template "nav" .Context}}
     <ul class="scope">
         <li class="{{if eq .Scope "owned"}}{{`current`}}{{end}}">
-            <a href="/products/owned">owned</a>
+            <a href="/products/owned" accesskey="o">owned</a>
         </li>
         <li class="{{if eq .Scope "wishlist"}}{{`current`}}{{end}}">
-            <a href="/products/wishlist">wishlist</a>
+            <a href="/products/wishlist" accesskey="w">wishlist</a>
         </li>
         <li class="{{if eq .Scope "sale"}}{{`current`}}{{end}}">
-            <a href="/products/sale">sale</a>
+            <a href="/products/sale" accesskey="s">sale</a>
         </li>
-        <li class="{{if eq .Scope "store"}}{{`current`}}{{end}}">
-            <a href="/products/store">store</a>
+        <li class="{{if eq .Scope "all"}}{{`current`}}{{end}}">
+            <a href="/products/all" accesskey="a">all</a>
         </li>
     </ul>
     {{template "search-properties" .}}
     {{if .Query}}
         {{template "search-query" .Query}}
     {{end}}
-    {{template "products" .Products}}
+    {{template "products-list" .Products}}
     {{template "footer"}}
     </body>
     </html>

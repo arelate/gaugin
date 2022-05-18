@@ -9,7 +9,7 @@ var predefinedSearchPaths = map[string]string{
 	"owned":    "/search?types=account-products&sort=gog-order-date&desc=true",
 	"wishlist": "/search?wishlisted=true&sort=gog-release-date&desc=true",
 	"sale":     "/search?owned=false&is-discounted=true",
-	"store":    "/search?types=store-products&sort=gog-release-date&desc=true",
+	"all":      "/search?types=store-products&sort=gog-release-date&desc=true",
 }
 
 func HandleFuncs() {
@@ -35,7 +35,7 @@ func HandleFuncs() {
 		"/products/owned":    http.RedirectHandler(predefinedSearchPaths["owned"], http.StatusPermanentRedirect),
 		"/products/wishlist": http.RedirectHandler(predefinedSearchPaths["wishlist"], http.StatusPermanentRedirect),
 		"/products/sale":     http.RedirectHandler(predefinedSearchPaths["sale"], http.StatusPermanentRedirect),
-		"/products/store":    http.RedirectHandler(predefinedSearchPaths["store"], http.StatusPermanentRedirect),
+		"/products/all":      http.RedirectHandler(predefinedSearchPaths["all"], http.StatusPermanentRedirect),
 		"/products":          http.RedirectHandler("/search", http.StatusPermanentRedirect),
 
 		// start at the updates

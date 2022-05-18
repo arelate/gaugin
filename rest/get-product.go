@@ -54,60 +54,70 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	pvm.Videos = validVideos
 
-	if pvm.Owned {
-		dls, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes)
-		if err != nil {
-			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-			return
-		}
-
-		var currentOS vangogh_local_data.OperatingSystem
-		userAgent := r.Header.Get("User-Agent")
-		if strings.Contains(userAgent, "Windows") {
-			currentOS = vangogh_local_data.Windows
-		} else if strings.Contains(userAgent, "Mac OS X") {
-			currentOS = vangogh_local_data.MacOS
-		} else if strings.Contains(userAgent, "Linux") {
-			currentOS = vangogh_local_data.Linux
-		}
-
-		pvm.CurrentOS = &productDownloads{
-			Context:    "current-operating-system",
-			Installers: make(vangogh_local_data.DownloadsList, 0, len(dls)),
-			DLCs:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
-			Extras:     make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		}
-		pvm.OtherOS = &productDownloads{
-			Context:    "other-operating-system",
-			Installers: make(vangogh_local_data.DownloadsList, 0, len(dls)),
-			DLCs:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
-			Extras:     make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		}
-
-		var osd *productDownloads
-		for _, dl := range dls {
-			if dl.OS == currentOS ||
-				dl.OS == vangogh_local_data.AnyOperatingSystem {
-				osd = pvm.CurrentOS
-			} else {
-				osd = pvm.OtherOS
-			}
-
-			switch dl.Type {
-			case vangogh_local_data.Installer:
-				osd.Installers = append(osd.Installers, dl)
-			case vangogh_local_data.DLC:
-				osd.DLCs = append(osd.DLCs, dl)
-			case vangogh_local_data.Extra:
-				fallthrough
-			default:
-				osd.Extras = append(osd.Extras, dl)
-			}
-		}
+	if err := getCurrentOtherOSDownloads(pvm, id, r.Header.Get("User-Agent")); err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
 	}
 
-	if err := tmpl.ExecuteTemplate(w, "product", pvm); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "product-page", pvm); err != nil {
 		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
 		return
 	}
+}
+
+func getCurrentOtherOSDownloads(pvm *productViewModel, id string, userAgent string) error {
+
+	if !pvm.Owned {
+		return nil
+	}
+
+	dls, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes)
+	if err != nil {
+		return err
+	}
+
+	var currentOS vangogh_local_data.OperatingSystem
+	if strings.Contains(userAgent, "Windows") {
+		currentOS = vangogh_local_data.Windows
+	} else if strings.Contains(userAgent, "Mac OS X") {
+		currentOS = vangogh_local_data.MacOS
+	} else if strings.Contains(userAgent, "Linux") {
+		currentOS = vangogh_local_data.Linux
+	}
+
+	pvm.CurrentOS = &productDownloads{
+		CurrentOS:  true,
+		Installers: make(vangogh_local_data.DownloadsList, 0, len(dls)),
+		DLCs:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
+		Extras:     make(vangogh_local_data.DownloadsList, 0, len(dls)),
+	}
+	pvm.OtherOS = &productDownloads{
+		CurrentOS:  false,
+		Installers: make(vangogh_local_data.DownloadsList, 0, len(dls)),
+		DLCs:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
+		Extras:     make(vangogh_local_data.DownloadsList, 0, len(dls)),
+	}
+
+	var osd *productDownloads
+	for _, dl := range dls {
+		if dl.OS == currentOS ||
+			dl.OS == vangogh_local_data.AnyOperatingSystem {
+			osd = pvm.CurrentOS
+		} else {
+			osd = pvm.OtherOS
+		}
+
+		switch dl.Type {
+		case vangogh_local_data.Installer:
+			osd.Installers = append(osd.Installers, dl)
+		case vangogh_local_data.DLC:
+			osd.DLCs = append(osd.DLCs, dl)
+		case vangogh_local_data.Extra:
+			fallthrough
+		default:
+			osd.Extras = append(osd.Extras, dl)
+		}
+	}
+
+	return nil
 }

@@ -1,6 +1,6 @@
-{{define "downloads"}}
-    <details class="downloads {{.Context}}" {{if eq .Context "current-operating-system"}}open{{end}}>
-        <summary>{{if eq .Context "current-operating-system"}}Current{{else}}Other{{end}} OS downloads</summary>
+{{define "product-details-downloads"}}
+    <details class="downloads" {{if .CurrentOS}}open{{end}} accesskey="f" tabindex="20">
+        <summary>{{if .CurrentOS}}Current{{else}}Other{{end}} OS file downloads</summary>
         {{if .Installers}}
             <details class="downloads-type installers" open>
                 <summary>Installers</summary>
