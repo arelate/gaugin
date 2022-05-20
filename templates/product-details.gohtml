@@ -162,6 +162,14 @@
                     {{end}}
                 </ul>
             </div>
+            {{if .SteamCommunityUrl}}
+                <div class="text-property">
+                    <h2 class="property-title">Steam Links</h2>
+                    <ul class="property-value flexible">
+                        <li><a href="{{.SteamCommunityUrl}}" aria-label="Steam Community Link">Community</a></li>
+                    </ul>
+                </div>
+            {{end}}
         </section>
         <section class="additional-properties">
             {{if .Description}}

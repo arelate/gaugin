@@ -2,6 +2,7 @@ package rest
 
 import (
 	"fmt"
+	"github.com/arelate/steam_integration"
 	"github.com/arelate/vangogh_local_data"
 	"html/template"
 	"sort"
@@ -108,6 +109,8 @@ type productViewModel struct {
 	Price              string
 	DiscountPercentage string
 	DiscountAmount     string
+	// Steam Community url
+	SteamCommunityUrl string
 }
 
 func propertyFromRedux(redux map[string][]string, property string) string {
@@ -248,6 +251,12 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 			}
 
 			pvm.DiscountAmount, pvm.LargeDiscount = discountAmountFromRedux(rdx)
+
+			if steamAppId := propertyFromRedux(rdx, vangogh_local_data.SteamAppId); steamAppId != "" {
+				if scu := steam_integration.SteamCommunityUrl(steamAppId); scu != nil {
+					pvm.SteamCommunityUrl = scu.String()
+				}
+			}
 
 			//Description content preparation includes the following steps:
 			//1) combining DescriptionOverview and DescriptionFeatures
