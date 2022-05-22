@@ -42,7 +42,10 @@
             <li class="label free">FREE</li>
         {{end}}
         {{if .Discounted}}
-            <li class="label discounted {{if .LargeDiscount}}large-discount{{end}}">SALE{{if .DiscountAmount}} {{.DiscountAmount}}{{end}}</li>
+            {{if .Owned}}{{else}}
+                <li class="label discounted {{if .LargeDiscount}}large-discount{{end}}">
+                    SALE{{if .DiscountAmount}} {{.DiscountAmount}}{{end}}</li>
+            {{end}}
         {{end}}
         {{if .Wishlisted}}
             <li class="label wishlisted">WISHLISTED</li>
