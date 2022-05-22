@@ -23,13 +23,15 @@
                     </ul>
                 </div>
             {{end}}
-            <div class="text-property center">
-                <h2 class="property-title" title="Operating System">OS</h2>
-                <ul class="property-value horizontal">
-                    {{range .OperatingSystems}}
-                        <li><a href="/search?os={{.}}" aria-label="{{.}}">{{template "svg-icon" .}}</a></li>
-                    {{end}}</ul>
-            </div>
+            {{if .OperatingSystems}}
+                <div class="text-property center">
+                    <h2 class="property-title" title="Operating System">OS</h2>
+                    <ul class="property-value horizontal">
+                        {{range .OperatingSystems}}
+                            <li><a href="/search?os={{.}}" aria-label="{{.}}">{{template "svg-icon" .}}</a></li>
+                        {{end}}</ul>
+                </div>
+            {{end}}
             {{if (ne .Rating "0")}}
                 <div class="text-property center">
                     <h2 class="property-title">Rating</h2>
@@ -46,20 +48,24 @@
                     </div>
                 </div>
             {{end}}
-            <div class="text-property">
-                <h2 class="property-title">Developers</h2>
-                <ul class="property-value">{{range .Developers}}
-                        <li><a href="/search?developers={{.}}"
-                               aria-label="all products by developers: {{.}}">{{.}}</a>
-                        </li>{{end}}</ul>
-            </div>
-            <div class="text-property">
-                <h2 class="property-title">Publisher</h2>
-                <ul class="property-value">
-                    <li><a href="/search?publisher={{.Publisher}}"
-                           aria-label="all products by publisher: {{.Publisher}}">{{.Publisher}}</a></li>
-                </ul>
-            </div>
+            {{if .Developers}}
+                <div class="text-property">
+                    <h2 class="property-title">Developers</h2>
+                    <ul class="property-value">{{range .Developers}}
+                            <li><a href="/search?developers={{.}}"
+                                   aria-label="all products by developers: {{.}}">{{.}}</a>
+                            </li>{{end}}</ul>
+                </div>
+            {{end}}
+            {{if .Publisher}}
+                <div class="text-property">
+                    <h2 class="property-title">Publisher</h2>
+                    <ul class="property-value">
+                        <li><a href="/search?publisher={{.Publisher}}"
+                               aria-label="all products by publisher: {{.Publisher}}">{{.Publisher}}</a></li>
+                    </ul>
+                </div>
+            {{end}}
             {{if .Series}}
                 <div class="text-property">
                     <h2 class="property-title">Series</h2>
@@ -69,12 +75,14 @@
                     </ul>
                 </div>
             {{end}}
-            <div class="text-property">
-                <h2 class="property-title">Genres</h2>
-                <ul class="property-value flexible">{{range .Genres}}
-                        <li><a href="/search?genres={{.}}" aria-label="all products of {{.}} genre">{{.}}</a>
-                        </li>{{end}}</ul>
-            </div>
+            {{if .Genres}}
+                <div class="text-property">
+                    <h2 class="property-title">Genres</h2>
+                    <ul class="property-value flexible">{{range .Genres}}
+                            <li><a href="/search?genres={{.}}" aria-label="all products of {{.}} genre">{{.}}</a>
+                            </li>{{end}}</ul>
+                </div>
+            {{end}}
             {{if .Properties}}
                 <div class="text-property">
                     <h2 class="property-title">Store tags</h2>
@@ -92,34 +100,42 @@
                     {{end}}
                 </div>
             {{end}}
-            <div class="text-property">
-                <h2 class="property-title">Features</h2>
-                <ul class="property-value flexible">{{range .Features}}
-                        <li><a href="/search?features={{.}}" aria-label="all products that support {{.}}">{{.}}</a>
-                        </li>{{end}}</ul>
-            </div>
-            <div class="text-property">
-                <h2 class="property-title">Languages</h2>
-                {{$langsLen := len .LanguageCodes}}
-                {{if gt $langsLen 3}}
-                <details>
-                    <summary>{{$langsLen}} language(s)</summary>
-                    {{end}}
-                    <ul class="property-value {{if gt $langsLen 3}}vertical{{end}}">{{range .LanguageCodes}}
-                            <li><a href="/search?lang-code={{productTitle .}}"
-                                   aria-label="all products supporting {{.}} language">{{.}}</a></li>{{end}}</ul>
+            {{if .Features}}
+                <div class="text-property">
+                    <h2 class="property-title">Features</h2>
+                    <ul class="property-value flexible">{{range .Features}}
+                            <li><a href="/search?features={{.}}" aria-label="all products that support {{.}}">{{.}}</a>
+                            </li>{{end}}</ul>
+                </div>
+            {{end}}
+            {{if .LanguageCodes}}
+                <div class="text-property">
+                    <h2 class="property-title">Languages</h2>
+                    {{$langsLen := len .LanguageCodes}}
                     {{if gt $langsLen 3}}
-                </details>
-                {{end}}
-            </div>
-            <div class="text-property">
-                <h2 class="property-title">Global Release</h2>
-                <div class="property-value">{{formatDate .GlobalReleaseDate}}</div>
-            </div>
-            <div class="text-property">
-                <h2 class="property-title">GOG.com Release</h2>
-                <div class="property-value">{{formatDate .GOGReleaseDate}}</div>
-            </div>
+                    <details>
+                        <summary>{{$langsLen}} language(s)</summary>
+                        {{end}}
+                        <ul class="property-value {{if gt $langsLen 3}}vertical{{end}}">{{range .LanguageCodes}}
+                                <li><a href="/search?lang-code={{productTitle .}}"
+                                       aria-label="all products supporting {{.}} language">{{.}}</a></li>{{end}}</ul>
+                        {{if gt $langsLen 3}}
+                    </details>
+                    {{end}}
+                </div>
+            {{end}}
+            {{if .GlobalReleaseDate}}
+                <div class="text-property">
+                    <h2 class="property-title">Global Release</h2>
+                    <div class="property-value">{{formatDate .GlobalReleaseDate}}</div>
+                </div>
+            {{end}}
+            {{if .GOGReleaseDate}}
+                <div class="text-property">
+                    <h2 class="property-title">GOG.com Release</h2>
+                    <div class="property-value">{{formatDate .GOGReleaseDate}}</div>
+                </div>
+            {{end}}
             {{if .GOGOrderDate}}
                 <div class="text-property">
                     <h2 class="property-title">GOG.com Order</h2>
