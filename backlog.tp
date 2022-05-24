@@ -1,4 +1,18 @@
-Process items from other sources (additional requirements) @done(2022-05-13)
+Implement local tags:
+	- New property local-tags
+	- New cmd for new, delete local tags
+	- New cmd for add, remove to products (only existing tags)
+	- Display in gaugin
+	- First candidate: Most Wanted
+	
+Implement source ports links:
+	- New property source-port-links
+	- New cmd to add, remove to products
+	- Display in gaugin
+	- https://en.wikipedia.org/wiki/Source_port
+	
+Return GOG.com user tags:
+	- SImilarly to other links
 
 Implement add to wishlist:
 	- for products that are not owned
@@ -8,22 +22,6 @@ Implement add to wishlist:
 		- DELETE methods
 	- Make sure local changes are happening the way gaugin expects them to (e.g. wishlist reduction)
 	- Wishlisted should also have "Remove from wishlist" button
-
-Top nav menu refactor:
-	- display icon and a current section
-	- expand to menu:
-		- Updates
-		- Sales
-		- Downloads
-		- All
-		- Wishlisted
-			- Search using new wishlisted extract (that needs to be searchable)
-		- Find
-
-Sales view:
-	- Reduce prices
-	- Track historic prices?
-	- Show products currently on sale
 
 Sync view:
 	- initiate sync
@@ -35,19 +33,33 @@ More icons, less text:
 	- genres
 	- features
 
-vangogh/gaugin caching infrastructure:
-	- reductions should provide ModTime
-	- vangogh on data request should return from memroy if ModTime earlier than data load (reload data if not true)
-	- create new endpoint to query keys/reductions modtimes
-	- before doing expensive request - if modTime is earlier than cache - return from cache, otherwise - rebuild cache
-
-Optimize images:
-	- when adding to collection:
-		- convert to modern format
-		- generate smaller versions
-		- use srcset instead of img to opimize downloading
-	
 Archive:
+	Optimize images: @done(2022-05-23)
+		- when adding to collection: @done(2022-05-23)
+			- convert to modern format @done(2022-05-23)
+			- generate smaller versions @done(2022-05-23)
+			- use srcset instead of img to opimize downloading @done(2022-05-23)
+		
+	vangogh/gaugin caching infrastructure: @done(2022-05-23)
+		- reductions should provide ModTime @done(2022-05-23)
+		- vangogh on data request should return from memroy if ModTime earlier than data load (reload data if not true) @done(2022-05-23)
+		- create new endpoint to query keys/reductions modtimes @done(2022-05-23)
+		- before doing expensive request - if modTime is earlier than cache - return from cache, otherwise - rebuild cache @done(2022-05-23)
+	Sales view: @done(2022-05-23)
+		- Reduce prices @done(2022-05-23)
+		- Track historic prices? @done(2022-05-23)
+		- Show products currently on sale @done(2022-05-23)
+	Top nav menu refactor: @done(2022-05-23)
+		- display icon and a current section @done(2022-05-23)
+		- expand to menu: @done(2022-05-23)
+			- Updates @done(2022-05-23)
+			- Sales @done(2022-05-23)
+			- Downloads @done(2022-05-23)
+			- All @done(2022-05-23)
+			- Wishlisted @done(2022-05-23)
+				- Search using new wishlisted extract (that needs to be searchable) @done(2022-05-23)
+			- Find @done(2022-05-23)
+	Process items from other sources (additional requirements) @done(2022-05-13)
 	Finish If-Modified-Since implementation: @done(2022-05-12)
 		- generalize search caching middleware in gaugin to support any endpoint by URL and apply to digest, redux @done(2022-05-12)
 	Design updates: @done(2022-04-28)
