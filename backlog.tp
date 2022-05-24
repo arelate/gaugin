@@ -1,10 +1,7 @@
-Implement local tags:
-	- New property local-tags
-	- New cmd for new, delete local tags
-	- New cmd for add, remove to products (only existing tags)
-	- Display in gaugin
-	- First candidate: Most Wanted
-	
+Complete local-tags:
+	- Support in search
+	- Support more than 1 id
+
 Implement source ports links:
 	- New property source-port-links
 	- New cmd to add, remove to products
@@ -34,6 +31,13 @@ More icons, less text:
 	- features
 
 Archive:
+	Implement local tags: @done(2022-05-23)
+		- New property local-tags @done(2022-05-23)
+		- New cmd for new, delete local tags @done(2022-05-23)
+		- New cmd for add, remove to products (only existing tags) @done(2022-05-23)
+		- Display in gaugin @done(2022-05-23)
+		- First candidate: Most Wanted @done(2022-05-23)
+		
 	Optimize images: @done(2022-05-23)
 		- when adding to collection: @done(2022-05-23)
 			- convert to modern format @done(2022-05-23)

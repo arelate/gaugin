@@ -28,6 +28,7 @@ type listProductViewModel struct {
 	DiscountAmount   string
 	OperatingSystems []string
 	Tags             []string
+	LocalTags        []string
 	ProductType      string
 }
 
@@ -58,6 +59,7 @@ type productViewModel struct {
 	Title             string
 	Image             string
 	Tags              []string
+	LocalTags         []string
 	OperatingSystems  []string
 	Rating            string
 	Developers        []string
@@ -187,6 +189,7 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 			Publisher:        propertyFromRedux(rdx, vangogh_local_data.PublisherProperty),
 			OperatingSystems: propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
 			Tags:             propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
+			LocalTags:        propertiesFromRedux(rdx, vangogh_local_data.LocalTagsProperty),
 			ProductType:      propertyFromRedux(rdx, vangogh_local_data.ProductTypeProperty),
 		}
 
@@ -211,6 +214,7 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				ProductType:            propertyFromRedux(rdx, vangogh_local_data.ProductTypeProperty),
 				Title:                  propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
 				Tags:                   propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
+				LocalTags:              propertiesFromRedux(rdx, vangogh_local_data.LocalTagsProperty),
 				OperatingSystems:       propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
 				Rating:                 propertyFromRedux(rdx, vangogh_local_data.RatingProperty),
 				Developers:             propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
@@ -232,7 +236,7 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				SupportUrl:             propertyFromRedux(rdx, vangogh_local_data.SupportUrlProperty),
 				Changelog:              template.HTML(propertyFromRedux(rdx, vangogh_local_data.ChanglogProperty)),
 				Copyrights:             template.HTML(propertyFromRedux(rdx, vangogh_local_data.CopyrightsProperty)),
-				AdditionalRequirements: template.HTML((propertyFromRedux(rdx, vangogh_local_data.AdditionalRequirementsProperty))),
+				AdditionalRequirements: template.HTML(propertyFromRedux(rdx, vangogh_local_data.AdditionalRequirementsProperty)),
 				Screenshots:            propertiesFromRedux(rdx, vangogh_local_data.ScreenshotsProperty),
 				Videos:                 propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
 				Wishlisted:             flagFromRedux(rdx, vangogh_local_data.WishlistedProperty),
@@ -252,7 +256,7 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 
 			pvm.DiscountAmount, pvm.LargeDiscount = discountAmountFromRedux(rdx)
 
-			if steamAppId := propertyFromRedux(rdx, vangogh_local_data.SteamAppId); steamAppId != "" {
+			if steamAppId := propertyFromRedux(rdx, vangogh_local_data.SteamAppIdProperty); steamAppId != "" {
 				if scu := steam_integration.SteamCommunityUrl(steamAppId); scu != nil {
 					pvm.SteamCommunityUrl = scu.String()
 				}

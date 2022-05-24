@@ -76,6 +76,7 @@ var searchPropertyNames = map[string]string{
 
 var gauginDigestibleProperties = []string{
 	vangogh_local_data.TagIdProperty,
+	vangogh_local_data.LocalTagsProperty,
 	vangogh_local_data.OperatingSystemsProperty,
 	vangogh_local_data.GenresProperty,
 	vangogh_local_data.PropertiesProperty,
@@ -172,7 +173,8 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.GOGReleaseDateProperty,
 		vangogh_local_data.GOGOrderDateProperty,
 		vangogh_local_data.TitleProperty,
-		vangogh_local_data.RatingProperty}
+		vangogh_local_data.RatingProperty,
+		vangogh_local_data.LocalTagsProperty}
 
 	digests["desc"] = []string{"true", "false"}
 

@@ -26,6 +26,7 @@ var listReduxProperties = []string{
 	vangogh_local_data.PublisherProperty,
 	vangogh_local_data.OperatingSystemsProperty,
 	vangogh_local_data.TagIdProperty,
+	vangogh_local_data.LocalTagsProperty,
 	vangogh_local_data.ProductTypeProperty,
 	vangogh_local_data.IsFreeProperty,
 	vangogh_local_data.IsDiscountedProperty,

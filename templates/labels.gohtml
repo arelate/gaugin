@@ -36,6 +36,9 @@
         {{range .Tags}}
             <li class="label tag">{{productTitle .}}</li>
         {{end}}
+        {{range .LocalTags}}
+            <li class="label local-tag">{{.}}</li>
+        {{end}}
 
         {{/* Sale/price lifecycle labels */}}
         {{if .Free}}
