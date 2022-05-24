@@ -23,6 +23,7 @@ func funcMap() template.FuncMap {
 		"toLower":            toLower,
 		"dlTitle":            dlTitle,
 		"hasLabel":           hasLabel,
+		"hasTags":            hasTags,
 		"showPrice":          showPrice,
 		"searchPropertyName": searchPropertyName,
 		"hasDownloads":       hasDownloads,
@@ -126,6 +127,10 @@ func hasLabel(lpvm listProductViewModel) bool {
 		lpvm.Free ||
 		lpvm.Discounted ||
 		len(lpvm.Tags) > 0
+}
+
+func hasTags(pvm productViewModel) bool {
+	return len(pvm.Tags) > 0 || len(pvm.LocalTags) > 0
 }
 
 func showPrice(pvm productViewModel) bool {

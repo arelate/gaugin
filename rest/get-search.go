@@ -12,6 +12,7 @@ var gauginSearchProperties = []string{
 	vangogh_local_data.TextProperty,
 	vangogh_local_data.TitleProperty,
 	vangogh_local_data.TagIdProperty,
+	vangogh_local_data.LocalTagsProperty,
 	vangogh_local_data.OperatingSystemsProperty,
 	vangogh_local_data.DevelopersProperty,
 	vangogh_local_data.PublisherProperty,
@@ -44,7 +45,8 @@ var gauginSearchProperties = []string{
 var searchPropertyNames = map[string]string{
 	vangogh_local_data.TextProperty:              "Any Text",
 	vangogh_local_data.TitleProperty:             "Title",
-	vangogh_local_data.TagIdProperty:             "User Tags",
+	vangogh_local_data.TagIdProperty:             "Account Tags",
+	vangogh_local_data.LocalTagsProperty:         "Local Tags",
 	vangogh_local_data.OperatingSystemsProperty:  "OS",
 	vangogh_local_data.DevelopersProperty:        "Developers",
 	vangogh_local_data.PublisherProperty:         "Publisher",
@@ -76,6 +78,7 @@ var searchPropertyNames = map[string]string{
 
 var gauginDigestibleProperties = []string{
 	vangogh_local_data.TagIdProperty,
+	vangogh_local_data.LocalTagsProperty,
 	vangogh_local_data.LocalTagsProperty,
 	vangogh_local_data.OperatingSystemsProperty,
 	vangogh_local_data.GenresProperty,

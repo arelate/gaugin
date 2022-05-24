@@ -32,6 +32,19 @@
                         {{end}}</ul>
                 </div>
             {{end}}
+            {{if hasTags .}}
+                <div class="text-property center">
+                    <h2 class="property-title" title="Tags">Tags</h2>
+                    <ul class="property-value">
+                        {{range .Tags}}
+                            <li><a href="/search?tag={{.}}" aria-label="{{.}}">{{productTitle .}}</a></li>
+                        {{end}}
+                        {{range .LocalTags}}
+                            <li><a href="/search?local-tags={{.}}" aria-label="{{.}}">{{.}}</a></li>
+                        {{end}}
+                    </ul>
+                </div>
+            {{end}}
             {{if (ne .Rating "0")}}
                 <div class="text-property center">
                     <h2 class="property-title">Rating</h2>
