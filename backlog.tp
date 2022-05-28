@@ -1,15 +1,8 @@
-Complete local-tags:
-	- Support in search
-	- Support more than 1 id
-
 Implement source ports links:
 	- New property source-port-links
 	- New cmd to add, remove to products
 	- Display in gaugin
 	- https://en.wikipedia.org/wiki/Source_port
-	
-Return GOG.com user tags:
-	- SImilarly to other links
 
 Implement add to wishlist:
 	- for products that are not owned
@@ -31,6 +24,11 @@ More icons, less text:
 	- features
 
 Archive:
+	Return GOG.com user tags: @done(2022-05-24)
+		- SImilarly to other links @done(2022-05-24)
+	Complete local-tags: @done(2022-05-24)
+		- Support in search @done(2022-05-24)
+		- Support more than 1 id @done(2022-05-24)
 	Implement local tags: @done(2022-05-23)
 		- New property local-tags @done(2022-05-23)
 		- New cmd for new, delete local tags @done(2022-05-23)

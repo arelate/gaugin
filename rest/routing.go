@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"github.com/boggydigital/middleware"
 	"github.com/boggydigital/nod"
 	"net/http"
 )
@@ -16,14 +17,14 @@ func HandleFuncs() {
 
 	patternHandlers := map[string]http.Handler{
 		// current endpoints
-		"/updates":     Gzip(GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetUpdates)))),
-		"/product":     Gzip(GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetProduct)))),
-		"/search":      Gzip(GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetSearch)))),
-		"/images":      GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetImages))),
-		"/videos":      GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetVideos))),
-		"/items/":      GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetItems))),
-		"/files":       basicHttpAuth(GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetFiles)))),
-		"/local-file/": basicHttpAuth(GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetLocalFile)))),
+		"/updates":     middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetUpdates)))),
+		"/product":     middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetProduct)))),
+		"/search":      middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetSearch)))),
+		"/images":      middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetImages))),
+		"/videos":      middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetVideos))),
+		"/items/":      middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetItems))),
+		"/files":       middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetFiles)))),
+		"/local-file/": middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetLocalFile)))),
 		"/favicon.ico": http.HandlerFunc(http.NotFound),
 
 		// updates redirects

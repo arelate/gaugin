@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"github.com/arelate/gaugin/gaugin_middleware"
 	"net/http"
 	"strings"
 
@@ -37,7 +38,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	defaultHeaders(w)
+	gaugin_middleware.DefaultHeaders(w)
 
 	pvm, err := productViewModelFromRedux(idRedux)
 	if err != nil {

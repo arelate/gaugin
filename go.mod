@@ -14,6 +14,7 @@ require (
 	github.com/arelate/steam_integration v0.1.2 // indirect
 	github.com/boggydigital/kvas v0.3.8 // indirect
 	github.com/boggydigital/match_node v0.1.5 // indirect
+	github.com/boggydigital/middleware v0.1.0 // indirect
 	github.com/boggydigital/wits v0.2.3 // indirect
 	github.com/boggydigital/yt_urls v0.1.13 // indirect
 	golang.org/x/net v0.0.0-20220425223048-2871e0cb64e4 // indirect

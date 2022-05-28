@@ -3,6 +3,7 @@ package rest
 import (
 	"crypto/sha256"
 	"github.com/arelate/vangogh_local_data"
+	"github.com/boggydigital/middleware"
 	"html/template"
 	"io/fs"
 )
@@ -11,8 +12,6 @@ var (
 	tmpl             *template.Template
 	operatingSystems []vangogh_local_data.OperatingSystem
 	languageCodes    []string
-	usernameHash     [32]byte
-	passwordHash     [32]byte
 )
 
 func SetDownloadsOperatingSystems(os []vangogh_local_data.OperatingSystem) {
@@ -24,11 +23,11 @@ func SetDownloadsLanguageCodes(lc []string) {
 }
 
 func SetUsername(u string) {
-	usernameHash = sha256.Sum256([]byte(u))
+	middleware.SetUsername(sha256.Sum256([]byte(u)))
 }
 
 func SetPassword(p string) {
-	passwordHash = sha256.Sum256([]byte(p))
+	middleware.SetPassword(sha256.Sum256([]byte(p)))
 }
 
 func Init(templatesFS fs.FS) error {
