@@ -65,14 +65,18 @@
             padding: 0.5em 1em;
             text-decoration: none;
             content-visibility: auto;
-            /* 135px is the average size of the element in "Products > store" section */
-            contain-intrinsic-size: 300px 135px;
+            /* 104px is the average size of the element in "Products > all" section */
+            contain-intrinsic-size: 300px 104px;
         }
 
         .products .product .title {
             margin: 0;
-            font-size: 1.2em;
+            font-size: 1em;
             padding-bottom: 0.25em;
+            max-width: 80vw;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .products .product .labels {
@@ -121,6 +125,13 @@
 
         .products .product .text-properties .property-title {
             font-weight: bold;
+        }
+
+        .products .product .text-properties .property-value {
+            max-width: calc(80vw - 7em);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     </style>
 {{end}}
