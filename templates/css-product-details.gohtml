@@ -34,6 +34,7 @@
         }
 
         .product-details h1 {
+            font-family: Seravek, sans-serif;
             font-size: 2.5rem;
             padding: 0.5rem 1rem;
             display: flex;
@@ -47,6 +48,18 @@
             min-width: 0.75em;
             height: 0.75em;
             color: var(--system-red-color)
+        }
+
+        .product-details .labels {
+            column-gap: 0.5em;
+            row-gap: 0.5em;
+            padding-inline-start: 1em;
+        }
+
+        .product-details .labels .label {
+            border-width: 2px;
+            border-radius: 4px;
+            display: inline-block;
         }
 
         .product-details .text-properties {
@@ -89,14 +102,6 @@
             flex-direction: row;
             flex-wrap: wrap;
             column-gap: 1em;
-        }
-
-        .product-details .label {
-            font-weight: bold;
-            padding: 2px 5px;
-            display: inline-block;
-            border-radius: 2px;
-            cursor: default;
         }
 
         .product-details .text-properties .text-property .property-value .tag a {
