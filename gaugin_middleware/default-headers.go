@@ -4,7 +4,10 @@ import "net/http"
 
 const (
 	htmlContentType = "text/html"
-	defaultCSP      = "default-src 'self'; script-src: 'none'; style-src 'unsafe-inline';"
+	defaultCSP      = "default-src 'self'; " +
+		"script-src 'none'; " +
+		"object-src 'none'; " +
+		"style-src 'unsafe-inline';"
 )
 
 func DefaultHeaders(w http.ResponseWriter) {
