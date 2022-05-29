@@ -2,7 +2,7 @@
     <ul class="labels">
         {{/* Owned products with downloads */}}
         {{if .Owned}}
-            <li class="label owned">OWNED</li>
+            <li class="label owned" title="Owned">OWN</li>
         {{end}}
 
         {{/* GAME, DLC, PACK */}}
@@ -14,16 +14,16 @@
 
         {{/* Release timeline labels */}}
         {{if .TBA}}
-            <li class="label tba">TBA</li>
+            <li class="label tba" title="To Be Announced">TBA</li>
         {{end}}
         {{if .ComingSoon}}
-            <li class="label coming-soon">SOON</li>
+            <li class="label coming-soon" title="Soon">S&infin;N</li>
         {{end}}
         {{if .PreOrder}}
-            <li class="label preorder">PRE-ORDER</li>
+            <li class="label preorder" title="Pre-Order">PO</li>
         {{end}}
         {{if .InDevelopment}}
-            <li class="label in-development">IN DEV</li>
+            <li class="label in-development" title="In Development">IN DEV</li>
         {{end}}
 
         {{/* Engine/Source-port labels */}}
@@ -46,12 +46,12 @@
         {{end}}
         {{if .Discounted}}
             {{if .Owned}}{{else}}
-                <li class="label discounted {{if .LargeDiscount}}large-discount{{end}}">
+                <li class="label discounted {{if .LargeDiscount}}large-discount{{end}}" title="Discounted">
                     SALE{{if .DiscountAmount}} {{.DiscountAmount}}{{end}}</li>
             {{end}}
         {{end}}
         {{if .Wishlisted}}
-            <li class="label wishlisted">WISHLISTED</li>
+            <li class="label wishlisted" title="Wishlisted">WISH</li>
         {{end}}
     </ul>
 {{end}}
