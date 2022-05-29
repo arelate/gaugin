@@ -8,10 +8,6 @@
                     <h2 class="title">{{ .Title }}</h2>
                     {{if hasLabel .}}{{template "labels" .}}{{end}}
                     <div class="text-properties">
-                        <div class="property-title">Developers</div>
-                        <div class="property-value">{{range .Developers}}<span>{{.}}</span> {{end}}</div>
-                        <div class="property-title">Publisher</div>
-                        <div class="property-value">{{.Publisher}}</div>
                         <div class="property-title">OS</div>
                         <div class="property-value">
                             <ul class="horizontal">
@@ -20,6 +16,11 @@
                                 {{end}}
                             </ul>
                         </div>
+                        <div class="property-title">Developers</div>
+                        <div class="property-value">{{range .Developers}}<span>{{.}}</span> {{end}}</div>
+                        <div class="property-title">Publisher</div>
+                        <div class="property-value">{{.Publisher}}</div>
+
                     </div>
                 </a>
             {{end}}
