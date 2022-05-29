@@ -9,7 +9,7 @@ import (
 var predefinedSearchPaths = map[string]string{
 	"owned":    "/search?types=account-products&sort=gog-order-date&desc=true",
 	"wishlist": "/search?wishlisted=true&sort=gog-release-date&desc=true",
-	"sale":     "/search?owned=false&is-discounted=true",
+	"sale":     "/search?owned=false&is-discounted=true&sort=discount-percentage&desc=true",
 	"all":      "/search?types=store-products&sort=gog-release-date&desc=true",
 }
 
