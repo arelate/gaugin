@@ -13,7 +13,7 @@
                         <label for="search-{{$property}}">{{searchPropertyName $property}}</label>
                         {{if $digests}}
                             <select id="search-{{$property}}" name="{{$property}}">
-                                <option {{if eq $value ""}}selected{{end}} value="">Any {{searchPropertyName $property}}</option>
+                                <option {{if eq $value ""}}selected{{end}} value="">Any {{searchPropertyName $property}}...</option>
                                 {{range $digests}}
                                     <option {{if eq $value .}}selected{{end}} value="{{.}}">{{.}}</option>
                                 {{end}}

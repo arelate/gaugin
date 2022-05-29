@@ -5,6 +5,19 @@
             border: none;
             border-radius: 4px;
             padding: 4px;
+            appearance: none;
+        }
+
+        select {
+            font-weight: bold;
+            color: var(--color);
+        }
+
+        select::after {
+            content: "x";
+            position: absolute;
+            right: 0;
+            top: 0;
         }
 
         .search-form {
@@ -27,7 +40,13 @@
 
         .search-form input,
         .search-form select {
+            background-color: var(--highlight-color);
             max-width: 10rem;
+        }
+
+        .search-form #submit {
+            background-color: var(--color);
+            color: var(--background-color);
         }
 
         .search-form input[type="search"] {
@@ -41,6 +60,7 @@
 
         .search-form input[type="search"]::placeholder {
             font-weight: normal;
+            color: var(--subtle-color);
         }
 
         .search-form .search-text-container {
