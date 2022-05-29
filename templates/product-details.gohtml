@@ -116,9 +116,18 @@
             {{if .Features}}
                 <div class="text-property">
                     <h2 class="property-title">Features</h2>
-                    <ul class="property-value flexible">{{range .Features}}
-                            <li><a href="/search?features={{.}}" aria-label="all products that support {{.}}">{{.}}</a>
-                            </li>{{end}}</ul>
+                    {{$featuresLen := len .Features}}
+                    {{if gt $featuresLen 3}}
+                    <details>
+                        <summary>{{$featuresLen}} feature(s)</summary>
+                        {{end}}
+                        <ul class="property-value {{if gt $featuresLen 3}}vertical{{end}} flexible">{{range .Features}}
+                                <li><a href="/search?features={{.}}"
+                                       aria-label="all products that support {{.}}">{{.}}</a>
+                                </li>{{end}}</ul>
+                        {{if gt $featuresLen 3}}
+                    </details>
+                    {{end}}
                 </div>
             {{end}}
             {{if .LanguageCodes}}
