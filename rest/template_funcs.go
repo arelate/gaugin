@@ -28,6 +28,8 @@ func funcMap() template.FuncMap {
 		"showPrice":          showPrice,
 		"searchPropertyName": searchPropertyName,
 		"hasDownloads":       hasDownloads,
+		"hasSteamAppNews":    hasSteamAppNews,
+		"hasSteamLinks":      hasSteamLinks,
 	}
 }
 
@@ -159,4 +161,18 @@ func hasDownloads(pd *productDownloads) bool {
 	return len(pd.Installers) > 0 ||
 		len(pd.DLCs) > 0 ||
 		len(pd.Extras) > 0
+}
+
+func hasSteamAppNews(pvm *productViewModel) bool {
+	if pvm == nil ||
+		pvm.SteamAppNews == nil ||
+		len(pvm.SteamAppNews.NewsItems) == 0 {
+		return false
+	}
+	return true
+}
+
+func hasSteamLinks(pvm *productViewModel) bool {
+	return pvm.SteamCommunityUrl != "" ||
+		hasSteamAppNews(pvm)
 }
