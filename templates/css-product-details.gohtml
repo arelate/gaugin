@@ -1,4 +1,7 @@
 {{define "css-product-details"}}
+    {{template "css-product-details-downloads"}}
+    {{template "css-product-details-steam-app-news"}}
+
     <style id="css-product-details">
         .cover-image {
             width: 100%;
@@ -238,6 +241,7 @@
             display: block;
             padding: 0.5em;
             background-color: var(--highlight-color);
+            z-index: 1;
         }
 
         .product-details details.description .description-content,

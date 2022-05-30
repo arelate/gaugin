@@ -1,0 +1,52 @@
+{{define "css-product-details-steam-app-news"}}
+    <style id="product-details-steam-app-news">
+
+        .steam-app-news .steam-app-news-content {
+            line-height: 1.5rem;
+            font-weight: normal;
+            font-size: 0.8em;
+            margin: 1.5em 0.5em;
+            cursor: initial;
+        }
+
+        @media screen and (min-width: 1200px) {
+            .steam-app-news .steam-app-news-content {
+                max-width: 800px;
+                margin: 2.5em auto;
+            }
+        }
+
+        .steam-app-news .steam-app-news-content summary {
+            margin: 0.5em 0 1em;
+        }
+
+        .steam-app-news .steam-app-news-content h1 {
+            padding: 0;
+            font-size: 1em;
+            display: inline;
+        }
+
+        .steam-app-news .steam-app-news-content .steam-app-news-metadata {
+            display: flex;
+            flex-direction: row;
+            font-size: 0.75em;
+            column-gap: 1em;
+            row-gap: 1em;
+        }
+
+        .steam-app-news .steam-app-news-content .steam-app-news-metadata .steam-app-news-date {
+            font-weight: bold;
+        }
+
+        .steam-app-news .steam-app-news-content .steam-app-news-contents {
+            margin: 1em 0;
+        }
+
+        .steam-app-news .steam-app-news-content pre {
+            white-space: break-spaces;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+    </style>
+{{end}}

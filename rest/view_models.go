@@ -113,6 +113,8 @@ type productViewModel struct {
 	DiscountAmount     string
 	// Steam Community url
 	SteamCommunityUrl string
+	// Steam App News
+	SteamAppNews *steam_integration.AppNews
 }
 
 func propertyFromRedux(redux map[string][]string, property string) string {

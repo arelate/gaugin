@@ -1,0 +1,25 @@
+{{define "product-details-steam-app-news"}}
+    {{if gt .Count 0}}
+        {{$firstItem := true}}
+        {{range .NewsItems}}
+            <details {{if $firstItem}}open{{end}}>
+                <summary><h1>{{.Title}}</h1></summary>
+                <div class="steam-app-news-metadata">
+                    {{if .Date}}
+                        <span class="steam-app-news-date">Date: {{unixDateFormat .Date}}</span>
+                    {{end}}
+                    {{if .Author}}
+                        <span class="steam-app-news-author">Author: {{.Author}}</span>
+                    {{end}}
+                    {{if .Url}}
+                        <span class="steam-app-news-url"><a href="{{.Url}}">Link</a></span>
+                    {{end}}
+                </div>
+                <div class="steam-app-news-contents">
+                    <pre>{{.Contents}}</pre>
+                </div>
+            </details>
+            {{$firstItem = false}}
+        {{end}}
+    {{else}}No recent news{{end}}
+{{end}}

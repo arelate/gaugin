@@ -60,6 +60,12 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	pvm.SteamAppNews, err = getSteamAppNews(http.DefaultClient, id)
+	if err != nil {
+		http.Error(w, nod.ErrorStr("error getting steam app news"), http.StatusInternalServerError)
+		return
+	}
+
 	if err := tmpl.ExecuteTemplate(w, "product-page", pvm); err != nil {
 		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
 		return

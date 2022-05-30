@@ -242,8 +242,14 @@
                     {{end}}
                 </details>
             {{end}}
+            {{if .SteamAppNews}}
+                <details class="steam-app-news" accesskey="n" tabindex="13">
+                    <summary>Steam App News</summary>
+                    <div class="steam-app-news-content">{{template "product-details-steam-app-news" .SteamAppNews}}</div>
+                </details>
+            {{end}}
             {{if .Changelog}}
-                <details class="changelog" accesskey="c" tabindex="13">
+                <details class="changelog" accesskey="c" tabindex="14">
                     <summary>Changelog</summary>
                     <div class="changelog-content">{{.Changelog}}</div>
                 </details>

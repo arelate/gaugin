@@ -34,6 +34,7 @@ const (
 	reduxEndpoint     = cvEndpoint + "/redux"
 	searchEndpoint    = cvEndpoint + "/search"
 	updatesEndpoint   = cvEndpoint + "/updates"
+	dataEndpoint      = cvEndpoint + "/data"
 )
 
 func defaultSort(pt vangogh_local_data.ProductType) string {
@@ -163,6 +164,23 @@ func digestUrl(properties ...string) *url.URL {
 	}
 	q := u.Query()
 	q.Set("property", strings.Join(properties, ","))
+	u.RawQuery = q.Encode()
+
+	return u
+}
+
+func steamAppNewsUrl(id string) *url.URL {
+	u := &url.URL{
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
+		Path:   dataEndpoint,
+	}
+
+	q := u.Query()
+	q.Set("product-type", vangogh_local_data.SteamAppNews.String())
+	q.Set("media", gog_integration.Game.String())
+	q.Set("id", id)
+	q.Set("format", "json")
 	u.RawQuery = q.Encode()
 
 	return u
