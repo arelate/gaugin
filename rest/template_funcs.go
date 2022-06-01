@@ -30,6 +30,7 @@ func funcMap() template.FuncMap {
 		"hasDownloads":       hasDownloads,
 		"hasSteamAppNews":    hasSteamAppNews,
 		"hasSteamLinks":      hasSteamLinks,
+		"hasGOGLinks":        hasGOGLinks,
 	}
 }
 
@@ -175,4 +176,10 @@ func hasSteamAppNews(pvm *productViewModel) bool {
 func hasSteamLinks(pvm *productViewModel) bool {
 	return pvm.SteamCommunityUrl != "" ||
 		hasSteamAppNews(pvm)
+}
+
+func hasGOGLinks(pvm *productViewModel) bool {
+	return pvm.StoreUrl != "" ||
+		pvm.ForumUrl != "" ||
+		pvm.SupportUrl != ""
 }

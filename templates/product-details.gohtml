@@ -188,18 +188,20 @@
                     {{template "product-details-refs" .IsRequiredByGames}}
                 </div>
             {{end}}
-            <div class="text-property">
-                <h2 class="property-title">GOG.com Links</h2>
-                <ul class="property-value flexible">
-                    {{if .StoreUrl}}
-                        <li><a href="{{gogLink .StoreUrl}}" aria-label="GOG.com Store Link">Store</a></li>{{end}}
-                    {{if .ForumUrl}}
-                        <li><a href="{{gogLink .ForumUrl}}" aria-label="GOG.com Forum Link">Forum</a></li>{{end}}
-                    {{if .SupportUrl}}
-                        <li><a href="{{gogLink .SupportUrl}}" aria-label="GOG.com Support Link">Support</a></li>
-                    {{end}}
-                </ul>
-            </div>
+            {{if hasGOGLinks .}}
+                <div class="text-property">
+                    <h2 class="property-title">GOG.com Links</h2>
+                    <ul class="property-value flexible">
+                        {{if .StoreUrl}}
+                            <li><a href="{{gogLink .StoreUrl}}" aria-label="GOG.com Store Link">Store</a></li>{{end}}
+                        {{if .ForumUrl}}
+                            <li><a href="{{gogLink .ForumUrl}}" aria-label="GOG.com Forum Link">Forum</a></li>{{end}}
+                        {{if .SupportUrl}}
+                            <li><a href="{{gogLink .SupportUrl}}" aria-label="GOG.com Support Link">Support</a></li>
+                        {{end}}
+                    </ul>
+                </div>
+            {{end}}
             {{if hasSteamLinks .}}
                 <div class="text-property">
                     <h2 class="property-title">Steam Links</h2>
