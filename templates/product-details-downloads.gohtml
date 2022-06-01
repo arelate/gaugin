@@ -1,6 +1,6 @@
 {{define "product-details-downloads"}}
-    <details class="downloads" {{if .CurrentOS}}open{{end}} accesskey="f" tabindex="20">
-        <summary>{{if .CurrentOS}}Current{{else}}Other{{end}} OS file downloads</summary>
+    <details id="{{if .CurrentOS}}current-os{{else}}other-os{{end}}-downloads" class="downloads" {{if .CurrentOS}}open{{end}} accesskey="f" tabindex="20">
+        <summary>{{if .CurrentOS}}Current{{else}}Other{{end}} OS downloads</summary>
         {{if .Installers}}
             <details class="downloads-type installers" open>
                 <summary>Installers</summary>
