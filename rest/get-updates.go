@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
@@ -69,6 +70,8 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 	}
 
 	uvm := updatesViewModelFromRedux(updates, since, rdx)
+
+	gaugin_middleware.DefaultHeaders(w)
 
 	if err := tmpl.ExecuteTemplate(w, "updates-page", uvm); err != nil {
 		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
