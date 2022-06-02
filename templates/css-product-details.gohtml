@@ -78,7 +78,7 @@
             display: flex;
             flex-direction: column;
             row-gap: 0.5em;
-            margin: 2em 0 3em;
+            margin: 2em 0;
         }
 
         .product-details .text-properties svg.icon {
@@ -114,10 +114,14 @@
             font-weight: bold;
         }
 
+        .product-details .shortcuts details[open] summary,
+        .product-details .text-properties .text-property details[open] summary {
+            margin-bottom: 1em;
+        }
+
         .product-details .shortcuts details summary,
         .product-details .text-properties .text-property details summary {
             cursor: pointer;
-            margin-bottom: 1em;
         }
 
         .product-details .text-properties .text-property ul.horizontal {
