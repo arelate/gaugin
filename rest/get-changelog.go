@@ -17,7 +17,7 @@ func GetChangelog(w http.ResponseWriter, r *http.Request) {
 	idRedux, err := getRedux(
 		http.DefaultClient,
 		id,
-		vangogh_local_data.ChanglogProperty)
+		vangogh_local_data.ChangelogProperty)
 
 	if err != nil {
 		http.Error(w, nod.ErrorStr("error getting redux"), http.StatusInternalServerError)
@@ -28,7 +28,7 @@ func GetChangelog(w http.ResponseWriter, r *http.Request) {
 
 	cvm := &changelogViewModel{
 		Context:   "changelog",
-		Changelog: template.HTML(propertyFromRedux(idRedux[id], vangogh_local_data.ChanglogProperty)),
+		Changelog: template.HTML(propertyFromRedux(idRedux[id], vangogh_local_data.ChangelogProperty)),
 	}
 
 	if err := tmpl.ExecuteTemplate(w, "changelog-page", cvm); err != nil {
