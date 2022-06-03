@@ -106,8 +106,7 @@ type productViewModel struct {
 	DiscountAmount     string
 	// Steam Community url
 	SteamCommunityUrl string
-	// Steam App News
-	SteamAppNews *steam_integration.AppNews
+	SteamAppId        string
 }
 
 type descriptionViewModel struct {
@@ -120,6 +119,11 @@ type descriptionViewModel struct {
 type changelogViewModel struct {
 	Context   string
 	Changelog template.HTML
+}
+
+type steamAppNewsViewModel struct {
+	Context      string
+	SteamAppNews *steam_integration.AppNews
 }
 
 func propertyFromRedux(redux map[string][]string, property string) string {
@@ -256,12 +260,13 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				BasePrice:          propertyFromRedux(rdx, vangogh_local_data.BasePriceProperty),
 				Price:              propertyFromRedux(rdx, vangogh_local_data.PriceProperty),
 				DiscountPercentage: propertyFromRedux(rdx, vangogh_local_data.DiscountPercentageProperty),
+				SteamAppId:         propertyFromRedux(rdx, vangogh_local_data.SteamAppIdProperty),
 			}
 
 			pvm.DiscountAmount, pvm.LargeDiscount = discountAmountFromRedux(rdx)
 
-			if steamAppId := propertyFromRedux(rdx, vangogh_local_data.SteamAppIdProperty); steamAppId != "" {
-				if scu := steam_integration.SteamCommunityUrl(steamAppId); scu != nil {
+			if pvm.SteamAppId != "" {
+				if scu := steam_integration.SteamCommunityUrl(pvm.SteamAppId); scu != nil {
 					pvm.SteamCommunityUrl = scu.String()
 				}
 			}

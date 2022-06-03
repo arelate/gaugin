@@ -49,6 +49,7 @@ var productProperties = []string{
 	vangogh_local_data.BasePriceProperty,
 	vangogh_local_data.PriceProperty,
 	vangogh_local_data.DiscountPercentageProperty,
+	vangogh_local_data.SteamAppIdProperty,
 }
 
 func GetProduct(w http.ResponseWriter, r *http.Request) {
@@ -99,12 +100,6 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	if err := getCurrentOtherOSDownloads(pvm, id, r.Header.Get("User-Agent")); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
-	}
-
-	pvm.SteamAppNews, err = getSteamAppNews(http.DefaultClient, id)
-	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting steam app news"), http.StatusInternalServerError)
 		return
 	}
 

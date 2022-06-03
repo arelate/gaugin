@@ -28,6 +28,8 @@
             {{template "css-long-text"}}
         {{else if eq .Context "changelog"}}
             {{template "css-long-text"}}
+        {{else if eq .Context "steam-app-news"}}
+            {{ template "css-steam-app-news"}}
         {{end}}
 
         {{template "css-footer"}}

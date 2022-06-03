@@ -1,7 +1,11 @@
-{{define "css-product-details-steam-app-news"}}
-    <style id="product-details-steam-app-news">
+{{define "css-steam-app-news"}}
+    <style id="steam-app-news">
 
-        .steam-app-news .steam-app-news-content {
+        :root {
+            background-color: transparent;
+        }
+
+        .steam-app-news-content {
             line-height: 1.5rem;
             font-weight: normal;
             font-size: 0.8em;
@@ -9,29 +13,34 @@
             cursor: initial;
         }
 
-        @media screen and (min-width: 1200px) {
-            .steam-app-news .steam-app-news-content {
+        .steam-app-news-content details summary {
+            cursor: pointer;
+        }
+
+
+        @media screen and (min-width: 800px) {
+            .steam-app-news-content {
                 max-width: 800px;
                 margin: 1.5em auto;
             }
         }
 
-        .steam-app-news .steam-app-news-content summary {
+        .steam-app-news-content summary {
             margin: 0.5em 0 1em;
         }
 
-        .steam-app-news .steam-app-news-content h1 {
+        .steam-app-news-content h1 {
             padding: 0;
             font-size: 1em;
             display: inline;
         }
 
-        .steam-app-news .steam-app-news-content a {
+        .steam-app-news-content a {
             text-decoration: none;
             color: var(--system-blue-color);
         }
 
-        .steam-app-news .steam-app-news-content .steam-app-news-metadata {
+        .steam-app-news-content .steam-app-news-metadata {
             display: flex;
             flex-direction: row;
             font-size: 0.75em;
@@ -39,15 +48,15 @@
             row-gap: 1em;
         }
 
-        .steam-app-news .steam-app-news-content .steam-app-news-metadata .steam-app-news-date {
+        .steam-app-news-content .steam-app-news-metadata .steam-app-news-date {
             font-weight: bold;
         }
 
-        .steam-app-news .steam-app-news-content .steam-app-news-contents {
+        .steam-app-news-content .steam-app-news-contents {
             margin: 1em 0;
         }
 
-        .steam-app-news .steam-app-news-content pre {
+        .steam-app-news-content pre {
             font-family: sans-serif;
             white-space: break-spaces;
             max-width: 100%;

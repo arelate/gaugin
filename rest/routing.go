@@ -17,17 +17,18 @@ func HandleFuncs() {
 
 	patternHandlers := map[string]http.Handler{
 		// current endpoints
-		"/updates":     middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetUpdates)))),
-		"/product":     middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetProduct)))),
-		"/search":      middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetSearch)))),
-		"/description": middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetDescription)))),
-		"/changelog":   middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetChangelog)))),
-		"/images":      middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetImages))),
-		"/videos":      middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetVideos))),
-		"/items/":      middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetItems))),
-		"/files":       middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetFiles)))),
-		"/local-file/": middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetLocalFile)))),
-		"/favicon.ico": http.HandlerFunc(http.NotFound),
+		"/updates":        middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetUpdates)))),
+		"/product":        middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetProduct)))),
+		"/search":         middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetSearch)))),
+		"/description":    middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetDescription)))),
+		"/changelog":      middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetChangelog)))),
+		"/steam-app-news": middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetSteamAppNews)))),
+		"/images":         middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetImages))),
+		"/videos":         middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetVideos))),
+		"/items/":         middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetItems))),
+		"/files":          middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetFiles)))),
+		"/local-file/":    middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetLocalFile)))),
+		"/favicon.ico":    http.HandlerFunc(http.NotFound),
 
 		// updates redirects
 		"/updates/recent":    http.RedirectHandler("/updates?since=4", http.StatusPermanentRedirect),
