@@ -9,6 +9,48 @@ import (
 	"github.com/boggydigital/nod"
 )
 
+var productProperties = []string{
+	vangogh_local_data.ImageProperty,
+	vangogh_local_data.ProductTypeProperty,
+	vangogh_local_data.TitleProperty,
+	vangogh_local_data.TagIdProperty,
+	vangogh_local_data.LocalTagsProperty,
+	vangogh_local_data.OperatingSystemsProperty,
+	vangogh_local_data.RatingProperty,
+	vangogh_local_data.DevelopersProperty,
+	vangogh_local_data.PublisherProperty,
+	vangogh_local_data.SeriesProperty,
+	vangogh_local_data.GenresProperty,
+	vangogh_local_data.PropertiesProperty,
+	vangogh_local_data.FeaturesProperty,
+	vangogh_local_data.LanguageCodeProperty,
+	vangogh_local_data.GlobalReleaseDateProperty,
+	vangogh_local_data.GOGReleaseDateProperty,
+	vangogh_local_data.GOGOrderDateProperty,
+	vangogh_local_data.IncludesGamesProperty,
+	vangogh_local_data.IsIncludedByGamesProperty,
+	vangogh_local_data.RequiresGamesProperty,
+	vangogh_local_data.IsRequiredByGamesProperty,
+	vangogh_local_data.StoreUrlProperty,
+	vangogh_local_data.ForumUrlProperty,
+	vangogh_local_data.SupportUrlProperty,
+	vangogh_local_data.ScreenshotsProperty,
+	vangogh_local_data.VideoIdProperty,
+	vangogh_local_data.WishlistedProperty,
+	vangogh_local_data.OwnedProperty,
+	vangogh_local_data.IsFreeProperty,
+	vangogh_local_data.IsDiscountedProperty,
+	vangogh_local_data.PreOrderProperty,
+	vangogh_local_data.TBAProperty,
+	vangogh_local_data.ComingSoonProperty,
+	vangogh_local_data.InDevelopmentProperty,
+	vangogh_local_data.IsUsingDOSBoxProperty,
+	vangogh_local_data.IsUsingScummVMProperty,
+	vangogh_local_data.BasePriceProperty,
+	vangogh_local_data.PriceProperty,
+	vangogh_local_data.DiscountPercentageProperty,
+}
+
 func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	// GET /product?slug -> /product?id
@@ -32,7 +74,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	idRedux, err := getRedux(http.DefaultClient, id, vangogh_local_data.ReduxProperties()...)
+	idRedux, err := getRedux(http.DefaultClient, id, productProperties...)
 	if err != nil {
 		http.Error(w, nod.ErrorStr("error getting redux"), http.StatusInternalServerError)
 		return

@@ -16,29 +16,25 @@
                 <h2 class="property-title">Shortcuts</h2>
                 <details>
                     <summary>Jump to section...</summary>
-                <ul class="property-value flexible">
-                    {{if .Description}}
+                    <ul class="property-value flexible">
                         <li><a href="#description">Description</a></li>
-                    {{end}}
-                    {{if .Screenshots}}
-                        <li><a href="#screenshots">Screenshots</a></li>
-                    {{end}}
-                    {{if .Videos}}
-                        <li><a href="#videos">Videos</a></li>
-                    {{end}}
-                    {{if hasSteamAppNews .}}
-                        <li><a href="#steam-app-news">Steam App News</a></li>
-                    {{end}}
-                    {{if .Changelog}}
+                        {{if .Screenshots}}
+                            <li><a href="#screenshots">Screenshots</a></li>
+                        {{end}}
+                        {{if .Videos}}
+                            <li><a href="#videos">Videos</a></li>
+                        {{end}}
+                        {{if hasSteamAppNews .}}
+                            <li><a href="#steam-app-news">Steam App News</a></li>
+                        {{end}}
                         <li><a href="#changelog">Changelog</a></li>
-                    {{end}}
-                    {{if hasDownloads .CurrentOS}}
-                        <li><a href="#current-os-downloads">Current OS downloads</a></li>
-                    {{end}}
-                    {{if hasDownloads .OtherOS}}
-                        <li><a href="#other-os-downloads">Other OS downloads</a></li>
-                    {{end}}
-                </ul>
+                        {{if hasDownloads .CurrentOS}}
+                            <li><a href="#current-os-downloads">Current OS downloads</a></li>
+                        {{end}}
+                        {{if hasDownloads .OtherOS}}
+                            <li><a href="#other-os-downloads">Other OS downloads</a></li>
+                        {{end}}
+                    </ul>
                 </details>
             </div>
         </section>
@@ -249,20 +245,10 @@
             {{end}}
         </section>
         <section class="additional-properties">
-            {{if .Description}}
-                <details id="description" class="description" accesskey="d" tabindex="10">
-                    <summary>Description</summary>
-                    <div class="description-content">
-                        {{.Description}}
-                        {{if .AdditionalRequirements}}
-                            <div class="additional-requirements">{{.AdditionalRequirements}}</div>
-                        {{end}}
-                        {{if .Copyrights}}
-                            <div class="copyrights">{{.Copyrights}}</div>
-                        {{end}}
-                    </div>
-                </details>
-            {{end}}
+            <details id="description" class="description" accesskey="d" tabindex="10">
+                <summary>Description...</summary>
+                <iframe src="/description?id={{.Id}}" loading="lazy"></iframe>
+            </details>
             {{if .Screenshots}}
                 <details id="screenshots" class="screenshots" accesskey="s" tabindex="11">
                     <summary>Screenshots</summary>
@@ -277,7 +263,7 @@
                 <details id="videos" class="videos" accesskey="v" tabindex="12">
                     <summary>Videos</summary>
                     {{range .Videos}}
-                        <video controls src="/videos?id={{.}}"></video>
+                        <video controls src="/videos?id={{.}}" preload="metadata"></video>
                     {{end}}
                 </details>
             {{end}}
@@ -287,12 +273,10 @@
                     <div class="steam-app-news-content">{{template "product-details-steam-app-news" .SteamAppNews}}</div>
                 </details>
             {{end}}
-            {{if .Changelog}}
-                <details id="changelog" class="changelog" accesskey="c" tabindex="14">
-                    <summary>Changelog</summary>
-                    <div class="changelog-content">{{.Changelog}}</div>
-                </details>
-            {{end}}
+            <details id="changelog" class="changelog" accesskey="c" tabindex="14">
+                <summary>Changelog...</summary>
+                <iframe src="/changelog?id={{.Id}}" loading="lazy"></iframe>
+            </details>
             {{if hasDownloads .CurrentOS}}
                 {{template "product-details-downloads" .CurrentOS}}
             {{end}}

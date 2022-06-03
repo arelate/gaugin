@@ -20,6 +20,8 @@ func HandleFuncs() {
 		"/updates":     middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetUpdates)))),
 		"/product":     middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetProduct)))),
 		"/search":      middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetSearch)))),
+		"/description": middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetDescription)))),
+		"/changelog":   middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetChangelog)))),
 		"/images":      middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetImages))),
 		"/videos":      middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetVideos))),
 		"/items/":      middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetItems))),

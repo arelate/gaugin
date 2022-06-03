@@ -1,0 +1,52 @@
+{{define "css-long-text"}}
+    <style id="long-text">
+        :root {
+            background-color: transparent;
+        }
+
+        .description-content,
+        .changelog-content{
+            line-height: 1.5rem;
+            font-weight: normal;
+            font-size: 0.8em;
+            margin: 1.5em 0.5em;
+            cursor: initial;
+        }
+
+        @media screen and (min-width: 800px) {
+            .description-content,
+            .changelog-content {
+                max-width: 800px;
+                margin: 2.5em auto;
+            }
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--system-blue-color);
+        }
+
+        ul {
+            padding-inline-start: 1em;
+        }
+
+         hr {
+            margin: 0;
+            padding: 0;
+            border: 1px solid var(--subtle-color);
+        }
+
+        img,
+        video {
+            max-width: 100%;
+        }
+
+        .additional-requirements,
+        .copyrights {
+            color: var(--subtle-color);
+            font-size: 0.75em;
+            margin-top: 1rem;
+        }
+
+    </style>
+{{end}}

@@ -24,6 +24,10 @@
             {{template "css-scope"}}
             {{template "css-search"}}
             {{template "css-products-list"}}
+        {{else if eq .Context "description"}}
+            {{template "css-long-text"}}
+        {{else if eq .Context "changelog"}}
+            {{template "css-long-text"}}
         {{end}}
 
         {{template "css-footer"}}

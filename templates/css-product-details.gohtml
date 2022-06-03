@@ -272,51 +272,11 @@
             z-index: 1;
         }
 
-        .product-details details.description .description-content,
-        .product-details details.changelog .changelog-content {
-            line-height: 1.5rem;
-            font-weight: normal;
-            font-size: 0.8em;
-            margin: 1.5em 0.5em;
-            cursor: initial;
-        }
-
-        @media screen and (min-width: 1200px) {
-            .product-details details.description .description-content,
-            .product-details details.changelog .changelog-content {
-                max-width: 800px;
-                margin: 2.5em auto;
-            }
-        }
-
-        .product-details details.description a,
-        .product-details details.changelog a {
-            text-decoration: none;
-            color: var(--system-blue-color);
-        }
-
-        .product-details details.description ul,
-        .product-details details.changelog ul {
-            padding-inline-start: 1em;
-        }
-
-        .product-details details.description hr,
-        .product-details details.changelog hr {
-            margin: 0;
-            padding: 0;
-            border: 1px solid var(--subtle-color);
-        }
-
-        .product-details details.description img,
-        .product-details details.description video {
-            max-width: 100%;
-        }
-
-        .product-details details.description .additional-requirements,
-        .product-details details.description .copyrights {
-            color: var(--subtle-color);
-            font-size: 0.75em;
-            margin-top: 1rem;
+        .product-details .description iframe,
+        .product-details .changelog iframe {
+            border: 0;
+            width: 100%;
+            height: 80vh;
         }
 
     </style>

@@ -80,18 +80,11 @@ type productViewModel struct {
 	StoreUrl   string
 	ForumUrl   string
 	SupportUrl string
-	// long text
-	Changelog              template.HTML
-	Description            template.HTML
-	Copyrights             template.HTML
-	AdditionalRequirements template.HTML
 	// screenshots
 	Screenshots []string
 	// video-ids
 	Videos []string
 	// downloads
-	//CurrentOSDownloads vangogh_local_data.DownloadsList
-	//OtherOSDownloads   vangogh_local_data.DownloadsList
 	CurrentOS *productDownloads
 	OtherOS   *productDownloads
 	// labels
@@ -115,6 +108,18 @@ type productViewModel struct {
 	SteamCommunityUrl string
 	// Steam App News
 	SteamAppNews *steam_integration.AppNews
+}
+
+type descriptionViewModel struct {
+	Context                string
+	Description            template.HTML
+	AdditionalRequirements template.HTML
+	Copyrights             template.HTML
+}
+
+type changelogViewModel struct {
+	Context   string
+	Changelog template.HTML
 }
 
 func propertyFromRedux(redux map[string][]string, property string) string {
@@ -210,50 +215,47 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 		for id, rdx := range redux {
 
 			pvm := &productViewModel{
-				Context:                "product",
-				Id:                     id,
-				Image:                  propertyFromRedux(rdx, vangogh_local_data.ImageProperty),
-				ProductType:            propertyFromRedux(rdx, vangogh_local_data.ProductTypeProperty),
-				Title:                  propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
-				Tags:                   propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
-				LocalTags:              propertiesFromRedux(rdx, vangogh_local_data.LocalTagsProperty),
-				OperatingSystems:       propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
-				Rating:                 propertyFromRedux(rdx, vangogh_local_data.RatingProperty),
-				Developers:             propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
-				Publisher:              propertyFromRedux(rdx, vangogh_local_data.PublisherProperty),
-				Series:                 propertyFromRedux(rdx, vangogh_local_data.SeriesProperty),
-				Genres:                 propertiesFromRedux(rdx, vangogh_local_data.GenresProperty),
-				Properties:             propertiesFromRedux(rdx, vangogh_local_data.PropertiesProperty),
-				Features:               propertiesFromRedux(rdx, vangogh_local_data.FeaturesProperty),
-				LanguageCodes:          propertiesFromRedux(rdx, vangogh_local_data.LanguageCodeProperty),
-				GlobalReleaseDate:      propertyFromRedux(rdx, vangogh_local_data.GlobalReleaseDateProperty),
-				GOGReleaseDate:         propertyFromRedux(rdx, vangogh_local_data.GOGReleaseDateProperty),
-				GOGOrderDate:           propertyFromRedux(rdx, vangogh_local_data.GOGOrderDateProperty),
-				IncludesGames:          propertiesFromRedux(rdx, vangogh_local_data.IncludesGamesProperty),
-				IsIncludedByGames:      propertiesFromRedux(rdx, vangogh_local_data.IsIncludedByGamesProperty),
-				RequiresGames:          propertiesFromRedux(rdx, vangogh_local_data.RequiresGamesProperty),
-				IsRequiredByGames:      propertiesFromRedux(rdx, vangogh_local_data.IsRequiredByGamesProperty),
-				StoreUrl:               propertyFromRedux(rdx, vangogh_local_data.StoreUrlProperty),
-				ForumUrl:               propertyFromRedux(rdx, vangogh_local_data.ForumUrlProperty),
-				SupportUrl:             propertyFromRedux(rdx, vangogh_local_data.SupportUrlProperty),
-				Changelog:              template.HTML(propertyFromRedux(rdx, vangogh_local_data.ChanglogProperty)),
-				Copyrights:             template.HTML(propertyFromRedux(rdx, vangogh_local_data.CopyrightsProperty)),
-				AdditionalRequirements: template.HTML(propertyFromRedux(rdx, vangogh_local_data.AdditionalRequirementsProperty)),
-				Screenshots:            propertiesFromRedux(rdx, vangogh_local_data.ScreenshotsProperty),
-				Videos:                 propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
-				Wishlisted:             flagFromRedux(rdx, vangogh_local_data.WishlistedProperty),
-				Owned:                  flagFromRedux(rdx, vangogh_local_data.OwnedProperty),
-				Free:                   flagFromRedux(rdx, vangogh_local_data.IsFreeProperty),
-				Discounted:             flagFromRedux(rdx, vangogh_local_data.IsDiscountedProperty),
-				PreOrder:               flagFromRedux(rdx, vangogh_local_data.PreOrderProperty),
-				TBA:                    flagFromRedux(rdx, vangogh_local_data.TBAProperty),
-				ComingSoon:             flagFromRedux(rdx, vangogh_local_data.ComingSoonProperty),
-				InDevelopment:          flagFromRedux(rdx, vangogh_local_data.InDevelopmentProperty),
-				IsUsingDOSBox:          flagFromRedux(rdx, vangogh_local_data.IsUsingDOSBoxProperty),
-				IsUsingScummVM:         flagFromRedux(rdx, vangogh_local_data.IsUsingScummVMProperty),
-				BasePrice:              propertyFromRedux(rdx, vangogh_local_data.BasePriceProperty),
-				Price:                  propertyFromRedux(rdx, vangogh_local_data.PriceProperty),
-				DiscountPercentage:     propertyFromRedux(rdx, vangogh_local_data.DiscountPercentageProperty),
+				Context:            "product",
+				Id:                 id,
+				Image:              propertyFromRedux(rdx, vangogh_local_data.ImageProperty),
+				ProductType:        propertyFromRedux(rdx, vangogh_local_data.ProductTypeProperty),
+				Title:              propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
+				Tags:               propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
+				LocalTags:          propertiesFromRedux(rdx, vangogh_local_data.LocalTagsProperty),
+				OperatingSystems:   propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
+				Rating:             propertyFromRedux(rdx, vangogh_local_data.RatingProperty),
+				Developers:         propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
+				Publisher:          propertyFromRedux(rdx, vangogh_local_data.PublisherProperty),
+				Series:             propertyFromRedux(rdx, vangogh_local_data.SeriesProperty),
+				Genres:             propertiesFromRedux(rdx, vangogh_local_data.GenresProperty),
+				Properties:         propertiesFromRedux(rdx, vangogh_local_data.PropertiesProperty),
+				Features:           propertiesFromRedux(rdx, vangogh_local_data.FeaturesProperty),
+				LanguageCodes:      propertiesFromRedux(rdx, vangogh_local_data.LanguageCodeProperty),
+				GlobalReleaseDate:  propertyFromRedux(rdx, vangogh_local_data.GlobalReleaseDateProperty),
+				GOGReleaseDate:     propertyFromRedux(rdx, vangogh_local_data.GOGReleaseDateProperty),
+				GOGOrderDate:       propertyFromRedux(rdx, vangogh_local_data.GOGOrderDateProperty),
+				IncludesGames:      propertiesFromRedux(rdx, vangogh_local_data.IncludesGamesProperty),
+				IsIncludedByGames:  propertiesFromRedux(rdx, vangogh_local_data.IsIncludedByGamesProperty),
+				RequiresGames:      propertiesFromRedux(rdx, vangogh_local_data.RequiresGamesProperty),
+				IsRequiredByGames:  propertiesFromRedux(rdx, vangogh_local_data.IsRequiredByGamesProperty),
+				StoreUrl:           propertyFromRedux(rdx, vangogh_local_data.StoreUrlProperty),
+				ForumUrl:           propertyFromRedux(rdx, vangogh_local_data.ForumUrlProperty),
+				SupportUrl:         propertyFromRedux(rdx, vangogh_local_data.SupportUrlProperty),
+				Screenshots:        propertiesFromRedux(rdx, vangogh_local_data.ScreenshotsProperty),
+				Videos:             propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
+				Wishlisted:         flagFromRedux(rdx, vangogh_local_data.WishlistedProperty),
+				Owned:              flagFromRedux(rdx, vangogh_local_data.OwnedProperty),
+				Free:               flagFromRedux(rdx, vangogh_local_data.IsFreeProperty),
+				Discounted:         flagFromRedux(rdx, vangogh_local_data.IsDiscountedProperty),
+				PreOrder:           flagFromRedux(rdx, vangogh_local_data.PreOrderProperty),
+				TBA:                flagFromRedux(rdx, vangogh_local_data.TBAProperty),
+				ComingSoon:         flagFromRedux(rdx, vangogh_local_data.ComingSoonProperty),
+				InDevelopment:      flagFromRedux(rdx, vangogh_local_data.InDevelopmentProperty),
+				IsUsingDOSBox:      flagFromRedux(rdx, vangogh_local_data.IsUsingDOSBoxProperty),
+				IsUsingScummVM:     flagFromRedux(rdx, vangogh_local_data.IsUsingScummVMProperty),
+				BasePrice:          propertyFromRedux(rdx, vangogh_local_data.BasePriceProperty),
+				Price:              propertyFromRedux(rdx, vangogh_local_data.PriceProperty),
+				DiscountPercentage: propertyFromRedux(rdx, vangogh_local_data.DiscountPercentageProperty),
 			}
 
 			pvm.DiscountAmount, pvm.LargeDiscount = discountAmountFromRedux(rdx)
@@ -263,20 +265,6 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 					pvm.SteamCommunityUrl = scu.String()
 				}
 			}
-
-			//Description content preparation includes the following steps:
-			//1) combining DescriptionOverview and DescriptionFeatures
-			//2) replacing implicit list in DescriptionFeatures with explicit list
-			//3) rewriting https://items.gog.com/... links to gaugin
-			//4) rewriting https://www.gog.com/game/... links to gaugin
-
-			desc := propertyFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty)
-			desc += implicitToExplicitList(propertyFromRedux(rdx, vangogh_local_data.DescriptionFeaturesProperty))
-
-			desc = rewriteDescriptionItemsLinks(desc)
-			desc = rewriteDescriptionGameLinks(desc)
-
-			pvm.Description = template.HTML(desc)
 
 			return pvm, nil
 		}
