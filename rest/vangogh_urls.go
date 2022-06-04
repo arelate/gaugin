@@ -27,8 +27,6 @@ func SetVangoghConnection(scheme, address string, port int) {
 
 const (
 	cvEndpoint        = "/v1"
-	keysEndpoint      = cvEndpoint + "/keys"
-	allReduxEndpoint  = cvEndpoint + "/all_redux"
 	digestEndpoint    = cvEndpoint + "/digest"
 	downloadsEndpoint = cvEndpoint + "/downloads"
 	reduxEndpoint     = cvEndpoint + "/redux"
@@ -37,62 +35,6 @@ const (
 	dataEndpoint      = cvEndpoint + "/data"
 )
 
-func defaultSort(pt vangogh_local_data.ProductType) string {
-	switch pt {
-	case vangogh_local_data.StoreProducts:
-		return vangogh_local_data.GOGReleaseDateProperty
-	case vangogh_local_data.Details:
-		return vangogh_local_data.GOGOrderDateProperty
-	default:
-		return vangogh_local_data.TitleProperty
-	}
-}
-
-func defaultDesc(pt vangogh_local_data.ProductType) string {
-	switch pt {
-	case vangogh_local_data.StoreProducts:
-		return "true"
-	case vangogh_local_data.Details:
-		return "true"
-	default:
-		return "false"
-	}
-}
-
-func keysUrl(pt vangogh_local_data.ProductType, mt gog_integration.Media, count int) *url.URL {
-	u := &url.URL{
-		Scheme: vangoghScheme,
-		Host:   vangoghHost(),
-		Path:   keysEndpoint,
-	}
-	q := u.Query()
-	q.Set("product-type", pt.String())
-	q.Set("media", mt.String())
-	if count > 0 {
-		q.Set("count", strconv.Itoa(count))
-	}
-	q.Set("sort", defaultSort(pt))
-	q.Set("desc", defaultDesc(pt))
-	u.RawQuery = q.Encode()
-
-	return u
-}
-
-func allReduxUrl(pt vangogh_local_data.ProductType, mt gog_integration.Media, properties ...string) *url.URL {
-	u := &url.URL{
-		Scheme: vangoghScheme,
-		Host:   vangoghHost(),
-		Path:   allReduxEndpoint,
-	}
-	q := u.Query()
-	q.Set("product-type", pt.String())
-	q.Set("media", mt.String())
-	q.Set("property", strings.Join(properties, ","))
-	u.RawQuery = q.Encode()
-
-	return u
-}
-
 func reduxUrl(id string, properties ...string) *url.URL {
 	u := &url.URL{
 		Scheme: vangoghScheme,
@@ -100,7 +42,7 @@ func reduxUrl(id string, properties ...string) *url.URL {
 		Path:   reduxEndpoint,
 	}
 	q := u.Query()
-	q.Set("id", id)
+	q.Set(vangogh_local_data.IdProperty, id)
 	q.Set("property", strings.Join(properties, ","))
 	u.RawQuery = q.Encode()
 
@@ -177,9 +119,9 @@ func steamAppNewsUrl(id string) *url.URL {
 	}
 
 	q := u.Query()
-	q.Set("product-type", vangogh_local_data.SteamAppNews.String())
+	q.Set(vangogh_local_data.ProductTypeProperty, vangogh_local_data.SteamAppNews.String())
 	q.Set("media", gog_integration.Game.String())
-	q.Set("id", id)
+	q.Set(vangogh_local_data.IdProperty, id)
 	q.Set("format", "json")
 	u.RawQuery = q.Encode()
 

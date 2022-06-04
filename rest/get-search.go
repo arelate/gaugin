@@ -73,8 +73,8 @@ var searchPropertyNames = map[string]string{
 	vangogh_local_data.IsUsingScummVMProperty:    "Using ScummVM",
 	vangogh_local_data.TypesProperty:             "Data Type",
 	//
-	"sort": "Sort",
-	"desc": "Descending",
+	vangogh_local_data.SortProperty:       "Sort",
+	vangogh_local_data.DescendingProperty: "Descending",
 }
 
 var gauginDigestibleProperties = []string{
@@ -173,14 +173,14 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	digests, err := getDigests(dc, gauginDigestibleProperties...)
 
-	digests["sort"] = []string{
+	digests[vangogh_local_data.SortProperty] = []string{
 		vangogh_local_data.GOGReleaseDateProperty,
 		vangogh_local_data.GOGOrderDateProperty,
 		vangogh_local_data.TitleProperty,
 		vangogh_local_data.RatingProperty,
 		vangogh_local_data.DiscountPercentageProperty}
 
-	digests["desc"] = []string{"true", "false"}
+	digests[vangogh_local_data.DescendingProperty] = []string{"true", "false"}
 
 	if err != nil {
 		http.Error(w, nod.ErrorStr("error getting digests"), http.StatusInternalServerError)
