@@ -46,8 +46,9 @@
         {{end}}
         {{if .Discounted}}
             {{if .Owned}}{{else}}
-                <li class="label discounted {{if .LargeDiscount}}large-discount{{end}}" title="Discounted">
-                    SALE{{if .DiscountAmount}} {{.DiscountAmount}}{{end}}</li>
+                <li class="label discounted {{if gt .DiscountPercentage 74}}exceptional-discount{{else if gt .DiscountPercentage 49}}notable-discount{{end}}"
+                    title="Discounted">
+                    SALE{{if .DiscountLabel}} {{.DiscountLabel}}{{end}}</li>
             {{end}}
         {{end}}
         {{if .Wishlisted}}

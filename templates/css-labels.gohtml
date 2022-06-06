@@ -65,10 +65,16 @@
             color: var(--system-red-color);
         }
 
-        .label.discounted.large-discount {
+        .label.discounted.notable-discount,
+        .label.discounted.exceptional-discount {
             background-color: var(--system-red-color);
             border-color: var(--system-red-color);
             color: var(--highlight-color);
+        }
+
+        .label.discounted.exceptional-discount {
+            border-color: var(--background-color);
+            outline: 1px solid var(--system-red-color);
         }
 
         /* Download types */
