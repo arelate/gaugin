@@ -5,7 +5,7 @@ WORKDIR /go/src/app
 RUN go get ./...
 RUN go build -o gg main.go
 
-FROM alpine
+FROM scratch
 COPY --from=build /go/src/app/gg /usr/bin/gg
 
 EXPOSE 1848
