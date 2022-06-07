@@ -39,6 +39,14 @@ func rewriteDescriptionGameLinks(desc string) string {
 	return desc
 }
 
+func rewriteLinksAsTargetTop(desc string) string {
+	return strings.Replace(desc, "<a ", "<a target='_top' ", -1)
+}
+
+func fixQuotes(desc string) string {
+	return strings.Replace(desc, "”", "\"", -1)
+}
+
 const doubleNewLineChar = "\n\n"
 const newLineChar = "\n"
 const emDashCode = "\u2013"

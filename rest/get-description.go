@@ -37,13 +37,17 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 		//1) combining DescriptionOverview and DescriptionFeatures
 		//2) replacing implicit list in DescriptionFeatures with explicit list
 		//3) rewriting https://items.gog.com/... links to gaugin
-		//4) rewriting https://www.gog.com/game/... links to gaugin
+		//4) rewriting https://www.gog.com/game/... and https://www.gog.com/en/game/... links to gaugin
+		//5) rewriting links <a href="..."/> as <a target='_top' href="..."/> to do top level navigation
+		//6) fix quotes used for links in some products
 
 		desc := propertyFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty)
 		desc += implicitToExplicitList(propertyFromRedux(rdx, vangogh_local_data.DescriptionFeaturesProperty))
 
 		desc = rewriteDescriptionItemsLinks(desc)
 		desc = rewriteDescriptionGameLinks(desc)
+		desc = rewriteLinksAsTargetTop(desc)
+		desc = fixQuotes(desc)
 
 		dvm.Description = template.HTML(desc)
 
