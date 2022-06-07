@@ -51,9 +51,10 @@ Assuming you have vangogh setup correctly and data is available - to use `gaugin
 
 | Section | Dark theme                                        | Light theme                                         |
 |---------|---------------------------------------------------|-----------------------------------------------------|
-| Details | ![Details, dark theme](./images/details-dark.jpg) | ![Details, light theme](./images/details-light.jpg) |
-| All     | ![All, dark theme](./images/all-dark.jpg)         | ![All, light theme](./images/all-light.jpg)         |
-| Sale    | ![Sale, dark theme](./images/sale-dark.jpg)       | ![Sale, light theme](./images/sale-light.jpg)       |     
+| Product | ![Product, dark theme](./images/product-dark.png) | ![Product, light theme](./images/product-light.png) |
+| All     | ![All, dark theme](./images/all-dark.png)         | ![All, light theme](./images/all-light.png)         |
+| Sale    | ![Sale, dark theme](./images/sale-dark.png)       | ![Sale, light theme](./images/sale-light.png)       |     
+ | Search  | ![Search, dark theme](./images/search-dark.png)   | ![Search, dark theme](./images/search-light.png)    |
 
 ## Sharing games
 
