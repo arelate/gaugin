@@ -69,6 +69,7 @@ func ServeHandler(u *url.URL) error {
 	return Serve(port, vangogh_local_data.FlagFromUrl(u, "stderr"))
 }
 
+//Serve starts a web server, listening to the specified port with optional logging
 func Serve(port int, stderr bool) error {
 
 	if stderr {
