@@ -20,16 +20,14 @@
             {{template "css-products-list"}}
         {{else if eq .Context "product"}}
             {{template "css-product-details"}}
+            {{template "script-product-details"}}
         {{else if eq .Context "filter-products"}}
             {{template "css-scope"}}
             {{template "css-search"}}
             {{template "css-products-list"}}
-        {{else if eq .Context "description"}}
+        {{else if eq .Context "iframe"}}
             {{template "css-iframe"}}
-        {{else if eq .Context "changelog"}}
-            {{template "css-iframe"}}
-        {{else if eq .Context "steam-app-news"}}
-            {{ template "css-iframe"}}
+            {{template "script-iframe"}}
         {{end}}
 
         {{template "css-footer"}}

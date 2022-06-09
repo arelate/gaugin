@@ -2,11 +2,13 @@
     <style id="iframe">
         :root {
             background-color: transparent;
+            margin: 0;
+            padding: 0;
         }
 
-        .description-content,
-        .changelog-content,
-        .steam-app-news-content {
+        #description-content,
+        #changelog-content,
+        #steam-app-news-content {
             line-height: 1.5rem;
             font-weight: normal;
             margin: 1.5em 0.5em;
@@ -14,9 +16,9 @@
         }
 
         @media screen and (min-width: 800px) {
-            .description-content,
-            .changelog-content,
-            .steam-app-news-content {
+            #description-content,
+            #changelog-content,
+            #steam-app-news-content {
                 max-width: 800px;
                 margin: 2.5em auto;
             }
@@ -55,13 +57,13 @@
         }
 
 
-        .steam-app-news-content h1 {
+        #steam-app-news-content h1 {
             padding: 0;
             font-size: 1em;
             display: inline;
         }
 
-        .steam-app-news-content .steam-app-news-metadata {
+        #steam-app-news-content .steam-app-news-metadata {
             display: flex;
             flex-direction: row;
             font-size: 0.75em;
@@ -69,15 +71,15 @@
             row-gap: 1em;
         }
 
-        .steam-app-news-content .steam-app-news-metadata .steam-app-news-date {
+        #steam-app-news-content .steam-app-news-metadata .steam-app-news-date {
             font-weight: bold;
         }
 
-        .steam-app-news-content .steam-app-news-contents {
+        #steam-app-news-content .steam-app-news-contents {
             margin: 1em 0;
         }
 
-        .steam-app-news-content pre {
+        #steam-app-news-content pre {
             font-family: sans-serif;
             white-space: break-spaces;
             max-width: 100%;

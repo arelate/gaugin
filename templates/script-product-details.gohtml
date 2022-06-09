@@ -1,0 +1,8 @@
+{{define "script-product-details"}}
+    <script id="iframe-size-receive-message">
+        window.addEventListener("message", e => {
+            msg = JSON.parse(e.data);
+            document.querySelector(`#${msg.context} iframe`).style.height = msg.height + 80 + "px";
+        });
+    </script>
+{{end}}

@@ -27,7 +27,7 @@ func GetChangelog(w http.ResponseWriter, r *http.Request) {
 	gaugin_middleware.DefaultHeaders(w)
 
 	cvm := &changelogViewModel{
-		Context:   "changelog",
+		Context:   "iframe",
 		Changelog: template.HTML(propertyFromRedux(idRedux[id], vangogh_local_data.ChangelogProperty)),
 	}
 

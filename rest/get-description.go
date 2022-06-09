@@ -29,7 +29,7 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(w)
 
-	dvm := &descriptionViewModel{Context: "description"}
+	dvm := &descriptionViewModel{Context: "iframe"}
 
 	for _, rdx := range idRedux {
 

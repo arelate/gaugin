@@ -1,0 +1,25 @@
+{{define "script-iframe"}}
+    <script id="iframe-size-post-message">
+        let postScrollHeightMessage = (msg) => {
+            if (window.parent) {
+                window.parent.postMessage(JSON.stringify(msg), "*");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const ro = new ResizeObserver(entries => {
+              for (let e of entries) {
+                let msg = {
+                    context: ctx,
+                    height: e.contentRect.height,
+                }
+                postScrollHeightMessage(msg)
+              }
+        });
+
+        const ctx = document.body.id
+        ro.observe(document.getElementById(ctx+"-content"));
+    });
+
+    </script>
+{{end}}

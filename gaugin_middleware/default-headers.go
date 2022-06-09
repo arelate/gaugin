@@ -5,7 +5,7 @@ import "net/http"
 const (
 	htmlContentType = "text/html"
 	defaultCSP      = "default-src 'self'; " +
-		"script-src 'none'; " +
+		"script-src 'unsafe-inline'; " +
 		"object-src 'none'; " +
 		"style-src 'unsafe-inline';"
 )
