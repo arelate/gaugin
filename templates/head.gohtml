@@ -25,11 +25,11 @@
             {{template "css-search"}}
             {{template "css-products-list"}}
         {{else if eq .Context "description"}}
-            {{template "css-long-text"}}
+            {{template "css-iframe"}}
         {{else if eq .Context "changelog"}}
-            {{template "css-long-text"}}
+            {{template "css-iframe"}}
         {{else if eq .Context "steam-app-news"}}
-            {{ template "css-steam-app-news"}}
+            {{ template "css-iframe"}}
         {{end}}
 
         {{template "css-footer"}}
