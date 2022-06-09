@@ -1,6 +1,7 @@
 Complete iframe transition:
 	- Investigate links in https://m.bzb.one:1903/product?id=1361951748 that produce https://m.bzb.one:1903/”https://www.gog.com/en/game/stellaris_aquatics_species_pack” @done(2022-06-06)
 	- Rewrite all links to use target="_top" @done(2022-06-06)
+	- Resize iframe to the content size @done(2022-06-09)
 	- Extract items from changelog? (investigate how many products have that)
 	- Extract / download / rewrite regular images links (e.g. https://m.bzb.one:1903/product?id=1436454557 ->  https://images-4.gog-statics.com/f567e84e7994b05d6ab561d6a44332622ce8765580e3b6cd95a2ece771d83ae1.png)
 	- Transform Steam News Markdown-like syntax into HTML
