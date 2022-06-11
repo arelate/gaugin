@@ -50,6 +50,7 @@ var productProperties = []string{
 	vangogh_local_data.PriceProperty,
 	vangogh_local_data.DiscountPercentageProperty,
 	vangogh_local_data.SteamAppIdProperty,
+	vangogh_local_data.SteamReviewScoreDesc,
 }
 
 func GetProduct(w http.ResponseWriter, r *http.Request) {

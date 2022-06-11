@@ -38,9 +38,9 @@ var gauginSearchProperties = []string{
 	vangogh_local_data.IsUsingDOSBoxProperty,
 	vangogh_local_data.IsUsingScummVMProperty,
 	vangogh_local_data.TypesProperty,
-	//
-	"sort",
-	"desc",
+	vangogh_local_data.SteamReviewScoreDesc,
+	vangogh_local_data.SortProperty,
+	vangogh_local_data.DescendingProperty,
 }
 
 var searchPropertyNames = map[string]string{
@@ -72,9 +72,9 @@ var searchPropertyNames = map[string]string{
 	vangogh_local_data.IsUsingDOSBoxProperty:     "Using DOSBox",
 	vangogh_local_data.IsUsingScummVMProperty:    "Using ScummVM",
 	vangogh_local_data.TypesProperty:             "Data Type",
-	//
-	vangogh_local_data.SortProperty:       "Sort",
-	vangogh_local_data.DescendingProperty: "Descending",
+	vangogh_local_data.SteamReviewScoreDesc:      "Steam Reviews",
+	vangogh_local_data.SortProperty:              "Sort",
+	vangogh_local_data.DescendingProperty:        "Descending",
 }
 
 var gauginDigestibleProperties = []string{
@@ -98,6 +98,7 @@ var gauginDigestibleProperties = []string{
 	vangogh_local_data.IsUsingDOSBoxProperty,
 	vangogh_local_data.IsUsingScummVMProperty,
 	vangogh_local_data.TypesProperty,
+	vangogh_local_data.SteamReviewScoreDesc,
 }
 
 type searchProductsViewModel struct {

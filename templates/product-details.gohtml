@@ -91,6 +91,12 @@
                     </div>
                 </div>
             {{end}}
+            {{if .SteamReviewScoreDesc}}
+                <div class="text-property">
+                    <h2 class="property-title">Steam Reviews</h2>
+                    <div class="property-value">{{.SteamReviewScoreDesc}}</div>
+                </div>
+            {{end}}
             {{if .Developers}}
                 <div class="text-property">
                     <h2 class="property-title">Developers</h2>
