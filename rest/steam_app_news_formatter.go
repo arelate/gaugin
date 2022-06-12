@@ -44,7 +44,7 @@ func steamAppNewsToHTML(c string) string {
 	return c
 }
 
-var steamNewsItemUrl = regexp.MustCompile(`\[url=[\w:/*-. ]*][\w:\/\[\]*-. ]*?\[/url]`)
+var steamNewsItemUrl = regexp.MustCompile(`\[url=[\w:/*-. ]*][\w:\/\[\]*-. !?,;]*?\[/url]`)
 
 func extractUrls(c string) []string {
 	return steamNewsItemUrl.FindAllString(c, -1)
