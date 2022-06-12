@@ -21,7 +21,7 @@ var formatters = map[string]string{
 	"[list]":             "<ul>",
 	"[*]":                "<li>",
 	"[/list]":            "</ul>",
-	"\n":                 "<wbr>",
+	"\n":                 "<br>",
 	"{STEAM_CLAN_IMAGE}": "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/",
 	"[img]":              "<img src='",
 	"[/img]":             "'/>",
