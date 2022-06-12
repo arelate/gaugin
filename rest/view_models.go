@@ -142,7 +142,7 @@ func steamAppNewsViewModelFromResponse(san *steam_integration.AppNews) *steamApp
 			Date:     ni.Date,
 			Author:   ni.Author,
 			Url:      ni.Url,
-			Contents: template.HTML(ni.Contents),
+			Contents: template.HTML(steamAppNewsToHTML(ni.Contents)),
 		})
 	}
 
