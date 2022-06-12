@@ -121,9 +121,38 @@ type changelogViewModel struct {
 	Changelog template.HTML
 }
 
+type newsItemViewModel struct {
+	Title    string
+	Date     int
+	Author   string
+	Url      string
+	Contents template.HTML
+}
+
+func steamAppNewsViewModelFromResponse(san *steam_integration.AppNews) *steamAppNewsViewModel {
+	sanvm := &steamAppNewsViewModel{
+		Context:   "iframe",
+		Count:     san.Count,
+		NewsItems: make([]*newsItemViewModel, 0, len(san.NewsItems)),
+	}
+
+	for _, ni := range san.NewsItems {
+		sanvm.NewsItems = append(sanvm.NewsItems, &newsItemViewModel{
+			Title:    ni.Title,
+			Date:     ni.Date,
+			Author:   ni.Author,
+			Url:      ni.Url,
+			Contents: template.HTML(ni.Contents),
+		})
+	}
+
+	return sanvm
+}
+
 type steamAppNewsViewModel struct {
-	Context      string
-	SteamAppNews *steam_integration.AppNews
+	Context   string
+	Count     uint32
+	NewsItems []*newsItemViewModel
 }
 
 func propertyFromRedux(redux map[string][]string, property string) string {

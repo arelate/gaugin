@@ -14,14 +14,13 @@ func GetSteamAppNews(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(w)
 
-	sanvm := &steamAppNewsViewModel{Context: "iframe"}
-
-	var err error
-	sanvm.SteamAppNews, err = getSteamAppNews(http.DefaultClient, id)
+	san, err := getSteamAppNews(http.DefaultClient, id)
 	if err != nil {
 		http.Error(w, nod.ErrorStr("error getting steam app news"), http.StatusInternalServerError)
 		return
 	}
+
+	sanvm := steamAppNewsViewModelFromResponse(san)
 
 	if err := tmpl.ExecuteTemplate(w, "steam-app-news-page", sanvm); err != nil {
 		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)

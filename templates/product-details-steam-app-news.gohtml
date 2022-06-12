@@ -6,17 +6,17 @@
                 <summary><h1>{{.Title}}</h1></summary>
                 <div class="steam-app-news-metadata">
                     {{if .Date}}
-                        <span class="steam-app-news-date">Date: {{unixDateFormat .Date}}</span>
+                        <span class="steam-app-news-date">Date: <span class="metadata-value">{{unixDateFormat .Date}}</span></span>
                     {{end}}
                     {{if .Author}}
-                        <span class="steam-app-news-author">Author: {{.Author}}</span>
+                        <span class="steam-app-news-author">Author: <span class="metadata-value">{{.Author}}</span></span>
                     {{end}}
                     {{if .Url}}
-                        <span class="steam-app-news-url"><a href="{{.Url}}">Link</a></span>
+                        <span class="steam-app-news-url"><a href="{{.Url}}">Source Link</a></span>
                     {{end}}
                 </div>
                 <div class="steam-app-news-contents">
-                    <pre>{{.Contents}}</pre>
+                    {{.Contents}}
                 </div>
             </details>
             {{$firstItem = false}}
