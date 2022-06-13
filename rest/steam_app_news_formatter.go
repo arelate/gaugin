@@ -18,6 +18,8 @@ var formatters = map[string]string{
 	"[/u]":               "</u>",
 	"[i]":                "<i>",
 	"[/i]":               "</i>",
+	"[strike]":           "<s>",
+	"[/strike]":          "</s>",
 	"[h1]":               "<h1>",
 	"[/h1]":              "</h1>",
 	"[h2]":               "<h2>",
