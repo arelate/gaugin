@@ -2,6 +2,9 @@
     <form class="search-form" action="/search" xmlns="http://www.w3.org/1999/html">
         <details {{if not .Query}}open{{end}}>
             <summary>Filter & Search</summary>
+            {{if .Query}}
+                {{template "search-query" .Query}}
+            {{end}}
             <section>
                 {{template "search-submit"}}
                 {{$digests := .Digests}}

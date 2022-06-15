@@ -114,8 +114,6 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	// GET /search?(search_params)
 
-	dc := http.DefaultClient
-
 	scope := ""
 	for s, rp := range predefinedSearchPaths {
 		if r.URL.RawQuery != "" && strings.HasSuffix(rp, r.URL.RawQuery) {
@@ -133,12 +131,27 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		Query:            make(map[string]string, len(q)),
 	}
 
+	shortQuery := false
 	queryProperties := append(gauginSearchProperties)
 	for _, p := range queryProperties {
 		if v := q.Get(p); v != "" {
 			spvm.Query[p] = v
+		} else {
+			if q.Has(p) {
+				q.Del(p)
+				shortQuery = true
+			}
 		}
 	}
+
+	//if we removed some properties with no values - redirect to the shortest URL
+	if shortQuery {
+		r.URL.RawQuery = q.Encode()
+		http.Redirect(w, r, r.URL.String(), http.StatusPermanentRedirect)
+		return
+	}
+
+	dc := http.DefaultClient
 
 	if len(spvm.Query) > 0 {
 		keys, err := getSearch(dc, q)
