@@ -13,7 +13,7 @@
                     {{$value := index $query $property}}
                     <div class="search-property">
                         {{$digests := index $digests $property}}
-                        <label for="search-{{$property}}">{{searchPropertyName $property}}</label>
+                        <label for="search-{{$property}}" {{if $value}}class="with-value"{{end}}>{{searchPropertyName $property}}</label>
                         {{if $digests}}
                             <select id="search-{{$property}}" name="{{$property}}">
                                 <option {{if eq $value ""}}selected{{end}} value="">
