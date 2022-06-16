@@ -34,6 +34,8 @@ var formatters = map[string]string{
 	"[img]":              "<img src='",
 	"[/img]":             "'/>",
 	"[hr][/hr]":          "<hr/>",
+	"[spoiler]":          "<mark class='spoiler' tabindex='0' title='press and hold to reveal'>",
+	"[/spoiler]":         "</mark>",
 }
 
 func steamAppNewsToHTML(c string) string {

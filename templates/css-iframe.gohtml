@@ -106,5 +106,16 @@
             display: none;
         }
 
+        #steam-app-news-content mark.spoiler {
+            background: var(--color);
+            color: var(--color);
+            cursor: pointer;
+        }
+
+        #steam-app-news-content mark.spoiler::selection,
+        #steam-app-news-content mark.spoiler:active {
+            color: var(--background-color);
+        }
+
     </style>
 {{end}}
