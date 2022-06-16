@@ -5,18 +5,20 @@
             {{if .Query}}
                 {{template "search-query" .Query}}
             {{end}}
-            <section>
-                {{template "search-submit"}}
+            {{template "search-submit"}}
+            <section class="search-properties">
                 {{$digests := .Digests}}
                 {{$query := .Query}}
                 {{range $property := .SearchProperties}}
                     {{$value := index $query $property}}
-                    <div>
+                    <div class="search-property">
                         {{$digests := index $digests $property}}
                         <label for="search-{{$property}}">{{searchPropertyName $property}}</label>
                         {{if $digests}}
                             <select id="search-{{$property}}" name="{{$property}}">
-                                <option {{if eq $value ""}}selected{{end}} value="">Any {{searchPropertyName $property}}...</option>
+                                <option {{if eq $value ""}}selected{{end}} value="">
+                                    Any {{searchPropertyName $property}}...
+                                </option>
                                 {{range $digests}}
                                     <option {{if eq $value .}}selected{{end}} value="{{.}}">{{.}}</option>
                                 {{end}}
@@ -28,13 +30,13 @@
                         {{end}}
                     </div>
                 {{end}}
-                {{template "search-submit"}}
             </section>
+            {{template "search-submit"}}
         </details>
     </form>
 {{end}}
 {{define "search-submit"}}
-    <div>
+    <div class="search-submit">
         <label for="submit"></label>
         <input id="submit" type="submit"/>
     </div>
