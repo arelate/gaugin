@@ -33,6 +33,8 @@ const (
 	searchEndpoint    = cvEndpoint + "/search"
 	updatesEndpoint   = cvEndpoint + "/updates"
 	dataEndpoint      = cvEndpoint + "/data"
+	hasDataEndpoint   = cvEndpoint + "/has_data"
+	hasReduxEndpoint  = cvEndpoint + "/has_redux"
 )
 
 func reduxUrl(id string, properties ...string) *url.URL {
@@ -123,6 +125,37 @@ func steamAppNewsUrl(id string) *url.URL {
 	q.Set("media", gog_integration.Game.String())
 	q.Set(vangogh_local_data.IdProperty, id)
 	q.Set("format", "json")
+	u.RawQuery = q.Encode()
+
+	return u
+}
+
+func hasReduxUrl(id string, properties ...string) *url.URL {
+	u := &url.URL{
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
+		Path:   hasReduxEndpoint,
+	}
+
+	q := u.Query()
+	q.Set(vangogh_local_data.IdProperty, id)
+	q.Set("property", strings.Join(properties, ","))
+	u.RawQuery = q.Encode()
+
+	return u
+}
+
+func hasDataUrl(id string, pt vangogh_local_data.ProductType, mt gog_integration.Media) *url.URL {
+	u := &url.URL{
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
+		Path:   hasDataEndpoint,
+	}
+
+	q := u.Query()
+	q.Set(vangogh_local_data.ProductTypeProperty, pt.String())
+	q.Set("media", mt.String())
+	q.Set(vangogh_local_data.IdProperty, id)
 	u.RawQuery = q.Encode()
 
 	return u

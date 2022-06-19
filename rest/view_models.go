@@ -107,6 +107,10 @@ type productViewModel struct {
 	SteamCommunityUrl    string
 	SteamAppId           string
 	SteamReviewScoreDesc string
+	// has properties and data
+	HasDescription  bool
+	HasChangelog    bool
+	HasSteamAppNews bool
 }
 
 type descriptionViewModel struct {

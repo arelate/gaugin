@@ -17,17 +17,21 @@
                 <details>
                     <summary>Jump to section...</summary>
                     <ul class="property-value flexible">
-                        <li><a href="#description">Description</a></li>
+                        {{if .HasDescription}}
+                            <li><a href="#description">Description</a></li>
+                        {{end}}
                         {{if .Screenshots}}
                             <li><a href="#screenshots">Screenshots</a></li>
                         {{end}}
                         {{if .Videos}}
                             <li><a href="#videos">Videos</a></li>
                         {{end}}
-                        {{if hasSteamLinks .}}
+                        {{if .HasSteamAppNews}}
                             <li><a href="#steam-app-news">Steam App News</a></li>
                         {{end}}
-                        <li><a href="#changelog">Changelog</a></li>
+                        {{if .HasChangelog}}
+                            <li><a href="#changelog">Changelog</a></li>
+                        {{end}}
                         {{if hasDownloads .CurrentOS}}
                             <li><a href="#current-os-downloads">Current OS downloads</a></li>
                         {{end}}
@@ -94,7 +98,9 @@
             {{if .SteamReviewScoreDesc}}
                 <div class="text-property">
                     <h2 class="property-title">Steam Reviews</h2>
-                    <div class="property-value"><a href="/search?steam-review-score-desc={{.SteamReviewScoreDesc}}">{{.SteamReviewScoreDesc}}</a></div>
+                    <div class="property-value"><a
+                                href="/search?steam-review-score-desc={{.SteamReviewScoreDesc}}">{{.SteamReviewScoreDesc}}</a>
+                    </div>
                 </div>
             {{end}}
             {{if .Developers}}
@@ -251,10 +257,12 @@
             {{end}}
         </section>
         <section class="additional-properties">
-            <details id="description" class="description" accesskey="d" tabindex="10">
-                <summary>Description...</summary>
-                <iframe src="/description?id={{.Id}}" loading="lazy"></iframe>
-            </details>
+            {{if .HasDescription}}
+                <details id="description" class="description" accesskey="d" tabindex="10">
+                    <summary>Description</summary>
+                    <iframe src="/description?id={{.Id}}" loading="lazy"></iframe>
+                </details>
+            {{end}}
             {{if .Screenshots}}
                 <details id="screenshots" class="screenshots" accesskey="s" tabindex="11">
                     <summary>Screenshots</summary>
@@ -273,16 +281,18 @@
                     {{end}}
                 </details>
             {{end}}
-            {{if hasSteamLinks .}}
+            {{if .HasSteamAppNews}}
                 <details id="steam-app-news" class="steam-app-news" accesskey="n" tabindex="13">
-                    <summary>Steam App News...</summary>
+                    <summary>Steam App News</summary>
                     <iframe src="/steam-app-news?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
-            <details id="changelog" class="changelog" accesskey="c" tabindex="14">
-                <summary>Changelog...</summary>
-                <iframe src="/changelog?id={{.Id}}" loading="lazy"></iframe>
-            </details>
+            {{if .HasChangelog}}
+                <details id="changelog" class="changelog" accesskey="c" tabindex="14">
+                    <summary>Changelog</summary>
+                    <iframe src="/changelog?id={{.Id}}" loading="lazy"></iframe>
+                </details>
+            {{end}}
             {{if hasDownloads .CurrentOS}}
                 {{template "product-details-downloads" .CurrentOS}}
             {{end}}

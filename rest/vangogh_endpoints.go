@@ -95,6 +95,13 @@ func getRedux(
 	return getThroughCache(client, reduxUrl(id, properties...), reduxCache)
 }
 
+func getHasRedux(
+	client *http.Client,
+	id string,
+	properties ...string) (map[string]map[string][]string, error) {
+	return getThroughCache(client, hasReduxUrl(id, properties...), reduxCache)
+}
+
 func getSearch(client *http.Client, q url.Values) ([]string, error) {
 	return getThroughCache(client, searchUrl(q), searchCache)
 }
@@ -119,4 +126,22 @@ func getSteamAppNews(client *http.Client, id string) (*steam_integration.AppNews
 	}
 
 	return nil, err
+}
+
+func getHasData(client *http.Client, id string, pt vangogh_local_data.ProductType, mt gog_integration.Media) (bool, error) {
+	hdu := hasDataUrl(id, pt, mt)
+	resp, err := client.Get(hdu.String())
+	if err != nil {
+		return false, err
+	}
+	defer resp.Body.Close()
+
+	var data map[string]string
+	err = gob.NewDecoder(resp.Body).Decode(&data)
+
+	if hasData, ok := data[id]; ok {
+		return hasData == "true", nil
+	}
+
+	return false, err
 }

@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
+	"github.com/arelate/gog_integration"
 	"net/http"
 	"strings"
 
@@ -89,6 +90,29 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
+
+	// fill redux, data presence to allow showing only the section that will have data
+
+	hasSteamAppNews, err := getHasData(http.DefaultClient, id, vangogh_local_data.SteamAppNews, gog_integration.Game)
+	if err != nil {
+		http.Error(w, nod.ErrorStr("error getting has_data"), http.StatusInternalServerError)
+		return
+	}
+
+	pvm.HasSteamAppNews = hasSteamAppNews
+
+	hasRedux, err := getHasRedux(http.DefaultClient, id, vangogh_local_data.DescriptionOverviewProperty, vangogh_local_data.ChangelogProperty)
+	if err != nil {
+		http.Error(w, nod.ErrorStr("error getting has_redux"), http.StatusInternalServerError)
+		return
+	}
+
+	if rdx, ok := hasRedux[id]; ok {
+		pvm.HasDescription = flagFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty)
+		pvm.HasChangelog = flagFromRedux(rdx, vangogh_local_data.ChangelogProperty)
+	}
+
+	// filter videos to only valid (downloaded and available)
 
 	validVideos := make([]string, 0, len(pvm.Videos))
 	for _, v := range pvm.Videos {
