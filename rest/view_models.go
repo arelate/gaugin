@@ -60,6 +60,7 @@ type productViewModel struct {
 	Image             string
 	Tags              []string
 	LocalTags         []string
+	SteamTags         []string
 	OperatingSystems  []string
 	Rating            string
 	Developers        []string
@@ -259,6 +260,7 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				Title:                propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
 				Tags:                 propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
 				LocalTags:            propertiesFromRedux(rdx, vangogh_local_data.LocalTagsProperty),
+				SteamTags:            propertiesFromRedux(rdx, vangogh_local_data.SteamTagsProperty),
 				OperatingSystems:     propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
 				Rating:               propertyFromRedux(rdx, vangogh_local_data.RatingProperty),
 				Developers:           propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
@@ -293,14 +295,16 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				BasePrice:            propertyFromRedux(rdx, vangogh_local_data.BasePriceProperty),
 				Price:                propertyFromRedux(rdx, vangogh_local_data.PriceProperty),
 				SteamAppId:           propertyFromRedux(rdx, vangogh_local_data.SteamAppIdProperty),
-				SteamReviewScoreDesc: propertyFromRedux(rdx, vangogh_local_data.SteamReviewScoreDesc),
+				SteamReviewScoreDesc: propertyFromRedux(rdx, vangogh_local_data.SteamReviewScoreDescProperty),
 			}
 
 			pvm.DiscountPercentage, pvm.DiscountLabel = discountPercentageLabelFromRedux(rdx)
 
 			if pvm.SteamAppId != "" {
-				if scu := steam_integration.SteamCommunityUrl(pvm.SteamAppId); scu != nil {
-					pvm.SteamCommunityUrl = scu.String()
+				if appId, err := strconv.Atoi(pvm.SteamAppId); err == nil {
+					if scu := steam_integration.SteamCommunityUrl(uint32(appId)); scu != nil {
+						pvm.SteamCommunityUrl = scu.String()
+					}
 				}
 			}
 

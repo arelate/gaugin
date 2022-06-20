@@ -155,6 +155,23 @@
                     {{end}}
                 </div>
             {{end}}
+            {{if .SteamTags}}
+                <div class="text-property">
+                    <h2 class="property-title">Steam tags</h2>
+                    {{$propertiesLen := len .SteamTags}}
+                    {{if gt $propertiesLen 3}}
+                    <details>
+                        <summary>{{$propertiesLen}} Steam tag(s)</summary>
+                        {{end}}
+                        <ul class="property-value flexible {{if gt $propertiesLen 3}}vertical{{end}}">{{range .SteamTags}}
+                                <li><a href="/search?steam-tags={{.}}"
+                                       aria-label="all products of {{.}} Steam tag">{{.}}</a>
+                                </li>{{end}}</ul>
+                        {{if gt $propertiesLen 3}}
+                    </details>
+                    {{end}}
+                </div>
+            {{end}}
             {{if .Features}}
                 <div class="text-property">
                     <h2 class="property-title">Features</h2>
