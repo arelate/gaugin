@@ -1,11 +1,14 @@
 {{define "search-query"}}
     <section class="search-query-container">
         <ul class="search-query">
-            {{range $property, $value := .}}
+            {{$digestsTitles := .DigestsTitles}}
+            {{range $property, $value := .Query}}
                 {{if $value}}
+                    {{$digestTitle := index $digestsTitles $value}}
+                    {{if eq $digestTitle ""}}{{$digestTitle = $value}}{{end}}
                     <li>
                         <span class="property-title">{{searchPropertyName $property}}:</span>
-                        <span class="property-value">{{$value}}</span>
+                        <span class="property-value">{{$digestTitle}}</span>
                     </li>
                 {{end}}
             {{end}}

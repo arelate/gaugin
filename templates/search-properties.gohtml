@@ -3,11 +3,12 @@
         <details {{if not .Query}}open{{end}}>
             <summary>Filter & Search</summary>
             {{if .Query}}
-                {{template "search-query" .Query}}
+                {{template "search-query" .}}
             {{end}}
             {{template "search-submit"}}
             <section class="search-properties">
                 {{$digests := .Digests}}
+                {{$digestsTitles := .DigestsTitles}}
                 {{$query := .Query}}
                 {{range $property := .SearchProperties}}
                     {{$value := index $query $property}}
@@ -20,7 +21,9 @@
                                     Any {{searchPropertyName $property}}...
                                 </option>
                                 {{range $digests}}
-                                    <option {{if eq $value .}}selected{{end}} value="{{.}}">{{.}}</option>
+                                    {{$digestTitle := index $digestsTitles .}}
+                                    {{if eq $digestTitle ""}}{{$digestTitle = .}}{{end}}
+                                    <option {{if eq $value .}}selected{{end}} value="{{.}}">{{$digestTitle}}</option>
                                 {{end}}
                             </select>
                         {{else}}
