@@ -268,7 +268,9 @@
                         {{if .SteamCommunityUrl}}
                             <li><a href="{{.SteamCommunityUrl}}" aria-label="Steam Community Link">Community</a></li>
                         {{end}}
-                        <li><a href="#steam-app-news" aria-label="Steam App News">News</a></li>
+                        {{if .HasSteamAppNews}}
+                            <li><a href="#steam-app-news" aria-label="Steam App News">News</a></li>
+                        {{end}}
                     </ul>
                 </div>
             {{end}}
