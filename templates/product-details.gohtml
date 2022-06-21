@@ -296,7 +296,7 @@
                 <details id="videos" class="videos" accesskey="v" tabindex="12">
                     <summary>Videos</summary>
                     {{range .Videos}}
-                        <video controls src="/videos?id={{.}}" preload="metadata"></video>
+                        <video controls src="/videos?id={{.}}" preload="metadata" poster="/thumbnails?id={{.}}"></video>
                     {{end}}
                 </details>
             {{end}}

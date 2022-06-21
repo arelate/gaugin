@@ -25,6 +25,7 @@ func HandleFuncs() {
 		"/steam-app-news": middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetSteamAppNews)))),
 		"/images":         middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetImages))),
 		"/videos":         middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetVideos))),
+		"/thumbnails":     middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetThumbnails))),
 		"/items/":         middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetItems))),
 		"/files":          middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetFiles)))),
 		"/local-file/":    middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetLocalFile)))),
