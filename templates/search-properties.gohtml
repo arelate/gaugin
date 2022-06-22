@@ -18,7 +18,7 @@
                         {{if $digests}}
                             <select id="search-{{$property}}" name="{{$property}}">
                                 <option {{if eq $value ""}}selected{{end}} value="">
-                                    Any {{searchPropertyName $property}}...
+                                    Select {{searchPropertyName $property}}...
                                 </option>
                                 {{range $digests}}
                                     {{$digestTitle := index $digestsTitles .}}
