@@ -30,6 +30,7 @@ func funcMap() template.FuncMap {
 		"hasDownloads":       hasDownloads,
 		"hasSteamLinks":      hasSteamLinks,
 		"hasGOGLinks":        hasGOGLinks,
+		"languageCodeFlag":   languageCodeFlag,
 	}
 }
 
@@ -171,4 +172,12 @@ func hasGOGLinks(pvm *productViewModel) bool {
 	return pvm.StoreUrl != "" ||
 		pvm.ForumUrl != "" ||
 		pvm.SupportUrl != ""
+}
+
+func languageCodeFlag(lc string) string {
+	if flag, ok := languageFlags[lc]; ok {
+		return flag
+	} else {
+		return lc
+	}
 }

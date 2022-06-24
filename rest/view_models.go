@@ -86,8 +86,9 @@ type productViewModel struct {
 	// video-ids
 	Videos []string
 	// downloads
-	CurrentOS *productDownloads
-	OtherOS   *productDownloads
+	CurrentOS     *productDownloads
+	OtherOS       *productDownloads
+	LanguageFlags map[string]string
 	// labels
 	Wishlisted     bool
 	Owned          bool

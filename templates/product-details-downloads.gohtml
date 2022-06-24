@@ -1,5 +1,6 @@
 {{define "product-details-downloads"}}
-    <details id="{{if .CurrentOS}}current-os{{else}}other-os{{end}}-downloads" class="downloads" {{if .CurrentOS}}open{{end}} accesskey="f" tabindex="20">
+    <details id="{{if .CurrentOS}}current-os{{else}}other-os{{end}}-downloads" class="downloads"
+             {{if .CurrentOS}}open{{end}} accesskey="f" tabindex="20">
         <summary>{{if .CurrentOS}}Current{{else}}Other{{end}} OS downloads</summary>
         {{if .Installers}}
             <details class="downloads-type installers" open>
@@ -44,7 +45,7 @@
             <ul class="additional-details">
                 <li class="type label {{.Type}}">{{.Type}}</li>
                 {{if .LanguageCode}}
-                    <li>Lang: <span class="highlight">{{.LanguageCode}}</span></li>
+                    <li><span class="highlight" title="{{.LanguageCode}}">{{languageCodeFlag .LanguageCode}}</span></li>
                 {{end}}
                 {{if .Version}}
                     <li>Ver: <span class="highlight">{{.Version}}</span></li>

@@ -198,7 +198,7 @@
                         <summary>{{$langsLen}} language(s)</summary>
                         {{end}}
                         <ul class="property-value {{if gt $langsLen 3}}vertical{{end}}">{{range .LanguageCodes}}
-                                <li><a href="/search?lang-code={{productTitle .}}"
+                                <li><a href="/search?lang-code={{.}}"
                                        aria-label="all products supporting {{.}} language">{{.}}</a></li>{{end}}</ul>
                         {{if gt $langsLen 3}}
                     </details>
