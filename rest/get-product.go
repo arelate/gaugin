@@ -3,6 +3,7 @@ package rest
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gog_integration"
+	"golang.org/x/exp/maps"
 	"net/http"
 	"strings"
 
@@ -200,11 +201,14 @@ func getCurrentOtherOSDownloads(pvm *productViewModel, id string, userAgent stri
 		currentOS = vangogh_local_data.Linux
 	}
 
+	otherOS := make(map[string]interface{}, 0)
+
 	pvm.CurrentOS = &productDownloads{
-		CurrentOS:  true,
-		Installers: make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		DLCs:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		Extras:     make(vangogh_local_data.DownloadsList, 0, len(dls)),
+		OperatingSystems: currentOS.String(),
+		CurrentOS:        true,
+		Installers:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
+		DLCs:             make(vangogh_local_data.DownloadsList, 0, len(dls)),
+		Extras:           make(vangogh_local_data.DownloadsList, 0, len(dls)),
 	}
 	pvm.OtherOS = &productDownloads{
 		CurrentOS:  false,
@@ -219,6 +223,7 @@ func getCurrentOtherOSDownloads(pvm *productViewModel, id string, userAgent stri
 			dl.OS == vangogh_local_data.AnyOperatingSystem {
 			osd = pvm.CurrentOS
 		} else {
+			otherOS[dl.OS.String()] = nil
 			osd = pvm.OtherOS
 		}
 
@@ -233,6 +238,8 @@ func getCurrentOtherOSDownloads(pvm *productViewModel, id string, userAgent stri
 			osd.Extras = append(osd.Extras, dl)
 		}
 	}
+
+	pvm.OtherOS.OperatingSystems = strings.Join(maps.Keys(otherOS), ", ")
 
 	return nil
 }

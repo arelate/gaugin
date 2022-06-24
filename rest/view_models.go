@@ -45,10 +45,11 @@ type updatesViewModel struct {
 }
 
 type productDownloads struct {
-	CurrentOS  bool
-	Installers vangogh_local_data.DownloadsList
-	DLCs       vangogh_local_data.DownloadsList
-	Extras     vangogh_local_data.DownloadsList
+	CurrentOS        bool
+	OperatingSystems string
+	Installers       vangogh_local_data.DownloadsList
+	DLCs             vangogh_local_data.DownloadsList
+	Extras           vangogh_local_data.DownloadsList
 }
 
 type productViewModel struct {
