@@ -33,10 +33,10 @@
                             <li><a href="#changelog">Changelog</a></li>
                         {{end}}
                         {{if hasDownloads .CurrentOS}}
-                            <li><a href="#current-os-downloads">Current OS downloads</a></li>
+                            <li><a href="#current-os-downloads">{{.CurrentOS.OperatingSystems}} downloads</a></li>
                         {{end}}
                         {{if hasDownloads .OtherOS}}
-                            <li><a href="#other-os-downloads">Other OS downloads</a></li>
+                            <li><a href="#other-os-downloads">{{.OtherOS.OperatingSystems}} downloads</a></li>
                         {{end}}
                     </ul>
                 </details>

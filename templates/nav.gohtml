@@ -1,6 +1,8 @@
 {{define "nav"}}
     <nav>
-        <a class="{{if eq . "updates"}}{{`current`}}{{end}}" accesskey="u" href="/updates">◎&nbsp;Updates</a>
-        <a class="{{if eq . "filter-products"}}{{`current`}}{{end}}" accesskey="p" href="/products">⨳&nbsp;Products</a>
+        <a class="{{if eq . "updates"}}{{`current`}}{{end}}" accesskey="u" href="/updates"
+           rel="prefetch prerender">◎&nbsp;Updates</a>
+        <a class="{{if eq . "filter-products"}}{{`current`}}{{end}}" accesskey="p" href="/products"
+           rel="prefetch prerender">⨳&nbsp;Products</a>
     </nav>
 {{end}}

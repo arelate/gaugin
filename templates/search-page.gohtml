@@ -9,10 +9,10 @@
         <li class="{{if eq .Scope "owned"}}{{`current`}}{{end}}">
             <a href="/products/owned" accesskey="o">owned</a>
         </li>
-        <li class="{{if eq .Scope "wishlist"}}{{`current`}}{{end}}">
+        <li class="{{if eq .Scope "wishlist"}}{{`current`}}{{end}}" rel="prefetch prerender">
             <a href="/products/wishlist" accesskey="w">wishlist</a>
         </li>
-        <li class="{{if eq .Scope "sale"}}{{`current`}}{{end}}">
+        <li class="{{if eq .Scope "sale"}}{{`current`}}{{end}}" rel="prefetch prerender">
             <a href="/products/sale" accesskey="s">sale</a>
         </li>
         <li class="{{if eq .Scope "all"}}{{`current`}}{{end}}">
