@@ -8,6 +8,7 @@
             grid-column-gap: 2em;
             padding-top: 1em;
             content-visibility: auto;
+            overflow: hidden;
         }
 
         .product-details .downloads .downloads-type summary {
@@ -34,11 +35,15 @@
             color: inherit;
             text-decoration: none;
             padding: 0.5em;
+            overflow: hidden;
         }
 
         .product-details .downloads .downloads-type .downloads-list .download .title {
             font-size: 1.25em;
             font-weight: bold;
+            overflow:hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         .product-details .downloads .downloads-type .downloads-list .download ul {
