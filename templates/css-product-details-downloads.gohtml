@@ -41,9 +41,7 @@
         .product-details .downloads .downloads-type .downloads-list .download .title {
             font-size: 1.25em;
             font-weight: bold;
-            overflow:hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+            word-break: break-all;
         }
 
         .product-details .downloads .downloads-type .downloads-list .download ul {
@@ -63,6 +61,7 @@
 
         .product-details .downloads .downloads-type .downloads-list .download ul.additional-details .highlight {
             color: var(--color);
+            word-break: break-all;
         }
     </style>
 {{end}}
