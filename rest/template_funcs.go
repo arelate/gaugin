@@ -23,7 +23,8 @@ func funcMap() template.FuncMap {
 		"gogLink":            gogLink,
 		"toLower":            toLower,
 		"dlTitle":            dlTitle,
-		"hasLabel":           hasLabel,
+		"hasListLabel":       hasListLabel,
+		"hasDetailsLabel":    hasDetailsLabel,
 		"hasTags":            hasTags,
 		"showPrice":          showPrice,
 		"searchPropertyName": searchPropertyName,
@@ -122,7 +123,7 @@ func gogLink(p string) string {
 	return u.String()
 }
 
-func hasLabel(lpvm listProductViewModel) bool {
+func hasListLabel(lpvm listProductViewModel) bool {
 	return lpvm.Owned ||
 		lpvm.Wishlisted ||
 		lpvm.PreOrder ||
@@ -135,6 +136,21 @@ func hasLabel(lpvm listProductViewModel) bool {
 		lpvm.Free ||
 		lpvm.Discounted ||
 		len(lpvm.Tags) > 0
+}
+
+func hasDetailsLabel(pvm productViewModel) bool {
+	return pvm.Owned ||
+		pvm.Wishlisted ||
+		pvm.PreOrder ||
+		pvm.ComingSoon ||
+		pvm.TBA ||
+		pvm.InDevelopment ||
+		pvm.ProductType != "GAME" ||
+		pvm.IsUsingDOSBox ||
+		pvm.IsUsingScummVM ||
+		pvm.Free ||
+		pvm.Discounted ||
+		len(pvm.Tags) > 0
 }
 
 func hasTags(pvm productViewModel) bool {

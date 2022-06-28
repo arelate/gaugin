@@ -9,7 +9,7 @@
 
         <h1 class="title">{{ .Title }}</h1>
 
-        {{template "labels" .}}
+        {{if hasDetailsLabel .}}{{template "labels" .}}{{end}}
 
         <section class="shortcuts">
             <ul class="property-value flexible">
