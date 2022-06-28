@@ -43,12 +43,13 @@
         }
 
         .product-details h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             padding: 0.5rem 1rem;
             display: flex;
-            justify-items: start;
-            align-items: center;
+            justify-content: center;
+            text-align: center ;
             column-gap: 0.5em;
+            margin: 1rem;
         }
 
         .product-details h1 svg.icon {
@@ -61,7 +62,8 @@
         .product-details .labels {
             column-gap: 0.5em;
             row-gap: 0.5em;
-            padding-inline-start: 1em;
+            display: flex;
+            justify-content: center;
         }
 
         .product-details .labels .label {
@@ -80,12 +82,33 @@
             margin: 2em 0;
         }
 
+        .product-details .shortcuts ul {
+            list-style: none;
+            margin: 0;
+            display: flex;
+            column-gap: 1em;
+            row-gap: 0.5em;
+            flex-direction: row;
+            flex-wrap: wrap;
+            background-color: var(--highlight-color);
+            padding: 1em;
+            border-radius: 4px;
+            justify-content: center;
+        }
+
+        .product-details .text-properties {
+            margin-bottom: 3em;
+        }
+
         .product-details .text-properties svg.icon {
             width: 1.25em;
             height: 1.25em;
         }
 
-        .product-details .shortcuts ul,
+        .product-details .shortcuts ul {
+
+        }
+
         .product-details .text-properties .text-property ul {
             list-style: none;
             margin: 0;
@@ -96,12 +119,6 @@
             column-gap: 1em;
         }
 
-        @media only screen and (max-width: 700px) {
-            .product-details .shortcuts ul {
-                flex-direction: column;
-            }
-        }
-
         .product-details .text-properties .text-property ul.vertical {
             flex-direction: column;
             background-color: var(--highlight-color);
@@ -109,16 +126,10 @@
             padding: 1em;
         }
 
-        .product-details .shortcuts details summary {
-            font-weight: bold;
-        }
-
-        .product-details .shortcuts details[open] summary,
         .product-details .text-properties .text-property details[open] summary {
             margin-bottom: 1em;
         }
 
-        .product-details .shortcuts details summary,
         .product-details .text-properties .text-property details summary {
             cursor: pointer;
         }
@@ -140,7 +151,6 @@
             height: 1.25em;
         }
 
-        .product-details .shortcuts .text-property,
         .product-details .text-properties .text-property {
             width: 100%;
             display: grid;
@@ -163,7 +173,6 @@
             }
         }
 
-        .product-details .shortcuts .text-property h2,
         .product-details .text-properties .text-property h2 {
             font-size: 1em;
             margin: 0;
@@ -185,7 +194,6 @@
             opacity: 0.8;
         }
 
-        .product-details .shortcuts .text-property .property-title,
         .product-details .text-properties .text-property .property-title {
             font-weight: normal;
             color: var(--subtle-color);
@@ -254,16 +262,11 @@
             border-radius: 4px;
         }
 
-        .product-details .shortcuts details ul,
         .product-details .additional-properties details {
             cursor: pointer;
             border-radius: 0.75em;
             padding: 0.5em;
             background-color: var(--highlight-color);
-        }
-
-        .product-details .shortcuts details ul {
-            padding: 1em;
         }
 
         .product-details .additional-properties > details {
@@ -278,7 +281,6 @@
         .product-details .additional-properties > details > summary {
             position: sticky;
             top: 0;
-            display: block;
             padding: 0.5em;
             background-color: var(--highlight-color);
             z-index: 1;

@@ -12,35 +12,29 @@
         {{template "labels" .}}
 
         <section class="shortcuts">
-            <div class="text-property center">
-                <h2 class="property-title">Shortcuts</h2>
-                <details>
-                    <summary>Jump to section...</summary>
-                    <ul class="property-value flexible">
-                        {{if .HasDescription}}
-                            <li><a href="#description">Description</a></li>
-                        {{end}}
-                        {{if .Screenshots}}
-                            <li><a href="#screenshots">Screenshots</a></li>
-                        {{end}}
-                        {{if .Videos}}
-                            <li><a href="#videos">Videos</a></li>
-                        {{end}}
-                        {{if .HasSteamAppNews}}
-                            <li><a href="#steam-app-news">Steam app news</a></li>
-                        {{end}}
-                        {{if .HasChangelog}}
-                            <li><a href="#changelog">Changelog</a></li>
-                        {{end}}
-                        {{if hasDownloads .CurrentOS}}
-                            <li><a href="#current-os-downloads">{{.CurrentOS.OperatingSystems}} downloads</a></li>
-                        {{end}}
-                        {{if hasDownloads .OtherOS}}
-                            <li><a href="#other-os-downloads">{{.OtherOS.OperatingSystems}} downloads</a></li>
-                        {{end}}
-                    </ul>
-                </details>
-            </div>
+            <ul class="property-value flexible">
+                {{if .HasDescription}}
+                    <li><a href="#description">Description</a></li>
+                {{end}}
+                {{if .Screenshots}}
+                    <li><a href="#screenshots">Screenshots</a></li>
+                {{end}}
+                {{if .Videos}}
+                    <li><a href="#videos">Videos</a></li>
+                {{end}}
+                {{if .HasSteamAppNews}}
+                    <li><a href="#steam-app-news">Steam app news</a></li>
+                {{end}}
+                {{if .HasChangelog}}
+                    <li><a href="#changelog">Changelog</a></li>
+                {{end}}
+                {{if hasDownloads .CurrentOS}}
+                    <li><a href="#current-os-downloads">{{.CurrentOS.OperatingSystems}} downloads</a></li>
+                {{end}}
+                {{if hasDownloads .OtherOS}}
+                    <li><a href="#other-os-downloads">{{.OtherOS.OperatingSystems}} downloads</a></li>
+                {{end}}
+            </ul>
         </section>
 
         <section class="text-properties">
@@ -200,7 +194,8 @@
                         <ul class="property-value {{if gt $langsLen 3}}vertical{{end}}">{{range .LanguageCodes}}
                                 {{$langCode := productId .}}
                                 <li><a href="/search?lang-code={{.}}"
-                                       aria-label="all products supporting {{.}} language">{{languageCodeFlag $langCode}}&nbsp;{{.}}</a></li>{{end}}</ul>
+                                       aria-label="all products supporting {{.}} language">{{languageCodeFlag $langCode}}
+                                        &nbsp;{{.}}</a></li>{{end}}</ul>
                         {{if gt $langsLen 3}}
                     </details>
                     {{end}}

@@ -68,22 +68,25 @@
 
         details summary {
             list-style: none;
+            display: flex;
+            align-items: center;
         }
 
         details summary::-webkit-details-marker {
             display: none;
         }
 
-        details > summary::before {
+        details > summary::after {
             content: '\002b';
             font-weight: normal;
-            margin-right: 0.5em;
-            font-size: 1.25em;
+            margin-left: 0.5em;
             color: var(--subtle-color);
+            display: flex;
+            align-items: center;
             /*font-weight: bold;*/
         }
 
-        details[open] > summary::before {
+        details[open] > summary::after {
             /*content: '\00d7';*/
             content: '\2212';
         }
