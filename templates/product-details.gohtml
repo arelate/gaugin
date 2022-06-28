@@ -27,7 +27,7 @@
                             <li><a href="#videos">Videos</a></li>
                         {{end}}
                         {{if .HasSteamAppNews}}
-                            <li><a href="#steam-app-news">Steam App News</a></li>
+                            <li><a href="#steam-app-news">Steam app news</a></li>
                         {{end}}
                         {{if .HasChangelog}}
                             <li><a href="#changelog">Changelog</a></li>
@@ -303,7 +303,7 @@
             {{end}}
             {{if .HasSteamAppNews}}
                 <details id="steam-app-news" class="steam-app-news" accesskey="n" tabindex="13">
-                    <summary>Steam App News</summary>
+                    <summary>Steam app news</summary>
                     <iframe src="/steam-app-news?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}

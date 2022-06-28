@@ -1,7 +1,11 @@
+Blazing fast gaugin:
+	- Implement new methods to get last modified for redux asset and data
+	- Put pages into cache, on requests serve that page and check if the data has been modified, invalidate the cache if so
+	- Implement paginator for Products data, use it to break down into chunks of 100s
+	- With that work, every page should have FCP < 30ms
+
 Changelog/Description/Steam App News enhancements:
-	- Extract items from changelog? (investigate how many products have that)
-	- Extract / download / rewrite regular images links (e.g. https://m.bzb.one:1903/product?id=1436454557 ->  https://images-4.gog-statics.com/f567e84e7994b05d6ab561d6a44332622ce8765580e3b6cd95a2ece771d83ae1.png)
-	- Download steam-app-news images?
+	- Check any remaining Steam tags 
 
 Implement add to wishlist:
 	- for products that are not owned
@@ -29,6 +33,9 @@ More icons, less text:
 	- features
 
 Archive:
+	- Extract items from changelog? (investigate how many products have that) @done(2022-06-26) @project(Changelog/Description/Steam App News enhancements)
+	- Extract / download / rewrite regular images links (e.g. https://m.bzb.one:1903/product?id=1436454557 ->  https://images-4.gog-statics.com/f567e84e7994b05d6ab561d6a44332622ce8765580e3b6cd95a2ece771d83ae1.png) @done(2022-06-26) @project(Changelog/Description/Steam App News enhancements)
+	- Download steam-app-news images? @done(2022-06-26) @project(Changelog/Description/Steam App News enhancements)
 	Download YouTube video thumbnails: @done(2022-06-21)
 		- update yt_urls @done(2022-06-21)
 		- import as part of image downloading @done(2022-06-21)
