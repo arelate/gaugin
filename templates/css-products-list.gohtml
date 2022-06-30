@@ -62,25 +62,33 @@
         .products .product {
             font-size: 1.2em;
             color: inherit;
-            padding: 0.5em 1em;
+            padding: 0.5em 1em 1em;
             text-decoration: none;
+            background-color: var(--highlight-color);
+            border-radius: 4px;
+            box-shadow: 0 0 5px var(--faint-color);
             content-visibility: auto;
             /* 104px is the average size of the element in "Products > all" section */
             contain-intrinsic-size: 300px 103px;
         }
 
+        @media only screen and (max-width: 700px) {
+            .products .product {
+                margin: 0 1em;
+            }
+        }
+
         .products .product .title {
-            margin: 0;
+            margin: 0.25em 0 0.5em;
             font-size: 1em;
-            padding-bottom: 0.25em;
-            max-width: 80vw;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .products .product .labels {
-            margin-block-end: 0.25em;
+            margin: 0 0 0.5em;
+            /*margin-block-end: 0.25em;*/
         }
 
         .products .product .label {
