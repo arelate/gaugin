@@ -70,10 +70,12 @@
             content-visibility: auto;
             /* 104px is the average size of the element in "Products > all" section */
             contain-intrinsic-size: 300px 103px;
+            overflow: hidden;
         }
 
         @media only screen and (max-width: 700px) {
             .products .product {
+                max-width: calc(100% - 2em);
                 margin: 0 1em;
             }
         }
