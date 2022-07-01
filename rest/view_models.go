@@ -59,6 +59,7 @@ type productViewModel struct {
 	ProductType       string
 	Title             string
 	Image             string
+	ImagePreview      template.URL
 	Tags              []string
 	LocalTags         []string
 	SteamTags         []string

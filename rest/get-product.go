@@ -3,7 +3,9 @@ package rest
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gog_integration"
+	"github.com/boggydigital/issa"
 	"golang.org/x/exp/maps"
+	"html/template"
 	"net/http"
 	"strings"
 
@@ -173,6 +175,13 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	if err := getCurrentOtherOSDownloads(pvm, id, r.Header.Get("User-Agent")); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
+	}
+
+	if dehydratedImage, err := getDehydratedImage(http.DefaultClient, pvm.Image); err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
+	} else {
+		pvm.ImagePreview = template.URL(issa.Hydrate(dehydratedImage))
 	}
 
 	if err := tmpl.ExecuteTemplate(w, "product-page", pvm); err != nil {

@@ -18,7 +18,7 @@ func GetThumbnails(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, nod.Error(err).Error(), http.StatusBadRequest)
 		return
 	}
-	if localThumbnailPath := vangogh_local_data.AbsLocalThumbnailPath(videoId); localThumbnailPath != "" {
+	if localThumbnailPath := vangogh_local_data.AbsLocalVideoThumbnailPath(videoId); localThumbnailPath != "" {
 		w.Header().Set("Cache-Control", "max-age=31536000")
 		http.ServeFile(w, r, localThumbnailPath)
 	} else {

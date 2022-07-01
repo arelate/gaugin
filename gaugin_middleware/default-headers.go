@@ -12,6 +12,7 @@ const (
 		"'sha256-vEdzDTUjeRFG21L/pW+qldt1k+gnTSWl4v2E16iqJPc=' " +
 		"none; " +
 		"object-src 'none'; " +
+		"img-src 'self' data:; " +
 		"style-src 'unsafe-inline';"
 )
 
