@@ -33,6 +33,7 @@ func funcMap() template.FuncMap {
 		"hasGOGLinks":        hasGOGLinks,
 		"languageCodeFlag":   languageCodeFlag,
 		"youtubeLink":        youtubeLink,
+		"hasShortcuts":       hasShortcuts,
 	}
 }
 
@@ -186,4 +187,13 @@ func languageCodeFlag(lc string) string {
 
 func youtubeLink(videoId string) string {
 	return yt_urls.VideoUrl(videoId).String()
+}
+
+func hasShortcuts(pvm *productViewModel) bool {
+	return pvm.HasDescription ||
+		pvm.HasChangelog ||
+		pvm.HasScreenshots ||
+		pvm.HasVideos ||
+		pvm.HasDownloads ||
+		pvm.HasSteamAppNews
 }

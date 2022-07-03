@@ -14,28 +14,30 @@
 
         {{if hasLabel .Labels}}{{template "labels" .Labels}}{{end}}
 
-        <section class="shortcuts">
-            <ul class="property-value flexible">
-                {{if .HasDescription}}
-                    <li><a href="#description">Description</a></li>
-                {{end}}
-                {{if .HasScreenshots}}
-                    <li><a href="#screenshots">Screenshots</a></li>
-                {{end}}
-                {{if .HasVideos}}
-                    <li><a href="#videos">Videos</a></li>
-                {{end}}
-                {{if .HasSteamAppNews}}
-                    <li><a href="#steam-app-news">Steam app news</a></li>
-                {{end}}
-                {{if .HasChangelog}}
-                    <li><a href="#changelog">Changelog</a></li>
-                {{end}}
-                {{if .HasDownloads}}
-                    <li><a href="#downloads">Downloads</a></li>
-                {{end}}
-            </ul>
-        </section>
+        {{if hasShortcuts .}}
+            <section class="shortcuts">
+                <ul class="property-value flexible">
+                    {{if .HasDescription}}
+                        <li><a href="#description">Description</a></li>
+                    {{end}}
+                    {{if .HasScreenshots}}
+                        <li><a href="#screenshots">Screenshots</a></li>
+                    {{end}}
+                    {{if .HasVideos}}
+                        <li><a href="#videos">Videos</a></li>
+                    {{end}}
+                    {{if .HasSteamAppNews}}
+                        <li><a href="#steam-app-news">Steam app news</a></li>
+                    {{end}}
+                    {{if .HasChangelog}}
+                        <li><a href="#changelog">Changelog</a></li>
+                    {{end}}
+                    {{if .HasDownloads}}
+                        <li><a href="#downloads">Downloads</a></li>
+                    {{end}}
+                </ul>
+            </section>
+        {{end}}
 
         <section class="text-properties">
             {{if showPrice .}}
