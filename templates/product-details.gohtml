@@ -43,8 +43,8 @@
                     <h2 class="property-title">Price</h2>
                     <ul class="property-value prices">
                         {{if .Labels.Discounted}}
-                            <li class="label discount-percentage {{if gt .DiscountPercentage 74}}notable-discount{{end}}">
-                                -{{.DiscountPercentage}}%
+                            <li class="label discount-percentage {{if gt .Labels.DiscountPercentage 74}}notable-discount{{end}}">
+                                -{{.Labels.DiscountPercentage}}%
                             </li>
                             <li class="base-price">{{.BasePrice}}</li>{{end}}
                         <li class="price">{{.Price}}</li>
