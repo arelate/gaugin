@@ -30,7 +30,7 @@
 {{end}}
 {{define "download"}}
     {{range .}}
-        <a class="download {{.Type}} {{.OS.String}}" href="/files?manual-url={{.ManualUrl}}"
+        <a target="_top" class="download {{.Type}} {{.OS.String}}" href="/files?manual-url={{.ManualUrl}}"
            aria-label="download {{dlTitle .}}">
             <div class="title">{{dlTitle .}}</div>
             <ul>

@@ -12,7 +12,7 @@
                 <summary><h1>Available only on YouTube</h1></summary>
                 {{range .RemoteVideos}}
                     {{$videoId := productId .}}
-                    <a href="{{youtubeLink $videoId}}"><img src="/thumbnails?id={{$videoId}}"/></a>
+                    <a target="_top" href="{{youtubeLink $videoId}}"><img src="/thumbnails?id={{$videoId}}"/></a>
                 {{end}}
             </details>
         {{end}}

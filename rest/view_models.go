@@ -11,19 +11,21 @@ import (
 )
 
 type labels struct {
-	Wishlisted     bool
-	Owned          bool
-	PreOrder       bool
-	InDevelopment  bool
-	TBA            bool
-	ComingSoon     bool
-	IsUsingDOSBox  bool
-	IsUsingScummVM bool
-	Free           bool
-	Discounted     bool
-	Tags           []string
-	LocalTags      []string
-	ProductType    string
+	Wishlisted         bool
+	Owned              bool
+	PreOrder           bool
+	InDevelopment      bool
+	TBA                bool
+	ComingSoon         bool
+	IsUsingDOSBox      bool
+	IsUsingScummVM     bool
+	Free               bool
+	Discounted         bool
+	DiscountPercentage int
+	DiscountLabel      string
+	Tags               []string
+	LocalTags          []string
+	ProductType        string
 }
 
 type listProductViewModel struct {
@@ -89,10 +91,8 @@ type productViewModel struct {
 	// labels
 	Labels labels
 	// price
-	BasePrice          string
-	Price              string
-	DiscountPercentage int
-	DiscountLabel      string
+	BasePrice string
+	Price     string
 	// Steam Community url
 	SteamCommunityUrl    string
 	SteamAppId           string
@@ -310,7 +310,7 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				SteamReviewScoreDesc: propertyFromRedux(rdx, vangogh_local_data.SteamReviewScoreDescProperty),
 			}
 
-			pvm.DiscountPercentage, pvm.DiscountLabel = discountPercentageLabelFromRedux(rdx)
+			pvm.Labels.DiscountPercentage, pvm.Labels.DiscountLabel = discountPercentageLabelFromRedux(rdx)
 
 			if pvm.SteamAppId != "" {
 				if appId, err := strconv.Atoi(pvm.SteamAppId); err == nil {

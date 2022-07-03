@@ -6,7 +6,7 @@
     <div id="screenshots-content">
         {{if .Screenshots}}
             {{range .Screenshots}}
-                <a href="/image?id={{.}}" aria-label="open original screenshot file">
+                <a target="_top" href="/image?id={{.}}" aria-label="open original screenshot file">
                     <img class="screenshot" loading="lazy" decoding="auto" src="/image?id={{.}}" alt=""/>
                 </a>
             {{end}}
