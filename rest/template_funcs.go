@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
+	"github.com/boggydigital/yt_urls"
 	"html/template"
 	"net/url"
 	"strconv"
@@ -32,6 +33,7 @@ func funcMap() template.FuncMap {
 		"hasSteamLinks":      hasSteamLinks,
 		"hasGOGLinks":        hasGOGLinks,
 		"languageCodeFlag":   languageCodeFlag,
+		"youtubeLink":        youtubeLink,
 	}
 }
 
@@ -196,4 +198,8 @@ func languageCodeFlag(lc string) string {
 	} else {
 		return lc
 	}
+}
+
+func youtubeLink(videoId string) string {
+	return yt_urls.VideoUrl(videoId).String()
 }

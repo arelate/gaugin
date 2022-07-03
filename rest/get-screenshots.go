@@ -34,5 +34,4 @@ func GetScreenshots(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
 		return
 	}
-
 }

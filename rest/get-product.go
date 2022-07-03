@@ -37,8 +37,6 @@ var productProperties = []string{
 	vangogh_local_data.StoreUrlProperty,
 	vangogh_local_data.ForumUrlProperty,
 	vangogh_local_data.SupportUrlProperty,
-	vangogh_local_data.ScreenshotsProperty,
-	vangogh_local_data.VideoIdProperty,
 	vangogh_local_data.WishlistedProperty,
 	vangogh_local_data.OwnedProperty,
 	vangogh_local_data.IsFreeProperty,
@@ -152,7 +150,8 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	hasRedux, err := getHasRedux(http.DefaultClient, id,
 		vangogh_local_data.DescriptionOverviewProperty,
 		vangogh_local_data.ChangelogProperty,
-		vangogh_local_data.ScreenshotsProperty)
+		vangogh_local_data.ScreenshotsProperty,
+		vangogh_local_data.VideoIdProperty)
 	if err != nil {
 		http.Error(w, nod.ErrorStr("error getting has_redux"), http.StatusInternalServerError)
 		return
@@ -162,18 +161,8 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		pvm.HasDescription = flagFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty)
 		pvm.HasChangelog = flagFromRedux(rdx, vangogh_local_data.ChangelogProperty)
 		pvm.HasScreenshots = flagFromRedux(rdx, vangogh_local_data.ScreenshotsProperty)
+		pvm.HasVideos = flagFromRedux(rdx, vangogh_local_data.VideoIdProperty)
 	}
-
-	// filter videos to only valid (downloaded and available)
-
-	validVideos := make([]string, 0, len(pvm.Videos))
-	for _, v := range pvm.Videos {
-		if strings.Contains(v, "(") {
-			continue
-		}
-		validVideos = append(validVideos, v)
-	}
-	pvm.Videos = validVideos
 
 	if err := getCurrentOtherOSDownloads(pvm, id, r.Header.Get("User-Agent")); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)

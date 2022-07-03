@@ -9,6 +9,7 @@
         #description-content,
         #changelog-content,
         #screenshots-content,
+        #videos-content,
         #steam-app-news-content {
             line-height: 1.5rem;
             font-weight: normal;
@@ -21,6 +22,7 @@
             #description-content,
             #changelog-content,
             #screenshots-content,
+            #videos-content,
             #steam-app-news-content {
                 max-width: 800px;
                 margin: 2.5em auto;
@@ -122,6 +124,21 @@
         #screenshots-content .screenshot {
             width: 100%;
             border-radius: 4px;
+        }
+
+        #videos-content video {
+            width: 100%;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        #videos-content details summary {
+            display: flex;
+            justify-content: center;
+        }
+
+        #videos-content details summary h1 {
+            font-size: 1em;
         }
 
     </style>

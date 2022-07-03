@@ -1,0 +1,22 @@
+{{define "videos-page"}}
+    <!doctype html>
+    <html lang="en">
+    {{template "head" .}}
+    <body id="videos">
+    <div id="videos-content">
+        {{range .LocalVideos}}
+            <video controls src="/video?id={{.}}" preload="metadata" poster="/thumbnails?id={{.}}"></video>
+        {{end}}
+        {{if .RemoteVideos}}
+            <details>
+                <summary><h1>Available only on YouTube</h1></summary>
+                {{range .RemoteVideos}}
+                    {{$videoId := productId .}}
+                    <a href="{{youtubeLink $videoId}}"><img src="/thumbnails?id={{$videoId}}"/></a>
+                {{end}}
+            </details>
+        {{end}}
+    </div>
+    </body>
+    </html>
+{{end}}
