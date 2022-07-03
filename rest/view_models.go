@@ -84,8 +84,6 @@ type productViewModel struct {
 	StoreUrl   string
 	ForumUrl   string
 	SupportUrl string
-	// screenshots
-	Screenshots []string
 	// video-ids
 	Videos []string
 	// downloads
@@ -115,6 +113,7 @@ type productViewModel struct {
 	// has properties and data
 	HasDescription  bool
 	HasChangelog    bool
+	HasScreenshots  bool
 	HasSteamAppNews bool
 }
 
@@ -128,6 +127,11 @@ type descriptionViewModel struct {
 type changelogViewModel struct {
 	Context   string
 	Changelog template.HTML
+}
+
+type screenshotsViewModel struct {
+	Context     string
+	Screenshots []string
 }
 
 type newsItemViewModel struct {
@@ -285,7 +289,6 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				StoreUrl:             propertyFromRedux(rdx, vangogh_local_data.StoreUrlProperty),
 				ForumUrl:             propertyFromRedux(rdx, vangogh_local_data.ForumUrlProperty),
 				SupportUrl:           propertyFromRedux(rdx, vangogh_local_data.SupportUrlProperty),
-				Screenshots:          propertiesFromRedux(rdx, vangogh_local_data.ScreenshotsProperty),
 				Videos:               propertiesFromRedux(rdx, vangogh_local_data.VideoIdProperty),
 				Wishlisted:           flagFromRedux(rdx, vangogh_local_data.WishlistedProperty),
 				Owned:                flagFromRedux(rdx, vangogh_local_data.OwnedProperty),

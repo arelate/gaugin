@@ -7,9 +7,9 @@ import (
 	"net/http"
 )
 
-func GetImages(w http.ResponseWriter, r *http.Request) {
+func GetImage(w http.ResponseWriter, r *http.Request) {
 
-	// GET /images?id
+	// GET /image?id
 
 	q := r.URL.Query()
 	imageId := q.Get("id")

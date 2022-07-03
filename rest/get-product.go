@@ -151,7 +151,8 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	hasRedux, err := getHasRedux(http.DefaultClient, id,
 		vangogh_local_data.DescriptionOverviewProperty,
-		vangogh_local_data.ChangelogProperty)
+		vangogh_local_data.ChangelogProperty,
+		vangogh_local_data.ScreenshotsProperty)
 	if err != nil {
 		http.Error(w, nod.ErrorStr("error getting has_redux"), http.StatusInternalServerError)
 		return
@@ -160,6 +161,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	if rdx, ok := hasRedux[id]; ok {
 		pvm.HasDescription = flagFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty)
 		pvm.HasChangelog = flagFromRedux(rdx, vangogh_local_data.ChangelogProperty)
+		pvm.HasScreenshots = flagFromRedux(rdx, vangogh_local_data.ScreenshotsProperty)
 	}
 
 	// filter videos to only valid (downloaded and available)

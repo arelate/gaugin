@@ -8,9 +8,9 @@ import (
 	"github.com/boggydigital/nod"
 )
 
-func GetVideos(w http.ResponseWriter, r *http.Request) {
+func GetVideo(w http.ResponseWriter, r *http.Request) {
 
-	// GET /videos?id
+	// GET /video?id
 
 	q := r.URL.Query()
 	videoId := q.Get("id")

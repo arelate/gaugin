@@ -8,6 +8,7 @@
 
         #description-content,
         #changelog-content,
+        #screenshots-content,
         #steam-app-news-content {
             line-height: 1.5rem;
             font-weight: normal;
@@ -19,6 +20,7 @@
         @media screen and (min-width: 800px) {
             #description-content,
             #changelog-content,
+            #screenshots-content,
             #steam-app-news-content {
                 max-width: 800px;
                 margin: 2.5em auto;
@@ -115,6 +117,11 @@
         #steam-app-news-content mark.spoiler::selection,
         #steam-app-news-content mark.spoiler:active {
             color: var(--background-color);
+        }
+
+        #screenshots-content .screenshot {
+            width: 100%;
+            border-radius: 4px;
         }
 
     </style>

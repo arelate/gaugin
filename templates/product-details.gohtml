@@ -2,10 +2,9 @@
     {{template "svg-icons"}}
     {{if .Image }}
         <div class="cover-image">
-            <a href="/images?id={{.Image}}">
-                <img src="/images?id={{.Image}}"
-                     {{if .DehydratedImage}}style="background-image:url('{{.DehydratedImage}}')"{{end}} alt=""
-                     decoding="auto"/>
+            <a href="/image?id={{.Image}}">
+                <img src="/image?id={{.Image}}"
+                     {{if .DehydratedImage}}style="background-image:url('{{.DehydratedImage}}')"{{end}} alt=""/>
             </a>
         </div>
     {{end}}
@@ -20,7 +19,7 @@
                 {{if .HasDescription}}
                     <li><a href="#description">Description</a></li>
                 {{end}}
-                {{if .Screenshots}}
+                {{if .HasScreenshots}}
                     <li><a href="#screenshots">Screenshots</a></li>
                 {{end}}
                 {{if .Videos}}
@@ -282,21 +281,17 @@
                     <iframe src="/description?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
-            {{if .Screenshots}}
+            {{if .HasScreenshots}}
                 <details id="screenshots" class="screenshots" accesskey="s" tabindex="11">
                     <summary>Screenshots</summary>
-                    {{range .Screenshots}}
-                        <a href="/images?id={{.}}" aria-label="open original screenshot file">
-                            <img class="screenshot" loading="lazy" decoding="auto" src="/images?id={{.}}" alt=""/>
-                        </a>
-                    {{end}}
+                    <iframe src="/screenshots?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
             {{if .Videos}}
                 <details id="videos" class="videos" accesskey="v" tabindex="12">
                     <summary>Videos</summary>
                     {{range .Videos}}
-                        <video controls src="/videos?id={{.}}" preload="metadata" poster="/thumbnails?id={{.}}"></video>
+                        <video controls src="/video?id={{.}}" preload="metadata" poster="/thumbnails?id={{.}}"></video>
                     {{end}}
                 </details>
             {{end}}
