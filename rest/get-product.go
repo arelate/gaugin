@@ -177,7 +177,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 func getCurrentOtherOSDownloads(pvm *productViewModel, id string, userAgent string) error {
 
-	if !pvm.Owned {
+	if !pvm.Labels.Owned {
 		return nil
 	}
 

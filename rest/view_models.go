@@ -10,27 +10,31 @@ import (
 	"strconv"
 )
 
+type labels struct {
+	Wishlisted     bool
+	Owned          bool
+	PreOrder       bool
+	InDevelopment  bool
+	TBA            bool
+	ComingSoon     bool
+	IsUsingDOSBox  bool
+	IsUsingScummVM bool
+	Free           bool
+	Discounted     bool
+	Tags           []string
+	LocalTags      []string
+	ProductType    string
+}
+
 type listProductViewModel struct {
 	Id                 string
 	Title              string
 	Developers         []string
 	Publisher          string
-	Wishlisted         bool
-	Owned              bool
-	PreOrder           bool
-	InDevelopment      bool
-	TBA                bool
-	ComingSoon         bool
-	IsUsingDOSBox      bool
-	IsUsingScummVM     bool
-	Free               bool
-	Discounted         bool
+	Labels             labels
 	DiscountPercentage int
 	DiscountLabel      string
 	OperatingSystems   []string
-	Tags               []string
-	LocalTags          []string
-	ProductType        string
 }
 
 type listViewModel struct {
@@ -57,12 +61,9 @@ type productViewModel struct {
 	Context string
 	Id      string
 	// text properties
-	ProductType       string
 	Title             string
 	DehydratedImage   template.URL
 	Image             string
-	Tags              []string
-	LocalTags         []string
 	SteamTags         []string
 	OperatingSystems  []string
 	Rating            string
@@ -89,16 +90,7 @@ type productViewModel struct {
 	OtherOS       *productDownloads
 	LanguageFlags map[string]string
 	// labels
-	Wishlisted     bool
-	Owned          bool
-	Free           bool
-	Discounted     bool
-	PreOrder       bool
-	TBA            bool
-	ComingSoon     bool
-	InDevelopment  bool
-	IsUsingDOSBox  bool
-	IsUsingScummVM bool
+	Labels labels
 	// price
 	BasePrice          string
 	Price              string
@@ -231,24 +223,26 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 			continue
 		}
 		lpvm := listProductViewModel{
-			Id:               id,
-			Title:            propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
-			Wishlisted:       flagFromRedux(rdx, vangogh_local_data.WishlistedProperty),
-			Owned:            flagFromRedux(rdx, vangogh_local_data.OwnedProperty),
-			Free:             flagFromRedux(rdx, vangogh_local_data.IsFreeProperty),
-			Discounted:       flagFromRedux(rdx, vangogh_local_data.IsDiscountedProperty),
-			PreOrder:         flagFromRedux(rdx, vangogh_local_data.PreOrderProperty),
-			ComingSoon:       flagFromRedux(rdx, vangogh_local_data.ComingSoonProperty),
-			InDevelopment:    flagFromRedux(rdx, vangogh_local_data.InDevelopmentProperty),
-			TBA:              flagFromRedux(rdx, vangogh_local_data.TBAProperty),
-			IsUsingDOSBox:    flagFromRedux(rdx, vangogh_local_data.IsUsingDOSBoxProperty),
-			IsUsingScummVM:   flagFromRedux(rdx, vangogh_local_data.IsUsingScummVMProperty),
+			Id:    id,
+			Title: propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
+			Labels: labels{
+				Wishlisted:     flagFromRedux(rdx, vangogh_local_data.WishlistedProperty),
+				Owned:          flagFromRedux(rdx, vangogh_local_data.OwnedProperty),
+				Free:           flagFromRedux(rdx, vangogh_local_data.IsFreeProperty),
+				Discounted:     flagFromRedux(rdx, vangogh_local_data.IsDiscountedProperty),
+				PreOrder:       flagFromRedux(rdx, vangogh_local_data.PreOrderProperty),
+				ComingSoon:     flagFromRedux(rdx, vangogh_local_data.ComingSoonProperty),
+				InDevelopment:  flagFromRedux(rdx, vangogh_local_data.InDevelopmentProperty),
+				TBA:            flagFromRedux(rdx, vangogh_local_data.TBAProperty),
+				IsUsingDOSBox:  flagFromRedux(rdx, vangogh_local_data.IsUsingDOSBoxProperty),
+				IsUsingScummVM: flagFromRedux(rdx, vangogh_local_data.IsUsingScummVMProperty),
+				Tags:           propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
+				LocalTags:      propertiesFromRedux(rdx, vangogh_local_data.LocalTagsProperty),
+				ProductType:    propertyFromRedux(rdx, vangogh_local_data.ProductTypeProperty),
+			},
 			Developers:       propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
 			Publisher:        propertyFromRedux(rdx, vangogh_local_data.PublisherProperty),
 			OperatingSystems: propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
-			Tags:             propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
-			LocalTags:        propertiesFromRedux(rdx, vangogh_local_data.LocalTagsProperty),
-			ProductType:      propertyFromRedux(rdx, vangogh_local_data.ProductTypeProperty),
 		}
 
 		lpvm.DiscountPercentage, lpvm.DiscountLabel = discountPercentageLabelFromRedux(rdx)
@@ -266,44 +260,46 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 		for id, rdx := range redux {
 
 			pvm := &productViewModel{
-				Context:              "product",
-				Id:                   id,
-				DehydratedImage:      template.URL(issa.Hydrate(propertyFromRedux(rdx, vangogh_local_data.DehydratedImageProperty))),
-				Image:                propertyFromRedux(rdx, vangogh_local_data.ImageProperty),
-				ProductType:          propertyFromRedux(rdx, vangogh_local_data.ProductTypeProperty),
-				Title:                propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
-				Tags:                 propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
-				LocalTags:            propertiesFromRedux(rdx, vangogh_local_data.LocalTagsProperty),
-				SteamTags:            propertiesFromRedux(rdx, vangogh_local_data.SteamTagsProperty),
-				OperatingSystems:     propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
-				Rating:               propertyFromRedux(rdx, vangogh_local_data.RatingProperty),
-				Developers:           propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
-				Publisher:            propertyFromRedux(rdx, vangogh_local_data.PublisherProperty),
-				Series:               propertyFromRedux(rdx, vangogh_local_data.SeriesProperty),
-				Genres:               propertiesFromRedux(rdx, vangogh_local_data.GenresProperty),
-				Properties:           propertiesFromRedux(rdx, vangogh_local_data.PropertiesProperty),
-				Features:             propertiesFromRedux(rdx, vangogh_local_data.FeaturesProperty),
-				LanguageCodes:        propertiesFromRedux(rdx, vangogh_local_data.LanguageCodeProperty),
-				GlobalReleaseDate:    propertyFromRedux(rdx, vangogh_local_data.GlobalReleaseDateProperty),
-				GOGReleaseDate:       propertyFromRedux(rdx, vangogh_local_data.GOGReleaseDateProperty),
-				GOGOrderDate:         propertyFromRedux(rdx, vangogh_local_data.GOGOrderDateProperty),
-				IncludesGames:        propertiesFromRedux(rdx, vangogh_local_data.IncludesGamesProperty),
-				IsIncludedByGames:    propertiesFromRedux(rdx, vangogh_local_data.IsIncludedByGamesProperty),
-				RequiresGames:        propertiesFromRedux(rdx, vangogh_local_data.RequiresGamesProperty),
-				IsRequiredByGames:    propertiesFromRedux(rdx, vangogh_local_data.IsRequiredByGamesProperty),
-				StoreUrl:             propertyFromRedux(rdx, vangogh_local_data.StoreUrlProperty),
-				ForumUrl:             propertyFromRedux(rdx, vangogh_local_data.ForumUrlProperty),
-				SupportUrl:           propertyFromRedux(rdx, vangogh_local_data.SupportUrlProperty),
-				Wishlisted:           flagFromRedux(rdx, vangogh_local_data.WishlistedProperty),
-				Owned:                flagFromRedux(rdx, vangogh_local_data.OwnedProperty),
-				Free:                 flagFromRedux(rdx, vangogh_local_data.IsFreeProperty),
-				Discounted:           flagFromRedux(rdx, vangogh_local_data.IsDiscountedProperty),
-				PreOrder:             flagFromRedux(rdx, vangogh_local_data.PreOrderProperty),
-				TBA:                  flagFromRedux(rdx, vangogh_local_data.TBAProperty),
-				ComingSoon:           flagFromRedux(rdx, vangogh_local_data.ComingSoonProperty),
-				InDevelopment:        flagFromRedux(rdx, vangogh_local_data.InDevelopmentProperty),
-				IsUsingDOSBox:        flagFromRedux(rdx, vangogh_local_data.IsUsingDOSBoxProperty),
-				IsUsingScummVM:       flagFromRedux(rdx, vangogh_local_data.IsUsingScummVMProperty),
+				Context:           "product",
+				Id:                id,
+				DehydratedImage:   template.URL(issa.Hydrate(propertyFromRedux(rdx, vangogh_local_data.DehydratedImageProperty))),
+				Image:             propertyFromRedux(rdx, vangogh_local_data.ImageProperty),
+				Title:             propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
+				SteamTags:         propertiesFromRedux(rdx, vangogh_local_data.SteamTagsProperty),
+				OperatingSystems:  propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
+				Rating:            propertyFromRedux(rdx, vangogh_local_data.RatingProperty),
+				Developers:        propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
+				Publisher:         propertyFromRedux(rdx, vangogh_local_data.PublisherProperty),
+				Series:            propertyFromRedux(rdx, vangogh_local_data.SeriesProperty),
+				Genres:            propertiesFromRedux(rdx, vangogh_local_data.GenresProperty),
+				Properties:        propertiesFromRedux(rdx, vangogh_local_data.PropertiesProperty),
+				Features:          propertiesFromRedux(rdx, vangogh_local_data.FeaturesProperty),
+				LanguageCodes:     propertiesFromRedux(rdx, vangogh_local_data.LanguageCodeProperty),
+				GlobalReleaseDate: propertyFromRedux(rdx, vangogh_local_data.GlobalReleaseDateProperty),
+				GOGReleaseDate:    propertyFromRedux(rdx, vangogh_local_data.GOGReleaseDateProperty),
+				GOGOrderDate:      propertyFromRedux(rdx, vangogh_local_data.GOGOrderDateProperty),
+				IncludesGames:     propertiesFromRedux(rdx, vangogh_local_data.IncludesGamesProperty),
+				IsIncludedByGames: propertiesFromRedux(rdx, vangogh_local_data.IsIncludedByGamesProperty),
+				RequiresGames:     propertiesFromRedux(rdx, vangogh_local_data.RequiresGamesProperty),
+				IsRequiredByGames: propertiesFromRedux(rdx, vangogh_local_data.IsRequiredByGamesProperty),
+				StoreUrl:          propertyFromRedux(rdx, vangogh_local_data.StoreUrlProperty),
+				ForumUrl:          propertyFromRedux(rdx, vangogh_local_data.ForumUrlProperty),
+				SupportUrl:        propertyFromRedux(rdx, vangogh_local_data.SupportUrlProperty),
+				Labels: labels{
+					Wishlisted:     flagFromRedux(rdx, vangogh_local_data.WishlistedProperty),
+					Owned:          flagFromRedux(rdx, vangogh_local_data.OwnedProperty),
+					Free:           flagFromRedux(rdx, vangogh_local_data.IsFreeProperty),
+					Discounted:     flagFromRedux(rdx, vangogh_local_data.IsDiscountedProperty),
+					PreOrder:       flagFromRedux(rdx, vangogh_local_data.PreOrderProperty),
+					TBA:            flagFromRedux(rdx, vangogh_local_data.TBAProperty),
+					ComingSoon:     flagFromRedux(rdx, vangogh_local_data.ComingSoonProperty),
+					InDevelopment:  flagFromRedux(rdx, vangogh_local_data.InDevelopmentProperty),
+					IsUsingDOSBox:  flagFromRedux(rdx, vangogh_local_data.IsUsingDOSBoxProperty),
+					IsUsingScummVM: flagFromRedux(rdx, vangogh_local_data.IsUsingScummVMProperty),
+					Tags:           propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
+					LocalTags:      propertiesFromRedux(rdx, vangogh_local_data.LocalTagsProperty),
+					ProductType:    propertyFromRedux(rdx, vangogh_local_data.ProductTypeProperty),
+				},
 				BasePrice:            propertyFromRedux(rdx, vangogh_local_data.BasePriceProperty),
 				Price:                propertyFromRedux(rdx, vangogh_local_data.PriceProperty),
 				SteamAppId:           propertyFromRedux(rdx, vangogh_local_data.SteamAppIdProperty),

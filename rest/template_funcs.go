@@ -24,8 +24,7 @@ func funcMap() template.FuncMap {
 		"gogLink":            gogLink,
 		"toLower":            toLower,
 		"dlTitle":            dlTitle,
-		"hasListLabel":       hasListLabel,
-		"hasDetailsLabel":    hasDetailsLabel,
+		"hasLabel":           hasLabel,
 		"hasTags":            hasTags,
 		"showPrice":          showPrice,
 		"searchPropertyName": searchPropertyName,
@@ -125,44 +124,29 @@ func gogLink(p string) string {
 	return u.String()
 }
 
-func hasListLabel(lpvm listProductViewModel) bool {
-	return lpvm.Owned ||
-		lpvm.Wishlisted ||
-		lpvm.PreOrder ||
-		lpvm.ComingSoon ||
-		lpvm.TBA ||
-		lpvm.InDevelopment ||
-		lpvm.ProductType != "GAME" ||
-		lpvm.IsUsingDOSBox ||
-		lpvm.IsUsingScummVM ||
-		lpvm.Free ||
-		lpvm.Discounted ||
-		len(lpvm.Tags) > 0
+func hasLabel(lbs labels) bool {
+	return lbs.Owned ||
+		lbs.Wishlisted ||
+		lbs.PreOrder ||
+		lbs.ComingSoon ||
+		lbs.TBA ||
+		lbs.InDevelopment ||
+		lbs.ProductType != "GAME" ||
+		lbs.IsUsingDOSBox ||
+		lbs.IsUsingScummVM ||
+		lbs.Free ||
+		lbs.Discounted ||
+		len(lbs.Tags) > 0
 }
 
-func hasDetailsLabel(pvm productViewModel) bool {
-	return pvm.Owned ||
-		pvm.Wishlisted ||
-		pvm.PreOrder ||
-		pvm.ComingSoon ||
-		pvm.TBA ||
-		pvm.InDevelopment ||
-		pvm.ProductType != "GAME" ||
-		pvm.IsUsingDOSBox ||
-		pvm.IsUsingScummVM ||
-		pvm.Free ||
-		pvm.Discounted ||
-		len(pvm.Tags) > 0
-}
-
-func hasTags(pvm productViewModel) bool {
-	return len(pvm.Tags) > 0 || len(pvm.LocalTags) > 0
+func hasTags(lbs labels) bool {
+	return len(lbs.Tags) > 0 || len(lbs.LocalTags) > 0
 }
 
 func showPrice(pvm productViewModel) bool {
-	if pvm.Free ||
-		pvm.TBA ||
-		pvm.Owned ||
+	if pvm.Labels.Free ||
+		pvm.Labels.TBA ||
+		pvm.Labels.Owned ||
 		pvm.Price == "" {
 		return false
 	}

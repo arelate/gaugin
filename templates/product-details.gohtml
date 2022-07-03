@@ -12,7 +12,7 @@
 
         <h1 class="title">{{ .Title }}</h1>
 
-        {{if hasDetailsLabel .}}{{template "labels" .}}{{end}}
+        {{if hasLabel .Labels}}{{template "labels" .Labels}}{{end}}
 
         <section class="shortcuts">
             <ul class="property-value flexible">
@@ -45,7 +45,7 @@
                 <div class="text-property center">
                     <h2 class="property-title">Price</h2>
                     <ul class="property-value prices">
-                        {{if .Discounted}}
+                        {{if .Labels.Discounted}}
                             <li class="label discount-percentage {{if gt .DiscountPercentage 74}}notable-discount{{end}}">
                                 -{{.DiscountPercentage}}%
                             </li>
@@ -63,14 +63,14 @@
                         {{end}}</ul>
                 </div>
             {{end}}
-            {{if hasTags .}}
+            {{if hasTags .Labels}}
                 <div class="text-property center">
                     <h2 class="property-title" title="Tags">Tags</h2>
                     <ul class="property-value">
-                        {{range .Tags}}
+                        {{range .Labels.Tags}}
                             <li><a href="/search?tag={{.}}" aria-label="{{.}}">{{productTitle .}}</a></li>
                         {{end}}
-                        {{range .LocalTags}}
+                        {{range .Labels.LocalTags}}
                             <li><a href="/search?local-tags={{.}}" aria-label="{{.}}">{{.}}</a></li>
                         {{end}}
                     </ul>
