@@ -3,9 +3,7 @@ package rest
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gog_integration"
-	"github.com/boggydigital/issa"
 	"golang.org/x/exp/maps"
-	"html/template"
 	"net/http"
 	"strings"
 
@@ -14,6 +12,7 @@ import (
 )
 
 var productProperties = []string{
+	vangogh_local_data.DehydratedImageProperty,
 	vangogh_local_data.ImageProperty,
 	vangogh_local_data.ProductTypeProperty,
 	vangogh_local_data.TitleProperty,
@@ -150,7 +149,9 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	pvm.HasSteamAppNews = hasSteamAppNews
 
-	hasRedux, err := getHasRedux(http.DefaultClient, id, vangogh_local_data.DescriptionOverviewProperty, vangogh_local_data.ChangelogProperty)
+	hasRedux, err := getHasRedux(http.DefaultClient, id,
+		vangogh_local_data.DescriptionOverviewProperty,
+		vangogh_local_data.ChangelogProperty)
 	if err != nil {
 		http.Error(w, nod.ErrorStr("error getting has_redux"), http.StatusInternalServerError)
 		return
@@ -175,13 +176,6 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	if err := getCurrentOtherOSDownloads(pvm, id, r.Header.Get("User-Agent")); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
-	}
-
-	if dehydratedImage, err := getDehydratedImage(http.DefaultClient, pvm.Image); err != nil {
-		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
-	} else {
-		pvm.ImagePreview = template.URL(issa.Hydrate(dehydratedImage))
 	}
 
 	if err := tmpl.ExecuteTemplate(w, "product-page", pvm); err != nil {

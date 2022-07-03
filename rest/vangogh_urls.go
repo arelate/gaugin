@@ -139,10 +139,6 @@ func steamAppNewsUrl(id string) *url.URL {
 	return getDataUrl(id, vangogh_local_data.SteamAppNews, gog_integration.Game, "json")
 }
 
-func dehydratedImageUrl(id string) *url.URL {
-	return getDataUrl(id, vangogh_local_data.DehydratedImages, gog_integration.Game, "")
-}
-
 func hasReduxUrl(id string, properties ...string) *url.URL {
 	u := &url.URL{
 		Scheme: vangoghScheme,

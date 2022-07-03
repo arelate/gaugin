@@ -128,24 +128,6 @@ func getSteamAppNews(client *http.Client, id string) (*steam_integration.AppNews
 	return nil, err
 }
 
-func getDehydratedImage(client *http.Client, id string) (string, error) {
-	diu := dehydratedImageUrl(id)
-	resp, err := client.Get(diu.String())
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-
-	var data map[string]interface{}
-	err = gob.NewDecoder(resp.Body).Decode(&data)
-
-	if dehydratedImage, ok := data[id]; ok {
-		return dehydratedImage.(string), nil
-	}
-
-	return "", err
-}
-
 func getHasData(client *http.Client, id string, pt vangogh_local_data.ProductType, mt gog_integration.Media) (bool, error) {
 	hdu := hasDataUrl(id, pt, mt)
 	resp, err := client.Get(hdu.String())

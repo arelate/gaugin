@@ -4,7 +4,8 @@ Blazing fast gaugin:
 	- Implement paginator for Products data, use it to break down into chunks of 100s
 	- With that work, every page should have FCP < 30ms
 
-Changelog/Description/Steam App News enhancements:
+Changelog/Description/Videos/Screenshots/Steam App News enhancements:
+	- Convert Screenshots, Videos, Downloads to iframes
 	- Check any remaining Steam tags 
 	- Add new section "News" to show time sorted Steam app updates
 

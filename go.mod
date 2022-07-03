@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/arelate/gog_integration v0.1.19
 	github.com/arelate/steam_integration v0.1.14
-	github.com/arelate/vangogh_local_data v0.1.84
+	github.com/arelate/vangogh_local_data v0.1.85
 	github.com/boggydigital/clo v0.3.1
 	github.com/boggydigital/middleware v0.1.0
 	github.com/boggydigital/nod v0.1.19

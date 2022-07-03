@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/arelate/steam_integration"
 	"github.com/arelate/vangogh_local_data"
+	"github.com/boggydigital/issa"
 	"html/template"
 	"sort"
 	"strconv"
@@ -58,8 +59,8 @@ type productViewModel struct {
 	// text properties
 	ProductType       string
 	Title             string
+	DehydratedImage   template.URL
 	Image             string
-	ImagePreview      template.URL
 	Tags              []string
 	LocalTags         []string
 	SteamTags         []string
@@ -258,6 +259,7 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 			pvm := &productViewModel{
 				Context:              "product",
 				Id:                   id,
+				DehydratedImage:      template.URL(issa.Hydrate(propertyFromRedux(rdx, vangogh_local_data.DehydratedImageProperty))),
 				Image:                propertyFromRedux(rdx, vangogh_local_data.ImageProperty),
 				ProductType:          propertyFromRedux(rdx, vangogh_local_data.ProductTypeProperty),
 				Title:                propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
