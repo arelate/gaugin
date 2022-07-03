@@ -21,6 +21,7 @@ func HandleFuncs() {
 		"/product":        middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetProduct)))),
 		"/search":         middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetSearch)))),
 		"/description":    middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetDescription)))),
+		"/downloads":      middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetDownloads)))),
 		"/changelog":      middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetChangelog)))),
 		"/screenshots":    middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetScreenshots)))),
 		"/videos":         middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetVideos)))),

@@ -3,12 +3,9 @@ package rest
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gog_integration"
-	"golang.org/x/exp/maps"
-	"net/http"
-	"strings"
-
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
+	"net/http"
 )
 
 var productProperties = []string{
@@ -147,6 +144,14 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	pvm.HasSteamAppNews = hasSteamAppNews
 
+	hasDownloads, err := getHasData(http.DefaultClient, id, vangogh_local_data.Details, gog_integration.Game)
+	if err != nil {
+		http.Error(w, nod.ErrorStr("error getting has_data"), http.StatusInternalServerError)
+		return
+	}
+
+	pvm.HasDownloads = hasDownloads
+
 	hasRedux, err := getHasRedux(http.DefaultClient, id,
 		vangogh_local_data.DescriptionOverviewProperty,
 		vangogh_local_data.ChangelogProperty,
@@ -164,76 +169,8 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		pvm.HasVideos = flagFromRedux(rdx, vangogh_local_data.VideoIdProperty)
 	}
 
-	if err := getCurrentOtherOSDownloads(pvm, id, r.Header.Get("User-Agent")); err != nil {
-		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
-	}
-
 	if err := tmpl.ExecuteTemplate(w, "product-page", pvm); err != nil {
 		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
 		return
 	}
-}
-
-func getCurrentOtherOSDownloads(pvm *productViewModel, id string, userAgent string) error {
-
-	if !pvm.Labels.Owned {
-		return nil
-	}
-
-	dls, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes)
-	if err != nil {
-		return err
-	}
-
-	var currentOS vangogh_local_data.OperatingSystem
-	if strings.Contains(userAgent, "Windows") {
-		currentOS = vangogh_local_data.Windows
-	} else if strings.Contains(userAgent, "Mac OS X") {
-		currentOS = vangogh_local_data.MacOS
-	} else if strings.Contains(userAgent, "Linux") {
-		currentOS = vangogh_local_data.Linux
-	}
-
-	otherOS := make(map[string]interface{}, 0)
-
-	pvm.CurrentOS = &productDownloads{
-		OperatingSystems: currentOS.String(),
-		CurrentOS:        true,
-		Installers:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		DLCs:             make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		Extras:           make(vangogh_local_data.DownloadsList, 0, len(dls)),
-	}
-	pvm.OtherOS = &productDownloads{
-		CurrentOS:  false,
-		Installers: make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		DLCs:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		Extras:     make(vangogh_local_data.DownloadsList, 0, len(dls)),
-	}
-
-	var osd *productDownloads
-	for _, dl := range dls {
-		if dl.OS == currentOS ||
-			dl.OS == vangogh_local_data.AnyOperatingSystem {
-			osd = pvm.CurrentOS
-		} else {
-			otherOS[dl.OS.String()] = nil
-			osd = pvm.OtherOS
-		}
-
-		switch dl.Type {
-		case vangogh_local_data.Installer:
-			osd.Installers = append(osd.Installers, dl)
-		case vangogh_local_data.DLC:
-			osd.DLCs = append(osd.DLCs, dl)
-		case vangogh_local_data.Extra:
-			fallthrough
-		default:
-			osd.Extras = append(osd.Extras, dl)
-		}
-	}
-
-	pvm.OtherOS.OperatingSystems = strings.Join(maps.Keys(otherOS), ", ")
-
-	return nil
 }

@@ -31,11 +31,8 @@
                 {{if .HasChangelog}}
                     <li><a href="#changelog">Changelog</a></li>
                 {{end}}
-                {{if hasDownloads .CurrentOS}}
-                    <li><a href="#current-os-downloads">{{.CurrentOS.OperatingSystems}} downloads</a></li>
-                {{end}}
-                {{if hasDownloads .OtherOS}}
-                    <li><a href="#other-os-downloads">{{.OtherOS.OperatingSystems}} downloads</a></li>
+                {{if .HasDownloads}}
+                    <li><a href="#downloads">Downloads</a></li>
                 {{end}}
             </ul>
         </section>
@@ -305,11 +302,11 @@
                     <iframe src="/changelog?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
-            {{if hasDownloads .CurrentOS}}
-                {{template "product-details-downloads" .CurrentOS}}
-            {{end}}
-            {{if hasDownloads .OtherOS}}
-                {{template "product-details-downloads" .OtherOS}}
+            {{if .HasDownloads}}
+                <details id="downloads" class="downloads" accesskey="d" tabindex="15">
+                    <summary>Downloads</summary>
+                    <iframe src="/downloads?id={{.Id}}" loading="lazy"></iframe>
+                </details>
             {{end}}
         </section>
     </div>

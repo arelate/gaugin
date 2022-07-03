@@ -1,0 +1,17 @@
+{{define "downloads-page"}}
+    <!doctype html>
+    <html lang="en">
+    {{template "head" .}}
+    <body id="downloads">
+    {{template "svg-icons"}}
+    <div id="downloads-content">
+        {{if hasDownloads .CurrentOS}}
+            {{template "product-downloads" .CurrentOS}}
+        {{end}}
+        {{if hasDownloads .OtherOS}}
+            {{template "product-downloads" .OtherOS}}
+        {{end}}
+    </div>
+    </body>
+    </html>
+{{end}}

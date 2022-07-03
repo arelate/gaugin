@@ -74,6 +74,7 @@ type productViewModel struct {
 	Properties        []string
 	Features          []string
 	LanguageCodes     []string
+	LanguageFlags     map[string]string
 	GlobalReleaseDate string
 	GOGReleaseDate    string
 	GOGOrderDate      string
@@ -85,10 +86,6 @@ type productViewModel struct {
 	StoreUrl   string
 	ForumUrl   string
 	SupportUrl string
-	// downloads
-	CurrentOS     *productDownloads
-	OtherOS       *productDownloads
-	LanguageFlags map[string]string
 	// labels
 	Labels labels
 	// price
@@ -106,6 +103,7 @@ type productViewModel struct {
 	HasScreenshots  bool
 	HasVideos       bool
 	HasSteamAppNews bool
+	HasDownloads    bool
 }
 
 type descriptionViewModel struct {
@@ -129,6 +127,12 @@ type videosViewModel struct {
 	Context      string
 	LocalVideos  []string
 	RemoteVideos []string
+}
+
+type downloadsViewModel struct {
+	Context   string
+	CurrentOS *productDownloads
+	OtherOS   *productDownloads
 }
 
 type newsItemViewModel struct {
