@@ -8,6 +8,7 @@ import (
 	"github.com/arelate/vangogh_local_data"
 	"net/http"
 	"net/url"
+	"sync"
 	"time"
 )
 
@@ -22,6 +23,7 @@ var (
 	digestsCache    = make(map[string]map[string][]string)
 	reduxCache      = make(map[string]map[string]map[string][]string)
 	downloadsCache  = make(map[string]vangogh_local_data.DownloadsList)
+	mtx             = sync.Mutex{}
 )
 
 func getUpdates(
@@ -75,7 +77,9 @@ func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T)
 
 	err = gob.NewDecoder(resp.Body).Decode(&data)
 
+	mtx.Lock()
 	cache[u.String()] = data
+	mtx.Unlock()
 
 	return data, err
 }
