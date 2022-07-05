@@ -65,7 +65,9 @@ func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T)
 		if lmt, err := time.Parse(time.RFC1123, lm); err != nil {
 			return data, err
 		} else {
+			mtx.Lock()
 			urlLastModified[u.String()] = lmt.UTC().Unix()
+			mtx.Unlock()
 		}
 	}
 
