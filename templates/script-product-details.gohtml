@@ -2,7 +2,7 @@
     <script id="iframe-size-receive-message">
         window.addEventListener("message", e => {
             msg = JSON.parse(e.data);
-            document.querySelector(`#${msg.context} iframe`).style.height = msg.height + 32 + "px";
+            document.querySelector(`#${msg.context} iframe`).style.height = msg.height + 64 + "px";
         });
     </script>
 {{end}}
