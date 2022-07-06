@@ -7,7 +7,7 @@ const (
 	defaultCSP      = "default-src 'self'; " +
 		"script-src " +
 		//script-product-details.gohtml
-		"'sha256-00g6CyN+3M94jXLajJMHpAH2oPJlfW7tn+iQP49ERGs=' " +
+		"'sha256-89hiWWr+KJhZ6UNrcqHjAG0875M2T59Rm6nP6YF3/F8=' " +
 		//script-iframe.gohtml
 		"'sha256-vEdzDTUjeRFG21L/pW+qldt1k+gnTSWl4v2E16iqJPc=' " +
 		"none; " +
