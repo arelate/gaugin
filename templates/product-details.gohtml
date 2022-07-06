@@ -103,7 +103,7 @@
                 <div class="text-property">
                     <h2 class="property-title">Developers</h2>
                     <ul class="property-value">{{range .Developers}}
-                            <li><a href="/search?developers={{.}}"
+                            <li><a href="/search?developers={{.}}&sort=global-release-date&desc=true"
                                    aria-label="all products by developers: {{.}}">{{.}}</a>
                             </li>{{end}}</ul>
                 </div>
@@ -112,7 +112,7 @@
                 <div class="text-property">
                     <h2 class="property-title">Publisher</h2>
                     <ul class="property-value">
-                        <li><a href="/search?publisher={{.Publisher}}"
+                        <li><a href="/search?publisher={{.Publisher}}&sort=global-release-date&desc=true"
                                aria-label="all products by publisher: {{.Publisher}}">{{.Publisher}}</a></li>
                     </ul>
                 </div>

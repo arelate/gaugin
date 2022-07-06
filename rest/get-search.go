@@ -113,6 +113,7 @@ var digestTitles = map[string]string{
 	"true":  "Yes",
 	"false": "No",
 	//vangogh_local_data.SortProperty
+	vangogh_local_data.GlobalReleaseDateProperty:  "Global Release Date",
 	vangogh_local_data.GOGReleaseDateProperty:     "GOG.com Release Date",
 	vangogh_local_data.GOGOrderDateProperty:       "GOG.com Order Date",
 	vangogh_local_data.TitleProperty:              "Title",
@@ -221,6 +222,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	digests, err := getDigests(dc, gauginDigestibleProperties...)
 
 	digests[vangogh_local_data.SortProperty] = []string{
+		vangogh_local_data.GlobalReleaseDateProperty,
 		vangogh_local_data.GOGReleaseDateProperty,
 		vangogh_local_data.GOGOrderDateProperty,
 		vangogh_local_data.TitleProperty,
