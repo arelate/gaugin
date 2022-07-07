@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func rewriteDescriptionItemsLinks(desc string) string {
+func rewriteItemsLinks(desc string) string {
 
 	itemsUrls := vangogh_local_data.ExtractDescItems(desc)
 
@@ -23,7 +23,7 @@ func rewriteDescriptionItemsLinks(desc string) string {
 	return desc
 }
 
-func rewriteDescriptionGameLinks(desc string) string {
+func rewriteGameLinks(desc string) string {
 	gameLinks := vangogh_local_data.ExtractGameLinks(desc)
 
 	for _, gameLink := range gameLinks {

@@ -26,10 +26,12 @@ func GetChangelog(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(w)
 
-	cvm := &changelogViewModel{
-		Context:   "iframe",
-		Changelog: template.HTML(propertyFromRedux(idRedux[id], vangogh_local_data.ChangelogProperty)),
-	}
+	cvm := &changelogViewModel{Context: "iframe"}
+
+	clog := propertyFromRedux(idRedux[id], vangogh_local_data.ChangelogProperty)
+	clog = rewriteLinksAsTargetTop(clog)
+
+	cvm.Changelog = template.HTML(clog)
 
 	if err := tmpl.ExecuteTemplate(w, "changelog-page", cvm); err != nil {
 		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)

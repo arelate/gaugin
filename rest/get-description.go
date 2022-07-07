@@ -44,8 +44,8 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 		desc := propertyFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty)
 		desc += implicitToExplicitList(propertyFromRedux(rdx, vangogh_local_data.DescriptionFeaturesProperty))
 
-		desc = rewriteDescriptionItemsLinks(desc)
-		desc = rewriteDescriptionGameLinks(desc)
+		desc = rewriteItemsLinks(desc)
+		desc = rewriteGameLinks(desc)
 		desc = rewriteLinksAsTargetTop(desc)
 		desc = fixQuotes(desc)
 
