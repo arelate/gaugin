@@ -67,7 +67,7 @@
                     <h2 class="property-title" title="Tags">Tags</h2>
                     <ul class="property-value">
                         {{range .Labels.Tags}}
-                            <li><a href="/search?tag={{.}}" aria-label="{{.}}">{{productTitle .}}</a></li>
+                            <li><a href="/search?tag={{.}}" aria-label="{{.}}">{{transitiveDst .}}</a></li>
                         {{end}}
                         {{range .Labels.LocalTags}}
                             <li><a href="/search?local-tags={{.}}" aria-label="{{.}}">{{.}}</a></li>
@@ -194,7 +194,7 @@
                         <summary>{{$langsLen}} language(s)</summary>
                         {{end}}
                         <ul class="property-value {{if gt $langsLen 3}}vertical{{end}}">{{range .LanguageCodes}}
-                                {{$langCode := productId .}}
+                                {{$langCode := transitiveSrc .}}
                                 <li><a href="/search?lang-code={{.}}"
                                        aria-label="all products supporting {{.}} language">{{languageCodeFlag $langCode}}
                                         &nbsp;{{.}}</a></li>{{end}}</ul>

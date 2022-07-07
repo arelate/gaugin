@@ -7,9 +7,9 @@
     <ul class="property-value {{if gt $len 3}}vertical{{end}}">
         {{range .}}
             <li>
-                {{$productId := productId .}}
+                {{$productId := transitiveSrc .}}
                 {{if $productId}}
-                    <a href="/product?id={{$productId}}">{{productTitle .}}</a>
+                    <a href="/product?id={{$productId}}">{{transitiveDst .}}</a>
                 {{else}}
                     {{.}}
                 {{end}}

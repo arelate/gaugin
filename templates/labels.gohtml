@@ -34,7 +34,7 @@
             <li class="label scummvm">ScummVM</li>
         {{end}}
         {{range .Tags}}
-            <li class="label tag">{{productTitle .}}</li>
+            <li class="label tag">{{transitiveDst .}}</li>
         {{end}}
         {{range .LocalTags}}
             <li class="label local-tag">{{.}}</li>

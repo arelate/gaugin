@@ -14,8 +14,8 @@ import (
 
 func funcMap() template.FuncMap {
 	return template.FuncMap{
-		"productTitle":       productTitle,
-		"productId":          productId,
+		"transitiveDst":      transitiveDst,
+		"transitiveSrc":      transitiveSrc,
 		"formatBytes":        formatBytes,
 		"justTheDate":        justTheDate,
 		"formatDate":         formatDate,
@@ -37,7 +37,10 @@ func funcMap() template.FuncMap {
 	}
 }
 
-const titleIdSep = " ("
+const (
+	transitiveOpen  = " ("
+	transitiveClose = ")"
+)
 
 func dlTitle(dl vangogh_local_data.Download) string {
 	switch dl.Type {
@@ -62,18 +65,28 @@ func toLower(s string) string {
 	return strings.ToLower(s)
 }
 
-func productTitle(s string) string {
-	if strings.Contains(s, titleIdSep) {
-		return s[:strings.LastIndex(s, titleIdSep)]
+func transitiveDst(s string) string {
+	dst := s
+	if strings.Contains(s, transitiveOpen) {
+		dst = s[:strings.LastIndex(s, transitiveOpen)]
 	}
-	return s
+	return dst
 }
 
-func productId(s string) string {
-	if strings.Contains(s, titleIdSep) {
-		return s[strings.LastIndex(s, titleIdSep)+len(titleIdSep) : len(s)-1]
+func transitiveSrc(s string) string {
+	src := ""
+	if strings.Contains(s, transitiveOpen) {
+		from, to := strings.LastIndex(s, transitiveOpen)+len(transitiveOpen), strings.Index(s, transitiveClose)
+		if from > to {
+			to = strings.LastIndex(s, transitiveClose)
+			if from > to {
+				from = 0
+				to = len(s) - 1
+			}
+		}
+		src = s[from:to]
 	}
-	return ""
+	return src
 }
 
 func formatBytes(b int) string {

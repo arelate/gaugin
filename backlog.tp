@@ -1,22 +1,18 @@
-Blazing fast gaugin:
-	- Implement new methods to get last modified for redux asset and data
-	- Put pages into cache, on requests serve that page and check if the data has been modified, invalidate the cache if so
-	- Implement paginator for Products data, use it to break down into chunks of 100s
-	- With that work, every page should have FCP < 30ms
-
 Changelog/Description/Videos/Screenshots/Steam App News enhancements:
-	- Convert Screenshots, Videos, Downloads to iframes
+	- Convert Screenshots, Videos, Downloads to iframes @done(2022-07-07)
 	- Check any remaining Steam tags 
 	- Add new section "News" to show time sorted Steam app updates
 
-Implement add to wishlist:
-	- for products that are not owned
-	- "Add to wishlist" button
-	- Add vangogh /wishlist endpoint
-		- PUT
-		- DELETE methods
-	- Make sure local changes are happening the way gaugin expects them to (e.g. wishlist reduction)
-	- Wishlisted should also have "Remove from wishlist" button
+Implement add to wishlist, add tags:
+	- Add to wishlist:
+		- for products that are not owned
+		- display Wishlisted state (Yes / No)
+		- add action to Yes Remove
+		- add action to No - Add
+		- Add vangogh /wishlist endpoint
+			- PUT
+			- DELETE methods
+		- Make sure local changes are happening the way gaugin expects them to (e.g. wishlist reduction)
 
 Implement source ports links:
 	- New property source-port-links
@@ -29,6 +25,12 @@ Sync view:
 	- get current sync status
 	- check past sync results (summaries?)
 	- basic auth protection, same password as downloads
+
+Blazing fast gaugin:
+	- Implement new methods to get last modified for redux asset and data
+	- Put pages into cache, on requests serve that page and check if the data has been modified, invalidate the cache if so
+	- Implement paginator for Products data, use it to break down into chunks of 100s
+	- With that work, every page should have FCP < 30ms
 
 More icons, less text:
 	- genres
