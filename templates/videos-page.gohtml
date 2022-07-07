@@ -9,7 +9,7 @@
         {{end}}
         {{if .RemoteVideos}}
             <details>
-                <summary><h1>Available only on YouTube</h1></summary>
+                <summary><h1>Watch on YouTube</h1></summary>
                 {{range .RemoteVideos}}
                     {{$videoId := transitiveSrc .}}
                     <a target="_top" class="youtube-video-link" href="{{youtubeLink $videoId}}">
