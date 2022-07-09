@@ -2,6 +2,9 @@ package rest
 
 import (
 	"crypto/sha256"
+	"encoding/gob"
+	"github.com/arelate/gog_integration"
+	"github.com/arelate/steam_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/middleware"
 	"html/template"
@@ -31,6 +34,24 @@ func SetPassword(p string) {
 }
 
 func Init(templatesFS fs.FS) error {
+
+	//GOG.com types
+	gob.Register(gog_integration.AccountPage{})
+	gob.Register(gog_integration.AccountProduct{})
+	gob.Register(gog_integration.ApiProductV1{})
+	gob.Register(gog_integration.ApiProductV2{})
+	gob.Register(gog_integration.Details{})
+	gob.Register(gog_integration.Licences{})
+	gob.Register(gog_integration.OrderPage{})
+	gob.Register(gog_integration.Order{})
+	gob.Register(gog_integration.StorePage{})
+	gob.Register(gog_integration.StoreProduct{})
+	gob.Register(gog_integration.WishlistPage{})
+	//Steam types
+	gob.Register(steam_integration.AppList{})
+	gob.Register(steam_integration.GetNewsForAppResponse{})
+	gob.Register(steam_integration.AppReviews{})
+
 	tmpl = template.Must(
 		template.
 			New("").

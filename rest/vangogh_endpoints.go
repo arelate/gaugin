@@ -2,7 +2,6 @@ package rest
 
 import (
 	"encoding/gob"
-	"encoding/json"
 	"github.com/arelate/gog_integration"
 	"github.com/arelate/steam_integration"
 	"github.com/arelate/vangogh_local_data"
@@ -117,18 +116,24 @@ func getDigests(client *http.Client, properties ...string) (map[string][]string,
 }
 
 func getSteamAppNews(client *http.Client, id string) (*steam_integration.AppNews, error) {
-	sanu := steamAppNewsUrl(id)
+	sanu := getDataUrl(id, vangogh_local_data.SteamAppNews, gog_integration.Game)
+
 	resp, err := client.Get(sanu.String())
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
 
-	var data map[string]steam_integration.GetNewsForAppResponse
-	err = json.NewDecoder(resp.Body).Decode(&data)
+	var data map[string]interface{}
+	if err = gob.NewDecoder(resp.Body).Decode(&data); err != nil {
+		return nil, err
+	}
 
 	if steamAppNews, ok := data[id]; ok {
-		return &steamAppNews.AppNews, nil
+		if gnfar, sure := steamAppNews.(steam_integration.GetNewsForAppResponse); sure {
+			appNews := gnfar.AppNews
+			return &appNews, nil
+		}
 	}
 
 	return nil, err

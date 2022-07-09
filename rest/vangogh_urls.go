@@ -115,8 +115,7 @@ func digestUrl(properties ...string) *url.URL {
 
 func getDataUrl(id string,
 	pt vangogh_local_data.ProductType,
-	mt gog_integration.Media,
-	format string) *url.URL {
+	mt gog_integration.Media) *url.URL {
 	u := &url.URL{
 		Scheme: vangoghScheme,
 		Host:   vangoghHost(),
@@ -127,16 +126,9 @@ func getDataUrl(id string,
 	q.Set(vangogh_local_data.ProductTypeProperty, pt.String())
 	q.Set("media", mt.String())
 	q.Set(vangogh_local_data.IdProperty, id)
-	if format != "" {
-		q.Set("format", format)
-	}
 	u.RawQuery = q.Encode()
 
 	return u
-}
-
-func steamAppNewsUrl(id string) *url.URL {
-	return getDataUrl(id, vangogh_local_data.SteamAppNews, gog_integration.Game, "json")
 }
 
 func hasReduxUrl(id string, properties ...string) *url.URL {
