@@ -134,20 +134,31 @@ func getSteamAppNews(client *http.Client, id string) (*steam_integration.AppNews
 	return nil, err
 }
 
-func getHasData(client *http.Client, id string, pt vangogh_local_data.ProductType, mt gog_integration.Media) (bool, error) {
-	hdu := hasDataUrl(id, pt, mt)
+func getHasData(
+	client *http.Client,
+	id string,
+	mt gog_integration.Media,
+	pts ...vangogh_local_data.ProductType) (map[vangogh_local_data.ProductType]bool, error) {
+
+	hasData := make(map[vangogh_local_data.ProductType]bool)
+
+	hdu := hasDataUrl(id, mt, pts...)
 	resp, err := client.Get(hdu.String())
 	if err != nil {
-		return false, err
+		return hasData, err
 	}
 	defer resp.Body.Close()
 
-	var data map[string]string
+	var data map[string]map[string]string
 	err = gob.NewDecoder(resp.Body).Decode(&data)
 
-	if hasData, ok := data[id]; ok {
-		return hasData == "true", nil
+	for _, pt := range pts {
+		if hasProductType, ok := data[pt.String()]; ok {
+			if hd, sure := hasProductType[id]; sure {
+				hasData[pt] = hd == "true"
+			}
+		}
 	}
 
-	return false, err
+	return hasData, err
 }

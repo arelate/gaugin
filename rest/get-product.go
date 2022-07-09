@@ -136,27 +136,27 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	// fill redux, data presence to allow showing only the section that will have data
 
-	hasSteamAppNews, err := getHasData(http.DefaultClient, id, vangogh_local_data.SteamAppNews, gog_integration.Game)
+	hasData, err := getHasData(
+		http.DefaultClient,
+		id,
+		gog_integration.Game,
+		vangogh_local_data.SteamAppNews,
+		vangogh_local_data.Details)
+
 	if err != nil {
 		http.Error(w, nod.ErrorStr("error getting has_data"), http.StatusInternalServerError)
 		return
 	}
 
-	pvm.HasSteamAppNews = hasSteamAppNews
-
-	hasDownloads, err := getHasData(http.DefaultClient, id, vangogh_local_data.Details, gog_integration.Game)
-	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting has_data"), http.StatusInternalServerError)
-		return
-	}
-
-	pvm.HasDownloads = hasDownloads
+	pvm.HasSteamAppNews = hasData[vangogh_local_data.SteamAppNews]
+	pvm.HasDownloads = hasData[vangogh_local_data.Details]
 
 	hasRedux, err := getHasRedux(http.DefaultClient, id,
 		vangogh_local_data.DescriptionOverviewProperty,
 		vangogh_local_data.ChangelogProperty,
 		vangogh_local_data.ScreenshotsProperty,
 		vangogh_local_data.VideoIdProperty)
+
 	if err != nil {
 		http.Error(w, nod.ErrorStr("error getting has_redux"), http.StatusInternalServerError)
 		return

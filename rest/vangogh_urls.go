@@ -154,15 +154,20 @@ func hasReduxUrl(id string, properties ...string) *url.URL {
 	return u
 }
 
-func hasDataUrl(id string, pt vangogh_local_data.ProductType, mt gog_integration.Media) *url.URL {
+func hasDataUrl(id string, mt gog_integration.Media, pts ...vangogh_local_data.ProductType) *url.URL {
 	u := &url.URL{
 		Scheme: vangoghScheme,
 		Host:   vangoghHost(),
 		Path:   hasDataEndpoint,
 	}
 
+	productTypes := make([]string, 0, len(pts))
+	for _, pt := range pts {
+		productTypes = append(productTypes, pt.String())
+	}
+
 	q := u.Query()
-	q.Set(vangogh_local_data.ProductTypeProperty, pt.String())
+	q.Set(vangogh_local_data.ProductTypeProperty, strings.Join(productTypes, ","))
 	q.Set("media", mt.String())
 	q.Set(vangogh_local_data.IdProperty, id)
 	u.RawQuery = q.Encode()
