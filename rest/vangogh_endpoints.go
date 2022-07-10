@@ -76,16 +76,16 @@ func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T)
 	}
 
 	if resp.StatusCode == http.StatusNotModified {
-		if data, ok := cache[u.String()]; ok {
-			return data, nil
+		if cdata, ok := cache[u.String()]; ok {
+			return cdata, nil
 		}
 	}
 
-	err = gob.NewDecoder(resp.Body).Decode(&data)
-
-	mtx.Lock()
-	cache[u.String()] = data
-	mtx.Unlock()
+	if err = gob.NewDecoder(resp.Body).Decode(&data); err == nil {
+		mtx.Lock()
+		cache[u.String()] = data
+		mtx.Unlock()
+	}
 
 	return data, err
 }
@@ -147,21 +147,6 @@ func getSteamAppNews(client *http.Client, id string) (*steam_integration.AppNews
 		if getNewsForAppResponse, sure := getNewsForAppResponseData.(steam_integration.GetNewsForAppResponse); sure {
 			appNews := getNewsForAppResponse.AppNews
 			return &appNews, nil
-		}
-	}
-
-	return nil, err
-}
-
-func getDetails(client *http.Client, id string) (*gog_integration.Details, error) {
-	data, err := getData(client, id, vangogh_local_data.Details, gog_integration.Game)
-	if err != nil {
-		return nil, err
-	}
-
-	if detailsData, ok := data[id]; ok {
-		if details, sure := detailsData.(gog_integration.Details); sure {
-			return &details, nil
 		}
 	}
 
