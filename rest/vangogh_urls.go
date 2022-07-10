@@ -26,15 +26,14 @@ func SetVangoghConnection(scheme, address string, port int) {
 }
 
 const (
-	cvEndpoint        = "/v1"
-	digestEndpoint    = cvEndpoint + "/digest"
-	downloadsEndpoint = cvEndpoint + "/downloads"
-	reduxEndpoint     = cvEndpoint + "/redux"
-	searchEndpoint    = cvEndpoint + "/search"
-	updatesEndpoint   = cvEndpoint + "/updates"
-	dataEndpoint      = cvEndpoint + "/data"
-	hasDataEndpoint   = cvEndpoint + "/has_data"
-	hasReduxEndpoint  = cvEndpoint + "/has_redux"
+	digestEndpoint    = "/digest"
+	downloadsEndpoint = "/downloads"
+	reduxEndpoint     = "/redux"
+	searchEndpoint    = "/search"
+	updatesEndpoint   = "/updates"
+	dataEndpoint      = "/data"
+	hasDataEndpoint   = "/has_data"
+	hasReduxEndpoint  = "/has_redux"
 )
 
 func reduxUrl(id string, properties ...string) *url.URL {
