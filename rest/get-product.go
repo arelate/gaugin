@@ -148,8 +148,8 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	pvm.HasSteamAppNews = hasData[vangogh_local_data.SteamAppNews]
-	pvm.HasDownloads = hasData[vangogh_local_data.Details]
+	pvm.HasSteamAppNews = hasData[vangogh_local_data.SteamAppNews.String()][id] == "true"
+	pvm.HasDownloads = hasData[vangogh_local_data.Details.String()][id] == "true"
 
 	hasRedux, err := getHasRedux(http.DefaultClient, id,
 		vangogh_local_data.DescriptionOverviewProperty,

@@ -18,8 +18,11 @@ const (
 
 var (
 	urlLastModified = make(map[string]int64)
+	hasDataCache    = make(map[string]map[string]map[string]string)
+	dataCache       = make(map[string]map[string]interface{})
 	searchCache     = make(map[string][]string)
 	digestsCache    = make(map[string]map[string][]string)
+	hasReduxCache   = make(map[string]map[string]map[string][]string)
 	reduxCache      = make(map[string]map[string]map[string][]string)
 	downloadsCache  = make(map[string]vangogh_local_data.DownloadsList)
 	mtx             = sync.Mutex{}
@@ -29,7 +32,9 @@ func getUpdates(
 	client *http.Client,
 	mt gog_integration.Media,
 	since int) (map[string][]string, error) {
+
 	uu := updatesUrl(mt, since)
+
 	resp, err := client.Get(uu.String())
 	if err != nil {
 		return nil, err
@@ -93,18 +98,18 @@ func getDownloads(
 	return getThroughCache(client, downloadsUrl(id, operatingSystems, languageCodes), downloadsCache)
 }
 
+func getHasRedux(
+	client *http.Client,
+	id string,
+	properties ...string) (map[string]map[string][]string, error) {
+	return getThroughCache(client, hasReduxUrl(id, properties...), hasReduxCache)
+}
+
 func getRedux(
 	client *http.Client,
 	id string,
 	properties ...string) (map[string]map[string][]string, error) {
 	return getThroughCache(client, reduxUrl(id, properties...), reduxCache)
-}
-
-func getHasRedux(
-	client *http.Client,
-	id string,
-	properties ...string) (map[string]map[string][]string, error) {
-	return getThroughCache(client, hasReduxUrl(id, properties...), reduxCache)
 }
 
 func getSearch(client *http.Client, q url.Values) ([]string, error) {
@@ -115,19 +120,25 @@ func getDigests(client *http.Client, properties ...string) (map[string][]string,
 	return getThroughCache(client, digestUrl(properties...), digestsCache)
 }
 
+func getHasData(
+	client *http.Client,
+	id string,
+	mt gog_integration.Media,
+	pts ...vangogh_local_data.ProductType) (map[string]map[string]string, error) {
+	return getThroughCache(client, hasDataUrl(id, mt, pts...), hasDataCache)
+}
+
+func getData(
+	client *http.Client,
+	id string,
+	pt vangogh_local_data.ProductType,
+	mt gog_integration.Media) (map[string]interface{}, error) {
+	return getThroughCache(client, dataUrl(id, pt, mt), dataCache)
+}
+
 func getSteamAppNews(client *http.Client, id string) (*steam_integration.AppNews, error) {
-	sanu := getDataUrl(id, vangogh_local_data.SteamAppNews, gog_integration.Game)
 
-	resp, err := client.Get(sanu.String())
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	var data map[string]interface{}
-	if err = gob.NewDecoder(resp.Body).Decode(&data); err != nil {
-		return nil, err
-	}
+	data, err := getData(client, id, vangogh_local_data.SteamAppNews, gog_integration.Game)
 
 	if steamAppNews, ok := data[id]; ok {
 		if gnfar, sure := steamAppNews.(steam_integration.GetNewsForAppResponse); sure {
@@ -137,33 +148,4 @@ func getSteamAppNews(client *http.Client, id string) (*steam_integration.AppNews
 	}
 
 	return nil, err
-}
-
-func getHasData(
-	client *http.Client,
-	id string,
-	mt gog_integration.Media,
-	pts ...vangogh_local_data.ProductType) (map[vangogh_local_data.ProductType]bool, error) {
-
-	hasData := make(map[vangogh_local_data.ProductType]bool)
-
-	hdu := hasDataUrl(id, mt, pts...)
-	resp, err := client.Get(hdu.String())
-	if err != nil {
-		return hasData, err
-	}
-	defer resp.Body.Close()
-
-	var data map[string]map[string]string
-	err = gob.NewDecoder(resp.Body).Decode(&data)
-
-	for _, pt := range pts {
-		if hasProductType, ok := data[pt.String()]; ok {
-			if hd, sure := hasProductType[id]; sure {
-				hasData[pt] = hd == "true"
-			}
-		}
-	}
-
-	return hasData, err
 }

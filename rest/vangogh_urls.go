@@ -113,7 +113,7 @@ func digestUrl(properties ...string) *url.URL {
 	return u
 }
 
-func getDataUrl(id string,
+func dataUrl(id string,
 	pt vangogh_local_data.ProductType,
 	mt gog_integration.Media) *url.URL {
 	u := &url.URL{
