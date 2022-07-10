@@ -139,11 +139,29 @@ func getData(
 func getSteamAppNews(client *http.Client, id string) (*steam_integration.AppNews, error) {
 
 	data, err := getData(client, id, vangogh_local_data.SteamAppNews, gog_integration.Game)
+	if err != nil {
+		return nil, err
+	}
 
-	if steamAppNews, ok := data[id]; ok {
-		if gnfar, sure := steamAppNews.(steam_integration.GetNewsForAppResponse); sure {
-			appNews := gnfar.AppNews
+	if getNewsForAppResponseData, ok := data[id]; ok {
+		if getNewsForAppResponse, sure := getNewsForAppResponseData.(steam_integration.GetNewsForAppResponse); sure {
+			appNews := getNewsForAppResponse.AppNews
 			return &appNews, nil
+		}
+	}
+
+	return nil, err
+}
+
+func getDetails(client *http.Client, id string) (*gog_integration.Details, error) {
+	data, err := getData(client, id, vangogh_local_data.Details, gog_integration.Game)
+	if err != nil {
+		return nil, err
+	}
+
+	if detailsData, ok := data[id]; ok {
+		if details, sure := detailsData.(gog_integration.Details); sure {
+			return &details, nil
 		}
 	}
 

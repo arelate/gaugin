@@ -35,6 +35,9 @@ func getCurrentOtherOSDownloads(id string, userAgent string) (*downloadsViewMode
 		Context: "iframe",
 	}
 
+	//details, err := getDetails(http.DefaultClient, id)
+	//fmt.Println(details.Title)
+
 	dls, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes)
 	if err != nil {
 		return dvm, err
