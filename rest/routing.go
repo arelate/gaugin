@@ -16,7 +16,7 @@ var predefinedSearchPaths = map[string]string{
 func HandleFuncs() {
 
 	patternHandlers := map[string]http.Handler{
-		// current endpoints
+		// unauthenticated endpoints
 		"/updates":        middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetUpdates)))),
 		"/product":        middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetProduct)))),
 		"/search":         middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetSearch)))),
@@ -30,13 +30,13 @@ func HandleFuncs() {
 		"/video":          middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetVideo))),
 		"/thumbnails":     middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetThumbnails))),
 		"/items/":         middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetItems))),
-		"/files":          middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetFiles)))),
-		"/local-file/":    middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetLocalFile)))),
 		"/favicon.ico":    http.HandlerFunc(http.NotFound),
 
-		// actions
-		"/wishlist/add":    middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetWishlistAdd))),
-		"/wishlist/remove": middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetWishlistRemove))),
+		// authenticated endpoints
+		"/files":           middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetFiles)))),
+		"/local-file/":     middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetLocalFile)))),
+		"/wishlist/add":    middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetWishlistAdd)))),
+		"/wishlist/remove": middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetWishlistRemove)))),
 
 		// updates redirects
 		"/updates/recent":    http.RedirectHandler("/updates?since=4", http.StatusPermanentRedirect),
