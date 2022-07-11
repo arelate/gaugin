@@ -53,6 +53,21 @@
                     </ul>
                 </div>
             {{end}}
+            {{if shouldShowWishlist .}}
+                <div class="text-property">
+                    <h2 class="property-title">Wishlist</h2>
+                    <ul class="property-value">
+                        <li class="actionable-property">
+                            {{if canAddToWishlist .}}
+                                <a href="/wishlist/add?id={{.Id}}" aria-label="add to wishlist">Add</a>
+                            {{end}}
+                            {{if canRemoveFromWishlist .}}
+                                <a href="/wishlist/remove?id={{.Id}}" aria-label="remove from wishlist">Remove</a>
+                            {{end}}
+                        </li>
+                    </ul>
+                </div>
+            {{end}}
             {{if .OperatingSystems}}
                 <div class="text-property center">
                     <h2 class="property-title" title="Operating System">OS</h2>

@@ -176,7 +176,7 @@ func propertyFromRedux(redux map[string][]string, property string) string {
 }
 
 func flagFromRedux(redux map[string][]string, property string) bool {
-	return propertyFromRedux(redux, property) == "true"
+	return propertyFromRedux(redux, property) == vangogh_local_data.TrueValue
 }
 
 func propertiesFromRedux(redux map[string][]string, property string) []string {

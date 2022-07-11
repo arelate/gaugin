@@ -14,26 +14,29 @@ import (
 
 func funcMap() template.FuncMap {
 	return template.FuncMap{
-		"transitiveDst":      transitiveDst,
-		"transitiveSrc":      transitiveSrc,
-		"formatBytes":        formatBytes,
-		"justTheDate":        justTheDate,
-		"formatDate":         formatDate,
-		"unixDateFormat":     unixDateFormat,
-		"ratingPercent":      ratingPercent,
-		"gogLink":            gogLink,
-		"toLower":            toLower,
-		"dlTitle":            dlTitle,
-		"hasLabel":           hasLabel,
-		"hasTags":            hasTags,
-		"showPrice":          showPrice,
-		"searchPropertyName": searchPropertyName,
-		"hasDownloads":       hasDownloads,
-		"hasSteamLinks":      hasSteamLinks,
-		"hasGOGLinks":        hasGOGLinks,
-		"languageCodeFlag":   languageCodeFlag,
-		"youtubeLink":        youtubeLink,
-		"hasShortcuts":       hasShortcuts,
+		"transitiveDst":         transitiveDst,
+		"transitiveSrc":         transitiveSrc,
+		"formatBytes":           formatBytes,
+		"justTheDate":           justTheDate,
+		"formatDate":            formatDate,
+		"unixDateFormat":        unixDateFormat,
+		"ratingPercent":         ratingPercent,
+		"gogLink":               gogLink,
+		"toLower":               toLower,
+		"dlTitle":               dlTitle,
+		"hasLabel":              hasLabel,
+		"hasTags":               hasTags,
+		"showPrice":             showPrice,
+		"searchPropertyName":    searchPropertyName,
+		"hasDownloads":          hasDownloads,
+		"hasSteamLinks":         hasSteamLinks,
+		"hasGOGLinks":           hasGOGLinks,
+		"languageCodeFlag":      languageCodeFlag,
+		"youtubeLink":           youtubeLink,
+		"hasShortcuts":          hasShortcuts,
+		"shouldShowWishlist":    shouldShowWishlist,
+		"canAddToWishlist":      canAddToWishlist,
+		"canRemoveFromWishlist": canRemoveFromWishlist,
 	}
 }
 
@@ -209,4 +212,17 @@ func hasShortcuts(pvm *productViewModel) bool {
 		pvm.HasVideos ||
 		pvm.HasDownloads ||
 		pvm.HasSteamAppNews
+}
+
+func shouldShowWishlist(pvm *productViewModel) bool {
+	return !pvm.Labels.Owned
+}
+
+func canAddToWishlist(pvm *productViewModel) bool {
+	return !pvm.Labels.Owned &&
+		!pvm.Labels.Wishlisted
+}
+
+func canRemoveFromWishlist(pvm *productViewModel) bool {
+	return pvm.Labels.Wishlisted
 }

@@ -2,6 +2,7 @@ package rest
 
 import (
 	"encoding/gob"
+	"fmt"
 	"github.com/arelate/gog_integration"
 	"github.com/arelate/steam_integration"
 	"github.com/arelate/vangogh_local_data"
@@ -151,4 +152,32 @@ func getSteamAppNews(client *http.Client, id string) (*steam_integration.AppNews
 	}
 
 	return nil, err
+}
+
+func wishlistMethod(client *http.Client, method string, id string, mt gog_integration.Media) error {
+	wu := wishlistUrl(id, mt)
+
+	req, err := http.NewRequest(method, wu.String(), nil)
+	if err != nil {
+		return err
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("unexpected status %d", resp.StatusCode)
+	}
+
+	return nil
+}
+
+func putWishlist(client *http.Client, id string, mt gog_integration.Media) error {
+	return wishlistMethod(client, http.MethodPut, id, mt)
+}
+
+func deleteWishlist(client *http.Client, id string, mt gog_integration.Media) error {
+	return wishlistMethod(client, http.MethodDelete, id, mt)
 }

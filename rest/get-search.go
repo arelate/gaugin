@@ -110,8 +110,8 @@ var digestTitles = map[string]string{
 	"linux":   "Linux",
 	"windows": "Windows",
 	// vangogh_local_data.OwnedProperty, vangogh_local_data.WishlistedProperty, ...
-	"true":  "Yes",
-	"false": "No",
+	vangogh_local_data.TrueValue:  "Yes",
+	vangogh_local_data.FalseValue: "No",
 	//vangogh_local_data.SortProperty
 	vangogh_local_data.GlobalReleaseDateProperty:  "Global Release Date",
 	vangogh_local_data.GOGReleaseDateProperty:     "GOG.com Release Date",
@@ -229,7 +229,9 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.RatingProperty,
 		vangogh_local_data.DiscountPercentageProperty}
 
-	digests[vangogh_local_data.DescendingProperty] = []string{"true", "false"}
+	digests[vangogh_local_data.DescendingProperty] = []string{
+		vangogh_local_data.TrueValue,
+		vangogh_local_data.FalseValue}
 
 	if err != nil {
 		http.Error(w, nod.ErrorStr("error getting digests"), http.StatusInternalServerError)

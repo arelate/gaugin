@@ -101,7 +101,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	// GET /product?slug -> /product?id
 
-	if r.URL.Query().Has("slug") {
+	if r.URL.Query().Has(vangogh_local_data.SlugProperty) {
 		if idSet, err := vangogh_local_data.IdSetFromUrl(r.URL); err == nil {
 			if len(idSet) > 0 {
 				for id := range idSet {
@@ -118,7 +118,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	id := r.URL.Query().Get("id")
+	id := r.URL.Query().Get(vangogh_local_data.IdProperty)
 
 	idRedux, err := getRedux(http.DefaultClient, id, productProperties...)
 	if err != nil {
@@ -148,8 +148,8 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	pvm.HasSteamAppNews = hasData[vangogh_local_data.SteamAppNews.String()][id] == "true"
-	pvm.HasDownloads = hasData[vangogh_local_data.Details.String()][id] == "true"
+	pvm.HasSteamAppNews = hasData[vangogh_local_data.SteamAppNews.String()][id] == vangogh_local_data.TrueValue
+	pvm.HasDownloads = hasData[vangogh_local_data.Details.String()][id] == vangogh_local_data.TrueValue
 
 	hasRedux, err := getHasRedux(http.DefaultClient, id,
 		vangogh_local_data.DescriptionOverviewProperty,

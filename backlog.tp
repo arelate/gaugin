@@ -1,18 +1,6 @@
 Changelog/Description/Videos/Screenshots/Steam App News enhancements:
-	- Convert Screenshots, Videos, Downloads to iframes @done(2022-07-07)
 	- Check any remaining Steam tags 
 	- Add new section "News" to show time sorted Steam app updates
-
-Implement add to wishlist, add tags:
-	- Add to wishlist:
-		- for products that are not owned
-		- display Wishlisted state (Yes / No)
-		- add action to Yes Remove
-		- add action to No - Add
-		- Add vangogh /wishlist endpoint
-			- PUT
-			- DELETE methods
-		- Make sure local changes are happening the way gaugin expects them to (e.g. wishlist reduction)
 
 Implement source ports links:
 	- New property source-port-links
@@ -37,6 +25,17 @@ More icons, less text:
 	- features
 
 Archive:
+	- Convert Screenshots, Videos, Downloads to iframes @done(2022-07-07) @project(Changelog/Description/Videos/Screenshots/Steam App News enhancements)
+	Implement add to wishlist: @done(2022-07-10)
+		- Add to wishlist: @done(2022-07-10)
+			- for products that are not owned @done(2022-07-10)
+			- display Wishlisted state (Yes / No) @done(2022-07-10)
+			- add action to Yes Remove @done(2022-07-10)
+			- add action to No - Add @done(2022-07-10)
+			- Add vangogh /wishlist endpoint @done(2022-07-10)
+				- PUT @done(2022-07-10)
+				- DELETE methods @done(2022-07-10)
+			- Make sure local changes are happening the way gaugin expects them to (e.g. wishlist reduction) @done(2022-07-10)
 	- Extract items from changelog? (investigate how many products have that) @done(2022-06-26) @project(Changelog/Description/Steam App News enhancements)
 	- Extract / download / rewrite regular images links (e.g. https://m.bzb.one:1903/product?id=1436454557 ->  https://images-4.gog-statics.com/f567e84e7994b05d6ab561d6a44332622ce8765580e3b6cd95a2ece771d83ae1.png) @done(2022-06-26) @project(Changelog/Description/Steam App News enhancements)
 	- Download steam-app-news images? @done(2022-06-26) @project(Changelog/Description/Steam App News enhancements)

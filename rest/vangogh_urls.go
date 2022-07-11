@@ -34,6 +34,7 @@ const (
 	dataEndpoint      = "/data"
 	hasDataEndpoint   = "/has_data"
 	hasReduxEndpoint  = "/has_redux"
+	wishlistEndpoint  = "/wishlist"
 )
 
 func reduxUrl(id string, properties ...string) *url.URL {
@@ -159,6 +160,21 @@ func hasDataUrl(id string, mt gog_integration.Media, pts ...vangogh_local_data.P
 
 	q := u.Query()
 	q.Set(vangogh_local_data.ProductTypeProperty, strings.Join(productTypes, ","))
+	q.Set("media", mt.String())
+	q.Set(vangogh_local_data.IdProperty, id)
+	u.RawQuery = q.Encode()
+
+	return u
+}
+
+func wishlistUrl(id string, mt gog_integration.Media) *url.URL {
+	u := &url.URL{
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
+		Path:   wishlistEndpoint,
+	}
+
+	q := u.Query()
 	q.Set("media", mt.String())
 	q.Set(vangogh_local_data.IdProperty, id)
 	u.RawQuery = q.Encode()

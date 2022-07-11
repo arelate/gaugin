@@ -34,6 +34,10 @@ func HandleFuncs() {
 		"/local-file/":    middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetLocalFile)))),
 		"/favicon.ico":    http.HandlerFunc(http.NotFound),
 
+		// actions
+		"/wishlist/add":    middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetWishlistAdd))),
+		"/wishlist/remove": middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetWishlistRemove))),
+
 		// updates redirects
 		"/updates/recent":    http.RedirectHandler("/updates?since=4", http.StatusPermanentRedirect),
 		"/updates/today":     http.RedirectHandler("/updates?since=24", http.StatusPermanentRedirect),
