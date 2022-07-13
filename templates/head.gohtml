@@ -29,6 +29,8 @@
             {{template "css-iframe"}}
             {{template "css-downloads"}}
             {{template "script-iframe"}}
+        {{else if eq .Context "tags"}}
+            {{template "css-tags"}}
         {{end}}
 
         {{template "css-footer"}}

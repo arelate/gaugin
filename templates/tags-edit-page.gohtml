@@ -1,0 +1,62 @@
+{{define "tags-edit-page"}}
+    <!doctype html>
+    <html lang="en">
+    {{template "head" .}}
+    <body>
+    {{template "nav"}}
+
+    <form class="tags-edit-form" method="post" action="/tags/apply">
+
+        <input type="hidden" name="id" value="{{.Id}}"/>
+
+        <h1>{{.Title}}</h1>
+
+        {{$owned := .Owned}}
+
+        <h2>Account Tags</h2>
+
+        {{if eq $owned false}}
+            <div class="not-owned-notice">Account tags only work for owned products</div>
+        {{end}}
+
+        <div class="tags {{if eq $owned false}}disabled{{end}}">
+            {{$tags := .Tags}}
+            {{range .AllTags}}
+                {{$value := transitiveSrc .}}
+                {{$title := transitiveDst .}}
+                {{$selected := index $tags .}}
+                {{if eq $title ""}}{{$title = $value}}{{end}}
+                <div class="tag-container">
+                    <input id="{{$value}}" type="checkbox" name="{{$value}}"
+                           {{if $selected}}checked="checked" value="true"{{end}} {{if eq $owned false}}disabled{{end}}/>
+                    <label for="{{$value}}">{{$title}}</label>
+                </div>
+            {{end}}
+        </div>
+
+        <h2>Local Tags</h2>
+        <div class="tags">
+            {{$localTags := .LocalTags}}
+            {{range .AllLocalTags}}
+                {{$value := transitiveSrc .}}
+                {{$title := transitiveDst .}}
+                {{$selected := index $localTags .}}
+
+                {{if eq $title ""}}{{$title = $value}}{{end}}
+                <div class="tag-container">
+                    <input id="{{$value}}" type="checkbox" name="{{$value}}" {{if $selected}}checked="checked"  value="true"{{end}}/>
+                    <label for="{{$value}}">{{$title}}</label>
+                </div>
+            {{end}}
+        </div>
+
+        <div class="submit-container">
+            <input id="submit" type="submit" value="Apply">
+        </div>
+
+    </form>
+
+    {{template "footer"}}
+    </body>
+    </html>
+{{end}}

@@ -167,6 +167,17 @@ type steamAppNewsViewModel struct {
 	NewsItems []*newsItemViewModel
 }
 
+type tagsEditViewModel struct {
+	Context      string
+	Id           string
+	Title        string
+	Owned        bool
+	AllTags      []string
+	AllLocalTags []string
+	Tags         map[string]bool
+	LocalTags    map[string]bool
+}
+
 func propertyFromRedux(redux map[string][]string, property string) string {
 	properties := propertiesFromRedux(redux, property)
 	if len(properties) > 0 {
