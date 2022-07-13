@@ -77,19 +77,20 @@
                         {{end}}</ul>
                 </div>
             {{end}}
-            {{if hasTags .Labels}}
-                <div class="text-property center">
-                    <h2 class="property-title" title="Tags">Tags</h2>
-                    <ul class="property-value">
-                        {{range .Labels.Tags}}
-                            <li><a href="/search?tag={{.}}" aria-label="{{.}}">{{transitiveDst .}}</a></li>
-                        {{end}}
-                        {{range .Labels.LocalTags}}
-                            <li><a href="/search?local-tags={{.}}" aria-label="{{.}}">{{.}}</a></li>
-                        {{end}}
-                    </ul>
-                </div>
-            {{end}}
+            <div class="text-property center">
+                <h2 class="property-title" title="Tags">Tags</h2>
+                <ul class="property-value">
+                    {{range .Labels.Tags}}
+                        <li><a href="/search?tag={{.}}" aria-label="{{.}}">{{transitiveDst .}}</a></li>
+                    {{end}}
+                    {{range .Labels.LocalTags}}
+                        <li><a href="/search?local-tags={{.}}" aria-label="{{.}}">{{.}}</a></li>
+                    {{end}}
+                    <li class="actionable-property">
+                        <a href="/tags/edit?id={{.Id}}">Edit</a>
+                    </li>
+                </ul>
+            </div>
             {{if (ne .Rating "0")}}
                 <div class="text-property center">
                     <h2 class="property-title">Rating</h2>

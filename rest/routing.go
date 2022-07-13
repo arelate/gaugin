@@ -6,6 +6,14 @@ import (
 	"net/http"
 )
 
+var (
+	BHA = middleware.BasicHttpAuth
+	GMO = middleware.GetMethodOnly
+	PMO = middleware.PostMethodOnly
+	GZ  = middleware.Gzip
+	LOG = nod.RequestLog
+)
+
 var predefinedSearchPaths = map[string]string{
 	"owned":    "/search?types=account-products&sort=gog-order-date&desc=true",
 	"wishlist": "/search?wishlisted=true&sort=gog-release-date&desc=true",
@@ -17,26 +25,28 @@ func HandleFuncs() {
 
 	patternHandlers := map[string]http.Handler{
 		// unauthenticated endpoints
-		"/updates":        middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetUpdates)))),
-		"/product":        middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetProduct)))),
-		"/search":         middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetSearch)))),
-		"/description":    middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetDescription)))),
-		"/downloads":      middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetDownloads)))),
-		"/changelog":      middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetChangelog)))),
-		"/screenshots":    middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetScreenshots)))),
-		"/videos":         middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetVideos)))),
-		"/steam-app-news": middleware.Gzip(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetSteamAppNews)))),
-		"/image":          middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetImage))),
-		"/video":          middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetVideo))),
-		"/thumbnails":     middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetThumbnails))),
-		"/items/":         middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetItems))),
+		"/updates":        GZ(GMO(LOG(http.HandlerFunc(GetUpdates)))),
+		"/product":        GZ(GMO(LOG(http.HandlerFunc(GetProduct)))),
+		"/search":         GZ(GMO(LOG(http.HandlerFunc(GetSearch)))),
+		"/description":    GZ(GMO(LOG(http.HandlerFunc(GetDescription)))),
+		"/downloads":      GZ(GMO(LOG(http.HandlerFunc(GetDownloads)))),
+		"/changelog":      GZ(GMO(LOG(http.HandlerFunc(GetChangelog)))),
+		"/screenshots":    GZ(GMO(LOG(http.HandlerFunc(GetScreenshots)))),
+		"/videos":         GZ(GMO(LOG(http.HandlerFunc(GetVideos)))),
+		"/steam-app-news": GZ(GMO(LOG(http.HandlerFunc(GetSteamAppNews)))),
+		"/image":          GMO(LOG(http.HandlerFunc(GetImage))),
+		"/video":          GMO(LOG(http.HandlerFunc(GetVideo))),
+		"/thumbnails":     GMO(LOG(http.HandlerFunc(GetThumbnails))),
+		"/items/":         GMO(LOG(http.HandlerFunc(GetItems))),
 		"/favicon.ico":    http.HandlerFunc(http.NotFound),
 
 		// authenticated endpoints
-		"/files":           middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetFiles)))),
-		"/local-file/":     middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetLocalFile)))),
-		"/wishlist/add":    middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetWishlistAdd)))),
-		"/wishlist/remove": middleware.BasicHttpAuth(middleware.GetMethodOnly(nod.RequestLog(http.HandlerFunc(GetWishlistRemove)))),
+		"/files":           BHA(GMO(LOG(http.HandlerFunc(GetFiles)))),
+		"/local-file/":     BHA(GMO(LOG(http.HandlerFunc(GetLocalFile)))),
+		"/wishlist/add":    BHA(GMO(LOG(http.HandlerFunc(GetWishlistAdd)))),
+		"/wishlist/remove": BHA(GMO(LOG(http.HandlerFunc(GetWishlistRemove)))),
+		"/tags/edit":       BHA(GMO(LOG(http.HandlerFunc(GetTagsEdit)))),
+		"/tags/apply":      BHA(PMO(LOG(http.HandlerFunc(PostTagsApply)))),
 
 		// updates redirects
 		"/updates/recent":    http.RedirectHandler("/updates?since=4", http.StatusPermanentRedirect),
