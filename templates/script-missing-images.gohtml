@@ -1,0 +1,16 @@
+{{define "script-missing-images"}}
+    <script id="missing-images">
+        document.addEventListener("DOMContentLoaded", () => {
+            let images = document.querySelectorAll("img");
+            for (img of images) {
+                img.addEventListener("error", () => {
+                    let placeholder = document.createElement('div');
+                    placeholder.classList.add('missing-src');
+                    img.parentElement.appendChild(placeholder);
+                    img.remove();
+                });
+            }
+        });
+
+    </script>
+{{end}}

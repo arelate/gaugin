@@ -149,5 +149,23 @@
             border-radius: 4px;
         }
 
+        #videos-content div.missing-src {
+            width: 100%;
+            aspect-ratio: 3/2;
+            border-radius: 4px;
+            background-color: var(--system-red-color);
+        }
+
+        #videos-content div.missing-src::after {
+            content: '📺';
+            font-size: 5em;
+            position: absolute;
+            width: 1em;
+            height: 1em;
+            top: 50%;
+            left: calc(50% - 0.5em);
+        }
+
+
     </style>
 {{end}}

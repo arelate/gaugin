@@ -10,6 +10,8 @@ const (
 		"'sha256-EoiesIg5jhsIaHn7PSaZ/oT9Yi0MCUx9WzALOyH9HkE=' " +
 		//script-iframe.gohtml
 		"'sha256-vEdzDTUjeRFG21L/pW+qldt1k+gnTSWl4v2E16iqJPc=' " +
+		//script-missing-images.gohtml
+		"'sha256-EfM/IsUJk1qLTFuynEoB02zyNux0nvOi+WWSOgGLIPg=' " +
 		"none; " +
 		"object-src 'none'; " +
 		"img-src 'self' data:; " +
