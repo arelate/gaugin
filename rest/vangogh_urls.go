@@ -35,6 +35,8 @@ const (
 	hasDataEndpoint   = "/has_data"
 	hasReduxEndpoint  = "/has_redux"
 	wishlistEndpoint  = "/wishlist"
+	tagEndpoint       = "/tag"
+	localTagEndpoint  = "/local_tag"
 )
 
 func reduxUrl(id string, properties ...string) *url.URL {
@@ -177,6 +179,36 @@ func wishlistUrl(id string, mt gog_integration.Media) *url.URL {
 	q := u.Query()
 	q.Set("media", mt.String())
 	q.Set(vangogh_local_data.IdProperty, id)
+	u.RawQuery = q.Encode()
+
+	return u
+}
+
+func tagUrl(id string, tags []string) *url.URL {
+	u := &url.URL{
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
+		Path:   tagEndpoint,
+	}
+
+	q := u.Query()
+	q.Set(vangogh_local_data.IdProperty, id)
+	q.Set("tags", strings.Join(tags, ","))
+	u.RawQuery = q.Encode()
+
+	return u
+}
+
+func localTagUrl(id string, tags []string) *url.URL {
+	u := &url.URL{
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
+		Path:   localTagEndpoint,
+	}
+
+	q := u.Query()
+	q.Set(vangogh_local_data.IdProperty, id)
+	q.Set("tags", strings.Join(tags, ","))
 	u.RawQuery = q.Encode()
 
 	return u

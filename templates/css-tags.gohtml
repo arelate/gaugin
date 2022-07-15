@@ -22,17 +22,33 @@
         .tags-edit-form .not-owned-notice {
             font-size: 0.8em;
             padding: 1em;
-            margin: 0 1em 1em 1em;
+            margin: 0 1em 1.5em 1em;
             border-radius: 4px;
             background-color: var(--highlight-color);
+        }
+
+        .tags-edit-form .tag-container {
+            display: flex;
+            align-items: center;
+            column-gap: 0.5em;
+            margin-bottom: 0.5em;
         }
 
         .tags-edit-form .tags.disabled {
             color: var(--subtle-color);
         }
 
+        .tags-edit-form label {
+            cursor: pointer;
+        }
+
+        .tags-edit-form label.selected {
+            font-weight: bold;
+        }
+
         .tags-edit-form .submit-container {
             margin-top: 3em;
+            width: 10rem;
         }
 
         .tags-edit-form .submit-container #submit {
@@ -42,6 +58,7 @@
             appearance: none;
             background-color: var(--color);
             color: var(--background-color);
+            width: 100%;
         }
     </style>
 {{end}}

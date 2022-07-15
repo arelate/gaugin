@@ -181,3 +181,43 @@ func putWishlist(client *http.Client, id string, mt gog_integration.Media) error
 func deleteWishlist(client *http.Client, id string, mt gog_integration.Media) error {
 	return wishlistMethod(client, http.MethodDelete, id, mt)
 }
+
+func patchTag(client *http.Client, id string, tags []string) error {
+	tu := tagUrl(id, tags)
+
+	req, err := http.NewRequest(http.MethodPatch, tu.String(), nil)
+	if err != nil {
+		return err
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("unexpected status %d", resp.StatusCode)
+	}
+
+	return nil
+}
+
+func patchLocalTag(client *http.Client, id string, tags []string) error {
+	ltu := localTagUrl(id, tags)
+
+	req, err := http.NewRequest(http.MethodPatch, ltu.String(), nil)
+	if err != nil {
+		return err
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("unexpected status %d", resp.StatusCode)
+	}
+
+	return nil
+}

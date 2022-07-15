@@ -22,14 +22,11 @@
         <div class="tags {{if eq $owned false}}disabled{{end}}">
             {{$tags := .Tags}}
             {{range .AllTags}}
-                {{$value := transitiveSrc .}}
-                {{$title := transitiveDst .}}
                 {{$selected := index $tags .}}
-                {{if eq $title ""}}{{$title = $value}}{{end}}
                 <div class="tag-container">
-                    <input id="{{$value}}" type="checkbox" name="{{$value}}"
-                           {{if $selected}}checked="checked" value="true"{{end}} {{if eq $owned false}}disabled{{end}}/>
-                    <label for="{{$value}}">{{$title}}</label>
+                    <input id="{{.}}" type="checkbox" name="tag" value="{{transitiveSrc .}}"
+                           {{if $selected}}checked{{end}} {{if eq $owned false}}disabled{{end}}/>
+                    <label for="{{.}}" class="{{if $selected}}selected{{end}}">{{transitiveDst .}}</label>
                 </div>
             {{end}}
         </div>
@@ -38,14 +35,11 @@
         <div class="tags">
             {{$localTags := .LocalTags}}
             {{range .AllLocalTags}}
-                {{$value := transitiveSrc .}}
-                {{$title := transitiveDst .}}
                 {{$selected := index $localTags .}}
-
-                {{if eq $title ""}}{{$title = $value}}{{end}}
                 <div class="tag-container">
-                    <input id="{{$value}}" type="checkbox" name="{{$value}}" {{if $selected}}checked="checked"  value="true"{{end}}/>
-                    <label for="{{$value}}">{{$title}}</label>
+                    <input id="{{.}}" type="checkbox" name="local-tag"
+                           value="{{.}}" {{if $selected}}checked{{end}}/>
+                    <label for="{{.}}" class="{{if $selected}}selected{{end}}">{{.}}</label>
                 </div>
             {{end}}
         </div>

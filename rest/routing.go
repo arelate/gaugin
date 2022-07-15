@@ -26,7 +26,7 @@ func HandleFuncs() {
 	patternHandlers := map[string]http.Handler{
 		// unauthenticated endpoints
 		"/updates":        GZ(GMO(LOG(http.HandlerFunc(GetUpdates)))),
-		"/product":        GZ(GMO(LOG(http.HandlerFunc(GetProduct)))),
+		"/product":        GZ(LOG(http.HandlerFunc(GetProduct))), // can be GET or POST (/tag/apply redirect)
 		"/search":         GZ(GMO(LOG(http.HandlerFunc(GetSearch)))),
 		"/description":    GZ(GMO(LOG(http.HandlerFunc(GetDescription)))),
 		"/downloads":      GZ(GMO(LOG(http.HandlerFunc(GetDownloads)))),

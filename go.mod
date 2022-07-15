@@ -5,10 +5,10 @@ go 1.18
 require (
 	github.com/arelate/gog_integration v0.1.20
 	github.com/arelate/steam_integration v0.1.14
-	github.com/arelate/vangogh_local_data v0.1.93
+	github.com/arelate/vangogh_local_data v0.2.0
 	github.com/boggydigital/clo v0.3.1
 	github.com/boggydigital/middleware v0.1.2
-	github.com/boggydigital/nod v0.1.19
+	github.com/boggydigital/nod v0.1.20
 	golang.org/x/exp v0.0.0-20220613132600-b0d781184e0d
 )
 
