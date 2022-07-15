@@ -23,8 +23,9 @@
             font-size: 0.8em;
             padding: 1em;
             margin: 0 1em 1.5em 1em;
-            border-radius: 4px;
+            border-radius: 0.75em;
             background-color: var(--highlight-color);
+            box-shadow: 0 0 5px var(--shadow-color);
         }
 
         .tags-edit-form .tag-container {
@@ -51,6 +52,10 @@
             width: 10rem;
         }
 
+        .tags-edit-form #new-local-tag {
+            margin-top: 1em;
+        }
+
         .tags-edit-form .submit-container #submit {
             border: none;
             border-radius: 4px;
@@ -59,6 +64,7 @@
             background-color: var(--color);
             color: var(--background-color);
             width: 100%;
+            margin-bottom: 6rem;
         }
     </style>
 {{end}}
