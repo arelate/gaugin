@@ -7,11 +7,12 @@ import (
 )
 
 var (
-	BHA = middleware.BasicHttpAuth
-	GMO = middleware.GetMethodOnly
-	PMO = middleware.PostMethodOnly
-	GZ  = middleware.Gzip
-	LOG = nod.RequestLog
+	Auth     = middleware.BasicHttpAuth
+	GetOnly  = middleware.GetMethodOnly
+	PostOnly = middleware.PostMethodOnly
+	Gzip     = middleware.Gzip
+	Log      = nod.RequestLog
+	Redirect = http.RedirectHandler
 )
 
 var predefinedSearchPaths = map[string]string{
@@ -25,43 +26,42 @@ func HandleFuncs() {
 
 	patternHandlers := map[string]http.Handler{
 		// unauthenticated endpoints
-		"/updates":        GZ(GMO(LOG(http.HandlerFunc(GetUpdates)))),
-		"/product":        GZ(LOG(http.HandlerFunc(GetProduct))), // can be GET or POST (/tag/apply redirect)
-		"/search":         GZ(GMO(LOG(http.HandlerFunc(GetSearch)))),
-		"/description":    GZ(GMO(LOG(http.HandlerFunc(GetDescription)))),
-		"/downloads":      GZ(GMO(LOG(http.HandlerFunc(GetDownloads)))),
-		"/changelog":      GZ(GMO(LOG(http.HandlerFunc(GetChangelog)))),
-		"/screenshots":    GZ(GMO(LOG(http.HandlerFunc(GetScreenshots)))),
-		"/videos":         GZ(GMO(LOG(http.HandlerFunc(GetVideos)))),
-		"/steam-app-news": GZ(GMO(LOG(http.HandlerFunc(GetSteamAppNews)))),
-		"/image":          GMO(LOG(http.HandlerFunc(GetImage))),
-		"/video":          GMO(LOG(http.HandlerFunc(GetVideo))),
-		"/thumbnails":     GMO(LOG(http.HandlerFunc(GetThumbnails))),
-		"/items/":         GMO(LOG(http.HandlerFunc(GetItems))),
-		"/favicon.ico":    http.HandlerFunc(http.NotFound),
+		"/updates":        Gzip(GetOnly(Log(http.HandlerFunc(GetUpdates)))),
+		"/product":        Gzip(Log(http.HandlerFunc(GetProduct))), // can be GET or POST (/tag/apply redirect)
+		"/search":         Gzip(GetOnly(Log(http.HandlerFunc(GetSearch)))),
+		"/description":    Gzip(GetOnly(Log(http.HandlerFunc(GetDescription)))),
+		"/downloads":      Gzip(GetOnly(Log(http.HandlerFunc(GetDownloads)))),
+		"/changelog":      Gzip(GetOnly(Log(http.HandlerFunc(GetChangelog)))),
+		"/screenshots":    Gzip(GetOnly(Log(http.HandlerFunc(GetScreenshots)))),
+		"/videos":         Gzip(GetOnly(Log(http.HandlerFunc(GetVideos)))),
+		"/steam-app-news": Gzip(GetOnly(Log(http.HandlerFunc(GetSteamAppNews)))),
+		"/image":          GetOnly(Log(http.HandlerFunc(GetImage))),
+		"/video":          GetOnly(Log(http.HandlerFunc(GetVideo))),
+		"/thumbnails":     GetOnly(Log(http.HandlerFunc(GetThumbnails))),
+		"/items/":         GetOnly(Log(http.HandlerFunc(GetItems))),
 
 		// authenticated endpoints
-		"/files":           BHA(GMO(LOG(http.HandlerFunc(GetFiles)))),
-		"/local-file/":     BHA(GMO(LOG(http.HandlerFunc(GetLocalFile)))),
-		"/wishlist/add":    BHA(GMO(LOG(http.HandlerFunc(GetWishlistAdd)))),
-		"/wishlist/remove": BHA(GMO(LOG(http.HandlerFunc(GetWishlistRemove)))),
-		"/tags/edit":       BHA(GMO(LOG(http.HandlerFunc(GetTagsEdit)))),
-		"/tags/apply":      BHA(PMO(LOG(http.HandlerFunc(PostTagsApply)))),
+		"/files":           Auth(GetOnly(Log(http.HandlerFunc(GetFiles)))),
+		"/local-file/":     Auth(GetOnly(Log(http.HandlerFunc(GetLocalFile)))),
+		"/wishlist/add":    Auth(GetOnly(Log(http.HandlerFunc(GetWishlistAdd)))),
+		"/wishlist/remove": Auth(GetOnly(Log(http.HandlerFunc(GetWishlistRemove)))),
+		"/tags/edit":       Auth(GetOnly(Log(http.HandlerFunc(GetTagsEdit)))),
+		"/tags/apply":      Auth(PostOnly(Log(http.HandlerFunc(PostTagsApply)))),
 
 		// updates redirects
-		"/updates/recent":    http.RedirectHandler("/updates?since=4", http.StatusPermanentRedirect),
-		"/updates/today":     http.RedirectHandler("/updates?since=24", http.StatusPermanentRedirect),
-		"/updates/this_week": http.RedirectHandler("/updates?since=120", http.StatusPermanentRedirect),
+		"/updates/recent":    Redirect("/updates?since=4", http.StatusPermanentRedirect),
+		"/updates/today":     Redirect("/updates?since=24", http.StatusPermanentRedirect),
+		"/updates/this_week": Redirect("/updates?since=120", http.StatusPermanentRedirect),
 
 		// products redirects
-		"/products/owned":    http.RedirectHandler(predefinedSearchPaths["owned"], http.StatusPermanentRedirect),
-		"/products/wishlist": http.RedirectHandler(predefinedSearchPaths["wishlist"], http.StatusPermanentRedirect),
-		"/products/sale":     http.RedirectHandler(predefinedSearchPaths["sale"], http.StatusPermanentRedirect),
-		"/products/all":      http.RedirectHandler(predefinedSearchPaths["all"], http.StatusPermanentRedirect),
-		"/products":          http.RedirectHandler("/search", http.StatusPermanentRedirect),
+		"/products/owned":    Redirect(predefinedSearchPaths["owned"], http.StatusPermanentRedirect),
+		"/products/wishlist": Redirect(predefinedSearchPaths["wishlist"], http.StatusPermanentRedirect),
+		"/products/sale":     Redirect(predefinedSearchPaths["sale"], http.StatusPermanentRedirect),
+		"/products/all":      Redirect(predefinedSearchPaths["all"], http.StatusPermanentRedirect),
+		"/products":          Redirect("/search", http.StatusPermanentRedirect),
 
 		// start at the updates
-		"/": http.RedirectHandler("/updates", http.StatusPermanentRedirect),
+		"/": Redirect("/updates", http.StatusPermanentRedirect),
 	}
 
 	for p, h := range patternHandlers {
