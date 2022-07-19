@@ -6,20 +6,20 @@
             justify-content: center;
             color: var(--subtle-color);
             font-size: 0.75em;
-            padding: 1em 15% 0;
+            padding: var(--x-small);
         }
 
         .products {
-            padding: 1.5em 0;
+            padding: var(--large) 0;
             display: grid;
             grid-template-columns: 300px 300px 300px;
-            grid-column-gap: 1em;
-            grid-row-gap: 1em;
+            grid-column-gap: var(--normal);
+            grid-row-gap: var(--normal);
             justify-content: center;
         }
 
         .products:last-of-type {
-            padding-bottom: 6rem;
+            margin-block-end: calc(3 * var(--large));
         }
 
         @media only screen and (max-width: 1200px) {
@@ -62,11 +62,12 @@
         .products .product {
             font-size: 1.2em;
             color: inherit;
-            padding: 0.5em 1em 1em;
+            padding: var(--normal);
+            padding-block-start: var(--small);
             text-decoration: none;
             background-color: var(--highlight-color);
-            border-radius: 4px;
-            box-shadow: 0 0 5px var(--shadow-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             content-visibility: auto;
             /* 104px is the average size of the element in "Products > all" section */
             contain-intrinsic-size: 300px 103px;
@@ -75,23 +76,22 @@
 
         @media only screen and (max-width: 700px) {
             .products .product {
-                max-width: calc(100% - 2em);
-                margin: 0 1em;
+                max-width: calc(100% - 2 * var(--normal));
+                margin: 0 var(--normal);
             }
         }
 
         .products .product .title {
-            margin: 0.25em 0 0.5em;
+            margin: var(--x-small) 0 var(--small);
             font-size: 1em;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-weight: 600;
+            font-weight: bold;
         }
 
         .products .product .labels {
-            margin: 0 0 0.5em;
-            /*margin-block-end: 0.25em;*/
+            margin: 0 0 var(--small);
         }
 
         .products .product .label {
@@ -112,7 +112,7 @@
         .products .product .text-properties ul {
             list-style: none;
             margin: 0;
-            padding-inline-start: 0px;
+            padding-inline-start: 0;
             color: var(--subtle-color)
         }
 
@@ -124,13 +124,12 @@
         }
 
         .products .product .text-properties ul.horizontal svg.icon {
-            width: 1em;
-            height: 1em;
-            overflow: visible; /* BUGFIX: Safari SVGs sometimes don't fit neatly into pixel constraints */
+            width: var(--small);
+            height: var(--small);
         }
 
         .products .text-property {
-            margin: 0.25em 0;
+            margin: var(--x-small) 0;
         }
 
         .products .product .text-properties .property-title {
@@ -139,7 +138,7 @@
 
         .products .product .text-properties .property-value {
             font-weight: bold;
-            max-width: calc(80vw - 7em);
+            max-width: calc(80vw - 7 * var(--normal));
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;

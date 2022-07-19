@@ -1,7 +1,6 @@
 {{define "css-downloads"}}
     <style id="css-downloads">
         #downloads-content .downloads summary {
-            /*width: 100%;*/
             justify-content: center;
             font-weight: bold;
         }
@@ -18,21 +17,21 @@
 
         #downloads-content .downloads-type summary {
             font-size: 0.75em;
-            padding: 0.5em 0.25em;
+            padding: var(--small) var(--x-small);
             color: var(--subtle-color);
             font-weight: bold;
             justify-content: center;
         }
 
-        @media screen and (min-width: 900px) {
+        @media screen and (min-width: var(--product-details-width)) {
             #downloads-content .downloads-type .downloads-list {
                 grid-template-columns: 1fr 1fr;
             }
         }
 
         #downloads-content .downloads-type .downloads-list .download svg.icon {
-            width: 1.2em;
-            height: 1.2em;
+            width: var(--normal);
+            height: var(--normal);
             color: var(--color);
         }
 
@@ -40,11 +39,11 @@
             font-size: 0.75em;
             color: inherit;
             text-decoration: none;
-            padding: 1em;
+            padding: var(--normal);
             overflow: hidden;
-            border: 2px solid var(--background-color);
-            border-radius: 4px;
-            margin: 5px;
+            border: var(--xx-small) solid var(--background-color);
+            border-radius: var(--border-radius);
+            margin: var(--x-small);
         }
 
         #downloads-content .downloads-type .downloads-list .download .title {
@@ -57,9 +56,9 @@
             list-style: none;
             display: flex;
             align-items: center;
-            column-gap: 0.5em;
+            column-gap: var(--small);
             padding: 0;
-            margin: 0.5em 0;
+            margin: var(--small) 0;
         }
 
         #downloads-content .downloads-type .downloads-list .download ul.additional-details {

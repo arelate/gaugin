@@ -4,13 +4,13 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            margin-top: 0.75em;
+            margin-block-start: var(--normal);
         }
 
         .cover-image a {
             aspect-ratio: 1600 / 740;
             width: 100%;
-            max-width: 800px;
+            max-width: var(--product-details-width);
             line-height: 0;
         }
 
@@ -18,76 +18,68 @@
             background-color: var(--highlight-color);
             width: 100%;
             height: 100%;
-            border-radius: 4px;
+            border-radius: var(--border-radius);
             image-rendering: pixelated;
             background-size: contain;
             background-repeat: no-repeat;
         }
 
-        @media only screen and (max-width: 800px) {
+        @media only screen and (max-width: var(--product-details-width)) {
             .cover-image img {
                 border-radius: 0;
             }
         }
 
         .product-details {
-            margin: 0 auto 8em;
+            margin: 0 auto calc(4 * var(--large));
             width: 70%;
             max-width: 1000px;
         }
 
         @media only screen and (max-width: 700px) {
             .product-details {
-                margin: 0 0.5em 4em;
-                width: calc(100% - 1em);
+                margin: 0 var(--small) calc(2 * var(--large));
+                width: calc(100% - var(--normal));
             }
         }
 
         .product-details > .title {
             font-size: 2.5rem;
-            padding: 0.5rem 1rem;
+            padding: var(--small) var(--normal);
             display: flex;
             justify-content: center;
             text-align: center;
-            column-gap: 0.5em;
-            margin: 1rem;
-            font-weight: 600;
-        }
-
-        .product-details h1 svg.icon {
-            width: 0.75em;
-            min-width: 0.75em;
-            height: 0.75em;
-            color: var(--system-red-color)
+            column-gap: var(--small);
+            margin: var(--normal);
+            font-weight: bold;
         }
 
         .product-details .labels {
-            margin: 0 1em;
-            column-gap: 0.5em;
-            row-gap: 0.5em;
+            margin: 0 var(--normal);
+            column-gap: var(--small);
+            row-gap: var(--small);
             display: flex;
             justify-content: center;
         }
 
         .product-details .labels .label {
-            border-width: 1.5px;
-            border-radius: 4px;
-            padding: 0.1em 0.5em;
-            box-shadow: 0 0 5px var(--shadow-color);
+            border-width: var(--xxx-small);
+            border-radius: var(--border-radius);
+            padding: 0 var(--small);
+            box-shadow: var(--box-shadow);
         }
 
         .product-details .shortcuts,
         .product-details .text-properties {
-            font-size: 0.9em;
-            padding: 0 2em;
+            padding: 0 var(--large);
             display: flex;
             flex-direction: column;
-            row-gap: 0.5em;
-            margin: 2em 0;
+            row-gap: var(--small);
+            margin: var(--large) 0;
         }
 
         .product-details .shortcuts {
-            padding: 0 1em;
+            padding: 0 var(--normal);
         }
 
         .product-details .shortcuts ul {
@@ -95,24 +87,24 @@
             list-style: none;
             margin: 0;
             display: flex;
-            column-gap: 1em;
-            row-gap: 0.5em;
+            column-gap: var(--normal);
+            row-gap: var(--small);
             flex-direction: row;
             flex-wrap: wrap;
             background-color: var(--highlight-color);
-            padding: 1em;
-            border-radius: 0.75em;
+            padding: var(--normal);
+            border-radius: var(--border-radius-large);
             justify-content: center;
-            box-shadow: 0 0 5px var(--shadow-color);
+            box-shadow: var(--box-shadow);
         }
 
         .product-details .text-properties {
-            margin-bottom: 3em;
+            margin-block-end: var(--large);
         }
 
         .product-details .text-properties svg.icon {
-            width: 1.25em;
-            height: 1.25em;
+            width: var(--normal);
+            height: var(--normal);
         }
 
         .product-details .shortcuts ul {
@@ -122,22 +114,22 @@
         .product-details .text-properties .text-property ul {
             list-style: none;
             margin: 0;
-            padding-inline-start: 0px;
+            padding-inline-start: 0;
             display: flex;
             flex-wrap: wrap;
-            row-gap: 1em;
-            column-gap: 1em;
+            row-gap: var(--normal);
+            column-gap: var(--normal);
         }
 
         .product-details .text-properties .text-property ul.vertical {
             flex-direction: column;
             background-color: var(--highlight-color);
-            border-radius: 4px;
-            padding: 1em;
+            border-radius: var(--border-radius-large);
+            padding: var(--normal);
         }
 
         .product-details .text-properties .text-property details[open] summary {
-            margin-bottom: 1em;
+            margin-block-end: var(--normal);
         }
 
         .product-details .text-properties .text-property details summary {
@@ -148,7 +140,7 @@
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            column-gap: 1em;
+            column-gap: var(--normal);
         }
 
         .product-details .shortcuts a,
@@ -157,16 +149,16 @@
         }
 
         .product-details .horizontal svg.icon {
-            width: 1.25em;
-            height: 1.25em;
+            width: var(--normal);
+            height: var(--normal);
         }
 
         .product-details .text-properties .text-property {
             width: 100%;
             display: grid;
-            grid-template-columns: 9rem auto;
-            grid-column-gap: 0.5em;
-            padding: 0.5em 0;
+            grid-template-columns: calc(4.5 * var(--large)) auto;
+            grid-column-gap: var(--small);
+            padding: var(--small) 0;
             align-items: start;
         }
 
@@ -178,8 +170,8 @@
             .product-details .text-properties {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                grid-column-gap: 2em;
-                grid-row-gap: 1em;
+                grid-column-gap: var(--large);
+                grid-row-gap: var(--normal);
             }
         }
 
@@ -223,17 +215,18 @@
 
         .product-details .text-properties ul.prices {
             align-items: center;
-            column-gap: 0.25em;
+            column-gap: var(--x-small);
         }
 
         .product-details .text-properties .discount-percentage {
             background-color: var(--system-red-color);
             color: var(--background-color);
+            padding: var(--x-small) var(--small);
         }
 
         .product-details .text-properties .discount-percentage.notable-discount {
-            border: 1px solid var(--background-color);
-            outline: 1px solid var(--system-red-color);
+            border: var(--xxx-small) solid var(--background-color);
+            outline: var(--xxx-small) solid var(--system-red-color);
         }
 
         .product-details .text-properties .base-price {
@@ -246,30 +239,30 @@
         }
 
         .product-details .text-properties details ul {
-            padding: 1em;
-            margin-inline-start: 0.25em;
+            padding: var(--normal);
+            margin-inline-start: var(--x-small);
         }
 
         .product-details .additional-properties details {
             cursor: pointer;
-            border-radius: 0.75em;
-            padding: 0.5em;
+            border-radius: var(--border-radius-large);
+            padding: var(--small);
             background-color: var(--highlight-color);
         }
 
         .product-details .additional-properties > details {
-            margin: 2rem 0.75rem;
+            margin: var(--large) var(--normal);
             font-weight: bold;
             cursor: pointer;
             font-size: 1.2em;
             position: relative;
-            box-shadow: 0 0 5px var(--shadow-color);
+            box-shadow: var(--box-shadow);
         }
 
         .product-details .additional-properties > details > summary {
             position: sticky;
             top: 0;
-            padding: 0.5em;
+            padding: var(--small);
             background-color: var(--highlight-color);
             z-index: 1;
             justify-content: center;

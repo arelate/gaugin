@@ -1,3 +1,6 @@
+Updates shortcuts similarly to product detail sections:
+	- check if the section exists
+
 Changelog/Description/Videos/Screenshots/Steam App News enhancements:
 	- Check any remaining Steam tags 
 	- Add new section "News" to show time sorted Steam app updates

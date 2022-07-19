@@ -12,22 +12,22 @@
         #videos-content,
         #downloads-content,
         #steam-app-news-content {
-            line-height: 1.5rem;
+            line-height: calc(1.5 * var(--normal));
             font-weight: normal;
-            margin: 1em 0.5em;
+            margin: var(--normal) var(--small);
             cursor: initial;
             word-break: break-word;
         }
 
-        @media screen and (min-width: 800px) {
+        @media screen and (min-width: var(--product-details-width)) {
             #description-content,
             #changelog-content,
             #screenshots-content,
             #videos-content,
             #downloads-content,
             #steam-app-news-content {
-                max-width: 800px;
-                margin: 2em auto;
+                max-width: var(--product-details-width);
+                margin: var(--large) auto;
             }
         }
 
@@ -37,13 +37,13 @@
         }
 
         ul {
-            padding-inline-start: 1em;
+            padding-inline-start: var(--normal);
         }
 
         hr {
             margin: 0;
             padding: 0;
-            border: 1px solid var(--subtle-color);
+            border: var(--xxx-small) solid var(--subtle-color);
         }
 
         img,
@@ -55,12 +55,12 @@
         .copyrights {
             color: var(--subtle-color);
             font-size: 0.75em;
-            margin-top: 1rem;
+            margin-block-start: var(--normal);
         }
 
         summary {
             cursor: pointer;
-            margin: 0.75em 0;
+            margin: var(--normal) 0;
         }
 
         #steam-app-news-content summary > h1 {
@@ -78,7 +78,7 @@
 
         #steam-app-news-content .steam-app-news-contents ul,
         #steam-app-news-content .steam-app-news-contents p {
-            margin: 0.25em 0;
+            margin: var(--x-small) 0;
         }
 
         #steam-app-news-content .steam-app-news-contents ul > br {
@@ -96,7 +96,7 @@
         }
 
         #steam-app-news-content .steam-app-news-contents {
-            margin: 1em 0;
+            margin: var(--normal) 0;
         }
 
         #steam-app-news-content pre {
@@ -125,15 +125,15 @@
 
         #screenshots-content .screenshot {
             width: 100%;
-            border-radius: 4px;
-            margin-bottom: 1em;
+            border-radius: var(--border-radius);
+            margin-block-end: var(--normal);
         }
 
         #videos-content video {
             width: 100%;
-            border-radius: 4px;
+            border-radius: var(--border-radius);
             object-fit: cover;
-            margin-bottom: 1em;
+            margin-block-end: var(--normal);
         }
 
         #videos-content details summary {
@@ -146,13 +146,13 @@
         }
 
         #videos-content .youtube-video-link img {
-            border-radius: 4px;
+            border-radius: var(--border-radius);
         }
 
         #videos-content div.missing-src {
             width: 100%;
             aspect-ratio: 3/2;
-            border-radius: 4px;
+            border-radius: var(--border-radius);
             background-color: var(--background-color);
         }
 
@@ -160,10 +160,10 @@
             content: '📺';
             font-size: 5em;
             position: absolute;
-            width: 1em;
-            height: 1em;
+            width: var(--normal);
+            height: var(--normal);
             top: 50%;
-            left: calc(50% - 0.5em);
+            left: calc(50% - var(--normal) / 2);
         }
 
 

@@ -19,7 +19,7 @@
                 --highlight-color: rgb(255, 255, 255);
                 --color: rgb(77, 77, 77);
                 --subtle-color: rgb(135, 135, 135);
-                --shadow-color: rgb(226,226,226);
+                --shadow-color: rgb(226, 226, 226);
             }
         }
 
@@ -42,11 +42,29 @@
                 --highlight-color: rgb(20, 20, 20);
                 --color: rgb(243, 243, 243);
                 --subtle-color: rgb(166, 166, 166);
-                --shadow-color: rgb(18,18,18);
+                --shadow-color: rgb(18, 18, 18);
             }
         }
 
         :root {
+            /* theme independent vars */
+            --xxx-small: calc(var(--xx-small) / 2); /* 1px */
+            --xx-small: calc(var(--x-small) / 2); /* 2px */
+            --x-small: calc(var(--small) / 2); /* 4px */
+            --small: calc(var(--normal) / 2); /* 8px */
+            --normal: 1rem; /* 16px */
+            --large: calc(2 * var(--normal)); /* 32px */
+
+            --box-shadow: 0 0 var(--x-small) var(--shadow-color);
+
+            --border-radius: var(--x-small);
+            --border-radius-large: calc(var(--x-small) + var(--small));
+
+            --search-width: calc(20 * var(--normal));
+            --product-details-width: calc(50 * var(--normal));
+            --small-screen-width: calc(40 * var(--normal));
+
+            /* defaults */
             background-color: var(--background-color);
             color: var(--color);
             font-family: -apple-system, sans-serif;
@@ -79,16 +97,17 @@
         details > summary::after {
             content: '\002b';
             font-weight: normal;
-            margin-left: 0.5em;
+            margin-inline-start: var(--small);
             color: var(--subtle-color);
             display: flex;
             align-items: center;
-            /*font-weight: bold;*/
         }
 
         details[open] > summary::after {
-            /*content: '\00d7';*/
             content: '\2212';
+        }
+
+        .shadow {
         }
     </style>
 {{end}}
