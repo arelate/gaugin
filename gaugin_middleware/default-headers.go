@@ -11,7 +11,7 @@ const (
 		//script-iframe.gohtml
 		"'sha256-vEdzDTUjeRFG21L/pW+qldt1k+gnTSWl4v2E16iqJPc=' " +
 		//script-missing-images.gohtml
-		"'sha256-EfM/IsUJk1qLTFuynEoB02zyNux0nvOi+WWSOgGLIPg=' " +
+		"'sha256-vAj29f8vCI+Qq0UyQqV6YB/RcBCG4wjrOhqmemg5uoU=' " +
 		"none; " +
 		"object-src 'none'; " +
 		"img-src 'self' data:; " +
