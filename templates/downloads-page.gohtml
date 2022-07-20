@@ -11,6 +11,9 @@
         {{if hasDownloads .OtherOS}}
             {{template "product-downloads" .OtherOS}}
         {{end}}
+        {{if hasDownloads .Extras}}
+            {{template "product-downloads" .Extras}}
+        {{end}}
     </div>
     </body>
     </html>

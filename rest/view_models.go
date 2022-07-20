@@ -131,6 +131,7 @@ type downloadsViewModel struct {
 	Context   string
 	CurrentOS *productDownloads
 	OtherOS   *productDownloads
+	Extras    *productDownloads
 }
 
 type newsItemViewModel struct {

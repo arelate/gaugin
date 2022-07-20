@@ -31,15 +31,11 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 
 func getCurrentOtherOSDownloads(id string, userAgent string) (*downloadsViewModel, error) {
 
-	dvm := &downloadsViewModel{
-		Context: "iframe",
-	}
-
 	//we specifically get /downloads and not /data&product-type=details because of Details
 	//format complexities, see gog_integration/details.go/GetGameDownloads comment
 	dls, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes)
 	if err != nil {
-		return dvm, err
+		return nil, err
 	}
 
 	var currentOS vangogh_local_data.OperatingSystem
@@ -51,27 +47,33 @@ func getCurrentOtherOSDownloads(id string, userAgent string) (*downloadsViewMode
 		currentOS = vangogh_local_data.Linux
 	}
 
-	otherOS := make(map[string]interface{}, 0)
+	dvm := &downloadsViewModel{
+		Context: "iframe",
+		CurrentOS: &productDownloads{
+			OperatingSystems: currentOS.String(),
+			CurrentOS:        true,
+			Installers:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
+			DLCs:             make(vangogh_local_data.DownloadsList, 0, len(dls)),
+		},
+		OtherOS: &productDownloads{
+			CurrentOS:  false,
+			Installers: make(vangogh_local_data.DownloadsList, 0, len(dls)),
+			DLCs:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
+		},
+		Extras: &productDownloads{
+			CurrentOS: false,
+			Extras:    make(vangogh_local_data.DownloadsList, 0, len(dls)),
+		},
+	}
 
-	dvm.CurrentOS = &productDownloads{
-		OperatingSystems: currentOS.String(),
-		CurrentOS:        true,
-		Installers:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		DLCs:             make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		Extras:           make(vangogh_local_data.DownloadsList, 0, len(dls)),
-	}
-	dvm.OtherOS = &productDownloads{
-		CurrentOS:  false,
-		Installers: make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		DLCs:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		Extras:     make(vangogh_local_data.DownloadsList, 0, len(dls)),
-	}
+	otherOS := make(map[string]interface{})
 
 	var osd *productDownloads
 	for _, dl := range dls {
-		if dl.OS == currentOS ||
-			dl.OS == vangogh_local_data.AnyOperatingSystem {
+		if dl.OS == currentOS {
 			osd = dvm.CurrentOS
+		} else if dl.OS == vangogh_local_data.AnyOperatingSystem {
+			osd = dvm.Extras
 		} else {
 			otherOS[dl.OS.String()] = nil
 			osd = dvm.OtherOS
@@ -90,6 +92,7 @@ func getCurrentOtherOSDownloads(id string, userAgent string) (*downloadsViewMode
 	}
 
 	dvm.OtherOS.OperatingSystems = strings.Join(maps.Keys(otherOS), ", ")
+	dvm.Extras.OperatingSystems = "Other"
 
 	return dvm, nil
 }
