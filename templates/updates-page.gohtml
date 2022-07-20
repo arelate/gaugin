@@ -1,6 +1,6 @@
 {{define "updates-page"}}
     <!doctype html>
-    <html lang="en">
+    <html lang="en" id="_top">
     {{template "head" .}}
     <body>
     {{template "svg-icons"}}
@@ -29,7 +29,7 @@
     <section class="updates-container">
         {{if $sectionProducts}}
             {{range .Sections}}
-                <h1 class="section-title" id="{{anchorId .}}">{{.}}</h1>
+                <h1 class="section-title" id="{{anchorId .}}">{{.}}<a class="back-to-top" href="#_top">⤴</a></h1>
                 {{$products := index $sectionProducts .}}
                 {{template "products-list" $products.Products}}
             {{end}}

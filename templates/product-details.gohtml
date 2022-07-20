@@ -292,37 +292,37 @@
         <section class="additional-properties">
             {{if .HasDescription}}
                 <details id="description" class="description" accesskey="d" tabindex="10">
-                    <summary>Description</summary>
+                    <summary>Description<a class="back-to-top" href="#_top">⤴</a></summary>
                     <iframe src="/description?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
             {{if .HasScreenshots}}
                 <details id="screenshots" class="screenshots" accesskey="s" tabindex="11">
-                    <summary>Screenshots</summary>
+                    <summary>Screenshots<a class="back-to-top" href="#_top">⤴</a></summary>
                     <iframe src="/screenshots?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
             {{if .HasVideos}}
                 <details id="videos" class="videos" accesskey="v" tabindex="12">
-                    <summary>Videos</summary>
+                    <summary>Videos<a class="back-to-top" href="#_top">⤴</a></summary>
                     <iframe src="/videos?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
             {{if .HasSteamAppNews}}
                 <details id="steam-app-news" class="steam-app-news" accesskey="n" tabindex="13">
-                    <summary>Steam app news</summary>
+                    <summary>Steam app news<a class="back-to-top" href="#_top">⤴</a></summary>
                     <iframe src="/steam-app-news?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
             {{if .HasChangelog}}
                 <details id="changelog" class="changelog" accesskey="c" tabindex="14">
-                    <summary>Changelog</summary>
+                    <summary>Changelog<a class="back-to-top" href="#_top">⤴</a></summary>
                     <iframe src="/changelog?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
             {{if .HasDownloads}}
                 <details id="downloads" class="downloads" accesskey="d" tabindex="15">
-                    <summary>Downloads</summary>
+                    <summary>Downloads<a class="back-to-top" href="#_top">⤴</a></summary>
                     <iframe src="/downloads?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
