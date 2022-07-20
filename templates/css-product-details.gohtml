@@ -69,33 +69,12 @@
             box-shadow: var(--box-shadow);
         }
 
-        .product-details .shortcuts,
         .product-details .text-properties {
             padding: 0 var(--large);
             display: flex;
             flex-direction: column;
             row-gap: var(--small);
             margin: var(--large) 0;
-        }
-
-        .product-details .shortcuts {
-            padding: 0 var(--normal);
-        }
-
-        .product-details .shortcuts ul {
-            font-size: 0.9em;
-            list-style: none;
-            margin: 0;
-            display: flex;
-            column-gap: var(--normal);
-            row-gap: var(--small);
-            flex-direction: row;
-            flex-wrap: wrap;
-            background-color: var(--highlight-color);
-            padding: var(--normal);
-            border-radius: var(--border-radius-large);
-            justify-content: center;
-            box-shadow: var(--box-shadow);
         }
 
         .product-details .text-properties {
@@ -106,10 +85,6 @@
         .product-details .text-properties svg.icon {
             width: var(--normal);
             height: var(--normal);
-        }
-
-        .product-details .shortcuts ul {
-
         }
 
         .product-details .text-properties .text-property ul {
@@ -142,11 +117,6 @@
             flex-direction: row;
             flex-wrap: wrap;
             column-gap: var(--normal);
-        }
-
-        .product-details .shortcuts a,
-        .product-details .text-properties .text-property .property-value .tag a {
-            color: inherit;
         }
 
         .product-details .horizontal svg.icon {
@@ -203,11 +173,14 @@
             /*font-size: 0.8em;*/
         }
 
-        .product-details .shortcuts a,
         .product-details .text-properties .text-property .property-value a {
             color: var(--color);
             text-decoration: none;
             font-weight: bold;
+        }
+
+        .product-details .text-properties .text-property .property-value .tag a {
+            color: inherit;
         }
 
         .product-details .text-properties .text-property .property-value .actionable-property a {

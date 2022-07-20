@@ -38,6 +38,7 @@ func funcMap() template.FuncMap {
 		"canAddToWishlist":      canAddToWishlist,
 		"canRemoveFromWishlist": canRemoveFromWishlist,
 		"commaJoin":             commaJoin,
+		"anchorId":              anchorId,
 	}
 }
 
@@ -230,4 +231,8 @@ func canRemoveFromWishlist(pvm *productViewModel) bool {
 
 func commaJoin(s []string) string {
 	return strings.Join(s, ",")
+}
+
+func anchorId(t string) string {
+	return strings.Replace(strings.ToLower(t), " ", "-", -1)
 }

@@ -1,33 +1,41 @@
-Updates shortcuts similarly to product detail sections:
-	- check if the section exists
+Track sync start/complete in vangogh:
+	- last-sync-timeline redux
+	- set start, complete, error timestamps
+	- read back to determine successful sync completion
+	- transition Updates from 'since' to last-sync-timeline for cacheability
 
-Changelog/Description/Videos/Screenshots/Steam App News enhancements:
-	- Check any remaining Steam tags 
-	- Add new section "News" to show time sorted Steam app updates
+Cacheability improvements:
+	- see Updates transition above
+	- implement last-modified support for /data, /downloads endpoints
+	- validate all pages go through cache (except to /tags endpoints)
 
-Implement source ports links:
-	- New property source-port-links
-	- New cmd to add, remove to products
-	- Display in gaugin
-	- https://en.wikipedia.org/wiki/Source_port
-
-Sync view:
+Sync action:
 	- initiate sync
-	- get current sync status
-	- check past sync results (summaries?)
+	- get current sync status (one liner?)
 	- basic auth protection, same password as downloads
 
-Blazing fast gaugin:
-	- Implement new methods to get last modified for redux asset and data
-	- Put pages into cache, on requests serve that page and check if the data has been modified, invalidate the cache if so
-	- Implement paginator for Products data, use it to break down into chunks of 100s
-	- With that work, every page should have FCP < 30ms
+Steam App News enhancements:
+	- Check any remaining Steam tags:
+		- olist
+
+News refactor:
+	- Add new section "News" to show time sorted Steam app updates
+	- since last sync completion? (see below)
 
 More icons, less text:
 	- genres
 	- features
+	- product details sections
 
 Archive:
+	Updates shortcuts similarly to product detail sections: @done(2022-07-20)
+		- check if the section exists @done(2022-07-20)
+		- template func to generate id based on update section @done(2022-07-20)
+	Blazing fast gaugin: @done @cut
+		- Implement new methods to get last modified for redux asset and data @done @cut
+		- Put pages into cache, on requests serve that page and check if the data has been modified, invalidate the cache if so @done @cut
+		- Implement paginator for Products data, use it to break down into chunks of 100s @done @cut
+		- With that work, every page should have FCP < 30ms @done @cut
 	- Convert Screenshots, Videos, Downloads to iframes @done(2022-07-07) @project(Changelog/Description/Videos/Screenshots/Steam App News enhancements)
 	Implement add to wishlist: @done(2022-07-10)
 		- Add to wishlist: @done(2022-07-10)

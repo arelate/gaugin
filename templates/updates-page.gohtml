@@ -16,11 +16,20 @@
             <a href="/updates/this_week" accesskey="w">this week</a>
         </li>
     </ul>
+    {{$sectionProducts := .SectionProducts}}
+    {{if $sectionProducts}}
+        <section class="shortcuts">
+            <ul class="property-value flexible">
+                {{range .Sections}}
+                    <li><a href="#{{anchorId .}}">{{.}}</a></li>
+                {{end}}
+            </ul>
+        </section>
+    {{end}}
     <section class="updates-container">
-        {{$sectionProducts := .SectionProducts}}
         {{if $sectionProducts}}
             {{range .Sections}}
-                <h1 class="section-title">{{.}}</h1>
+                <h1 class="section-title" id="{{anchorId .}}">{{.}}</h1>
                 {{$products := index $sectionProducts .}}
                 {{template "products-list" $products.Products}}
             {{end}}
