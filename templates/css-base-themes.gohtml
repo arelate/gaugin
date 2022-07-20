@@ -65,6 +65,12 @@
             --product-card-width: calc(18.75 * var(--normal)); /* 300px */
             --small-screen-width: calc(40 * var(--normal));
 
+            --fs-xxx-larger: 250%;
+            --fs-larger: 125%;
+            --fs-smaller: 90%;
+            --fs-x-smaller: 80%;
+            --fs-xx-smaller: 50%;
+
             /* defaults */
             background-color: var(--background-color);
             color: var(--color);
@@ -118,7 +124,7 @@
         }
 
         .shortcuts ul {
-            font-size: 0.9em;
+            font-size: var(--fs-x-smaller);
             list-style: none;
             margin: 0;
             display: flex;

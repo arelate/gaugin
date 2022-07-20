@@ -44,7 +44,7 @@
         }
 
         .product-details > .title {
-            font-size: 2.5rem;
+            font-size: var(--fs-xxx-larger);
             padding: var(--small) var(--normal);
             display: flex;
             justify-content: center;
@@ -52,7 +52,7 @@
             column-gap: var(--small);
             margin: var(--normal);
             font-weight: bold;
-            text-shadow: 0 0 5px var(--shadow-color);
+            text-shadow: var(--box-shadow);
         }
 
         .product-details .labels {
@@ -71,15 +71,12 @@
         }
 
         .product-details .text-properties {
+            font-size: var(--fs-smaller);
             padding: 0 var(--large);
             display: flex;
             flex-direction: column;
             row-gap: var(--small);
             margin: var(--large) 0;
-        }
-
-        .product-details .text-properties {
-            font-size: 0.9rem;
             margin-block-end: var(--large);
         }
 
@@ -148,7 +145,7 @@
         }
 
         .product-details .text-properties .text-property h2 {
-            font-size: 1em;
+            font-size: inherit;
             margin: 0;
         }
 
@@ -171,7 +168,6 @@
         .product-details .text-properties .text-property .property-title {
             font-weight: normal;
             color: var(--subtle-color);
-            /*font-size: 0.8em;*/
         }
 
         .product-details .text-properties .text-property .property-value a {
@@ -229,7 +225,7 @@
             margin: var(--large) var(--normal);
             font-weight: bold;
             cursor: pointer;
-            font-size: 1.2em;
+            font-size: var(--fs-larger);
             position: relative;
             box-shadow: var(--box-shadow);
         }

@@ -48,13 +48,13 @@
 
         img,
         video {
-            max-width: 100%;
+            width: 100%;
         }
 
         .additional-requirements,
         .copyrights {
             color: var(--subtle-color);
-            font-size: 0.75em;
+            font-size: var(--fs-x-smaller);
             margin-block-start: var(--normal);
         }
 
@@ -66,13 +66,19 @@
         #steam-app-news-content summary > h1 {
             display: inline;
             padding: 0;
-            font-size: 1em;
+            font-size: var(--normal);
         }
 
         #steam-app-news-content .steam-app-news-contents h1,
         #steam-app-news-content .steam-app-news-contents h2,
-        #steam-app-news-content .steam-app-news-contents h3 {
-            font-size: 1em;
+        #steam-app-news-content .steam-app-news-contents h3,
+        #steam-app-news-content .steam-app-news-contents h4,
+        #steam-app-news-content .steam-app-news-contents h5,
+        #steam-app-news-content .steam-app-news-contents h6,
+        #steam-app-news-content .steam-app-news-contents h7,
+        #steam-app-news-content .steam-app-news-contents h8,
+        #steam-app-news-content .steam-app-news-contents h9 {
+            font-size: var(--normal);
             margin: 0;
         }
 
@@ -88,7 +94,7 @@
         #steam-app-news-content .steam-app-news-metadata {
             display: flex;
             flex-direction: column;
-            font-size: 0.75em;
+            font-size: var(--fs-x-smaller);
         }
 
         #steam-app-news-content .steam-app-news-metadata .metadata-value {
@@ -142,7 +148,7 @@
         }
 
         #videos-content details summary h1 {
-            font-size: 1em;
+            font-size: var(--normal);
         }
 
         #videos-content .youtube-video-link img {
