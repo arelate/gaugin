@@ -48,12 +48,12 @@
 
         :root {
             /* theme independent vars */
-            --xxx-small: calc(var(--xx-small) / 2); /* 1px */
-            --xx-small: calc(var(--x-small) / 2); /* 2px */
-            --x-small: calc(var(--small) / 2); /* 4px */
-            --small: calc(var(--normal) / 2); /* 8px */
+            --xxx-small: calc(var(--xx-small) / 2); /* 0.0625rem == 1px */
+            --xx-small: calc(var(--x-small) / 2); /* 0.125rem == 2px */
+            --x-small: calc(var(--small) / 2); /* 0.25rem == 4px */
+            --small: calc(var(--normal) / 2); /* 0.5rem == 8px */
             --normal: 1rem; /* 16px */
-            --large: calc(2 * var(--normal)); /* 32px */
+            --large: calc(2 * var(--normal)); /* 2rem == 32px */
 
             --box-shadow: 0 0 var(--x-small) var(--shadow-color);
 
@@ -62,6 +62,7 @@
 
             --search-width: calc(20 * var(--normal));
             --product-details-width: calc(50 * var(--normal));
+            --product-card-width: calc(18.75 * var(--normal)); /* 300px */
             --small-screen-width: calc(40 * var(--normal));
 
             /* defaults */
