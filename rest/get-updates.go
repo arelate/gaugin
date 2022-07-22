@@ -48,7 +48,10 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 
 	updates := make(map[string][]string)
 	for section, rdx := range updRdx {
-		updates[section] = rdx[vangogh_local_data.LastSyncUpdatesProperty]
+		ids := rdx[vangogh_local_data.LastSyncUpdatesProperty]
+		if len(ids) > 0 {
+			updates[section] = ids
+		}
 	}
 
 	keys := make(map[string]bool)
