@@ -19,6 +19,7 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 	idRedux, err := getRedux(
 		http.DefaultClient,
 		id,
+		false,
 		vangogh_local_data.VideoIdProperty)
 
 	if err != nil {

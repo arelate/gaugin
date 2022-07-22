@@ -18,6 +18,7 @@ func GetScreenshots(w http.ResponseWriter, r *http.Request) {
 	idRedux, err := getRedux(
 		http.DefaultClient,
 		id,
+		false,
 		vangogh_local_data.ScreenshotsProperty)
 
 	if err != nil {

@@ -26,28 +26,32 @@ func SetVangoghConnection(scheme, address string, port int) {
 }
 
 const (
+	dataEndpoint      = "/data"
 	digestEndpoint    = "/digest"
 	downloadsEndpoint = "/downloads"
-	reduxEndpoint     = "/redux"
-	searchEndpoint    = "/search"
-	updatesEndpoint   = "/updates"
-	dataEndpoint      = "/data"
 	hasDataEndpoint   = "/has_data"
 	hasReduxEndpoint  = "/has_redux"
-	wishlistEndpoint  = "/wishlist"
-	tagEndpoint       = "/tag"
 	localTagEndpoint  = "/local_tag"
+	reduxEndpoint     = "/redux"
+	searchEndpoint    = "/search"
+	tagEndpoint       = "/tag"
+	wishlistEndpoint  = "/wishlist"
 )
 
-func reduxUrl(id string, properties ...string) *url.URL {
+func reduxUrl(id string, all bool, properties ...string) *url.URL {
 	u := &url.URL{
 		Scheme: vangoghScheme,
 		Host:   vangoghHost(),
 		Path:   reduxEndpoint,
 	}
 	q := u.Query()
-	q.Set(vangogh_local_data.IdProperty, id)
+	if id != "" {
+		q.Set(vangogh_local_data.IdProperty, id)
+	}
 	q.Set("property", strings.Join(properties, ","))
+	if all {
+		q.Set("all", vangogh_local_data.TrueValue)
+	}
 	u.RawQuery = q.Encode()
 
 	return u
@@ -81,22 +85,6 @@ func downloadsUrl(
 	}
 	q.Set("operating-system", strings.Join(osStr, ","))
 	q.Set("language-code", strings.Join(languageCodes, ","))
-	u.RawQuery = q.Encode()
-
-	return u
-}
-
-func updatesUrl(
-	mt gog_integration.Media,
-	since int) *url.URL {
-	u := &url.URL{
-		Scheme: vangoghScheme,
-		Host:   vangoghHost(),
-		Path:   updatesEndpoint,
-	}
-	q := u.Query()
-	q.Set("media", mt.String())
-	q.Set("since-hours-ago", strconv.Itoa(since))
 	u.RawQuery = q.Encode()
 
 	return u

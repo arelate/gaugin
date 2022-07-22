@@ -48,11 +48,6 @@ func HandleFuncs() {
 		"/tags/edit":       Auth(GetOnly(Log(http.HandlerFunc(GetTagsEdit)))),
 		"/tags/apply":      Auth(PostOnly(Log(http.HandlerFunc(PostTagsApply)))),
 
-		// updates redirects
-		"/updates/recent":    Redirect("/updates?since=4", http.StatusPermanentRedirect),
-		"/updates/today":     Redirect("/updates?since=24", http.StatusPermanentRedirect),
-		"/updates/this_week": Redirect("/updates?since=120", http.StatusPermanentRedirect),
-
 		// products redirects
 		"/products/owned":    Redirect(predefinedSearchPaths["owned"], http.StatusPermanentRedirect),
 		"/products/wishlist": Redirect(predefinedSearchPaths["wishlist"], http.StatusPermanentRedirect),

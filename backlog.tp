@@ -1,11 +1,5 @@
-Track sync start/complete in vangogh:
-	- last-sync-timeline redux
-	- set start, complete, error timestamps
-	- read back to determine successful sync completion
-	- transition Updates from 'since' to last-sync-timeline for cacheability
 
 Cacheability improvements:
-	- see Updates transition above
 	- implement last-modified support for /data, /downloads endpoints
 	- validate all pages go through cache (except to /tags endpoints)
 
@@ -28,6 +22,12 @@ More icons, less text:
 	- product details sections
 
 Archive:
+	Track sync start/complete in vangogh: @done(2022-07-22)
+		- last-sync-timeline redux @done(2022-07-22)
+		- set start, complete timestamps @done(2022-07-22)
+		- read back to determine successful sync completion @done(2022-07-22)
+		- transition Updates from 'since' to last-sync-timeline for cacheability @done(2022-07-22)
+	- see Updates transition above @done(2022-07-22) @project(Cacheability improvements)
 	Updates shortcuts similarly to product detail sections: @done(2022-07-20)
 		- check if the section exists @done(2022-07-20)
 		- template func to generate id based on update section @done(2022-07-20)

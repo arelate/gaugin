@@ -208,7 +208,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
-		rdx, err := getRedux(dc, strings.Join(keys, ","), listReduxProperties...)
+		rdx, err := getRedux(dc, strings.Join(keys, ","), false, listReduxProperties...)
 
 		if err != nil {
 			http.Error(w, nod.ErrorStr("error getting all_redux"), http.StatusInternalServerError)

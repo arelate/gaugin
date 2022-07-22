@@ -120,7 +120,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get(vangogh_local_data.IdProperty)
 
-	idRedux, err := getRedux(http.DefaultClient, id, productProperties...)
+	idRedux, err := getRedux(http.DefaultClient, id, false, productProperties...)
 	if err != nil {
 		http.Error(w, nod.ErrorStr("error getting redux"), http.StatusInternalServerError)
 		return

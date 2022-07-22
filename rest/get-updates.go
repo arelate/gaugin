@@ -2,12 +2,10 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
-	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
 	"golang.org/x/exp/maps"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
@@ -35,21 +33,22 @@ var listReduxProperties = []string{
 
 func GetUpdates(w http.ResponseWriter, r *http.Request) {
 
-	// GET /updates?since=hours-ago
+	// GET /updates
 
-	sinceStr := vangogh_local_data.ValueFromUrl(r.URL, "since")
-	since, err := strconv.Atoi(sinceStr)
-	if err != nil {
-		since = 0
-	}
-	if since <= 0 {
-		since = defaultSince
-	}
+	updRdx, err := getRedux(
+		http.DefaultClient,
+		"",
+		true,
+		vangogh_local_data.LastSyncUpdatesProperty)
 
-	updates, err := getUpdates(http.DefaultClient, gog_integration.Game, since)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusMethodNotAllowed)
 		return
+	}
+
+	updates := make(map[string][]string)
+	for section, rdx := range updRdx {
+		updates[section] = rdx[vangogh_local_data.LastSyncUpdatesProperty]
 	}
 
 	keys := make(map[string]bool)
@@ -62,14 +61,15 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 	rdx, err := getRedux(
 		http.DefaultClient,
 		strings.Join(maps.Keys(keys), ","),
+		false,
 		listReduxProperties...)
 
 	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting all_redux"), http.StatusInternalServerError)
+		http.Error(w, nod.ErrorStr("error getting redux"), http.StatusInternalServerError)
 		return
 	}
 
-	uvm := updatesViewModelFromRedux(updates, since, rdx)
+	uvm := updatesViewModelFromRedux(updates, rdx)
 
 	gaugin_middleware.DefaultHeaders(w)
 

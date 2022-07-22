@@ -18,6 +18,7 @@ func GetTagsEdit(w http.ResponseWriter, r *http.Request) {
 	idRedux, err := getRedux(
 		http.DefaultClient,
 		id,
+		false,
 		vangogh_local_data.TitleProperty,
 		vangogh_local_data.OwnedProperty,
 		vangogh_local_data.TagIdProperty,

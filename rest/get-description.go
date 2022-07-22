@@ -17,6 +17,7 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 	idRedux, err := getRedux(
 		http.DefaultClient,
 		id,
+		false,
 		vangogh_local_data.DescriptionOverviewProperty,
 		vangogh_local_data.DescriptionFeaturesProperty,
 		vangogh_local_data.AdditionalRequirementsProperty,

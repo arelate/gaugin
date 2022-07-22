@@ -29,24 +29,6 @@ var (
 	mtx             = sync.Mutex{}
 )
 
-func getUpdates(
-	client *http.Client,
-	mt gog_integration.Media,
-	since int) (map[string][]string, error) {
-
-	uu := updatesUrl(mt, since)
-
-	resp, err := client.Get(uu.String())
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	var updates map[string][]string
-	err = gob.NewDecoder(resp.Body).Decode(&updates)
-	return updates, err
-}
-
 func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T) (T, error) {
 
 	var data T
@@ -109,8 +91,12 @@ func getHasRedux(
 func getRedux(
 	client *http.Client,
 	id string,
+	all bool,
 	properties ...string) (map[string]map[string][]string, error) {
-	return getThroughCache(client, reduxUrl(id, properties...), reduxCache)
+	if all && len(properties) > 1 {
+		return nil, fmt.Errorf("cannot use all with more than 1 property")
+	}
+	return getThroughCache(client, reduxUrl(id, all, properties...), reduxCache)
 }
 
 func getSearch(client *http.Client, q url.Values) ([]string, error) {

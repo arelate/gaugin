@@ -5,17 +5,6 @@
     <body>
     {{template "svg-icons"}}
     {{template "nav" .Context}}
-    <ul class="scope">
-        <li class="{{if eq .Since 4}}{{`current`}}{{end}}">
-            <a href="/updates/recent" accesskey="r">recent</a>
-        </li>
-        <li class="{{if eq .Since 24}}{{`current`}}{{end}}">
-            <a href="/updates/today" accesskey="t">today</a>
-        </li>
-        <li class="{{if eq .Since 120}}{{`current`}}{{end}}">
-            <a href="/updates/this_week" accesskey="w">this week</a>
-        </li>
-    </ul>
     {{$sectionProducts := .SectionProducts}}
     {{if $sectionProducts}}
         <section class="shortcuts">
