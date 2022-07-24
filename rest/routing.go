@@ -56,7 +56,7 @@ func HandleFuncs() {
 		"/products":          Redirect("/search", http.StatusPermanentRedirect),
 
 		// start at the updates
-		"/": Redirect("/updates", http.StatusPermanentRedirect),
+		"/": Redirect("/products/owned", http.StatusPermanentRedirect),
 	}
 
 	for p, h := range patternHandlers {
