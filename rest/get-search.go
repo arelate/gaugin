@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+const limit = 100
+
 var gauginSearchProperties = []string{
 	vangogh_local_data.TextProperty,
 	vangogh_local_data.TitleProperty,
@@ -141,6 +143,10 @@ type searchProductsViewModel struct {
 	Digests          map[string][]string
 	DigestsTitles    map[string]string
 	Products         []listProductViewModel
+	Limit            int
+	Total            int
+	Constrained      bool
+	Path             string
 }
 
 func GetSearch(w http.ResponseWriter, r *http.Request) {
@@ -163,6 +169,9 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		SearchProperties: gauginSearchProperties,
 		Query:            make(map[string]string, len(q)),
 		DigestsTitles:    digestTitles,
+		Limit:            limit,
+		Constrained:      !vangogh_local_data.FlagFromUrl(r.URL, "unconstrained"),
+		Path:             r.URL.Path + "?" + r.URL.RawQuery,
 	}
 
 	shortQuery := false
@@ -194,6 +203,11 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		spvm.Total = len(keys)
+		if spvm.Total > spvm.Limit && spvm.Constrained {
+			keys = keys[:100]
+		}
+
 		su := searchUrl(q)
 
 		lmu := time.Unix(urlLastModified[su.String()], 0).UTC()
@@ -217,6 +231,11 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 		lvm := listViewModelFromRedux(keys, rdx)
 		spvm.Products = lvm.Products
+	}
+
+	// checking outside search action to account for empty query case
+	if spvm.Total <= spvm.Limit {
+		spvm.Constrained = false
 	}
 
 	digests, err := getDigests(dc, gauginDigestibleProperties...)

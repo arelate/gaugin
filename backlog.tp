@@ -1,3 +1,8 @@
+Polish:
+	- summarize sync results earlier - before images, videos, files download
+	- handle dehydrated-image reduction missing files error
+		- check where those are coming from and why
+
 Sync action:
 	- initiate sync
 	- get current sync status (one liner?)

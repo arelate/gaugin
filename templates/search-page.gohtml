@@ -24,6 +24,11 @@
         {{template "search-query" .}}
     {{end}}
     {{template "products-list" .Products}}
+    {{if .Constrained}}
+        <a class="show-all" href="{{.Path}}&unconstrained">Show All {{.Total}} products</a>
+    {{else}}
+        <div class="footer-spacer"></div>
+    {{end}}
     {{template "footer"}}
     </body>
     </html>
