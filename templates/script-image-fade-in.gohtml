@@ -1,0 +1,10 @@
+{{define "script-image-fade-in"}}
+    <script id="script-image-fade-in">
+    document.addEventListener("DOMContentLoaded", () => {
+            const image = document.querySelector(".cover-image img");
+            image.addEventListener("load", () => {
+                image.classList.remove("loading");
+            });
+        });
+    </script>
+{{end}}

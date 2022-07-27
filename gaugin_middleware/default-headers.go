@@ -12,6 +12,8 @@ const (
 		"'sha256-vEdzDTUjeRFG21L/pW+qldt1k+gnTSWl4v2E16iqJPc=' " +
 		//script-missing-images.gohtml
 		"'sha256-vAj29f8vCI+Qq0UyQqV6YB/RcBCG4wjrOhqmemg5uoU=' " +
+		//script-image-fade-in.gothml
+		"'sha256-ljQnV+wpjH+wcmEorbWN8epiQU6LNlSQx/6UioEAdN4=' " +
 		"none; " +
 		"object-src 'none'; " +
 		"img-src 'self' data:; " +

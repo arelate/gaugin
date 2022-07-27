@@ -2,9 +2,8 @@
     {{template "svg-icons"}}
     {{if .Image }}
         <div class="cover-image">
-            <a href="/image?id={{.Image}}">
-                <img src="/image?id={{.Image}}"
-                     {{if .DehydratedImage}}style="background-image:url('{{.DehydratedImage}}')"{{end}} alt=""/>
+            <a href="/image?id={{.Image}}" {{if .DehydratedImage}}style="background-image:url('{{.DehydratedImage}}')"{{end}}>
+                <img class="loading" src="/image?id={{.Image}}" alt=""/>
             </a>
         </div>
     {{end}}
