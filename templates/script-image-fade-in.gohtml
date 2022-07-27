@@ -2,9 +2,14 @@
     <script id="script-image-fade-in">
     document.addEventListener("DOMContentLoaded", () => {
             const image = document.querySelector(".cover-image img");
-            image.addEventListener("load", () => {
+            if (image.complete) {
                 image.classList.remove("loading");
-            });
+            } else {
+                image.addEventListener("load", () => {
+                    image.classList.remove("loading");
+                });
+            }
         });
+
     </script>
 {{end}}

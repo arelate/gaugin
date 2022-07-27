@@ -13,7 +13,7 @@ const (
 		//script-missing-images.gohtml
 		"'sha256-vAj29f8vCI+Qq0UyQqV6YB/RcBCG4wjrOhqmemg5uoU=' " +
 		//script-image-fade-in.gothml
-		"'sha256-oR0rNnPoSq4F9ftV07ZpuM1mkn1L06mv/GxQ8VIKoxw=' " +
+		"'sha256-0o6kCVC1+8tieHTMZdKurbNC2fDP/bQEO5AAmFyRqBo=' " +
 		"none; " +
 		"object-src 'none'; " +
 		"img-src 'self' data:; " +
