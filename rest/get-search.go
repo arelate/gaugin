@@ -205,7 +205,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 		spvm.Total = len(keys)
 		if spvm.Total > spvm.Limit && spvm.Constrained {
-			keys = keys[:100]
+			keys = keys[:limit]
 		}
 
 		su := searchUrl(q)
