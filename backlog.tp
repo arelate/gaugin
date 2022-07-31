@@ -1,8 +1,3 @@
-Polish:
-	- summarize sync results earlier - before images, videos, files download
-	- handle dehydrated-image reduction missing files error
-		- check where those are coming from and why
-
 Sync action:
 	- initiate sync
 	- get current sync status (one liner?)
@@ -22,6 +17,16 @@ More icons, less text:
 	- product details sections
 
 Archive:
+	Don't repeat errors: @done(2022-07-30)
+		- investigate and store dehydration errors @done(2022-07-30)
+		- investigate and store video thumbnail errors @done(2022-07-30)
+	Fit & finish: @done(2022-07-30)
+		- dehydrate by id to renew stale @done(2022-07-30)
+		- figure out if there is a quick way to find updated images @done(2022-07-30)
+	Polish: @done(2022-07-29)
+		- summarize sync results earlier - before images, videos, files download @done(2022-07-29)
+		- handle dehydrated-image reduction missing files error @done(2022-07-29)
+			- check where those are coming from and why @done(2022-07-29)
 	Cacheability improvements: @done(2022-07-22)
 		- implement last-modified support for /data, /downloads endpoints @done(2022-07-22)
 		- validate all pages go through cache (except to /tags endpoints) @done(2022-07-22)

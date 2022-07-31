@@ -14,7 +14,7 @@ const (
 		"'sha256-vAj29f8vCI+Qq0UyQqV6YB/RcBCG4wjrOhqmemg5uoU=' " +
 		//script-image-fade-in.gothml
 		"'sha256-0o6kCVC1+8tieHTMZdKurbNC2fDP/bQEO5AAmFyRqBo=' " +
-		"none; " +
+		"'unsafe-inline'; " +
 		"object-src 'none'; " +
 		"img-src 'self' data:; " +
 		"style-src 'unsafe-inline';"
