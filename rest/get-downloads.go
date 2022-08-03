@@ -9,6 +9,13 @@ import (
 	"strings"
 )
 
+var downloadTypeTitles = map[vangogh_local_data.DownloadType]string{
+	vangogh_local_data.Installer: "Setup",
+	vangogh_local_data.DLC:       "DLC",
+	vangogh_local_data.Extra:     "Extra",
+	vangogh_local_data.Movie:     "Movie",
+}
+
 func GetDownloads(w http.ResponseWriter, r *http.Request) {
 
 	// GET /downloads?id

@@ -34,6 +34,7 @@
            aria-label="download {{dlTitle .}}">
             <div class="title">{{dlTitle .}}</div>
             <ul>
+                <li class="type label {{.Type}}">{{downloadTypeTitle .Type}}</li>
                 {{$os := toLower .OS.String}}
                 {{if ne $os "any-operating-system"}}
                     {{template "svg-icon" $os}}
@@ -41,16 +42,14 @@
                 {{if .EstimatedBytes}}
                     <li class="size">{{formatBytes .EstimatedBytes}}</li>
                 {{end}}
-            </ul>
-            <ul class="additional-details">
-                <li class="type label {{.Type}}">{{.Type}}</li>
                 {{if .LanguageCode}}
                     <li><span class="highlight" title="{{.LanguageCode}}">{{languageCodeFlag .LanguageCode}}</span></li>
                 {{end}}
+            </ul>
+            <ul class="additional-details">
                 {{if .Version}}
                     <li>Ver: <span class="highlight">{{.Version}}</span></li>
                 {{end}}
-
             </ul>
         </a>
     {{end}}

@@ -39,6 +39,7 @@ func funcMap() template.FuncMap {
 		"canRemoveFromWishlist": canRemoveFromWishlist,
 		"commaJoin":             commaJoin,
 		"anchorId":              anchorId,
+		"downloadTypeTitle":     downloadTypeTitle,
 	}
 }
 
@@ -235,4 +236,8 @@ func commaJoin(s []string) string {
 
 func anchorId(t string) string {
 	return strings.Replace(strings.ToLower(t), " ", "-", -1)
+}
+
+func downloadTypeTitle(dt vangogh_local_data.DownloadType) string {
+	return downloadTypeTitles[dt]
 }
