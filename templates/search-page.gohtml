@@ -7,16 +7,16 @@
     {{template "nav" .Context}}
     <ul class="scope">
         <li class="{{if eq .Scope "owned"}}{{`current`}}{{end}}">
-            <a href="/products/owned" accesskey="o">owned</a>
+            <a href="/products/owned" accesskey="o">Owned</a>
         </li>
         <li class="{{if eq .Scope "wishlist"}}{{`current`}}{{end}}" rel="prefetch prerender">
-            <a href="/products/wishlist" accesskey="w">wishlist</a>
+            <a href="/products/wishlist" accesskey="w">Wishlist</a>
         </li>
         <li class="{{if eq .Scope "sale"}}{{`current`}}{{end}}" rel="prefetch prerender">
-            <a href="/products/sale" accesskey="s">sale</a>
+            <a href="/products/sale" accesskey="s">Sale</a>
         </li>
         <li class="{{if eq .Scope "all"}}{{`current`}}{{end}}">
-            <a href="/products/all" accesskey="a">all</a>
+            <a href="/products/all" accesskey="a">All</a>
         </li>
     </ul>
     {{template "search-properties" .}}

@@ -3,7 +3,7 @@
         .scope {
             display: flex;
             justify-content: center;
-            column-gap: var(--normal);
+            column-gap: var(--small);
             list-style: none;
             padding: 0;
             margin-block-end: var(--normal);
@@ -12,14 +12,17 @@
         .scope a {
             color: var(--subtle-color);
             font-size: var(--fs-x-smaller);
-            padding: var(--small);
+            padding: var(--small) var(--normal);
             text-decoration: none;
-            border-radius: var(--border-radius);
+            border: 2px solid var(--background-color);
+            font-weight: bold;
         }
 
         .scope .current a {
-            background-color: var(--subtle-color);
-            color: var(--highlight-color);
+            border-radius: var(--border-radius);
+            background-color: var(--highlight-color);
+            color: var(--color);
+            border-color: var(--subtle-color);
             box-shadow: var(--box-shadow);
         }
     </style>
