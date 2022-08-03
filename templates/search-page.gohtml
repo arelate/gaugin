@@ -6,16 +6,16 @@
     {{template "svg-icons"}}
     {{template "nav" .Context}}
     <ul class="scope">
-        <li class="{{if eq .Scope "owned"}}{{`current`}}{{end}}">
+        <li class="{{if eq .Scope "owned"}}{{`current`}}{{end}} {{if .Constrained}}{{else}}unconstrained{{end}}">
             <a href="/products/owned" accesskey="o">Owned</a>
         </li>
-        <li class="{{if eq .Scope "wishlist"}}{{`current`}}{{end}}" rel="prefetch prerender">
+        <li class="{{if eq .Scope "wishlist"}}{{`current`}}{{end}}  {{if .Constrained}}{{else}}unconstrained{{end}}">
             <a href="/products/wishlist" accesskey="w">Wishlist</a>
         </li>
-        <li class="{{if eq .Scope "sale"}}{{`current`}}{{end}}" rel="prefetch prerender">
+        <li class="{{if eq .Scope "sale"}}{{`current`}}{{end}} {{if .Constrained}}{{else}}unconstrained{{end}}">
             <a href="/products/sale" accesskey="s">Sale</a>
         </li>
-        <li class="{{if eq .Scope "all"}}{{`current`}}{{end}}">
+        <li class="{{if eq .Scope "all"}}{{`current`}}{{end}} {{if .Constrained}}{{else}}unconstrained{{end}}">
             <a href="/products/all" accesskey="a">All</a>
         </li>
     </ul>
@@ -24,11 +24,11 @@
         {{template "search-query" .}}
     {{end}}
     {{if .Constrained}}
-        <a class="show-all" href="{{.Path}}&unconstrained">Show All {{.Total}} products</a>
+        <a class="show-all" href="/products/{{.Scope}}/unconstrained">Show All {{.Total}} products</a>
     {{end}}
     {{template "products-list" .Products}}
     {{if .Constrained}}
-        <a class="show-all" href="{{.Path}}&unconstrained">Show All {{.Total}} products</a>
+        <a class="show-all" href="/products/{{.Scope}}/unconstrained">Show All {{.Total}} products</a>
     {{end}}
     <div class="footer-spacer"></div>
     {{template "footer"}}

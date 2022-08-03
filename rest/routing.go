@@ -15,7 +15,7 @@ var (
 	Redirect = http.RedirectHandler
 )
 
-var predefinedSearchPaths = map[string]string{
+var searchRoutes = map[string]string{
 	"owned":    "/search?types=account-products&sort=gog-order-date&desc=true",
 	"wishlist": "/search?wishlisted=true&sort=gog-release-date&desc=true",
 	"sale":     "/search?types=store-products&owned=false&is-discounted=true&sort=discount-percentage&desc=true",
@@ -49,17 +49,22 @@ func HandleFuncs() {
 		"/tags/apply":      Auth(PostOnly(Log(http.HandlerFunc(PostTagsApply)))),
 
 		// products redirects
-		"/products/owned":    Redirect(predefinedSearchPaths["owned"], http.StatusPermanentRedirect),
-		"/products/wishlist": Redirect(predefinedSearchPaths["wishlist"], http.StatusPermanentRedirect),
-		"/products/sale":     Redirect(predefinedSearchPaths["sale"], http.StatusPermanentRedirect),
-		"/products/all":      Redirect(predefinedSearchPaths["all"], http.StatusPermanentRedirect),
-		"/products":          Redirect("/search", http.StatusPermanentRedirect),
+		"/products": Redirect("/search", http.StatusPermanentRedirect),
 
 		// start at the updates
 		"/": Redirect("/products/owned", http.StatusPermanentRedirect),
 	}
 
+	for route, path := range searchRoutes {
+		patternHandlers["/products/"+route+"/unconstrained"] = Redirect(unconstrainedPath(path), http.StatusPermanentRedirect)
+		patternHandlers["/products/"+route] = Redirect(path, http.StatusPermanentRedirect)
+	}
+
 	for p, h := range patternHandlers {
 		http.HandleFunc(p, h.ServeHTTP)
 	}
+}
+
+func unconstrainedPath(p string) string {
+	return p + "&unconstrained"
 }

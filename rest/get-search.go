@@ -154,9 +154,11 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	// GET /search?(search_params)
 
 	scope := ""
-	for s, rp := range predefinedSearchPaths {
-		if r.URL.RawQuery != "" && strings.HasSuffix(rp, r.URL.RawQuery) {
-			scope = s
+	for route, path := range searchRoutes {
+		if r.URL.RawQuery != "" &&
+			(strings.HasSuffix(path, r.URL.RawQuery) ||
+				strings.HasSuffix(unconstrainedPath(path), r.URL.RawQuery)) {
+			scope = route
 			break
 		}
 	}
@@ -171,7 +173,6 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		DigestsTitles:    digestTitles,
 		Limit:            limit,
 		Constrained:      !vangogh_local_data.FlagFromUrl(r.URL, "unconstrained"),
-		Path:             r.URL.Path + "?" + r.URL.RawQuery,
 	}
 
 	shortQuery := false
