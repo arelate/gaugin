@@ -39,16 +39,18 @@
                 {{if ne $os "any-operating-system"}}
                     {{template "svg-icon" $os}}
                 {{end}}
+                {{if .LanguageCode}}
+                    <li class="language">
+                        <span class="highlight" title="{{.LanguageCode}}">{{languageCodeFlag .LanguageCode}}</span>
+                    </li>
+                {{end}}
                 {{if .EstimatedBytes}}
                     <li class="size">{{formatBytes .EstimatedBytes}}</li>
-                {{end}}
-                {{if .LanguageCode}}
-                    <li><span class="highlight" title="{{.LanguageCode}}">{{languageCodeFlag .LanguageCode}}</span></li>
                 {{end}}
             </ul>
             <ul class="additional-details">
                 {{if .Version}}
-                    <li>Ver: <span class="highlight">{{.Version}}</span></li>
+                    <li>Version: <span class="highlight">{{.Version}}</span></li>
                 {{end}}
             </ul>
         </a>
