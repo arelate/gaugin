@@ -107,13 +107,13 @@
             align-content: center;
             grid-column-gap: var(--small);
             grid-row-gap: var(--x-small);
+            align-items: center;
         }
 
         .products .product .text-properties ul {
             list-style: none;
             margin: 0;
             padding-inline-start: 0;
-            color: var(--subtle-color)
         }
 
         .products .product .text-properties ul.horizontal {
@@ -124,8 +124,8 @@
         }
 
         .products .product .text-properties ul.horizontal svg.icon {
-            width: var(--small);
-            height: var(--small);
+            width: calc(5 * var(--xx-small));
+            height: calc(5 * var(--xx-small));
         }
 
         .products .text-property {
@@ -142,6 +142,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            color: var(--color);
         }
     </style>
 {{end}}
