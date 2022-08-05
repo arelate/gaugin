@@ -55,6 +55,8 @@
             --normal: 1rem; /* 16px */
             --large: calc(2 * var(--normal)); /* 2rem == 32px */
 
+            --inline: 1em;
+
             --box-shadow: 0 0 var(--small) var(--shadow-color);
 
             --border-radius: var(--x-small);
@@ -102,17 +104,21 @@
             display: none;
         }
 
-        details > summary::after {
-            content: '\002b';
-            font-weight: normal;
-            margin-inline-start: var(--small);
-            color: var(--subtle-color);
-            display: flex;
-            align-items: center;
+        details > summary > svg {
+            width: var(--inline);
+            height: var(--inline);
         }
 
-        details[open] > summary::after {
-            content: '\2212';
+        details > summary > svg #less {
+            display: none;
+        }
+
+        details[open] > summary > svg #less {
+            display: initial;
+        }
+
+        details[open] > summary > svg #more {
+            display: none;
         }
 
         .shortcuts {
@@ -148,11 +154,15 @@
             font-weight: bold;
         }
 
-        .back-to-top {
-            padding-inline: var(--normal);
-            color: var(--subtle-color);
-            font-weight: lighter;
-            text-decoration: none;
+        .back-to-top-link {
+            display: inline-flex;
+            align-items: center;
+            margin-inline: var(--small);
+        }
+
+        .back-to-top-link svg.back-to-top {
+            width: var(--inline);
+            height: var(--inline);
         }
 
         .footer-spacer {

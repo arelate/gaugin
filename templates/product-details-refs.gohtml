@@ -2,7 +2,7 @@
     {{$len := len .}}
     {{if gt $len 3}}
         <details>
-        <summary>{{$len}} product(s)</summary>
+        <summary>{{$len}} product(s){{template "svg-icon-show-more-less"}}</summary>
     {{end}}
     <ul class="property-value {{if gt $len 3}}vertical{{end}}">
         {{range .}}

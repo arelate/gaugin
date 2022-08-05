@@ -14,8 +14,10 @@
             <circle style="fill:var(--color)" cx="50" cy="50" r="47"/>
             <circle style="fill:var(--background-color)" cx="50" cy="50" r="27.5"/>
             <circle style="fill:var(--color)" cx="50" cy="50" r="18.5"/>
-            <circle style="fill:var(--background-color); stroke:var(--color); stroke-width: 2.5" cx="66.61" cy="23.82" r="8"/>
-            <circle style="fill:var(--background-color); stroke:var(--color); stroke-width: 2.5" cx="64.93" cy="77.16" r="8"/>
+            <circle style="fill:var(--background-color); stroke:var(--color); stroke-width: 2.5" cx="66.61" cy="23.82"
+                    r="8"/>
+            <circle style="fill:var(--background-color); stroke:var(--color); stroke-width: 2.5" cx="64.93" cy="77.16"
+                    r="8"/>
             <circle style="fill:var(--background-color); stroke:var(--color); stroke-width: 2.5" cx="19" cy="50" r="8"/>
             <line style="stroke:var(--color); stroke-width: 3.5" x1="92" y1="50" x2="64" y2="50"/>
             <line style="stroke:var(--color); stroke-width: 3.5" x1="29.76" y1="86.80" x2="43.25"
@@ -38,5 +40,13 @@
             <path class="" d="M 75 15 l 12 0 0 70 -12 0 M 25 15 l -12 0 0 70 12 0"/>
             <rect x="25" y="5" width="50" height="90"/>
         </symbol>
+        <symbol id="back-to-top" viewBox="0 0 100 100" style="stroke: var(--subtle-color);stroke-width: var(--small); fill:transparent">
+            <path d="M 50.00 15.00 L 50.00 70.00 L 50.00 70.00 49.87 72.19 49.46 74.34 48.78 76.43 47.83 78.40 46.63 80.24 45.21 81.91 43.58 83.38 41.78 84.63 39.83 85.63 37.76 86.38 35.62 86.85 33.44 87.04 31.25 86.95 29.09 86.57 26.99 85.92 25.00 85.00 M 25.00 35.00 L 50.00 15.00 75.00 35.00"/>        </symbol>
+    </svg>
+{{end}}
+{{define "svg-icon-show-more-less"}}
+    <svg class="show-more-less" viewBox="0 0 100 100" style="stroke: var(--subtle-color);stroke-width: var(--small);fill: transparent;">
+        <path id="more" d="M 30.00 10.00 L 70.00 50.00 30.00 90.00"/>
+        <path id="less" d="M 90.00 70.00 L 50.00 30.00 10.00 70.00"/>
     </svg>
 {{end}}

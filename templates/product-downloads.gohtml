@@ -1,10 +1,10 @@
 {{define "product-downloads"}}
     <details id="{{if .CurrentOS}}current-os{{else}}other-os{{end}}-downloads" class="downloads"
              {{if .CurrentOS}}open{{end}} accesskey="f" tabindex="20">
-        <summary>{{.OperatingSystems}} downloads</summary>
+        <summary>{{.OperatingSystems}} downloads{{template "svg-icon-show-more-less"}}</summary>
         {{if .Installers}}
             <details class="downloads-type installers" open>
-                <summary>Installers</summary>
+                <summary>Installers{{template "svg-icon-show-more-less"}}</summary>
                 <div class="downloads-list">
                     {{template "download" .Installers}}
                 </div>
@@ -12,7 +12,7 @@
         {{end}}
         {{if .DLCs}}
             <details class="downloads-type downloadable-content">
-                <summary>Downloadable content</summary>
+                <summary>DLCs{{template "svg-icon-show-more-less"}}</summary>
                 <div class="downloads-list">
                     {{template "download" .DLCs}}
                 </div>
@@ -20,7 +20,7 @@
         {{end}}
         {{if .Extras}}
             <details class="downloads-type extras">
-                <summary>Extras</summary>
+                <summary>Extras{{template "svg-icon-show-more-less"}}</summary>
                 <div class="downloads-list">
                     {{template "download" .Extras}}
                 </div>

@@ -155,7 +155,7 @@
                     {{$propertiesLen := len .Properties}}
                     {{if gt $propertiesLen 3}}
                     <details>
-                        <summary>{{$propertiesLen}} store tag(s)</summary>
+                        <summary>{{$propertiesLen}} store tag(s){{template "svg-icon-show-more-less"}}</summary>
                         {{end}}
                         <ul class="property-value flexible {{if gt $propertiesLen 3}}vertical{{end}}">{{range .Properties}}
                                 <li><a href="/search?properties={{.}}"
@@ -172,7 +172,7 @@
                     {{$propertiesLen := len .SteamTags}}
                     {{if gt $propertiesLen 3}}
                     <details>
-                        <summary>{{$propertiesLen}} Steam tag(s)</summary>
+                        <summary>{{$propertiesLen}} Steam tag(s){{template "svg-icon-show-more-less"}}</summary>
                         {{end}}
                         <ul class="property-value flexible {{if gt $propertiesLen 3}}vertical{{end}}">{{range .SteamTags}}
                                 <li><a href="/search?steam-tags={{.}}"
@@ -189,7 +189,7 @@
                     {{$featuresLen := len .Features}}
                     {{if gt $featuresLen 3}}
                     <details>
-                        <summary>{{$featuresLen}} feature(s)</summary>
+                        <summary>{{$featuresLen}} feature(s){{template "svg-icon-show-more-less"}}</summary>
                         {{end}}
                         <ul class="property-value {{if gt $featuresLen 3}}vertical{{end}} flexible">{{range .Features}}
                                 <li><a href="/search?features={{.}}"
@@ -206,7 +206,7 @@
                     {{$langsLen := len .LanguageCodes}}
                     {{if gt $langsLen 3}}
                     <details>
-                        <summary>{{$langsLen}} language(s)</summary>
+                        <summary>{{$langsLen}} language(s){{template "svg-icon-show-more-less"}}</summary>
                         {{end}}
                         <ul class="property-value {{if gt $langsLen 3}}vertical{{end}}">{{range .LanguageCodes}}
                                 {{$langCode := transitiveSrc .}}
@@ -291,37 +291,37 @@
         <section class="additional-properties">
             {{if .HasDescription}}
                 <details id="description" class="description" accesskey="d" tabindex="10">
-                    <summary>Description<a class="back-to-top" href="#_top">⤴</a></summary>
+                    <summary>Description<a class="back-to-top-link" href="#_top">{{template "svg-icon" "back-to-top"}}</a>{{template "svg-icon-show-more-less"}}</summary>
                     <iframe src="/description?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
             {{if .HasScreenshots}}
                 <details id="screenshots" class="screenshots" accesskey="s" tabindex="11">
-                    <summary>Screenshots<a class="back-to-top" href="#_top">⤴</a></summary>
+                    <summary>Screenshots<a class="back-to-top-link" href="#_top">{{template "svg-icon" "back-to-top"}}</a>{{template "svg-icon-show-more-less"}}</summary>
                     <iframe src="/screenshots?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
             {{if .HasVideos}}
                 <details id="videos" class="videos" accesskey="v" tabindex="12">
-                    <summary>Videos<a class="back-to-top" href="#_top">⤴</a></summary>
+                    <summary>Videos<a class="back-to-top-link" href="#_top">{{template "svg-icon" "back-to-top"}}</a>{{template "svg-icon-show-more-less"}}</summary>
                     <iframe src="/videos?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
             {{if .HasSteamAppNews}}
                 <details id="steam-app-news" class="steam-app-news" accesskey="n" tabindex="13">
-                    <summary>Steam app news<a class="back-to-top" href="#_top">⤴</a></summary>
+                    <summary>Steam app news<a class="back-to-top-link" href="#_top">{{template "svg-icon" "back-to-top"}}</a>{{template "svg-icon-show-more-less"}}</summary>
                     <iframe src="/steam-app-news?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
             {{if .HasChangelog}}
                 <details id="changelog" class="changelog" accesskey="c" tabindex="14">
-                    <summary>Changelog<a class="back-to-top" href="#_top">⤴</a></summary>
+                    <summary>Changelog<a class="back-to-top-link" href="#_top">{{template "svg-icon" "back-to-top"}}</a>{{template "svg-icon-show-more-less"}}</summary>
                     <iframe src="/changelog?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
             {{if .HasDownloads}}
                 <details id="downloads" class="downloads" accesskey="d" tabindex="15">
-                    <summary>Downloads<a class="back-to-top" href="#_top">⤴</a></summary>
+                    <summary>Downloads<a class="back-to-top-link" href="#_top">{{template "svg-icon" "back-to-top"}}</a>{{template "svg-icon-show-more-less"}}</summary>
                     <iframe src="/downloads?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
