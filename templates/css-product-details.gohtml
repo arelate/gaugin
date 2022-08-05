@@ -73,7 +73,7 @@
         .product-details .labels .label {
             border-width: var(--xxx-small);
             border-radius: var(--border-radius);
-            padding: 0 var(--small);
+            padding: var(--xx-small) var(--small);
             box-shadow: var(--box-shadow);
         }
 
@@ -88,8 +88,8 @@
         }
 
         .product-details .text-properties svg.icon {
-            width: var(--normal);
-            height: var(--normal);
+            width: calc(5 * var(--x-small));
+            height: calc(5 * var(--x-small));
         }
 
         .product-details .text-properties .text-property ul {
@@ -122,11 +122,6 @@
             flex-direction: row;
             flex-wrap: wrap;
             column-gap: var(--normal);
-        }
-
-        .product-details .horizontal svg.icon {
-            width: var(--normal);
-            height: var(--normal);
         }
 
         .product-details .text-properties .text-property {

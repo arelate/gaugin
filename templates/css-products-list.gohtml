@@ -69,8 +69,8 @@
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             content-visibility: auto;
-            /* 104px is the average size of the element in "Products > all" section */
-            contain-intrinsic-size: var(--product-card-width) calc(var(--product-details-width)/3);
+            /* 123px is the average size of the element in "Products > all" section */
+            contain-intrinsic-size: var(--product-card-width) 123px;
             overflow: hidden;
         }
 
@@ -92,10 +92,13 @@
 
         .products .product .labels {
             margin: 0 0 var(--small);
+            min-height: var(--normal);
         }
 
         .products .product .label {
             font-size: var(--fs-xx-smaller);
+            display: flex;
+            align-items: center;
         }
 
         .products .product .text-properties {
@@ -124,8 +127,8 @@
         }
 
         .products .product .text-properties ul.horizontal svg.icon {
-            width: calc(5 * var(--xx-small));
-            height: calc(5 * var(--xx-small));
+            width: calc(3 * var(--x-small));
+            height: calc(3 * var(--x-small));
         }
 
         .products .text-property {

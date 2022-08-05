@@ -6,7 +6,7 @@
             {{if .Title}}
                 <a class="product" href="/product?id={{.Id}}">
                     <h2 class="title">{{ .Title }}</h2>
-                    {{if hasLabel .Labels}}{{template "labels" .Labels}}{{end}}
+                    {{template "labels" .Labels}}
                     <div class="text-properties">
                         <div class="property-title">OS</div>
                         <div class="property-value">
