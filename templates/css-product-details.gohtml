@@ -118,6 +118,8 @@
         }
 
         .product-details .text-properties .text-property details summary svg {
+            width: var(--small);
+            height: var(--small);
             margin-inline-start: var(--small);
         }
 
@@ -246,8 +248,10 @@
             justify-content: center;
         }
 
-        .product-details .additional-properties > details > summary::after {
-            margin-inline-start: 0;
+        .product-details .additional-properties > details > summary svg {
+            margin-inline-start: calc(3*var(--x-small));
+            width: calc(3*var(--x-small));
+            height: calc(3 * var(--x-small));
         }
 
         .product-details details iframe {
