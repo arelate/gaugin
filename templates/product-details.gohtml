@@ -109,7 +109,7 @@
             {{if .SteamReviewScoreDesc}}
                 <div class="text-property">
                     <h2 class="property-title">Steam Reviews</h2>
-                    <div class="property-value"><a
+                    <div class="property-value steam-review {{steamReviewClass .SteamReviewScoreDesc}}"><a
                                 href="/search?steam-review-score-desc={{.SteamReviewScoreDesc}}">{{.SteamReviewScoreDesc}}</a>
                     </div>
                 </div>

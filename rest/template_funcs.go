@@ -40,6 +40,7 @@ func funcMap() template.FuncMap {
 		"commaJoin":             commaJoin,
 		"anchorId":              anchorId,
 		"downloadTypeTitle":     downloadTypeTitle,
+		"steamReviewClass":      steamReviewClass,
 	}
 }
 
@@ -240,4 +241,14 @@ func anchorId(t string) string {
 
 func downloadTypeTitle(dt vangogh_local_data.DownloadType) string {
 	return downloadTypeTitles[dt]
+}
+
+func steamReviewClass(sr string) string {
+	if strings.Contains(sr, "Positive") {
+		return "positive"
+	} else if strings.Contains(sr, "Negative") {
+		return "negative"
+	} else {
+		return "neutral"
+	}
 }
