@@ -26,7 +26,7 @@
                         <li><a href="#videos">Videos</a></li>
                     {{end}}
                     {{if .HasSteamAppNews}}
-                        <li><a href="#steam-app-news">Steam app news</a></li>
+                        <li><a href="#steam-app-news">Steam News</a></li>
                     {{end}}
                     {{if .HasChangelog}}
                         <li><a href="#changelog">Changelog</a></li>
@@ -282,7 +282,7 @@
                             <li><a href="{{.SteamCommunityUrl}}" aria-label="Steam Community Link">Community</a></li>
                         {{end}}
                         {{if .HasSteamAppNews}}
-                            <li><a href="#steam-app-news" aria-label="Steam App News">News</a></li>
+                            <li><a href="#steam-app-news" aria-label="Steam News">News</a></li>
                         {{end}}
                     </ul>
                 </div>
@@ -309,7 +309,7 @@
             {{end}}
             {{if .HasSteamAppNews}}
                 <details id="steam-app-news" class="steam-app-news" accesskey="n" tabindex="13">
-                    <summary>Steam app news{{template "svg-icon-show-more-less"}}</summary>
+                    <summary>Steam News{{template "svg-icon-show-more-less"}}</summary>
                     <iframe src="/steam-app-news?id={{.Id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
