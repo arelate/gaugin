@@ -1,3 +1,6 @@
+Investigate new GOG.com catalog endpoint:
+	- https://catalog.gog.com/v1/catalog
+
 Sync action:
 	- initiate sync
 	- get current sync status (one liner?)
