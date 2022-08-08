@@ -128,8 +128,8 @@
                 <div class="text-property">
                     <h2 class="property-title">Publishers</h2>
                     <ul class="property-value">{{range .Publishers}}
-                            <li><a href="/search?publisher={{.}}&sort=global-release-date&desc=true"
-                                   aria-label="all products by publisher: {{.}}">{{.}}</a></li>
+                            <li><a href="/search?publishers={{.}}&sort=global-release-date&desc=true"
+                                   aria-label="all products by publishers: {{.}}">{{.}}</a></li>
                         {{end}}
                     </ul>
                 </div>
@@ -151,19 +151,19 @@
                             </li>{{end}}</ul>
                 </div>
             {{end}}
-            {{if .Properties}}
+            {{if .StoreTags}}
                 <div class="text-property">
                     <h2 class="property-title">Store tags</h2>
-                    {{$propertiesLen := len .Properties}}
-                    {{if gt $propertiesLen 3}}
+                    {{$storeTagsLen := len .StoreTags}}
+                    {{if gt $storeTagsLen 3}}
                     <details>
-                        <summary>{{$propertiesLen}} store tag(s){{template "svg-icon-show-more-less"}}</summary>
+                        <summary>{{$storeTagsLen}} store tag(s){{template "svg-icon-show-more-less"}}</summary>
                         {{end}}
-                        <ul class="property-value flexible {{if gt $propertiesLen 3}}vertical{{end}}">{{range .Properties}}
-                                <li><a href="/search?properties={{.}}"
+                        <ul class="property-value flexible {{if gt $storeTagsLen 3}}vertical{{end}}">{{range .StoreTags}}
+                                <li><a href="/search?store-tags={{.}}"
                                        aria-label="all products of {{.}} store tag">{{.}}</a>
                                 </li>{{end}}</ul>
-                        {{if gt $propertiesLen 3}}
+                        {{if gt $storeTagsLen 3}}
                     </details>
                     {{end}}
                 </div>

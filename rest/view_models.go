@@ -70,7 +70,7 @@ type productViewModel struct {
 	Publishers        []string
 	Series            string
 	Genres            []string
-	Properties        []string
+	StoreTags         []string
 	Features          []string
 	LanguageCodes     []string
 	LanguageFlags     map[string]string
@@ -291,7 +291,7 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				Publishers:           propertiesFromRedux(rdx, vangogh_local_data.PublishersProperty),
 				Series:               propertyFromRedux(rdx, vangogh_local_data.SeriesProperty),
 				Genres:               propertiesFromRedux(rdx, vangogh_local_data.GenresProperty),
-				Properties:           propertiesFromRedux(rdx, vangogh_local_data.StoreTagsProperty),
+				StoreTags:            propertiesFromRedux(rdx, vangogh_local_data.StoreTagsProperty),
 				Features:             propertiesFromRedux(rdx, vangogh_local_data.FeaturesProperty),
 				LanguageCodes:        propertiesFromRedux(rdx, vangogh_local_data.LanguageCodeProperty),
 				GlobalReleaseDate:    propertyFromRedux(rdx, vangogh_local_data.GlobalReleaseDateProperty),

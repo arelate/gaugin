@@ -1,7 +1,7 @@
 {{define "product-downloads"}}
     <details id="{{if .CurrentOS}}current-os{{else}}other-os{{end}}-downloads" class="downloads"
              {{if .CurrentOS}}open{{end}} accesskey="f" tabindex="20">
-        <summary>{{.OperatingSystems}} downloads{{template "svg-icon-show-more-less"}}</summary>
+        <summary>{{.OperatingSystems}}{{template "svg-icon-show-more-less"}}</summary>
         {{if .Installers}}
             <details class="downloads-type installers" open>
                 <summary>Installers{{template "svg-icon-show-more-less"}}</summary>
