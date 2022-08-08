@@ -32,7 +32,7 @@ type listProductViewModel struct {
 	Id               string
 	Title            string
 	Developers       []string
-	Publisher        string
+	Publishers       []string
 	Labels           *labels
 	OperatingSystems []string
 }
@@ -67,7 +67,7 @@ type productViewModel struct {
 	OperatingSystems  []string
 	Rating            string
 	Developers        []string
-	Publisher         string
+	Publishers        []string
 	Series            string
 	Genres            []string
 	Properties        []string
@@ -240,7 +240,7 @@ func listViewModelFromRedux(order []string, redux map[string]map[string][]string
 			Title:            propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
 			Labels:           labelsFromRedux(rdx),
 			Developers:       propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
-			Publisher:        propertyFromRedux(rdx, vangogh_local_data.PublisherProperty),
+			Publishers:       propertiesFromRedux(rdx, vangogh_local_data.PublishersProperty),
 			OperatingSystems: propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
 		}
 
@@ -288,10 +288,10 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				OperatingSystems:     propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
 				Rating:               propertyFromRedux(rdx, vangogh_local_data.RatingProperty),
 				Developers:           propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
-				Publisher:            propertyFromRedux(rdx, vangogh_local_data.PublisherProperty),
+				Publishers:           propertiesFromRedux(rdx, vangogh_local_data.PublishersProperty),
 				Series:               propertyFromRedux(rdx, vangogh_local_data.SeriesProperty),
 				Genres:               propertiesFromRedux(rdx, vangogh_local_data.GenresProperty),
-				Properties:           propertiesFromRedux(rdx, vangogh_local_data.PropertiesProperty),
+				Properties:           propertiesFromRedux(rdx, vangogh_local_data.StoreTagsProperty),
 				Features:             propertiesFromRedux(rdx, vangogh_local_data.FeaturesProperty),
 				LanguageCodes:        propertiesFromRedux(rdx, vangogh_local_data.LanguageCodeProperty),
 				GlobalReleaseDate:    propertyFromRedux(rdx, vangogh_local_data.GlobalReleaseDateProperty),

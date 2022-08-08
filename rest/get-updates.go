@@ -22,7 +22,7 @@ var listReduxProperties = []string{
 	vangogh_local_data.IsUsingDOSBoxProperty,
 	vangogh_local_data.IsUsingScummVMProperty,
 	vangogh_local_data.DevelopersProperty,
-	vangogh_local_data.PublisherProperty,
+	vangogh_local_data.PublishersProperty,
 	vangogh_local_data.OperatingSystemsProperty,
 	vangogh_local_data.TagIdProperty,
 	vangogh_local_data.LocalTagsProperty,

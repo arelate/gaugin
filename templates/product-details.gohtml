@@ -2,7 +2,8 @@
     {{template "svg-icons"}}
     {{if .Image }}
         <div class="cover-image">
-            <a href="/image?id={{.Image}}" {{if .DehydratedImage}}style="background-image:url('{{.DehydratedImage}}')"{{end}}>
+            <a href="/image?id={{.Image}}"
+               {{if .DehydratedImage}}style="background-image:url('{{.DehydratedImage}}')"{{end}}>
                 <img class="loading" src="/image?id={{.Image}}" alt=""/>
             </a>
         </div>
@@ -123,12 +124,13 @@
                             </li>{{end}}</ul>
                 </div>
             {{end}}
-            {{if .Publisher}}
+            {{if .Publishers}}
                 <div class="text-property">
                     <h2 class="property-title">Publisher</h2>
-                    <ul class="property-value">
-                        <li><a href="/search?publisher={{.Publisher}}&sort=global-release-date&desc=true"
-                               aria-label="all products by publisher: {{.Publisher}}">{{.Publisher}}</a></li>
+                    <ul class="property-value">{{range .Publishers}}
+                            <li><a href="/search?publisher={{.}}&sort=global-release-date&desc=true"
+                                   aria-label="all products by publisher: {{.}}">{{.}}</a></li>
+                        {{end}}
                     </ul>
                 </div>
             {{end}}
