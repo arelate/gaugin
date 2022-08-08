@@ -1,5 +1,7 @@
-Investigate new GOG.com catalog endpoint:
-	- https://catalog.gog.com/v1/catalog
+Add support for GOG.com catalog endpoint:
+	- Add support for data types from https://catalog.gog.com/v1/catalog @done(2022-08-07)
+	- Investigate any deltas with store-products
+	- Deprectate store-products
 
 Sync action:
 	- initiate sync
