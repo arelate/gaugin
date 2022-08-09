@@ -94,13 +94,9 @@ type productViewModel struct {
 	SteamCommunityUrl    string
 	SteamAppId           string
 	SteamReviewScoreDesc string
-	// has properties and data
-	HasDescription  bool
-	HasChangelog    bool
-	HasScreenshots  bool
-	HasVideos       bool
-	HasSteamAppNews bool
-	HasDownloads    bool
+	// Sections
+	Sections      []string
+	SectionTitles map[string]string
 }
 
 type descriptionViewModel struct {
@@ -309,6 +305,8 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				Price:                propertyFromRedux(rdx, vangogh_local_data.PriceProperty),
 				SteamAppId:           propertyFromRedux(rdx, vangogh_local_data.SteamAppIdProperty),
 				SteamReviewScoreDesc: propertyFromRedux(rdx, vangogh_local_data.SteamReviewScoreDescProperty),
+				Sections:             make([]string, 0),
+				SectionTitles:        sectionTitles,
 			}
 
 			if pvm.SteamAppId != "" {

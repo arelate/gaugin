@@ -6,9 +6,9 @@ import (
 	"net/http"
 )
 
-func GetSteamAppNews(w http.ResponseWriter, r *http.Request) {
+func GetSteamNews(w http.ResponseWriter, r *http.Request) {
 
-	// GET /steam-app-news?id
+	// GET /steam-news?id
 
 	id := r.URL.Query().Get("id")
 

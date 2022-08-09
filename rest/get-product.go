@@ -8,6 +8,24 @@ import (
 	"net/http"
 )
 
+const (
+	changelogSection   = "changelog"
+	descriptionSection = "description"
+	downloadsSection   = "downloads"
+	screenshotsSection = "screenshots"
+	steamNewsSection   = "steam-news"
+	videosSection      = "videos"
+)
+
+var sectionTitles = map[string]string{
+	changelogSection:   "Changelog",
+	descriptionSection: "Description",
+	downloadsSection:   "Downloads",
+	screenshotsSection: "Screenshots",
+	steamNewsSection:   "Steam News",
+	videosSection:      "Videos",
+}
+
 var productProperties = []string{
 	vangogh_local_data.DehydratedImageProperty,
 	vangogh_local_data.ImageProperty,
@@ -136,21 +154,6 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	// fill redux, data presence to allow showing only the section that will have data
 
-	hasData, err := getHasData(
-		http.DefaultClient,
-		id,
-		gog_integration.Game,
-		vangogh_local_data.SteamAppNews,
-		vangogh_local_data.Details)
-
-	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting has_data"), http.StatusInternalServerError)
-		return
-	}
-
-	pvm.HasSteamAppNews = hasData[vangogh_local_data.SteamAppNews.String()][id] == vangogh_local_data.TrueValue
-	pvm.HasDownloads = hasData[vangogh_local_data.Details.String()][id] == vangogh_local_data.TrueValue
-
 	hasRedux, err := getHasRedux(http.DefaultClient, id,
 		vangogh_local_data.DescriptionOverviewProperty,
 		vangogh_local_data.ChangelogProperty,
@@ -163,10 +166,37 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if rdx, ok := hasRedux[id]; ok {
-		pvm.HasDescription = flagFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty)
-		pvm.HasChangelog = flagFromRedux(rdx, vangogh_local_data.ChangelogProperty)
-		pvm.HasScreenshots = flagFromRedux(rdx, vangogh_local_data.ScreenshotsProperty)
-		pvm.HasVideos = flagFromRedux(rdx, vangogh_local_data.VideoIdProperty)
+		if flagFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty) {
+			pvm.Sections = append(pvm.Sections, descriptionSection)
+		}
+		if flagFromRedux(rdx, vangogh_local_data.ScreenshotsProperty) {
+			pvm.Sections = append(pvm.Sections, screenshotsSection)
+		}
+		if flagFromRedux(rdx, vangogh_local_data.VideoIdProperty) {
+			pvm.Sections = append(pvm.Sections, videosSection)
+		}
+		if flagFromRedux(rdx, vangogh_local_data.ChangelogProperty) {
+			pvm.Sections = append(pvm.Sections, changelogSection)
+		}
+	}
+
+	hasData, err := getHasData(
+		http.DefaultClient,
+		id,
+		gog_integration.Game,
+		vangogh_local_data.SteamAppNews,
+		vangogh_local_data.Details)
+
+	if err != nil {
+		http.Error(w, nod.ErrorStr("error getting has_data"), http.StatusInternalServerError)
+		return
+	}
+
+	if hasData[vangogh_local_data.SteamAppNews.String()][id] == vangogh_local_data.TrueValue {
+		pvm.Sections = append(pvm.Sections, steamNewsSection)
+	}
+	if hasData[vangogh_local_data.Details.String()][id] == vangogh_local_data.TrueValue {
+		pvm.Sections = append(pvm.Sections, downloadsSection)
 	}
 
 	if err := tmpl.ExecuteTemplate(w, "product-page", pvm); err != nil {

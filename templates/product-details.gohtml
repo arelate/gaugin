@@ -14,30 +14,7 @@
 
         {{if hasLabel .Labels}}{{template "labels" .Labels}}{{end}}
 
-        {{if hasShortcuts .}}
-            <section class="shortcuts">
-                <ul class="property-value flexible">
-                    {{if .HasDescription}}
-                        <li><a href="#description">Description</a></li>
-                    {{end}}
-                    {{if .HasScreenshots}}
-                        <li><a href="#screenshots">Screenshots</a></li>
-                    {{end}}
-                    {{if .HasVideos}}
-                        <li><a href="#videos">Videos</a></li>
-                    {{end}}
-                    {{if .HasSteamAppNews}}
-                        <li><a href="#steam-app-news">Steam News</a></li>
-                    {{end}}
-                    {{if .HasChangelog}}
-                        <li><a href="#changelog">Changelog</a></li>
-                    {{end}}
-                    {{if .HasDownloads}}
-                        <li><a href="#downloads">Downloads</a></li>
-                    {{end}}
-                </ul>
-            </section>
-        {{end}}
+        {{template "product-details-shortcuts" .}}
 
         <section class="text-properties">
             {{if showPrice .}}
@@ -48,7 +25,8 @@
                             <li class="label discount-percentage {{if gt .Labels.DiscountPercentage 74}}notable-discount{{end}}">
                                 -{{.Labels.DiscountPercentage}}%
                             </li>
-                            <li class="base-price">{{.BasePrice}}</li>{{end}}
+                            <li class="base-price">{{.BasePrice}}</li>
+                        {{end}}
                         <li class="price">{{.Price}}</li>
                     </ul>
                 </div>
@@ -283,50 +261,44 @@
                         {{if .SteamCommunityUrl}}
                             <li><a href="{{.SteamCommunityUrl}}" aria-label="Steam Community Link">Community</a></li>
                         {{end}}
-                        {{if .HasSteamAppNews}}
-                            <li><a href="#steam-app-news" aria-label="Steam News">News</a></li>
+                        {{$steamNewsId := steamNewsId .}}
+                        {{if $steamNewsId}}
+                            <li><a href="#{{$steamNewsId}}" aria-label="Steam News">News</a></li>
                         {{end}}
                     </ul>
                 </div>
             {{end}}
         </section>
+
+        {{template "product-details-additional-properties" .}}
+
+    </div>
+{{end}}
+{{define "product-details-shortcuts"}}
+    {{if .Sections}}
+        <section class="shortcuts">
+            <ul class="property-value flexible">
+                {{$sectionTitles := .SectionTitles}}
+                {{range .Sections}}
+                    {{$title := index $sectionTitles .}}
+                    <li><a href="#{{.}}">{{$title}}</a></li>
+                {{end}}
+            </ul>
+        </section>
+    {{end}}
+{{end}}
+{{define "product-details-additional-properties"}}
+    {{if .Sections}}
         <section class="additional-properties">
-            {{if .HasDescription}}
-                <details id="description" class="description" accesskey="d" tabindex="10">
-                    <summary>Description{{template "svg-icon-show-more-less"}}</summary>
-                    <iframe src="/description?id={{.Id}}" loading="lazy"></iframe>
-                </details>
-            {{end}}
-            {{if .HasScreenshots}}
-                <details id="screenshots" class="screenshots" accesskey="s" tabindex="11">
-                    <summary>Screenshots{{template "svg-icon-show-more-less"}}</summary>
-                    <iframe src="/screenshots?id={{.Id}}" loading="lazy"></iframe>
-                </details>
-            {{end}}
-            {{if .HasVideos}}
-                <details id="videos" class="videos" accesskey="v" tabindex="12">
-                    <summary>Videos{{template "svg-icon-show-more-less"}}</summary>
-                    <iframe src="/videos?id={{.Id}}" loading="lazy"></iframe>
-                </details>
-            {{end}}
-            {{if .HasSteamAppNews}}
-                <details id="steam-app-news" class="steam-app-news" accesskey="n" tabindex="13">
-                    <summary>Steam News{{template "svg-icon-show-more-less"}}</summary>
-                    <iframe src="/steam-app-news?id={{.Id}}" loading="lazy"></iframe>
-                </details>
-            {{end}}
-            {{if .HasChangelog}}
-                <details id="changelog" class="changelog" accesskey="c" tabindex="14">
-                    <summary>Changelog{{template "svg-icon-show-more-less"}}</summary>
-                    <iframe src="/changelog?id={{.Id}}" loading="lazy"></iframe>
-                </details>
-            {{end}}
-            {{if .HasDownloads}}
-                <details id="downloads" class="downloads" accesskey="d" tabindex="15">
-                    <summary>Downloads{{template "svg-icon-show-more-less"}}</summary>
-                    <iframe src="/downloads?id={{.Id}}" loading="lazy"></iframe>
+            {{$id := .Id}}
+            {{$sectionTitles := .SectionTitles}}
+            {{range .Sections}}
+                {{$title := index $sectionTitles .}}
+                <details id="{{.}}" class="{{.}}">
+                    <summary>{{$title}}{{template "svg-icon-show-more-less"}}</summary>
+                    <iframe src="/{{.}}?id={{$id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
         </section>
-    </div>
+    {{end}}
 {{end}}

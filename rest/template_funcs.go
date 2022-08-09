@@ -5,6 +5,7 @@ import (
 	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/yt_urls"
+	"golang.org/x/exp/slices"
 	"html/template"
 	"net/url"
 	"strconv"
@@ -14,26 +15,26 @@ import (
 
 func funcMap() template.FuncMap {
 	return template.FuncMap{
-		"transitiveDst":         transitiveDst,
-		"transitiveSrc":         transitiveSrc,
-		"formatBytes":           formatBytes,
-		"justTheDate":           justTheDate,
-		"formatDate":            formatDate,
-		"unixDateFormat":        unixDateFormat,
-		"ratingPercent":         ratingPercent,
-		"gogLink":               gogLink,
-		"toLower":               toLower,
-		"dlTitle":               dlTitle,
-		"hasLabel":              hasLabel,
-		"hasTags":               hasTags,
-		"showPrice":             showPrice,
-		"searchPropertyName":    searchPropertyName,
-		"hasDownloads":          hasDownloads,
-		"hasSteamLinks":         hasSteamLinks,
-		"hasGOGLinks":           hasGOGLinks,
-		"languageCodeFlag":      languageCodeFlag,
-		"youtubeLink":           youtubeLink,
-		"hasShortcuts":          hasShortcuts,
+		"transitiveDst":      transitiveDst,
+		"transitiveSrc":      transitiveSrc,
+		"formatBytes":        formatBytes,
+		"justTheDate":        justTheDate,
+		"formatDate":         formatDate,
+		"unixDateFormat":     unixDateFormat,
+		"ratingPercent":      ratingPercent,
+		"gogLink":            gogLink,
+		"toLower":            toLower,
+		"dlTitle":            dlTitle,
+		"hasLabel":           hasLabel,
+		"hasTags":            hasTags,
+		"showPrice":          showPrice,
+		"searchPropertyName": searchPropertyName,
+		"hasDownloads":       hasDownloads,
+		"hasSteamLinks":      hasSteamLinks,
+		"hasGOGLinks":        hasGOGLinks,
+		"languageCodeFlag":   languageCodeFlag,
+		"youtubeLink":        youtubeLink,
+		//"hasShortcuts":          hasShortcuts,
 		"shouldShowWishlist":    shouldShowWishlist,
 		"canAddToWishlist":      canAddToWishlist,
 		"canRemoveFromWishlist": canRemoveFromWishlist,
@@ -41,6 +42,7 @@ func funcMap() template.FuncMap {
 		"anchorId":              anchorId,
 		"downloadTypeTitle":     downloadTypeTitle,
 		"steamReviewClass":      steamReviewClass,
+		"steamNewsId":           steamNewsId,
 	}
 }
 
@@ -209,14 +211,14 @@ func youtubeLink(videoId string) string {
 	return yt_urls.VideoUrl(videoId).String()
 }
 
-func hasShortcuts(pvm *productViewModel) bool {
-	return pvm.HasDescription ||
-		pvm.HasChangelog ||
-		pvm.HasScreenshots ||
-		pvm.HasVideos ||
-		pvm.HasDownloads ||
-		pvm.HasSteamAppNews
-}
+//func hasShortcuts(pvm *productViewModel) bool {
+//	return pvm.HasDescription ||
+//		pvm.HasChangelog ||
+//		pvm.HasScreenshots ||
+//		pvm.HasVideos ||
+//		pvm.HasDownloads ||
+//		pvm.HasSteamAppNews
+//}
 
 func shouldShowWishlist(pvm *productViewModel) bool {
 	return !pvm.Labels.Owned
@@ -251,4 +253,11 @@ func steamReviewClass(sr string) string {
 	} else {
 		return "neutral"
 	}
+}
+
+func steamNewsId(pvm *productViewModel) string {
+	if slices.Contains(pvm.Sections, steamNewsSection) {
+		return steamNewsSection
+	}
+	return ""
 }
