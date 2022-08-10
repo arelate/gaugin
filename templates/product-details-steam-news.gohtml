@@ -1,21 +1,21 @@
-{{define "product-details-steam-app-news"}}
+{{define "product-details-steam-news"}}
     {{if gt .Count 0}}
         {{$firstItem := true}}
         {{range .NewsItems}}
             <details {{if $firstItem}}open{{end}}>
                 <summary><h1>{{.Title}}</h1>{{template "svg-icon-show-more-less"}}</summary>
-                <div class="steam-app-news-metadata">
+                <div class="steam-news-metadata">
                     {{if .Date}}
-                        <span class="steam-app-news-date">Date: <span class="metadata-value">{{unixDateFormat .Date}}</span></span>
+                        <span class="steam-news-date">Date: <span class="metadata-value">{{unixDateFormat .Date}}</span></span>
                     {{end}}
                     {{if .Author}}
-                        <span class="steam-app-news-author">Author: <span class="metadata-value">{{.Author}}</span></span>
+                        <span class="steam-news-author">Author: <span class="metadata-value">{{.Author}}</span></span>
                     {{end}}
                     {{if .Url}}
-                        <span class="steam-app-news-url"><a target="_top" href="{{.Url}}">Source Link</a></span>
+                        <span class="steam-news-url"><a target="_top" href="{{.Url}}">Source Link</a></span>
                     {{end}}
                 </div>
-                <div class="steam-app-news-contents">
+                <div class="steam-news-contents">
                     {{.Contents}}
                 </div>
             </details>

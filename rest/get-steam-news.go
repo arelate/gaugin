@@ -16,13 +16,13 @@ func GetSteamNews(w http.ResponseWriter, r *http.Request) {
 
 	san, err := getSteamAppNews(http.DefaultClient, id)
 	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting steam app news"), http.StatusInternalServerError)
+		http.Error(w, nod.ErrorStr("error getting steam news"), http.StatusInternalServerError)
 		return
 	}
 
 	sanvm := steamAppNewsViewModelFromResponse(san)
 
-	if err := tmpl.ExecuteTemplate(w, "steam-app-news-page", sanvm); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "steam-news-page", sanvm); err != nil {
 		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
 		return
 	}
