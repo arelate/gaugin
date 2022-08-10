@@ -46,7 +46,7 @@ var gauginSearchProperties = []string{
 	vangogh_local_data.DescendingProperty,
 }
 
-var searchPropertyNames = map[string]string{
+var propertyTitles = map[string]string{
 	vangogh_local_data.TextProperty:                 "Any Text",
 	vangogh_local_data.TitleProperty:                "Title",
 	vangogh_local_data.TagIdProperty:                "Account Tags",
@@ -54,7 +54,7 @@ var searchPropertyNames = map[string]string{
 	vangogh_local_data.SteamTagsProperty:            "Steam Tags",
 	vangogh_local_data.OperatingSystemsProperty:     "OS",
 	vangogh_local_data.DevelopersProperty:           "Developers",
-	vangogh_local_data.PublishersProperty:           "Publisher",
+	vangogh_local_data.PublishersProperty:           "Publishers",
 	vangogh_local_data.SeriesProperty:               "Series",
 	vangogh_local_data.GenresProperty:               "Genres",
 	vangogh_local_data.StoreTagsProperty:            "Store Tags",
@@ -79,6 +79,17 @@ var searchPropertyNames = map[string]string{
 	vangogh_local_data.SteamReviewScoreDescProperty: "Steam Reviews",
 	vangogh_local_data.SortProperty:                 "Sort",
 	vangogh_local_data.DescendingProperty:           "Descending",
+	vangogh_local_data.GlobalReleaseDateProperty:    "Global Release",
+	vangogh_local_data.GOGReleaseDateProperty:       "GOG.com Release",
+	vangogh_local_data.GOGOrderDateProperty:         "GOG.com Order",
+
+	GauginGOGLinksProperty:                "GOG.com Links",
+	vangogh_local_data.ForumUrlProperty:   "Forum",
+	vangogh_local_data.StoreUrlProperty:   "Store",
+	vangogh_local_data.SupportUrlProperty: "Support",
+
+	GauginSteamLinksProperty:        "Steam Links",
+	GauginSteamCommunityUrlProperty: "Community",
 }
 
 var gauginDigestibleProperties = []string{

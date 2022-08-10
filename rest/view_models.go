@@ -8,6 +8,7 @@ import (
 	"html/template"
 	"sort"
 	"strconv"
+	"strings"
 )
 
 type labels struct {
@@ -56,44 +57,52 @@ type productDownloads struct {
 	Extras           vangogh_local_data.DownloadsList
 }
 
+var gauginPropertyOrder = []string{
+	vangogh_local_data.SteamReviewScoreDescProperty,
+	vangogh_local_data.DevelopersProperty,
+	vangogh_local_data.PublishersProperty,
+	vangogh_local_data.SeriesProperty,
+	vangogh_local_data.GenresProperty,
+	vangogh_local_data.StoreTagsProperty,
+	vangogh_local_data.SteamTagsProperty,
+	vangogh_local_data.FeaturesProperty,
+	vangogh_local_data.LanguageCodeProperty,
+	vangogh_local_data.GlobalReleaseDateProperty,
+	vangogh_local_data.GOGReleaseDateProperty,
+	vangogh_local_data.GOGOrderDateProperty,
+	vangogh_local_data.IncludesGamesProperty,
+	vangogh_local_data.IsIncludedByGamesProperty,
+	vangogh_local_data.RequiresGamesProperty,
+	vangogh_local_data.IsRequiredByGamesProperty,
+	GauginGOGLinksProperty,
+	GauginSteamLinksProperty,
+}
+
+const (
+	GauginGOGLinksProperty          = "gog-links"
+	GauginSteamLinksProperty        = "steam-links"
+	GauginSteamCommunityUrlProperty = "steam-community-url"
+)
+
 type productViewModel struct {
 	Context string
 	Id      string
-	// text properties
-	Title             string
-	DehydratedImage   template.URL
-	Image             string
-	SteamTags         []string
-	OperatingSystems  []string
-	Rating            string
-	Developers        []string
-	Publishers        []string
-	Series            string
-	Genres            []string
-	StoreTags         []string
-	Features          []string
-	LanguageCodes     []string
-	LanguageFlags     map[string]string
-	GlobalReleaseDate string
-	GOGReleaseDate    string
-	GOGOrderDate      string
-	IncludesGames     []string
-	IsIncludedByGames []string
-	RequiresGames     []string
-	IsRequiredByGames []string
-	// urls
-	StoreUrl   string
-	ForumUrl   string
-	SupportUrl string
-	// labels
+	// Title
+	Title string
+	//Image
+	DehydratedImage template.URL
+	Image           string
+	// Labels
 	Labels *labels
-	// price
-	BasePrice string
-	Price     string
-	// Steam Community url
-	SteamCommunityUrl    string
-	SteamAppId           string
-	SteamReviewScoreDesc string
+	// Special format properties
+	BasePrice        string
+	Price            string
+	OperatingSystems []string
+	Rating           string
+	// Text properties
+	Properties     map[string]map[string]string
+	PropertyOrder  []string
+	PropertyTitles map[string]string
 	// Sections
 	Sections      []string
 	SectionTitles map[string]string
@@ -130,11 +139,13 @@ type downloadsViewModel struct {
 }
 
 type newsItemViewModel struct {
-	Title    string
-	Date     int
-	Author   string
-	Url      string
-	Contents template.HTML
+	Title     string
+	Date      int
+	Author    string
+	Url       string
+	Tags      string
+	FeedLabel string
+	Contents  template.HTML
 }
 
 func steamAppNewsViewModelFromResponse(san *steam_integration.AppNews) *steamAppNewsViewModel {
@@ -146,11 +157,13 @@ func steamAppNewsViewModelFromResponse(san *steam_integration.AppNews) *steamApp
 
 	for _, ni := range san.NewsItems {
 		sanvm.NewsItems = append(sanvm.NewsItems, &newsItemViewModel{
-			Title:    ni.Title,
-			Date:     ni.Date,
-			Author:   ni.Author,
-			Url:      ni.Url,
-			Contents: template.HTML(steamAppNewsToHTML(ni.Contents)),
+			Title:     ni.Title,
+			Date:      ni.Date,
+			Author:    ni.Author,
+			Url:       ni.Url,
+			Tags:      strings.Join(ni.Tags, ","),
+			FeedLabel: ni.FeedLabel,
+			Contents:  template.HTML(steamAppNewsToHTML(ni.Contents)),
 		})
 	}
 
@@ -275,46 +288,51 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 		for id, rdx := range redux {
 
 			pvm := &productViewModel{
-				Context:              "product",
-				Id:                   id,
-				DehydratedImage:      template.URL(issa.Hydrate(propertyFromRedux(rdx, vangogh_local_data.DehydratedImageProperty))),
-				Image:                propertyFromRedux(rdx, vangogh_local_data.ImageProperty),
-				Title:                propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
-				SteamTags:            propertiesFromRedux(rdx, vangogh_local_data.SteamTagsProperty),
-				OperatingSystems:     propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
-				Rating:               propertyFromRedux(rdx, vangogh_local_data.RatingProperty),
-				Developers:           propertiesFromRedux(rdx, vangogh_local_data.DevelopersProperty),
-				Publishers:           propertiesFromRedux(rdx, vangogh_local_data.PublishersProperty),
-				Series:               propertyFromRedux(rdx, vangogh_local_data.SeriesProperty),
-				Genres:               propertiesFromRedux(rdx, vangogh_local_data.GenresProperty),
-				StoreTags:            propertiesFromRedux(rdx, vangogh_local_data.StoreTagsProperty),
-				Features:             propertiesFromRedux(rdx, vangogh_local_data.FeaturesProperty),
-				LanguageCodes:        propertiesFromRedux(rdx, vangogh_local_data.LanguageCodeProperty),
-				GlobalReleaseDate:    propertyFromRedux(rdx, vangogh_local_data.GlobalReleaseDateProperty),
-				GOGReleaseDate:       propertyFromRedux(rdx, vangogh_local_data.GOGReleaseDateProperty),
-				GOGOrderDate:         propertyFromRedux(rdx, vangogh_local_data.GOGOrderDateProperty),
-				IncludesGames:        propertiesFromRedux(rdx, vangogh_local_data.IncludesGamesProperty),
-				IsIncludedByGames:    propertiesFromRedux(rdx, vangogh_local_data.IsIncludedByGamesProperty),
-				RequiresGames:        propertiesFromRedux(rdx, vangogh_local_data.RequiresGamesProperty),
-				IsRequiredByGames:    propertiesFromRedux(rdx, vangogh_local_data.IsRequiredByGamesProperty),
-				StoreUrl:             propertyFromRedux(rdx, vangogh_local_data.StoreUrlProperty),
-				ForumUrl:             propertyFromRedux(rdx, vangogh_local_data.ForumUrlProperty),
-				SupportUrl:           propertyFromRedux(rdx, vangogh_local_data.SupportUrlProperty),
-				Labels:               labelsFromRedux(rdx),
-				BasePrice:            propertyFromRedux(rdx, vangogh_local_data.BasePriceProperty),
-				Price:                propertyFromRedux(rdx, vangogh_local_data.PriceProperty),
-				SteamAppId:           propertyFromRedux(rdx, vangogh_local_data.SteamAppIdProperty),
-				SteamReviewScoreDesc: propertyFromRedux(rdx, vangogh_local_data.SteamReviewScoreDescProperty),
-				Sections:             make([]string, 0),
-				SectionTitles:        sectionTitles,
+				Context: "product",
+				Id:      id,
+
+				DehydratedImage: template.URL(
+					issa.Hydrate(
+						propertyFromRedux(rdx, vangogh_local_data.DehydratedImageProperty))),
+				Image: propertyFromRedux(rdx, vangogh_local_data.ImageProperty),
+				Title: propertyFromRedux(rdx, vangogh_local_data.TitleProperty),
+
+				Labels: labelsFromRedux(rdx),
+
+				BasePrice: propertyFromRedux(rdx, vangogh_local_data.BasePriceProperty),
+				Price:     propertyFromRedux(rdx, vangogh_local_data.PriceProperty),
+
+				OperatingSystems: propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
+				Rating:           propertyFromRedux(rdx, vangogh_local_data.RatingProperty),
+
+				Properties:     make(map[string]map[string]string),
+				PropertyOrder:  gauginPropertyOrder,
+				PropertyTitles: propertyTitles,
+
+				Sections:      make([]string, 0),
+				SectionTitles: sectionTitles,
 			}
 
-			if pvm.SteamAppId != "" {
-				if appId, err := strconv.Atoi(pvm.SteamAppId); err == nil {
+			for _, p := range []string{
+				vangogh_local_data.StoreUrlProperty,
+				vangogh_local_data.ForumUrlProperty,
+				vangogh_local_data.SupportUrlProperty} {
+				rdx[GauginGOGLinksProperty] = append(rdx[GauginGOGLinksProperty],
+					fmt.Sprintf("%s (%s)", p, propertyFromRedux(rdx, p)))
+			}
+
+			steamAppId := propertyFromRedux(rdx, vangogh_local_data.SteamAppIdProperty)
+			if steamAppId != "" {
+				if appId, err := strconv.Atoi(steamAppId); err == nil {
 					if scu := steam_integration.SteamCommunityUrl(uint32(appId)); scu != nil {
-						pvm.SteamCommunityUrl = scu.String()
+						rdx[GauginSteamLinksProperty] = append(rdx[GauginSteamLinksProperty],
+							fmt.Sprintf("%s (%s)", GauginSteamCommunityUrlProperty, scu.String()))
 					}
 				}
+			}
+
+			for _, lp := range gauginPropertyOrder {
+				pvm.Properties[lp] = getPropertyLinks(lp, rdx)
 			}
 
 			return pvm, nil
@@ -323,6 +341,79 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 		return nil, fmt.Errorf("too many ids, rdx")
 	}
 	return nil, nil
+}
+
+func getPropertyLinks(property string, rdx map[string][]string) map[string]string {
+
+	propertyLinks := make(map[string]string)
+
+	for _, value := range propertiesFromRedux(rdx, property) {
+
+		linkTitle := formatPropertyLinkTitle(property, value)
+		propertyLinks[linkTitle] = formatPropertyLinkHref(property, value)
+	}
+
+	return propertyLinks
+}
+
+func formatPropertyLinkTitle(property, link string) string {
+	title := link
+
+	switch property {
+	case vangogh_local_data.IncludesGamesProperty:
+		fallthrough
+	case vangogh_local_data.IsIncludedByGamesProperty:
+		fallthrough
+	case vangogh_local_data.RequiresGamesProperty:
+		fallthrough
+	case vangogh_local_data.IsRequiredByGamesProperty:
+		title = transitiveDst(link)
+	case vangogh_local_data.GlobalReleaseDateProperty:
+		fallthrough
+	case vangogh_local_data.GOGReleaseDateProperty:
+		title = formatDate(link)
+	case vangogh_local_data.GOGOrderDateProperty:
+		title = formatDate(justTheDate(link))
+	case vangogh_local_data.LanguageCodeProperty:
+		title = languageCodeFlag(transitiveSrc(link)) + " " + transitiveDst(link)
+	case GauginGOGLinksProperty:
+		fallthrough
+	case GauginSteamLinksProperty:
+		title = propertyTitles[transitiveDst(link)]
+	}
+
+	return title
+}
+
+func formatPropertyLinkHref(property, link string) string {
+	switch property {
+	case vangogh_local_data.GlobalReleaseDateProperty:
+		fallthrough
+	case vangogh_local_data.GOGReleaseDateProperty:
+		fallthrough
+	case vangogh_local_data.GOGOrderDateProperty:
+		return ""
+	case vangogh_local_data.PublishersProperty:
+		fallthrough
+	case vangogh_local_data.DevelopersProperty:
+		return fmt.Sprintf("/search?%s=%s&sort=global-release-date&desc=true", property, link)
+	case vangogh_local_data.IncludesGamesProperty:
+		fallthrough
+	case vangogh_local_data.IsIncludedByGamesProperty:
+		fallthrough
+	case vangogh_local_data.RequiresGamesProperty:
+		fallthrough
+	case vangogh_local_data.IsRequiredByGamesProperty:
+		return fmt.Sprintf("/product?id=%s", transitiveSrc(link))
+	case GauginGOGLinksProperty:
+		return gogLink(transitiveSrc(link))
+	case GauginSteamLinksProperty:
+		return transitiveSrc(link)
+	default:
+		return fmt.Sprintf("/search?%s=%s", property, link)
+	}
+
+	return ""
 }
 
 func updatesViewModelFromRedux(

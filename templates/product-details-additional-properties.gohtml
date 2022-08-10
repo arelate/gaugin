@@ -1,0 +1,15 @@
+{{define "product-details-additional-properties"}}
+    {{if .Sections}}
+        <section class="additional-properties">
+            {{$id := .Id}}
+            {{$sectionTitles := .SectionTitles}}
+            {{range .Sections}}
+                {{$title := index $sectionTitles .}}
+                <details id="{{.}}" class="{{.}}">
+                    <summary>{{$title}}{{template "svg-icon-show-more-less"}}</summary>
+                    <iframe src="/{{.}}?id={{$id}}" loading="lazy"></iframe>
+                </details>
+            {{end}}
+        </section>
+    {{end}}
+{{end}}

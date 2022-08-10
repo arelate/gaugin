@@ -1,13 +1,8 @@
 {{define "product-details"}}
     {{template "svg-icons"}}
-    {{if .Image }}
-        <div class="cover-image">
-            <a href="/image?id={{.Image}}"
-               {{if .DehydratedImage}}style="background-image:url('{{.DehydratedImage}}')"{{end}}>
-                <img class="loading" src="/image?id={{.Image}}" alt=""/>
-            </a>
-        </div>
-    {{end}}
+
+    {{template "product-details-image" .}}
+
     <div class="product-details" id="{{ .Id }}">
 
         <h1 class="title">{{ .Title }}</h1>
@@ -17,6 +12,7 @@
         {{template "product-details-shortcuts" .}}
 
         <section class="text-properties">
+
             {{if showPrice .}}
                 <div class="text-property center">
                     <h2 class="property-title">Price</h2>
@@ -31,6 +27,7 @@
                     </ul>
                 </div>
             {{end}}
+
             {{if shouldShowWishlist .}}
                 <div class="text-property">
                     <h2 class="property-title">Wishlist</h2>
@@ -46,15 +43,17 @@
                     </ul>
                 </div>
             {{end}}
+
             {{if .OperatingSystems}}
                 <div class="text-property center">
                     <h2 class="property-title" title="Operating System">OS</h2>
-                    <ul class="property-value horizontal">
+                    <ul class="property-value">
                         {{range .OperatingSystems}}
                             <li><a href="/search?os={{.}}" aria-label="{{.}}">{{template "svg-icon" .}}</a></li>
                         {{end}}</ul>
                 </div>
             {{end}}
+
             <div class="text-property center">
                 <h2 class="property-title" title="Tags">Tags</h2>
                 <ul class="property-value">
@@ -69,6 +68,7 @@
                     </li>
                 </ul>
             </div>
+
             {{if (ne .Rating "0")}}
                 <div class="text-property center">
                     <h2 class="property-title">Rating</h2>
@@ -85,220 +85,11 @@
                     </div>
                 </div>
             {{end}}
-            {{if .SteamReviewScoreDesc}}
-                <div class="text-property">
-                    <h2 class="property-title">Steam Reviews</h2>
-                    <div class="property-value steam-review {{steamReviewClass .SteamReviewScoreDesc}}"><a
-                                href="/search?steam-review-score-desc={{.SteamReviewScoreDesc}}">{{.SteamReviewScoreDesc}}</a>
-                    </div>
-                </div>
-            {{end}}
-            {{if .Developers}}
-                <div class="text-property">
-                    <h2 class="property-title">Developers</h2>
-                    <ul class="property-value">{{range .Developers}}
-                            <li><a href="/search?developers={{.}}&sort=global-release-date&desc=true"
-                                   aria-label="all products by developers: {{.}}">{{.}}</a>
-                            </li>{{end}}</ul>
-                </div>
-            {{end}}
-            {{if .Publishers}}
-                <div class="text-property">
-                    <h2 class="property-title">Publishers</h2>
-                    <ul class="property-value">{{range .Publishers}}
-                            <li><a href="/search?publishers={{.}}&sort=global-release-date&desc=true"
-                                   aria-label="all products by publishers: {{.}}">{{.}}</a></li>
-                        {{end}}
-                    </ul>
-                </div>
-            {{end}}
-            {{if .Series}}
-                <div class="text-property">
-                    <h2 class="property-title">Series</h2>
-                    <ul class="property-value">
-                        <li><a href="/search?series={{.Series}}"
-                               aria-label="all products in {{.Series}} series">{{.Series}}</a></li>
-                    </ul>
-                </div>
-            {{end}}
-            {{if .Genres}}
-                <div class="text-property">
-                    <h2 class="property-title">Genres</h2>
-                    <ul class="property-value flexible">{{range .Genres}}
-                            <li><a href="/search?genres={{.}}" aria-label="all products of {{.}} genre">{{.}}</a>
-                            </li>{{end}}</ul>
-                </div>
-            {{end}}
-            {{if .StoreTags}}
-                <div class="text-property">
-                    <h2 class="property-title">Store tags</h2>
-                    {{$storeTagsLen := len .StoreTags}}
-                    {{if gt $storeTagsLen 3}}
-                    <details>
-                        <summary>{{$storeTagsLen}} store tag(s){{template "svg-icon-show-more-less"}}</summary>
-                        {{end}}
-                        <ul class="property-value flexible {{if gt $storeTagsLen 3}}vertical{{end}}">{{range .StoreTags}}
-                                <li><a href="/search?store-tags={{.}}"
-                                       aria-label="all products of {{.}} store tag">{{.}}</a>
-                                </li>{{end}}</ul>
-                        {{if gt $storeTagsLen 3}}
-                    </details>
-                    {{end}}
-                </div>
-            {{end}}
-            {{if .SteamTags}}
-                <div class="text-property">
-                    <h2 class="property-title">Steam tags</h2>
-                    {{$propertiesLen := len .SteamTags}}
-                    {{if gt $propertiesLen 3}}
-                    <details>
-                        <summary>{{$propertiesLen}} Steam tag(s){{template "svg-icon-show-more-less"}}</summary>
-                        {{end}}
-                        <ul class="property-value flexible {{if gt $propertiesLen 3}}vertical{{end}}">{{range .SteamTags}}
-                                <li><a href="/search?steam-tags={{.}}"
-                                       aria-label="all products of {{.}} Steam tag">{{.}}</a>
-                                </li>{{end}}</ul>
-                        {{if gt $propertiesLen 3}}
-                    </details>
-                    {{end}}
-                </div>
-            {{end}}
-            {{if .Features}}
-                <div class="text-property">
-                    <h2 class="property-title">Features</h2>
-                    {{$featuresLen := len .Features}}
-                    {{if gt $featuresLen 3}}
-                    <details>
-                        <summary>{{$featuresLen}} feature(s){{template "svg-icon-show-more-less"}}</summary>
-                        {{end}}
-                        <ul class="property-value {{if gt $featuresLen 3}}vertical{{end}} flexible">{{range .Features}}
-                                <li><a href="/search?features={{.}}"
-                                       aria-label="all products that support {{.}}">{{.}}</a>
-                                </li>{{end}}</ul>
-                        {{if gt $featuresLen 3}}
-                    </details>
-                    {{end}}
-                </div>
-            {{end}}
-            {{if .LanguageCodes}}
-                <div class="text-property">
-                    <h2 class="property-title">Languages</h2>
-                    {{$langsLen := len .LanguageCodes}}
-                    {{if gt $langsLen 3}}
-                    <details>
-                        <summary>{{$langsLen}} language(s){{template "svg-icon-show-more-less"}}</summary>
-                        {{end}}
-                        <ul class="property-value {{if gt $langsLen 3}}vertical{{end}}">{{range .LanguageCodes}}
-                                {{$langCode := transitiveSrc .}}
-                                <li><a href="/search?lang-code={{.}}"
-                                       aria-label="all products supporting {{.}} language">{{languageCodeFlag $langCode}}
-                                        &nbsp;{{.}}</a></li>{{end}}</ul>
-                        {{if gt $langsLen 3}}
-                    </details>
-                    {{end}}
-                </div>
-            {{end}}
-            {{if .GlobalReleaseDate}}
-                <div class="text-property">
-                    <h2 class="property-title">Global Release</h2>
-                    <div class="property-value">{{formatDate .GlobalReleaseDate}}</div>
-                </div>
-            {{end}}
-            {{if .GOGReleaseDate}}
-                <div class="text-property">
-                    <h2 class="property-title">GOG.com Release</h2>
-                    <div class="property-value">{{formatDate .GOGReleaseDate}}</div>
-                </div>
-            {{end}}
-            {{if .GOGOrderDate}}
-                <div class="text-property">
-                    <h2 class="property-title">GOG.com Order</h2>
-                    <div class="property-value">{{formatDate (justTheDate .GOGOrderDate)}}</div>
-                </div>
-            {{end}}
-            {{if .IncludesGames}}
-                <div class="text-property">
-                    <h2 class="property-title">Includes</h2>
-                    {{template "product-details-refs" .IncludesGames}}
-                </div>
-            {{end}}
-            {{if .IsIncludedByGames}}
-                <div class="text-property">
-                    <h2 class="property-title">Included By</h2>
-                    {{template "product-details-refs" .IsIncludedByGames}}
-                </div>
-            {{end}}
-            {{if .RequiresGames}}
-                <div class="text-property">
-                    <h2 class="property-title">Requires</h2>
-                    {{template "product-details-refs"  .RequiresGames}}
-                </div>
-            {{end}}
-            {{if .IsRequiredByGames}}
-                <div class="text-property">
-                    <h2 class="property-title">Required By</h2>
-                    {{template "product-details-refs" .IsRequiredByGames}}
-                </div>
-            {{end}}
-            {{if hasGOGLinks .}}
-                <div class="text-property">
-                    <h2 class="property-title">GOG.com Links</h2>
-                    <ul class="property-value flexible">
-                        {{if .StoreUrl}}
-                            <li><a href="{{gogLink .StoreUrl}}" aria-label="GOG.com Store Link">Store</a></li>{{end}}
-                        {{if .ForumUrl}}
-                            <li><a href="{{gogLink .ForumUrl}}" aria-label="GOG.com Forum Link">Forum</a></li>{{end}}
-                        {{if .SupportUrl}}
-                            <li><a href="{{gogLink .SupportUrl}}" aria-label="GOG.com Support Link">Support</a></li>
-                        {{end}}
-                    </ul>
-                </div>
-            {{end}}
-            {{if hasSteamLinks .}}
-                <div class="text-property">
-                    <h2 class="property-title">Steam Links</h2>
-                    <ul class="property-value flexible">
-                        {{if .SteamCommunityUrl}}
-                            <li><a href="{{.SteamCommunityUrl}}" aria-label="Steam Community Link">Community</a></li>
-                        {{end}}
-                        {{$steamNewsId := steamNewsId .}}
-                        {{if $steamNewsId}}
-                            <li><a href="#{{$steamNewsId}}" aria-label="Steam News">News</a></li>
-                        {{end}}
-                    </ul>
-                </div>
-            {{end}}
+
+            {{template "product-details-properties" .}}
+
         </section>
 
         {{template "product-details-additional-properties" .}}
-
     </div>
-{{end}}
-{{define "product-details-shortcuts"}}
-    {{if .Sections}}
-        <section class="shortcuts">
-            <ul class="property-value flexible">
-                {{$sectionTitles := .SectionTitles}}
-                {{range .Sections}}
-                    {{$title := index $sectionTitles .}}
-                    <li><a href="#{{.}}">{{$title}}</a></li>
-                {{end}}
-            </ul>
-        </section>
-    {{end}}
-{{end}}
-{{define "product-details-additional-properties"}}
-    {{if .Sections}}
-        <section class="additional-properties">
-            {{$id := .Id}}
-            {{$sectionTitles := .SectionTitles}}
-            {{range .Sections}}
-                {{$title := index $sectionTitles .}}
-                <details id="{{.}}" class="{{.}}">
-                    <summary>{{$title}}{{template "svg-icon-show-more-less"}}</summary>
-                    <iframe src="/{{.}}?id={{$id}}" loading="lazy"></iframe>
-                </details>
-            {{end}}
-        </section>
-    {{end}}
 {{end}}

@@ -5,7 +5,6 @@ import (
 	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/yt_urls"
-	"golang.org/x/exp/slices"
 	"html/template"
 	"net/url"
 	"strconv"
@@ -15,26 +14,23 @@ import (
 
 func funcMap() template.FuncMap {
 	return template.FuncMap{
-		"transitiveDst":      transitiveDst,
-		"transitiveSrc":      transitiveSrc,
-		"formatBytes":        formatBytes,
-		"justTheDate":        justTheDate,
-		"formatDate":         formatDate,
-		"unixDateFormat":     unixDateFormat,
-		"ratingPercent":      ratingPercent,
-		"gogLink":            gogLink,
-		"toLower":            toLower,
-		"dlTitle":            dlTitle,
-		"hasLabel":           hasLabel,
-		"hasTags":            hasTags,
-		"showPrice":          showPrice,
-		"searchPropertyName": searchPropertyName,
-		"hasDownloads":       hasDownloads,
-		"hasSteamLinks":      hasSteamLinks,
-		"hasGOGLinks":        hasGOGLinks,
-		"languageCodeFlag":   languageCodeFlag,
-		"youtubeLink":        youtubeLink,
-		//"hasShortcuts":          hasShortcuts,
+		"transitiveDst":         transitiveDst,
+		"transitiveSrc":         transitiveSrc,
+		"formatBytes":           formatBytes,
+		"justTheDate":           justTheDate,
+		"formatDate":            formatDate,
+		"unixDateFormat":        unixDateFormat,
+		"ratingPercent":         ratingPercent,
+		"gogLink":               gogLink,
+		"toLower":               toLower,
+		"dlTitle":               dlTitle,
+		"hasLabel":              hasLabel,
+		"hasTags":               hasTags,
+		"showPrice":             showPrice,
+		"searchPropertyName":    searchPropertyName,
+		"hasDownloads":          hasDownloads,
+		"languageCodeFlag":      languageCodeFlag,
+		"youtubeLink":           youtubeLink,
 		"shouldShowWishlist":    shouldShowWishlist,
 		"canAddToWishlist":      canAddToWishlist,
 		"canRemoveFromWishlist": canRemoveFromWishlist,
@@ -42,7 +38,6 @@ func funcMap() template.FuncMap {
 		"anchorId":              anchorId,
 		"downloadTypeTitle":     downloadTypeTitle,
 		"steamReviewClass":      steamReviewClass,
-		"steamNewsId":           steamNewsId,
 	}
 }
 
@@ -177,7 +172,7 @@ func showPrice(pvm productViewModel) bool {
 }
 
 func searchPropertyName(p string) string {
-	return searchPropertyNames[p]
+	return propertyTitles[p]
 }
 
 func hasDownloads(pd *productDownloads) bool {
@@ -187,16 +182,6 @@ func hasDownloads(pd *productDownloads) bool {
 	return len(pd.Installers) > 0 ||
 		len(pd.DLCs) > 0 ||
 		len(pd.Extras) > 0
-}
-
-func hasSteamLinks(pvm *productViewModel) bool {
-	return pvm.SteamAppId != ""
-}
-
-func hasGOGLinks(pvm *productViewModel) bool {
-	return pvm.StoreUrl != "" ||
-		pvm.ForumUrl != "" ||
-		pvm.SupportUrl != ""
 }
 
 func languageCodeFlag(lc string) string {
@@ -210,15 +195,6 @@ func languageCodeFlag(lc string) string {
 func youtubeLink(videoId string) string {
 	return yt_urls.VideoUrl(videoId).String()
 }
-
-//func hasShortcuts(pvm *productViewModel) bool {
-//	return pvm.HasDescription ||
-//		pvm.HasChangelog ||
-//		pvm.HasScreenshots ||
-//		pvm.HasVideos ||
-//		pvm.HasDownloads ||
-//		pvm.HasSteamAppNews
-//}
 
 func shouldShowWishlist(pvm *productViewModel) bool {
 	return !pvm.Labels.Owned
@@ -253,11 +229,4 @@ func steamReviewClass(sr string) string {
 	} else {
 		return "neutral"
 	}
-}
-
-func steamNewsId(pvm *productViewModel) string {
-	if slices.Contains(pvm.Sections, steamNewsSection) {
-		return steamNewsSection
-	}
-	return ""
 }
