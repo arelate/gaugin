@@ -78,6 +78,10 @@ var gauginPropertyOrder = []string{
 	GauginSteamLinksProperty,
 }
 
+var gauginPropertyClasses = []string{
+	vangogh_local_data.SteamReviewScoreDescProperty,
+}
+
 const (
 	GauginGOGLinksProperty          = "gog-links"
 	GauginSteamLinksProperty        = "steam-links"
@@ -100,9 +104,10 @@ type productViewModel struct {
 	OperatingSystems []string
 	Rating           string
 	// Text properties
-	Properties     map[string]map[string]string
-	PropertyOrder  []string
-	PropertyTitles map[string]string
+	Properties      map[string]map[string]string
+	PropertyOrder   []string
+	PropertyTitles  map[string]string
+	PropertyClasses map[string]string
 	// Sections
 	Sections      []string
 	SectionTitles map[string]string
@@ -305,9 +310,10 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				OperatingSystems: propertiesFromRedux(rdx, vangogh_local_data.OperatingSystemsProperty),
 				Rating:           propertyFromRedux(rdx, vangogh_local_data.RatingProperty),
 
-				Properties:     make(map[string]map[string]string),
-				PropertyOrder:  gauginPropertyOrder,
-				PropertyTitles: propertyTitles,
+				Properties:      make(map[string]map[string]string),
+				PropertyOrder:   gauginPropertyOrder,
+				PropertyTitles:  propertyTitles,
+				PropertyClasses: make(map[string]string),
 
 				Sections:      make([]string, 0),
 				SectionTitles: sectionTitles,
@@ -335,12 +341,25 @@ func productViewModelFromRedux(redux map[string]map[string][]string) (*productVi
 				pvm.Properties[lp] = getPropertyLinks(lp, rdx)
 			}
 
+			for _, cp := range gauginPropertyClasses {
+				pvm.PropertyClasses[cp] = getPropertyClass(cp, rdx)
+			}
+
 			return pvm, nil
 		}
 	default:
 		return nil, fmt.Errorf("too many ids, rdx")
 	}
 	return nil, nil
+}
+
+func getPropertyClass(property string, rdx map[string][]string) string {
+	switch property {
+	case vangogh_local_data.SteamReviewScoreDescProperty:
+		return steamReviewClass(propertyFromRedux(rdx, vangogh_local_data.SteamReviewScoreDescProperty))
+	}
+
+	return ""
 }
 
 func getPropertyLinks(property string, rdx map[string][]string) map[string]string {
