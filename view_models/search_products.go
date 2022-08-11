@@ -13,10 +13,11 @@ type searchProducts struct {
 	Limit            int
 	Total            int
 	Constrained      bool
+	ConstrainedPath  string
 	Path             string
 }
 
-func NewSearchProducts(scope string, constrained bool) *searchProducts {
+func NewSearchProducts(scope string, constrained bool, path string) *searchProducts {
 	return &searchProducts{
 		Scope:            scope,
 		Context:          "filter-products",
@@ -25,5 +26,6 @@ func NewSearchProducts(scope string, constrained bool) *searchProducts {
 		DigestsTitles:    digestTitles,
 		Limit:            SearchProductsLimit,
 		Constrained:      constrained,
+		Path:             path,
 	}
 }

@@ -26,9 +26,17 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	q := r.URL.Query()
 
+	constrained := !vangogh_local_data.FlagFromUrl(r.URL, "unconstrained")
+	path := ""
+	if constrained {
+		path = r.URL.RawPath + "?" + r.URL.RawQuery
+	}
+
 	spvm := view_models.NewSearchProducts(
 		scope,
-		!vangogh_local_data.FlagFromUrl(r.URL, "unconstrained"))
+		constrained,
+		path,
+	)
 
 	shortQuery := false
 	queryProperties := append(view_models.SearchProperties)

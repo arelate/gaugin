@@ -56,7 +56,6 @@ func HandleFuncs() {
 	}
 
 	for route, path := range searchRoutes {
-		patternHandlers["/products/"+route+"/unconstrained"] = Redirect(unconstrainedPath(path), http.StatusPermanentRedirect)
 		patternHandlers["/products/"+route] = Redirect(path, http.StatusPermanentRedirect)
 	}
 
