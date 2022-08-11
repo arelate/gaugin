@@ -1,4 +1,4 @@
-package rest
+package view_models
 
 import (
 	"github.com/arelate/vangogh_local_data"

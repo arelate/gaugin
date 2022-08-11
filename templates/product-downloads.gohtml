@@ -31,8 +31,8 @@
 {{define "download"}}
     {{range .}}
         <a target="_top" class="download {{.Type}} {{.OS.String}}" href="/files?manual-url={{.ManualUrl}}"
-           aria-label="download {{dlTitle .}}">
-            <div class="title">{{dlTitle .}}</div>
+           aria-label="download {{downloadTitle .}}">
+            <div class="title">{{downloadTitle .}}</div>
             <ul>
                 <li class="type label {{.Type}}">{{downloadTypeTitle .Type}}</li>
                 {{$os := toLower .OS.String}}

@@ -1,43 +1,36 @@
-package rest
+package view_models
 
 import (
 	"fmt"
-	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/yt_urls"
 	"html/template"
-	"net/url"
 	"strconv"
 	"strings"
 	"time"
 )
 
-func funcMap() template.FuncMap {
+func FuncMap() template.FuncMap {
 	return template.FuncMap{
 		"transitiveDst":         transitiveDst,
 		"transitiveSrc":         transitiveSrc,
 		"formatBytes":           formatBytes,
-		"justTheDate":           justTheDate,
 		"formatDate":            formatDate,
 		"unixDateFormat":        unixDateFormat,
 		"ratingPercent":         ratingPercent,
-		"gogLink":               gogLink,
 		"toLower":               toLower,
-		"dlTitle":               dlTitle,
+		"downloadTitle":         downloadTitle,
 		"hasLabel":              hasLabel,
-		"hasTags":               hasTags,
 		"showPrice":             showPrice,
-		"searchPropertyName":    searchPropertyName,
+		"propertyTitle":         propertyTitle,
 		"hasDownloads":          hasDownloads,
 		"languageCodeFlag":      languageCodeFlag,
 		"youtubeLink":           youtubeLink,
 		"shouldShowWishlist":    shouldShowWishlist,
 		"canAddToWishlist":      canAddToWishlist,
 		"canRemoveFromWishlist": canRemoveFromWishlist,
-		"commaJoin":             commaJoin,
 		"anchorId":              anchorId,
 		"downloadTypeTitle":     downloadTypeTitle,
-		"steamReviewClass":      steamReviewClass,
 	}
 }
 
@@ -46,7 +39,7 @@ const (
 	transitiveClose = ")"
 )
 
-func dlTitle(dl vangogh_local_data.Download) string {
+func downloadTitle(dl vangogh_local_data.Download) string {
 	switch dl.Type {
 	case vangogh_local_data.Installer:
 		fallthrough
@@ -107,10 +100,6 @@ func formatBytes(b int) string {
 		float64(b)/float64(div), "kMGTPE"[exp])
 }
 
-func justTheDate(s string) string {
-	return strings.Split(s, " ")[0]
-}
-
 func formatDate(d string) string {
 	if hd, err := time.Parse("2006-01-02", d); err == nil {
 		return hd.Format("January 2, 2006")
@@ -133,15 +122,6 @@ func ratingPercent(r string) int {
 	}
 }
 
-func gogLink(p string) string {
-	u := url.URL{
-		Scheme: gog_integration.HttpsScheme,
-		Host:   gog_integration.WwwGogHost,
-		Path:   p,
-	}
-	return u.String()
-}
-
 func hasLabel(lbs labels) bool {
 	return lbs.Owned ||
 		lbs.Wishlisted ||
@@ -157,11 +137,7 @@ func hasLabel(lbs labels) bool {
 		len(lbs.Tags) > 0
 }
 
-func hasTags(lbs labels) bool {
-	return len(lbs.Tags) > 0 || len(lbs.LocalTags) > 0
-}
-
-func showPrice(pvm productViewModel) bool {
+func showPrice(pvm product) bool {
 	if pvm.Labels.Free ||
 		pvm.Labels.TBA ||
 		pvm.Labels.Owned ||
@@ -171,11 +147,11 @@ func showPrice(pvm productViewModel) bool {
 	return true
 }
 
-func searchPropertyName(p string) string {
+func propertyTitle(p string) string {
 	return propertyTitles[p]
 }
 
-func hasDownloads(pd *productDownloads) bool {
+func hasDownloads(pd *ProductDownloads) bool {
 	if pd == nil {
 		return false
 	}
@@ -196,21 +172,17 @@ func youtubeLink(videoId string) string {
 	return yt_urls.VideoUrl(videoId).String()
 }
 
-func shouldShowWishlist(pvm *productViewModel) bool {
+func shouldShowWishlist(pvm *product) bool {
 	return !pvm.Labels.Owned
 }
 
-func canAddToWishlist(pvm *productViewModel) bool {
+func canAddToWishlist(pvm *product) bool {
 	return !pvm.Labels.Owned &&
 		!pvm.Labels.Wishlisted
 }
 
-func canRemoveFromWishlist(pvm *productViewModel) bool {
+func canRemoveFromWishlist(pvm *product) bool {
 	return pvm.Labels.Wishlisted
-}
-
-func commaJoin(s []string) string {
-	return strings.Join(s, ",")
 }
 
 func anchorId(t string) string {
@@ -219,14 +191,4 @@ func anchorId(t string) string {
 
 func downloadTypeTitle(dt vangogh_local_data.DownloadType) string {
 	return downloadTypeTitles[dt]
-}
-
-func steamReviewClass(sr string) string {
-	if strings.Contains(sr, "Positive") {
-		return "positive"
-	} else if strings.Contains(sr, "Negative") {
-		return "negative"
-	} else {
-		return "neutral"
-	}
 }

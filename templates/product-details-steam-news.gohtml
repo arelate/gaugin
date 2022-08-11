@@ -5,18 +5,18 @@
             <details {{if $firstItem}}open{{end}}>
                 <summary><h1>{{.Title}}</h1>{{template "svg-icon-show-more-less"}}</summary>
                 <div class="steam-news-metadata">
+                    {{if .Date}}
+                        <span class="steam-news-date">Date: <span class="metadata-value">{{unixDateFormat .Date}}</span></span>
+                    {{end}}
+                    {{if .Author}}
+                        <span class="steam-news-author">Author: <span class="metadata-value">{{.Author}}</span></span>
+                    {{end}}
                     {{if .FeedLabel}}
                         <span class="steam-news-feed-label">Label: <span
                                     class="metadata-value">{{.FeedLabel}}</span></span>
                     {{end}}
                     {{if .Tags}}
                         <span class="steam-news-tags">Tags: <span class="metadata-value">{{.Tags}}</span></span>
-                    {{end}}
-                    {{if .Date}}
-                        <span class="steam-news-date">Date: <span class="metadata-value">{{unixDateFormat .Date}}</span></span>
-                    {{end}}
-                    {{if .Author}}
-                        <span class="steam-news-author">Author: <span class="metadata-value">{{.Author}}</span></span>
                     {{end}}
                     {{if .Url}}
                         <span class="steam-news-url"><a target="_top" href="{{.Url}}">Source Link</a></span>

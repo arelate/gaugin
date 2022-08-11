@@ -16,10 +16,19 @@
                                 {{end}}
                             </ul>
                         </div>
-                        <div class="property-title">Developers</div>
-                        <div class="property-value">{{range .Developers}}<span>{{.}}</span> {{end}}</div>
-                        <div class="property-title">Publishers</div>
-                        <div class="property-value">{{range .Publishers}}<span>{{.}}</span> {{end}}</div>
+
+                        {{if .Properties}}
+                            {{$propertyTitles := .PropertyTitles}}
+                            {{$properties := .Properties}}
+                            {{range $property := .PropertyOrder}}
+                                {{$title := index $propertyTitles $property}}
+                                {{$values := index $properties $property}}
+                                <div class="property-title">{{$title}}</div>
+                                <div class="property-value">{{range $values}}<span>{{.}}</span> {{end}}</div>
+                            {{end}}
+
+                        {{end}}
+
                     </div>
                 </a>
             {{end}}

@@ -2,19 +2,10 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
-	"github.com/arelate/vangogh_local_data"
+	"github.com/arelate/gaugin/view_models"
 	"github.com/boggydigital/nod"
-	"golang.org/x/exp/maps"
 	"net/http"
-	"strings"
 )
-
-var downloadTypeTitles = map[vangogh_local_data.DownloadType]string{
-	vangogh_local_data.Installer: "Installer",
-	vangogh_local_data.DLC:       "DLC",
-	vangogh_local_data.Extra:     "Extra",
-	vangogh_local_data.Movie:     "Movie",
-}
 
 func GetDownloads(w http.ResponseWriter, r *http.Request) {
 
@@ -24,7 +15,7 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(w)
 
-	dvm, err := getCurrentOtherOSDownloads(id, r.Header.Get("User-Agent"))
+	dvm, err := getDownloadsViewModel(id, r.Header.Get("User-Agent"))
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
@@ -36,7 +27,7 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func getCurrentOtherOSDownloads(id string, userAgent string) (*downloadsViewModel, error) {
+func getDownloadsViewModel(id string, userAgent string) (*view_models.Downloads, error) {
 
 	//we specifically get /downloads and not /data&product-type=details because of Details
 	//format complexities, see gog_integration/details.go/GetGameDownloads comment
@@ -45,61 +36,7 @@ func getCurrentOtherOSDownloads(id string, userAgent string) (*downloadsViewMode
 		return nil, err
 	}
 
-	var currentOS vangogh_local_data.OperatingSystem
-	if strings.Contains(userAgent, "Windows") {
-		currentOS = vangogh_local_data.Windows
-	} else if strings.Contains(userAgent, "Mac OS X") {
-		currentOS = vangogh_local_data.MacOS
-	} else if strings.Contains(userAgent, "Linux") {
-		currentOS = vangogh_local_data.Linux
-	}
-
-	dvm := &downloadsViewModel{
-		Context: "iframe",
-		CurrentOS: &productDownloads{
-			OperatingSystems: currentOS.String(),
-			CurrentOS:        true,
-			Installers:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
-			DLCs:             make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		},
-		OtherOS: &productDownloads{
-			CurrentOS:  false,
-			Installers: make(vangogh_local_data.DownloadsList, 0, len(dls)),
-			DLCs:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		},
-		Extras: &productDownloads{
-			CurrentOS: false,
-			Extras:    make(vangogh_local_data.DownloadsList, 0, len(dls)),
-		},
-	}
-
-	otherOS := make(map[string]interface{})
-
-	var osd *productDownloads
-	for _, dl := range dls {
-		if dl.OS == currentOS {
-			osd = dvm.CurrentOS
-		} else if dl.OS == vangogh_local_data.AnyOperatingSystem {
-			osd = dvm.Extras
-		} else {
-			otherOS[dl.OS.String()] = nil
-			osd = dvm.OtherOS
-		}
-
-		switch dl.Type {
-		case vangogh_local_data.Installer:
-			osd.Installers = append(osd.Installers, dl)
-		case vangogh_local_data.DLC:
-			osd.DLCs = append(osd.DLCs, dl)
-		case vangogh_local_data.Extra:
-			fallthrough
-		default:
-			osd.Extras = append(osd.Extras, dl)
-		}
-	}
-
-	dvm.OtherOS.OperatingSystems = strings.Join(maps.Keys(otherOS), ", ")
-	dvm.Extras.OperatingSystems = "Other"
+	dvm := view_models.NewDownloads(userAgent, dls)
 
 	return dvm, nil
 }

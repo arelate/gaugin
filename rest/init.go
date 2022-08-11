@@ -3,6 +3,7 @@ package rest
 import (
 	"crypto/sha256"
 	"encoding/gob"
+	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/gog_integration"
 	"github.com/arelate/steam_integration"
 	"github.com/arelate/vangogh_local_data"
@@ -40,6 +41,8 @@ func Init(templatesFS fs.FS) error {
 	gob.Register(gog_integration.AccountProduct{})
 	gob.Register(gog_integration.ApiProductV1{})
 	gob.Register(gog_integration.ApiProductV2{})
+	gob.Register(gog_integration.CatalogPage{})
+	gob.Register(gog_integration.CatalogProduct{})
 	gob.Register(gog_integration.Details{})
 	gob.Register(gog_integration.Licences{})
 	gob.Register(gog_integration.OrderPage{})
@@ -55,7 +58,7 @@ func Init(templatesFS fs.FS) error {
 	tmpl = template.Must(
 		template.
 			New("").
-			Funcs(funcMap()).
+			Funcs(view_models.FuncMap()).
 			ParseFS(templatesFS, "templates/*.gohtml"))
 
 	return nil

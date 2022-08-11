@@ -14,11 +14,11 @@
                     {{$value := index $query $property}}
                     <div class="search-property {{if $value}}has-value{{end}}">
                         {{$digests := index $digests $property}}
-                        <label for="search-{{$property}}">{{searchPropertyName $property}}</label>
+                        <label for="search-{{$property}}">{{propertyTitle $property}}</label>
                         {{if $digests}}
                             <select id="search-{{$property}}" name="{{$property}}">
                                 <option {{if eq $value ""}}selected{{end}} value="">
-                                    Select {{searchPropertyName $property}}...
+                                    Select {{propertyTitle $property}}...
                                 </option>
                                 {{range $digests}}
                                     {{$digestTitle := index $digestsTitles .}}
@@ -28,7 +28,7 @@
                             </select>
                         {{else}}
                             <input id="search-{{$property}}" type="search" name="{{$property}}"
-                                   placeholder="{{searchPropertyName $property}}"
+                                   placeholder="{{propertyTitle $property}}"
                                    value="{{$value}}"/>
                         {{end}}
                     </div>

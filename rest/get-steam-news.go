@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
+	"github.com/arelate/gaugin/view_models"
 	"github.com/boggydigital/nod"
 	"net/http"
 )
@@ -20,7 +21,7 @@ func GetSteamNews(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sanvm := steamAppNewsViewModelFromResponse(san)
+	sanvm := view_models.NewSteamNews(san)
 
 	if err := tmpl.ExecuteTemplate(w, "steam-news-page", sanvm); err != nil {
 		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)

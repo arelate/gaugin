@@ -61,7 +61,7 @@
                         <li><a href="/search?tag={{.}}" aria-label="{{.}}">{{transitiveDst .}}</a></li>
                     {{end}}
                     {{range .Labels.LocalTags}}
-                        <li><a href="/search?local-tags={{.}}" aria-label="{{.}}">{{.}}</a></li>
+                        <li><a href="/search?local-tags={{.}}">{{.}}</a></li>
                     {{end}}
                     <li class="actionable-property">
                         <a href="/tags/edit?id={{.Id}}">Edit</a>

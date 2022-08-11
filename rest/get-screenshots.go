@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
+	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
 	"net/http"
@@ -26,10 +27,7 @@ func GetScreenshots(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	svm := &screenshotsViewModel{
-		Context:     "iframe",
-		Screenshots: propertiesFromRedux(idRedux[id], vangogh_local_data.ScreenshotsProperty),
-	}
+	svm := view_models.NewScreenshots(idRedux[id])
 
 	if err := tmpl.ExecuteTemplate(w, "screenshots-page", svm); err != nil {
 		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)

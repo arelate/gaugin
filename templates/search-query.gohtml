@@ -7,7 +7,7 @@
                     {{$digestTitle := index $digestsTitles $value}}
                     {{if eq $digestTitle ""}}{{$digestTitle = $value}}{{end}}
                     <li>
-                        <span class="property-title">{{searchPropertyName $property}}:</span>
+                        <span class="property-title">{{propertyTitle $property}}:</span>
                         <span class="property-value">{{$digestTitle}}</span>
                     </li>
                 {{end}}

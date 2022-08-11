@@ -1,4 +1,4 @@
-package rest
+package view_models
 
 import (
 	"fmt"
@@ -38,7 +38,7 @@ var formatters = map[string]string{
 	"[/spoiler]":         "</mark>",
 }
 
-func steamAppNewsToHTML(c string) string {
+func steamNewsToHTML(c string) string {
 
 	for t := range preFormatters {
 		c = strings.Replace(c, t, preFormatters[t], -1)

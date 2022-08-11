@@ -2,10 +2,10 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
+	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
 	"net/http"
-	"strings"
 )
 
 func GetVideos(w http.ResponseWriter, r *http.Request) {
@@ -27,21 +27,7 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	vvm := &videosViewModel{
-		Context:      "iframe",
-		LocalVideos:  make([]string, 0),
-		RemoteVideos: make([]string, 0),
-	}
-
-	// filter videos to distinguish between locally available and remote videos
-
-	for _, v := range propertiesFromRedux(idRedux[id], vangogh_local_data.VideoIdProperty) {
-		if !strings.Contains(v, "(") {
-			vvm.LocalVideos = append(vvm.LocalVideos, v)
-		} else {
-			vvm.RemoteVideos = append(vvm.RemoteVideos, v)
-		}
-	}
+	vvm := view_models.NewVideos(idRedux[id])
 
 	if err := tmpl.ExecuteTemplate(w, "videos-page", vvm); err != nil {
 		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
