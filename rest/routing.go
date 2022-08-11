@@ -52,7 +52,7 @@ func HandleFuncs() {
 		"/products": Redirect("/search", http.StatusPermanentRedirect),
 
 		// start at the updates
-		"/": Redirect("/products/owned", http.StatusPermanentRedirect),
+		"/": Redirect("/updates", http.StatusPermanentRedirect),
 	}
 
 	for route, path := range searchRoutes {
