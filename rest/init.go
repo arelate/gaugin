@@ -50,6 +50,7 @@ func Init(templatesFS fs.FS) error {
 	gob.Register(gog_integration.StorePage{})
 	gob.Register(gog_integration.StoreProduct{})
 	gob.Register(gog_integration.WishlistPage{})
+	gob.Register(gog_integration.UserWishlist{})
 	//Steam types
 	gob.Register(steam_integration.AppList{})
 	gob.Register(steam_integration.GetNewsForAppResponse{})
