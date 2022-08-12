@@ -21,9 +21,13 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.LastSyncUpdatesProperty)
 
 	if err != nil {
-		http.Error(w, nod.Error(err).Error(), http.StatusMethodNotAllowed)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
+
+	//for _, dataRdx := range updRdx {
+	//	syncCompletedStr := dataRdx[]
+	//}
 
 	updates := make(map[string][]string)
 	for section, rdx := range updRdx {
@@ -40,7 +44,7 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	rdx, err := getRedux(
+	dataRdx, err := getRedux(
 		http.DefaultClient,
 		strings.Join(maps.Keys(keys), ","),
 		false,
@@ -51,7 +55,18 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	uvm := view_models.NewUpdates(updates, rdx)
+	syncRdx, err := getRedux(
+		http.DefaultClient,
+		vangogh_local_data.SyncCompleteKey,
+		false,
+		vangogh_local_data.SyncEventsProperty)
+
+	if err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
+	}
+
+	uvm := view_models.NewUpdates(updates, dataRdx, syncRdx[vangogh_local_data.SyncCompleteKey])
 
 	gaugin_middleware.DefaultHeaders(w)
 

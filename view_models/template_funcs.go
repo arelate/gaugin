@@ -17,6 +17,7 @@ func FuncMap() template.FuncMap {
 		"formatBytes":           formatBytes,
 		"formatDate":            formatDate,
 		"unixDateFormat":        unixDateFormat,
+		"unixDateTimeFormat":    unixDateTimeFormat,
 		"ratingPercent":         ratingPercent,
 		"toLower":               toLower,
 		"downloadTitle":         downloadTitle,
@@ -109,6 +110,10 @@ func formatDate(d string) string {
 
 func unixDateFormat(d int) string {
 	return time.Unix(int64(d), 0).Format("Jan 2, 2006")
+}
+
+func unixDateTimeFormat(d int64) string {
+	return time.Unix(d, 0).Format(time.RFC1123)
 }
 
 func ratingPercent(r string) int {

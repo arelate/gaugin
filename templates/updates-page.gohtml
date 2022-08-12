@@ -18,7 +18,9 @@
     <section class="updates-container">
         {{if $sectionProducts}}
             {{range .Sections}}
-                <h1 class="section-title" id="{{anchorId .}}">{{.}}<a class="back-to-top-link" href="#_top">{{template "svg-icon" "back-to-top"}}</a></h1>
+                <h1 class="section-title" id="{{anchorId .}}">{{.}}<a class="back-to-top-link"
+                                                                      href="#_top">{{template "svg-icon" "back-to-top"}}</a>
+                </h1>
                 {{$products := index $sectionProducts .}}
                 {{template "products-list" $products.Products}}
             {{end}}
@@ -26,7 +28,12 @@
             <div class="no-updates">no updates</div>
         {{end}}
     </section>
-    <div class="footer-spacer" ></div>
+
+    {{if .SyncCompleted}}
+        <span class="sync-completed">Sync done:&nbsp;<time>{{unixDateTimeFormat .SyncCompleted}}</time></span>
+    {{end}}
+
+    <div class="footer-spacer"></div>
     {{template "footer"}}
     </body>
     </html>
