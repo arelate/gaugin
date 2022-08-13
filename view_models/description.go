@@ -22,6 +22,7 @@ func NewDescription(rdx map[string][]string) *description {
 	//4) rewriting https://www.gog.com/game/... and https://www.gog.com/en/game/... links to gaugin
 	//5) rewriting links <a href="..."/> as <a target='_top' href="..."/> to do top level navigation
 	//6) fix quotes used for links in some products
+	//7) replace data-fallbackurl with poster, so that missing video sources will allow fallback image to show
 
 	desc := propertyFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty)
 	desc += implicitToExplicitList(propertyFromRedux(rdx, vangogh_local_data.DescriptionFeaturesProperty))
