@@ -21,7 +21,8 @@
             {{template "css-products-list"}}
         {{else if eq .Context "product"}}
             {{template "css-product-details"}}
-            {{template "script-product-details"}}
+            {{template "script-iframe-size-receive-message"}}
+            {{template "script-image-fade-in"}}
         {{else if eq .Context "filter-products"}}
             {{template "css-scope"}}
             {{template "css-search"}}
@@ -29,7 +30,7 @@
         {{else if eq .Context "iframe"}}
             {{template "css-iframe"}}
             {{template "css-downloads"}}
-            {{template "script-iframe"}}
+            {{template "script-iframe-post-message"}}
         {{else if eq .Context "tags"}}
             {{template "css-tags"}}
         {{end}}

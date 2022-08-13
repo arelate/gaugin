@@ -1,4 +1,4 @@
-{{define "product-downloads"}}
+{{define "downloads"}}
     <details id="{{if .CurrentOS}}current-os{{else}}other-os{{end}}-downloads" class="downloads"
              {{if .CurrentOS}}open{{end}} accesskey="f" tabindex="20">
         <summary>{{.OperatingSystems}}{{template "svg-icon-show-more-less"}}</summary>
