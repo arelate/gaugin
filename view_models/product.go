@@ -130,12 +130,8 @@ func formatPropertyLinkTitle(property, link string) string {
 		fallthrough
 	case vangogh_local_data.IsRequiredByGamesProperty:
 		title = transitiveDst(link)
-	case vangogh_local_data.GlobalReleaseDateProperty:
-		fallthrough
-	case vangogh_local_data.GOGReleaseDateProperty:
-		title = formatDate(link)
 	case vangogh_local_data.GOGOrderDateProperty:
-		title = formatDate(justTheDate(link))
+		title = justTheDate(link)
 	case vangogh_local_data.LanguageCodeProperty:
 		title = languageCodeFlag(transitiveSrc(link)) + " " + transitiveDst(link)
 	case GauginGOGLinksProperty:
@@ -149,12 +145,8 @@ func formatPropertyLinkTitle(property, link string) string {
 
 func formatPropertyLinkHref(property, link string) string {
 	switch property {
-	case vangogh_local_data.GlobalReleaseDateProperty:
-		fallthrough
-	case vangogh_local_data.GOGReleaseDateProperty:
-		fallthrough
 	case vangogh_local_data.GOGOrderDateProperty:
-		return ""
+		link = justTheDate(link)
 	case vangogh_local_data.PublishersProperty:
 		fallthrough
 	case vangogh_local_data.DevelopersProperty:
@@ -171,9 +163,8 @@ func formatPropertyLinkHref(property, link string) string {
 		return gogLink(transitiveSrc(link))
 	case GauginSteamLinksProperty:
 		return transitiveSrc(link)
-	default:
-		return fmt.Sprintf("/search?%s=%s", property, link)
 	}
+	return fmt.Sprintf("/search?%s=%s", property, link)
 }
 
 func justTheDate(s string) string {

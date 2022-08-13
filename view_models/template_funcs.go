@@ -15,7 +15,6 @@ func FuncMap() template.FuncMap {
 		"transitiveDst":         transitiveDst,
 		"transitiveSrc":         transitiveSrc,
 		"formatBytes":           formatBytes,
-		"formatDate":            formatDate,
 		"unixDateFormat":        unixDateFormat,
 		"unixDateTimeFormat":    unixDateTimeFormat,
 		"ratingPercent":         ratingPercent,
@@ -99,13 +98,6 @@ func formatBytes(b int) string {
 	}
 	return fmt.Sprintf("%.1f %cB",
 		float64(b)/float64(div), "kMGTPE"[exp])
-}
-
-func formatDate(d string) string {
-	if hd, err := time.Parse("2006-01-02", d); err == nil {
-		return hd.Format("January 2, 2006")
-	}
-	return ""
 }
 
 func unixDateFormat(d int) string {

@@ -33,6 +33,9 @@ var SearchProperties = []string{
 	vangogh_local_data.IsUsingScummVMProperty,
 	vangogh_local_data.TypesProperty,
 	vangogh_local_data.SteamReviewScoreDescProperty,
+	vangogh_local_data.GOGReleaseDateProperty,
+	vangogh_local_data.GlobalReleaseDateProperty,
+	vangogh_local_data.GOGOrderDateProperty,
 	vangogh_local_data.SortProperty,
 	vangogh_local_data.DescendingProperty,
 }

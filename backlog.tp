@@ -17,6 +17,12 @@ More icons, less text:
 	- product details sections
 
 Archive:
+	Figure out situation with Global release date, GOG release date: @done(2022-08-13)
+		- Both dates are using Europe/Nicosia timezone @done(2022-08-13)
+		- Global release date is midnight @done(2022-08-13)
+		- GOG release is 15:59 (for all?) @done(2022-08-13)
+		- Perhaps move reductions from time.Time to "YYYY.MM.DD" like catalog-product? @done(2022-08-13)
+		- Enable searching by release date @done(2022-08-13)
 	Steam News enhancements: @done(2022-08-13)
 		- Check any remaining Steam tags: @done(2022-08-13)
 			- olist @done(2022-08-13)
