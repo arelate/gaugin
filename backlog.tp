@@ -1,7 +1,3 @@
-Steam News enhancements:
-	- Check any remaining Steam tags:
-		- olist
-
 Steam reviews:
 	- Add new section
 	- Display reviews like news
@@ -21,6 +17,9 @@ More icons, less text:
 	- product details sections
 
 Archive:
+	Steam News enhancements: @done(2022-08-13)
+		- Check any remaining Steam tags: @done(2022-08-13)
+			- olist @done(2022-08-13)
 	Implement data-fallbackurl support for videos: @done(2022-08-13)
 		- add onerror handler similar to images @done(2022-08-13)
 		- use that attribute to replace video @done(2022-08-13)
