@@ -5,10 +5,6 @@ Steam News enhancements:
 Steam reviews:
 	- Add new section
 	- Display reviews like news
-	
-Implement data-fallback-url support for videos:
-	- add onerror handler similar to images
-	- use that attribute to replace video
 
 Sync action:
 	- initiate sync
@@ -25,6 +21,10 @@ More icons, less text:
 	- product details sections
 
 Archive:
+	Implement data-fallbackurl support for videos: @done(2022-08-13)
+		- add onerror handler similar to images @done(2022-08-13)
+		- use that attribute to replace video @done(2022-08-13)
+		- an easier solution - replace data-fallbackurl with poster and this image will only be used if the source is not available @done(2022-08-13)
 	Add dehydration vet: @done(2022-08-12)
 		- Check dehydrations that are older than image they're created for @done(2022-08-12)
 		- Fix by dehydrating again @done(2022-08-12)

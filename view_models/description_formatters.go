@@ -47,6 +47,10 @@ func fixQuotes(desc string) string {
 	return strings.Replace(desc, "”", "\"", -1)
 }
 
+func replaceDataFallbackUrls(desc string) string {
+	return strings.Replace(desc, "data-fallbackurl", "poster", -1)
+}
+
 const doubleNewLineChar = "\n\n"
 const newLineChar = "\n"
 const emDashCode = "\u2013"

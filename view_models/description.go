@@ -30,6 +30,7 @@ func NewDescription(rdx map[string][]string) *description {
 	desc = rewriteGameLinks(desc)
 	desc = rewriteLinksAsTargetTop(desc)
 	desc = fixQuotes(desc)
+	desc = replaceDataFallbackUrls(desc)
 
 	dvm.Description = template.HTML(desc)
 
