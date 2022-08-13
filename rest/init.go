@@ -47,9 +47,6 @@ func Init(templatesFS fs.FS) error {
 	gob.Register(gog_integration.Licences{})
 	gob.Register(gog_integration.OrderPage{})
 	gob.Register(gog_integration.Order{})
-	gob.Register(gog_integration.StorePage{})
-	gob.Register(gog_integration.StoreProduct{})
-	gob.Register(gog_integration.WishlistPage{})
 	gob.Register(gog_integration.UserWishlist{})
 	//Steam types
 	gob.Register(steam_integration.AppList{})

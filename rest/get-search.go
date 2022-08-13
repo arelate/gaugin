@@ -15,7 +15,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	// GET /search?(search_params)
 
 	scope := ""
-	for route, path := range searchRoutes {
+	for route, path := range searchRoutes() {
 		if r.URL.RawQuery != "" &&
 			(strings.HasSuffix(path, r.URL.RawQuery) ||
 				strings.HasSuffix(unconstrainedPath(path), r.URL.RawQuery)) {

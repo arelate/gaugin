@@ -30,7 +30,7 @@
     </section>
 
     {{if .SyncCompleted}}
-        <span class="sync-completed">Updated:&nbsp;<time>{{unixDateTimeFormat .SyncCompleted}}</time></span>
+        <span class="sync-completed"><span class="highlight">Updated:</span>&nbsp;<time>{{unixDateTimeFormat .SyncCompleted}}</time></span>
     {{end}}
 
     <div class="footer-spacer"></div>
