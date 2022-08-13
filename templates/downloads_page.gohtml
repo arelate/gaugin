@@ -6,13 +6,13 @@
     {{template "svg-icons"}}
     <div id="downloads-content">
         {{if hasDownloads .CurrentOS}}
-            {{template "product-downloads" .CurrentOS}}
+            {{template "downloads" .CurrentOS}}
         {{end}}
         {{if hasDownloads .OtherOS}}
-            {{template "product-downloads" .OtherOS}}
+            {{template "downloads" .OtherOS}}
         {{end}}
         {{if hasDownloads .Extras}}
-            {{template "product-downloads" .Extras}}
+            {{template "downloads" .Extras}}
         {{end}}
     </div>
     </body>
