@@ -1,9 +1,9 @@
 {{define "css-nav"}}
     <style id="css-nav">
         nav {
-            height: var(--large);
+            /*height: var(--large);*/
             padding: var(--small);
-            margin-block-start: var(--normal);
+            margin-block-start: var(--large);
             margin: var(--normal);
             display: flex;
             justify-content: center;
@@ -24,13 +24,12 @@
         }
 
         nav svg.icon {
-            width: var(--normal);
-            height: var(--normal);
+            width: calc(1.25*var(--normal));
+            height: calc(1.25*var(--normal));
         }
 
         span.title {
             font-size: var(--fs-x-smaller);
-            font-weight: bold;
         }
 
         nav .current {
