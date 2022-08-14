@@ -115,7 +115,6 @@
         }
 
         .shortcuts {
-            padding: 0 var(--normal);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -126,14 +125,15 @@
         .shortcuts ul {
             font-size: var(--fs-x-smaller);
             list-style: none;
-            margin: 0;
+            margin-inline: var(--normal);
+            margin-block: 0;
             display: flex;
-            column-gap: var(--normal);
+            column-gap: var(--small);
             row-gap: var(--small);
             flex-direction: row;
             flex-wrap: wrap;
             background-color: var(--highlight-color);
-            padding: var(--normal);
+            padding: var(--normal) var(--small);
             border-radius: var(--border-radius-large);
             justify-content: center;
             box-shadow: var(--box-shadow);
@@ -141,10 +141,10 @@
         }
 
         .shortcuts a {
-            color: inherit;
             color: var(--color);
             text-decoration: none;
             font-weight: bold;
+            padding: var(--x-small) var(--small);
         }
 
         .footer-spacer {

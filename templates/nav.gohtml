@@ -1,8 +1,8 @@
 {{define "nav"}}
     <nav>
         <a class="{{if eq . "updates"}}{{`current`}}{{end}}" accesskey="u" href="/updates"
-           rel="prefetch prerender">{{template "svg-icon" "updates"}}&nbsp;Updates</a>
+           rel="prefetch prerender">{{template "svg-icon" "updates"}}<span class="title">Updates</span></a>
         <a class="{{if eq . "filter-products"}}{{`current`}}{{end}}" accesskey="p" href="/products"
-           rel="prefetch prerender">{{template "svg-icon" "stack"}}&nbsp;Products</a>
+           rel="prefetch prerender">{{template "svg-icon" "stack"}}<span class="title">Products</span></a>
     </nav>
 {{end}}

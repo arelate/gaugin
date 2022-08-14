@@ -1,29 +1,42 @@
 {{define "css-scope"}}
     <style id="css-scope">
+        #scope {
+            display: flex;
+            justify-content: center;
+            margin-block-start: var(--normal);
+            margin-inline: var(--normal);
+        }
+
         .scope {
             display: flex;
             justify-content: center;
-            column-gap: var(--xx-small);
+            align-items: center;
+            column-gap: var(--small);
+            row-gap: var(--small);
+            flex-direction: row;
+            flex-wrap: wrap;
             list-style: none;
-            padding: 0;
+            padding: var(--normal) var(--small);
+            background-color: var(--highlight-color);
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--box-shadow);
+            max-width: var(--product-details-width);
             margin-block-end: var(--normal);
         }
 
         .scope a {
-            color: var(--subtle-color);
+            color: var(--color);
             font-size: var(--fs-x-smaller);
+            font-weight: bold;
             padding: var(--small) var(--normal);
             text-decoration: none;
             border-radius: var(--border-radius-large);
-            border: var(--xxx-small) solid var(--background-color);
-            font-weight: bold;
+            /*border: 1px solid var(--highlight-color);*/
         }
 
         .scope .current a {
-            background-color: var(--highlight-color);
-            color: var(--color);
-            border-color: var(--subtle-color);
-            box-shadow: var(--box-shadow);
+            background-color: var(--subtle-color);
+            color: var(--background-color);
         }
 
         .scope .current.unconstrained a {

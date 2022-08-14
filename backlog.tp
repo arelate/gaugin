@@ -2,14 +2,14 @@ Steam reviews:
 	- Add new section
 	- Display reviews like news
 
+News refactor:
+	- Add new section "News" to show time sorted Steam app updates
+	- since last sync completion? 
+	
 Sync action:
 	- initiate sync
 	- get current sync status (one liner?)
 	- basic auth protection, same password as downloads
-	
-News refactor:
-	- Add new section "News" to show time sorted Steam app updates
-	- since last sync completion? (see below)
 
 More icons, less text:
 	- genres

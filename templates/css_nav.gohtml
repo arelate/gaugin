@@ -4,6 +4,7 @@
             height: var(--large);
             padding: var(--small);
             margin-block-start: var(--normal);
+            margin: var(--normal);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -13,18 +14,24 @@
         nav a {
             color: var(--color);
             text-decoration: none;
-            padding: var(--small);
+            padding: var(--x-small) var(--normal);
             border-radius: var(--border-radius-large);
             border: var(--xxx-small) solid var(--background-color);
-            font-weight: bold;
             display: flex;
             align-items: center;
             column-gap: var(--x-small);
+            row-gap: var(--small);
+            flex-direction: column;
         }
 
         nav svg.icon {
             width: var(--normal);
             height: var(--normal);
+        }
+
+        span.title {
+            font-size: var(--fs-x-smaller);
+            font-weight: bold;
         }
 
         nav .current {
