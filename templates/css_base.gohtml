@@ -129,11 +129,11 @@
             margin-block: 0;
             display: flex;
             column-gap: var(--small);
-            row-gap: var(--small);
+            /*row-gap: var(--x-small);*/
             flex-direction: row;
             flex-wrap: wrap;
             background-color: var(--highlight-color);
-            padding: var(--normal) var(--small);
+            padding: calc(3*var(--xx-small));
             border-radius: var(--border-radius-large);
             justify-content: center;
             box-shadow: var(--box-shadow);
@@ -141,10 +141,11 @@
         }
 
         .shortcuts a {
+            display: block;
             color: var(--color);
             text-decoration: none;
             font-weight: bold;
-            padding: var(--x-small) var(--small);
+            padding: var(--small);
         }
 
         .action {

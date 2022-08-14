@@ -10,28 +10,29 @@
         .scope {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-content: center;
             column-gap: var(--small);
-            row-gap: var(--small);
+            /*row-gap: var(--x-small);*/
             flex-direction: row;
             flex-wrap: wrap;
             list-style: none;
-            padding: var(--normal) var(--small);
+            padding: calc(3*var(--xx-small));
             background-color: var(--highlight-color);
             border-radius: var(--border-radius-large);
             box-shadow: var(--box-shadow);
             max-width: var(--product-details-width);
             margin-block-end: var(--normal);
+            line-height: var(--normal);
         }
 
         .scope a {
+            display: block;
             color: var(--color);
             font-size: var(--fs-x-smaller);
             font-weight: bold;
-            padding: var(--small) var(--normal);
+            padding: var(--small);
             text-decoration: none;
             border-radius: var(--border-radius);
-            /*border: 1px solid var(--highlight-color);*/
         }
 
         .scope .current a {
