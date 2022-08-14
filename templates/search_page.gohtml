@@ -11,11 +11,11 @@
         {{template "search-query" .}}
     {{end}}
     {{if .Constrained}}
-        <a class="show-all" href="{{.Path}}&unconstrained">Show All {{.Total}} products</a>
+        <a class="action show-all" href="{{.Path}}&unconstrained">Show All {{.Total}} products</a>
     {{end}}
     {{template "products-list" .Products}}
     {{if .Constrained}}
-        <a class="show-all" href="{{.Path}}&unconstrained">Show All {{.Total}} products</a>
+        <a class="action show-all" href="{{.Path}}&unconstrained">Show All {{.Total}} products</a>
     {{end}}
     <div class="footer-spacer"></div>
     {{template "footer"}}

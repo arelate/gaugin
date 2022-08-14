@@ -34,10 +34,10 @@
                     <ul class="property-value">
                         <li class="actionable-property">
                             {{if canAddToWishlist .}}
-                                <a href="/wishlist/add?id={{.Id}}" aria-label="add to wishlist">Add</a>
+                                <a class="action wishlist-add" href="/wishlist/add?id={{.Id}}" aria-label="add to wishlist">Add</a>
                             {{end}}
                             {{if canRemoveFromWishlist .}}
-                                <a href="/wishlist/remove?id={{.Id}}" aria-label="remove from wishlist">Remove</a>
+                                <a class="action wihslist-remove" href="/wishlist/remove?id={{.Id}}" aria-label="remove from wishlist">Remove</a>
                             {{end}}
                         </li>
                     </ul>
@@ -64,7 +64,7 @@
                         <li><a href="/search?local-tags={{.}}">{{.}}</a></li>
                     {{end}}
                     <li class="actionable-property">
-                        <a href="/tags/edit?id={{.Id}}">Edit</a>
+                        <a class="action tags-edit" href="/tags/edit?id={{.Id}}">Edit</a>
                     </li>
                 </ul>
             </div>
