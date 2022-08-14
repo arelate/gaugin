@@ -33,6 +33,11 @@
         <a target="_top" class="download {{.Type}} {{.OS.String}}" href="/files?manual-url={{.ManualUrl}}"
            aria-label="download {{downloadTitle .}}">
             <div class="title">{{downloadTitle .}}</div>
+            <ul class="additional-details">
+                {{if .Version}}
+                    <li>Version: <span class="highlight">{{.Version}}</span></li>
+                {{end}}
+            </ul>
             <ul>
                 <li class="type label {{.Type}}">{{downloadTypeTitle .Type}}</li>
                 {{$os := toLower .OS.String}}
@@ -46,11 +51,6 @@
                 {{end}}
                 {{if .EstimatedBytes}}
                     <li class="size">{{formatBytes .EstimatedBytes}}</li>
-                {{end}}
-            </ul>
-            <ul class="additional-details">
-                {{if .Version}}
-                    <li>Version: <span class="highlight">{{.Version}}</span></li>
                 {{end}}
             </ul>
         </a>
