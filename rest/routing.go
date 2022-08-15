@@ -17,13 +17,6 @@ var (
 	Redirect = http.RedirectHandler
 )
 
-//var searchRoutes = map[string]string{
-//	"owned":    "/search?types=account-products&sort=gog-order-date&desc=true",
-//	"wishlist": "/search?wishlisted=true&sort=gog-release-date&desc=true",
-//	"sale":     "/search?types=store-products&owned=false&is-discounted=true&sort=discount-percentage&desc=true",
-//	"all":      "/search?types=store-products&sort=gog-release-date&desc=true",
-//}
-
 func HandleFuncs() {
 
 	patternHandlers := map[string]http.Handler{
@@ -69,19 +62,21 @@ func HandleFuncs() {
 func searchRoutes() map[string]string {
 	routes := make(map[string]string)
 
-	searchPath := "/search?"
+	searchPath := "/search"
+
+	routes["filter"] = searchPath
 
 	q := make(url.Values)
 	q.Set(vangogh_local_data.TypesProperty, vangogh_local_data.AccountProducts.String())
 	q.Set(vangogh_local_data.SortProperty, vangogh_local_data.GOGOrderDateProperty)
 	q.Set(vangogh_local_data.DescendingProperty, vangogh_local_data.TrueValue)
-	routes["owned"] = searchPath + q.Encode()
+	routes["owned"] = searchPath + "?" + q.Encode()
 
 	q = make(url.Values)
 	q.Set(vangogh_local_data.WishlistedProperty, vangogh_local_data.TrueValue)
 	q.Set(vangogh_local_data.SortProperty, vangogh_local_data.GOGReleaseDateProperty)
 	q.Set(vangogh_local_data.DescendingProperty, vangogh_local_data.TrueValue)
-	routes["wishlist"] = searchPath + q.Encode()
+	routes["wishlist"] = searchPath + "?" + q.Encode()
 
 	q = make(url.Values)
 	q.Set(vangogh_local_data.TypesProperty, vangogh_local_data.CatalogProducts.String())
@@ -89,13 +84,13 @@ func searchRoutes() map[string]string {
 	q.Set(vangogh_local_data.IsDiscountedProperty, vangogh_local_data.TrueValue)
 	q.Set(vangogh_local_data.SortProperty, vangogh_local_data.DiscountPercentageProperty)
 	q.Set(vangogh_local_data.DescendingProperty, vangogh_local_data.TrueValue)
-	routes["sale"] = searchPath + q.Encode()
+	routes["sale"] = searchPath + "?" + q.Encode()
 
 	q = make(url.Values)
 	q.Set(vangogh_local_data.TypesProperty, vangogh_local_data.CatalogProducts.String())
 	q.Set(vangogh_local_data.SortProperty, vangogh_local_data.GOGReleaseDateProperty)
 	q.Set(vangogh_local_data.DescendingProperty, vangogh_local_data.TrueValue)
-	routes["all"] = searchPath + q.Encode()
+	routes["all"] = searchPath + "?" + q.Encode()
 
 	return routes
 }

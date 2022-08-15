@@ -1,6 +1,9 @@
 {{define "scope"}}
     <section id="scope">
         <ul class="scope">
+            <li class="{{if eq .Scope "filter"}}{{`current`}}{{end}} {{if .Constrained}}{{else}}unconstrained{{end}}">
+                <a href="/search" accesskey="f">Filter</a>
+            </li>
             <li class="{{if eq .Scope "owned"}}{{`current`}}{{end}} {{if .Constrained}}{{else}}unconstrained{{end}}">
                 <a href="/products/owned" accesskey="o">Owned</a>
             </li>

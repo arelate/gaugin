@@ -22,6 +22,11 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			scope = route
 			break
 		}
+		if r.URL.RawQuery == "" &&
+			r.URL.Path == path {
+			scope = route
+			break
+		}
 	}
 
 	q := r.URL.Query()

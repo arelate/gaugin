@@ -14,6 +14,12 @@ More icons, less text:
 	- genres
 	- features
 	- product details sections
+	
+Add validation status to downloads:
+	- after validating a file - store result and date
+	- Show validated badge per file?
+	- Add action to validate product files
+		- This needs to use sync framework for long operations
 
 Archive:
 	News refactor: @done(2022-08-14)
