@@ -1,9 +1,10 @@
 package view_models
 
 import (
+	"strings"
+
 	"github.com/arelate/vangogh_local_data"
 	"golang.org/x/exp/maps"
-	"strings"
 )
 
 type Downloads struct {
@@ -21,21 +22,12 @@ type ProductDownloads struct {
 	Extras           vangogh_local_data.DownloadsList
 }
 
-func NewDownloads(userAgent string, dls vangogh_local_data.DownloadsList) *Downloads {
-
-	var currentOS vangogh_local_data.OperatingSystem
-	if strings.Contains(userAgent, "Windows") {
-		currentOS = vangogh_local_data.Windows
-	} else if strings.Contains(userAgent, "Mac OS X") {
-		currentOS = vangogh_local_data.MacOS
-	} else if strings.Contains(userAgent, "Linux") {
-		currentOS = vangogh_local_data.Linux
-	}
+func NewDownloads(clientOS vangogh_local_data.OperatingSystem, dls vangogh_local_data.DownloadsList) *Downloads {
 
 	dvm := &Downloads{
 		Context: "iframe",
 		CurrentOS: &ProductDownloads{
-			OperatingSystems: currentOS.String(),
+			OperatingSystems: clientOS.String(),
 			CurrentOS:        true,
 			Installers:       make(vangogh_local_data.DownloadsList, 0, len(dls)),
 			DLCs:             make(vangogh_local_data.DownloadsList, 0, len(dls)),
@@ -55,7 +47,7 @@ func NewDownloads(userAgent string, dls vangogh_local_data.DownloadsList) *Downl
 
 	var osd *ProductDownloads
 	for _, dl := range dls {
-		if dl.OS == currentOS {
+		if dl.OS == clientOS {
 			osd = dvm.CurrentOS
 		} else if dl.OS == vangogh_local_data.AnyOperatingSystem {
 			osd = dvm.Extras

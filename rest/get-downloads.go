@@ -1,10 +1,13 @@
 package rest
 
 import (
+	"net/http"
+	"strings"
+
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/view_models"
+	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
-	"net/http"
 )
 
 func GetDownloads(w http.ResponseWriter, r *http.Request) {
@@ -15,7 +18,8 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(w)
 
-	dvm, err := getDownloadsViewModel(id, r.Header.Get("User-Agent"))
+	clientOS := getClientOperatingSystem(r)
+	dvm, err := getDownloadsViewModel(id, clientOS)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
@@ -27,7 +31,46 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func getDownloadsViewModel(id string, userAgent string) (*view_models.Downloads, error) {
+func getClientOperatingSystem(r *http.Request) vangogh_local_data.OperatingSystem {
+
+	var clientOS vangogh_local_data.OperatingSystem
+
+	//attempt to extract platform from user agent client hints first
+	secChUaPlatform := r.Header.Get("Sec-CH-UA-Platform")
+
+	switch secChUaPlatform {
+	case "Linux":
+		clientOS = vangogh_local_data.Linux
+	case "iOS":
+		fallthrough
+	case "macOS":
+		clientOS = vangogh_local_data.MacOS
+	case "Windows":
+		clientOS = vangogh_local_data.Windows
+	default:
+		// "Android", "Chrome OS", "Chromium OS" or "Unknown"
+		clientOS = vangogh_local_data.AnyOperatingSystem
+	}
+
+	if clientOS != vangogh_local_data.AnyOperatingSystem {
+		return clientOS
+	}
+
+	//use "User-Agent" header if we couldn't extract platform from user agent client hints
+	userAgent := r.UserAgent()
+
+	if strings.Contains(userAgent, "Windows") {
+		clientOS = vangogh_local_data.Windows
+	} else if strings.Contains(userAgent, "Mac OS X") {
+		clientOS = vangogh_local_data.MacOS
+	} else if strings.Contains(userAgent, "Linux") {
+		clientOS = vangogh_local_data.Linux
+	}
+
+	return clientOS
+}
+
+func getDownloadsViewModel(id string, clientOS vangogh_local_data.OperatingSystem) (*view_models.Downloads, error) {
 
 	//we specifically get /downloads and not /data&product-type=details because of Details
 	//format complexities, see gog_integration/details.go/GetGameDownloads comment
@@ -36,7 +79,7 @@ func getDownloadsViewModel(id string, userAgent string) (*view_models.Downloads,
 		return nil, err
 	}
 
-	dvm := view_models.NewDownloads(userAgent, dls)
+	dvm := view_models.NewDownloads(clientOS, dls)
 
 	return dvm, nil
 }
