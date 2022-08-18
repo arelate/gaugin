@@ -1,11 +1,12 @@
 package rest
 
 import (
+	"net/http"
+
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
-	"net/http"
 )
 
 func GetChangelog(w http.ResponseWriter, r *http.Request) {
@@ -25,7 +26,7 @@ func GetChangelog(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	gaugin_middleware.DefaultHeaders(w)
+	gaugin_middleware.DefaultHeaders(nil, w)
 
 	cvm := view_models.NewChangelog(idRedux[id])
 

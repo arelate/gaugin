@@ -1,11 +1,12 @@
 package rest
 
 import (
+	"net/http"
+
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
-	"net/http"
 )
 
 func GetScreenshots(w http.ResponseWriter, r *http.Request) {
@@ -14,7 +15,7 @@ func GetScreenshots(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	gaugin_middleware.DefaultHeaders(w)
+	gaugin_middleware.DefaultHeaders(nil, w)
 
 	idRedux, err := getRedux(
 		http.DefaultClient,

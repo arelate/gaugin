@@ -1,12 +1,13 @@
 package rest
 
 import (
+	"net/http"
+
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
-	"net/http"
 )
 
 var productProperties = []string{
@@ -82,7 +83,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	gaugin_middleware.DefaultHeaders(w)
+	gaugin_middleware.DefaultHeaders(nil, w)
 
 	pvm, err := view_models.NewProduct(idRedux)
 	if err != nil {

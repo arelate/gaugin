@@ -7,13 +7,10 @@ Sync action:
 	- get current sync status (one liner?)
 	- basic auth protection, same password as downloads
 
-Global release bug:
-	- figure out where 0001.01.01 is coming from and replace with ""
-
 More icons, less text:
 	- genres
 	- features
-	- product details sections
+	- product details section
 	
 Add validation status to downloads:
 	- after validating a file - store result and date
@@ -22,6 +19,8 @@ Add validation status to downloads:
 		- This needs to use sync framework for long operations
 
 Archive:
+	Global release bug: @done
+		- figure out where 0001.01.01 is coming from and replace with "" @done
 	News refactor: @done(2022-08-14)
 		- Add new section "News" to show time sorted Steam app updates @done(2022-08-14)
 		- since last sync completion? @done(2022-08-14)

@@ -1,13 +1,14 @@
 package rest
 
 import (
+	"net/http"
+	"strings"
+	"time"
+
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
-	"net/http"
-	"strings"
-	"time"
 )
 
 func GetSearch(w http.ResponseWriter, r *http.Request) {
@@ -127,7 +128,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	}
 	spvm.Digests = digests
 
-	gaugin_middleware.DefaultHeaders(w)
+	gaugin_middleware.DefaultHeaders(nil, w)
 
 	if err := tmpl.ExecuteTemplate(w, "search-page", spvm); err != nil {
 		http.Error(w, nod.ErrorStr("template error"), http.StatusInternalServerError)

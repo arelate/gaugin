@@ -1,6 +1,10 @@
 package gaugin_middleware
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+	"strings"
+)
 
 const (
 	htmlContentType = "text/html"
@@ -20,7 +24,16 @@ const (
 		"style-src 'unsafe-inline';"
 )
 
-func DefaultHeaders(w http.ResponseWriter) {
+func DefaultHeaders(timing map[string]int64, w http.ResponseWriter) {
 	w.Header().Set("Content-Type", htmlContentType)
 	w.Header().Set("Content-Security-Policy", defaultCSP)
+	if timing != nil {
+		stb := strings.Builder{}
+		for topic, dur := range timing {
+			stb.WriteString(fmt.Sprintf("%s;dur=%d", topic, dur))
+		}
+		if stb.Len() > 0 {
+			w.Header().Set("Server-Timing", stb.String())
+		}
+	}
 }

@@ -1,10 +1,11 @@
 package rest
 
 import (
+	"net/http"
+
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/view_models"
 	"github.com/boggydigital/nod"
-	"net/http"
 )
 
 func GetSteamNews(w http.ResponseWriter, r *http.Request) {
@@ -13,7 +14,7 @@ func GetSteamNews(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	gaugin_middleware.DefaultHeaders(w)
+	gaugin_middleware.DefaultHeaders(nil, w)
 
 	san, err := getSteamAppNews(http.DefaultClient, id)
 	if err != nil {

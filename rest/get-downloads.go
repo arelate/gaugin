@@ -16,7 +16,7 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	gaugin_middleware.DefaultHeaders(w)
+	gaugin_middleware.DefaultHeaders(nil, w)
 
 	clientOS := getClientOperatingSystem(r)
 	dvm, err := getDownloadsViewModel(id, clientOS)

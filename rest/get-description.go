@@ -1,11 +1,12 @@
 package rest
 
 import (
+	"net/http"
+
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
-	"net/http"
 )
 
 func GetDescription(w http.ResponseWriter, r *http.Request) {
@@ -28,7 +29,7 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	gaugin_middleware.DefaultHeaders(w)
+	gaugin_middleware.DefaultHeaders(nil, w)
 
 	dvm := view_models.NewDescription(idRedux[id])
 
