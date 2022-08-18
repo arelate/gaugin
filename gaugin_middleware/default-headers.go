@@ -30,7 +30,7 @@ func DefaultHeaders(timing map[string]int64, w http.ResponseWriter) {
 	if timing != nil {
 		stb := strings.Builder{}
 		for topic, dur := range timing {
-			stb.WriteString(fmt.Sprintf("%s;dur=%d", topic, dur))
+			stb.WriteString(fmt.Sprintf("%s;dur=%d,", topic, dur))
 		}
 		if stb.Len() > 0 {
 			w.Header().Set("Server-Timing", stb.String())

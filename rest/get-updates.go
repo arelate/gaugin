@@ -33,10 +33,6 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//for _, dataRdx := range updRdx {
-	//	syncCompletedStr := dataRdx[]
-	//}
-
 	updates := make(map[string][]string)
 	for section, rdx := range updRdx {
 		ids := rdx[vangogh_local_data.LastSyncUpdatesProperty]
