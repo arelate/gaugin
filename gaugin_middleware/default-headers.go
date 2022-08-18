@@ -3,7 +3,6 @@ package gaugin_middleware
 import (
 	"fmt"
 	"net/http"
-	"strings"
 )
 
 const (
@@ -28,12 +27,8 @@ func DefaultHeaders(timing map[string]int64, w http.ResponseWriter) {
 	w.Header().Set("Content-Type", htmlContentType)
 	w.Header().Set("Content-Security-Policy", defaultCSP)
 	if timing != nil {
-		stb := strings.Builder{}
 		for topic, dur := range timing {
-			stb.WriteString(fmt.Sprintf("%s;dur=%d,", topic, dur))
-		}
-		if stb.Len() > 0 {
-			w.Header().Set("Server-Timing", stb.String())
+			w.Header().Set("Server-Timing", fmt.Sprintf("%s;dur=%d", topic, dur))
 		}
 	}
 }
