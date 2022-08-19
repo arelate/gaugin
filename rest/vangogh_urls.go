@@ -2,7 +2,6 @@ package rest
 
 import (
 	"fmt"
-	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
 	"net/url"
 	"strconv"
@@ -104,8 +103,7 @@ func digestUrl(properties ...string) *url.URL {
 }
 
 func dataUrl(id string,
-	pt vangogh_local_data.ProductType,
-	mt gog_integration.Media) *url.URL {
+	pt vangogh_local_data.ProductType) *url.URL {
 	u := &url.URL{
 		Scheme: vangoghScheme,
 		Host:   vangoghHost(),
@@ -114,7 +112,6 @@ func dataUrl(id string,
 
 	q := u.Query()
 	q.Set(vangogh_local_data.ProductTypeProperty, pt.String())
-	q.Set("media", mt.String())
 	q.Set(vangogh_local_data.IdProperty, id)
 	u.RawQuery = q.Encode()
 
@@ -136,7 +133,7 @@ func hasReduxUrl(id string, properties ...string) *url.URL {
 	return u
 }
 
-func hasDataUrl(id string, mt gog_integration.Media, pts ...vangogh_local_data.ProductType) *url.URL {
+func hasDataUrl(id string, pts ...vangogh_local_data.ProductType) *url.URL {
 	u := &url.URL{
 		Scheme: vangoghScheme,
 		Host:   vangoghHost(),
@@ -150,14 +147,13 @@ func hasDataUrl(id string, mt gog_integration.Media, pts ...vangogh_local_data.P
 
 	q := u.Query()
 	q.Set(vangogh_local_data.ProductTypeProperty, strings.Join(productTypes, ","))
-	q.Set("media", mt.String())
 	q.Set(vangogh_local_data.IdProperty, id)
 	u.RawQuery = q.Encode()
 
 	return u
 }
 
-func wishlistUrl(id string, mt gog_integration.Media) *url.URL {
+func wishlistUrl(id string) *url.URL {
 	u := &url.URL{
 		Scheme: vangoghScheme,
 		Host:   vangoghHost(),
@@ -165,7 +161,6 @@ func wishlistUrl(id string, mt gog_integration.Media) *url.URL {
 	}
 
 	q := u.Query()
-	q.Set("media", mt.String())
 	q.Set(vangogh_local_data.IdProperty, id)
 	u.RawQuery = q.Encode()
 

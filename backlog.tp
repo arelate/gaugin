@@ -1,3 +1,7 @@
+Deprecate media:
+	- I haven't been using movies ever and the investments required to get movies fully supported is significant
+	- Given that I'd rather deprecate media completely and simplify code maintanence
+
 Steam reviews:
 	- Add new section
 	- Display reviews like news
@@ -19,6 +23,11 @@ Add validation status to downloads:
 		- This needs to use sync framework for long operations
 
 Archive:
+	Bugs: @done(2022-08-19)
+		- 2140464279 has no Coming Soon @done(2022-08-19)
+		- MOST WANTED local tag disappeared @done(2022-08-19)
+			- deleted when regenerating all redux :-( @done(2022-08-19)
+		
 	Global release bug: @done
 		- figure out where 0001.01.01 is coming from and replace with "" @done
 	News refactor: @done(2022-08-14)

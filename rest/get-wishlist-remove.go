@@ -1,7 +1,6 @@
 package rest
 
 import (
-	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
 	"net/http"
@@ -13,7 +12,7 @@ func GetWishlistRemove(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get(vangogh_local_data.IdProperty)
 
-	if err := deleteWishlist(http.DefaultClient, id, gog_integration.Game); err != nil {
+	if err := deleteWishlist(http.DefaultClient, id); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}

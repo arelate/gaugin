@@ -5,7 +5,6 @@ import (
 
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/view_models"
-	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
 )
@@ -122,7 +121,6 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	hasData, err := getHasData(
 		http.DefaultClient,
 		id,
-		gog_integration.Game,
 		vangogh_local_data.SteamAppNews,
 		vangogh_local_data.Details)
 

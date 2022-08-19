@@ -3,7 +3,6 @@ package rest
 import (
 	"encoding/gob"
 	"fmt"
-	"github.com/arelate/gog_integration"
 	"github.com/arelate/steam_integration"
 	"github.com/arelate/vangogh_local_data"
 	"net/http"
@@ -110,22 +109,20 @@ func getDigests(client *http.Client, properties ...string) (map[string][]string,
 func getHasData(
 	client *http.Client,
 	id string,
-	mt gog_integration.Media,
 	pts ...vangogh_local_data.ProductType) (map[string]map[string]string, error) {
-	return getThroughCache(client, hasDataUrl(id, mt, pts...), hasDataCache)
+	return getThroughCache(client, hasDataUrl(id, pts...), hasDataCache)
 }
 
 func getData(
 	client *http.Client,
 	id string,
-	pt vangogh_local_data.ProductType,
-	mt gog_integration.Media) (map[string]interface{}, error) {
-	return getThroughCache(client, dataUrl(id, pt, mt), dataCache)
+	pt vangogh_local_data.ProductType) (map[string]interface{}, error) {
+	return getThroughCache(client, dataUrl(id, pt), dataCache)
 }
 
 func getSteamAppNews(client *http.Client, id string) (*steam_integration.AppNews, error) {
 
-	data, err := getData(client, id, vangogh_local_data.SteamAppNews, gog_integration.Game)
+	data, err := getData(client, id, vangogh_local_data.SteamAppNews)
 	if err != nil {
 		return nil, err
 	}
@@ -140,8 +137,8 @@ func getSteamAppNews(client *http.Client, id string) (*steam_integration.AppNews
 	return nil, err
 }
 
-func wishlistMethod(client *http.Client, method string, id string, mt gog_integration.Media) error {
-	wu := wishlistUrl(id, mt)
+func wishlistMethod(client *http.Client, method string, id string) error {
+	wu := wishlistUrl(id)
 
 	req, err := http.NewRequest(method, wu.String(), nil)
 	if err != nil {
@@ -160,12 +157,12 @@ func wishlistMethod(client *http.Client, method string, id string, mt gog_integr
 	return nil
 }
 
-func putWishlist(client *http.Client, id string, mt gog_integration.Media) error {
-	return wishlistMethod(client, http.MethodPut, id, mt)
+func putWishlist(client *http.Client, id string) error {
+	return wishlistMethod(client, http.MethodPut, id)
 }
 
-func deleteWishlist(client *http.Client, id string, mt gog_integration.Media) error {
-	return wishlistMethod(client, http.MethodDelete, id, mt)
+func deleteWishlist(client *http.Client, id string) error {
+	return wishlistMethod(client, http.MethodDelete, id)
 }
 
 func patchTag(client *http.Client, id string, tags []string) error {

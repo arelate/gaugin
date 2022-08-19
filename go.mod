@@ -3,9 +3,9 @@ module github.com/arelate/gaugin
 go 1.19
 
 require (
-	github.com/arelate/gog_integration v0.1.32
-	github.com/arelate/steam_integration v0.1.14
-	github.com/arelate/vangogh_local_data v0.2.22
+	github.com/arelate/gog_integration v0.2.0
+	github.com/arelate/steam_integration v0.1.15
+	github.com/arelate/vangogh_local_data v0.2.27
 	github.com/boggydigital/clo v0.3.1
 	github.com/boggydigital/issa v0.1.1
 	github.com/boggydigital/middleware v0.1.2
