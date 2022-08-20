@@ -146,8 +146,18 @@
         }
 
         #steam-reviews-content section .metadata {
-            font-size: var(--fs-smaller);
+            font-size: var(--fs-x-smaller);
             color: var(--subtle-color);
+        }
+
+        #steam-reviews-content section summary {
+            margin-block-end: var(--large);
+            display: flex;
+            align-items: center;
+        }
+
+        #steam-reviews-content section details[open]>summary {
+            margin-block-end: var(--normal);
         }
 
         #steam-reviews-content section summary svg {
