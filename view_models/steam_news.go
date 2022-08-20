@@ -9,7 +9,7 @@ import (
 type steamNews struct {
 	Context   string
 	Count     uint32
-	NewsItems []*steamNewsItem
+	NewsItems []steamNewsItem
 }
 
 type steamNewsItem struct {
@@ -26,11 +26,11 @@ func NewSteamNews(san *steam_integration.AppNews) *steamNews {
 	sanvm := &steamNews{
 		Context:   "iframe",
 		Count:     san.Count,
-		NewsItems: make([]*steamNewsItem, 0, len(san.NewsItems)),
+		NewsItems: make([]steamNewsItem, 0, len(san.NewsItems)),
 	}
 
 	for _, ni := range san.NewsItems {
-		sanvm.NewsItems = append(sanvm.NewsItems, &steamNewsItem{
+		sanvm.NewsItems = append(sanvm.NewsItems, steamNewsItem{
 			Title:     ni.Title,
 			Date:      ni.Date,
 			Author:    ni.Author,

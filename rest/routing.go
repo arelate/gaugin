@@ -21,19 +21,21 @@ func HandleFuncs() {
 
 	patternHandlers := map[string]http.Handler{
 		// unauthenticated endpoints
-		"/updates":     Gzip(GetOnly(Log(http.HandlerFunc(GetUpdates)))),
-		"/product":     Gzip(Log(http.HandlerFunc(GetProduct))), // can be GET or POST (/tag/apply redirect)
-		"/search":      Gzip(GetOnly(Log(http.HandlerFunc(GetSearch)))),
-		"/description": Gzip(GetOnly(Log(http.HandlerFunc(GetDescription)))),
-		"/downloads":   Gzip(GetOnly(Log(http.HandlerFunc(GetDownloads)))),
-		"/changelog":   Gzip(GetOnly(Log(http.HandlerFunc(GetChangelog)))),
-		"/screenshots": Gzip(GetOnly(Log(http.HandlerFunc(GetScreenshots)))),
-		"/videos":      Gzip(GetOnly(Log(http.HandlerFunc(GetVideos)))),
-		"/steam-news":  Gzip(GetOnly(Log(http.HandlerFunc(GetSteamNews)))),
-		"/image":       GetOnly(Log(http.HandlerFunc(GetImage))),
-		"/video":       GetOnly(Log(http.HandlerFunc(GetVideo))),
-		"/thumbnails":  GetOnly(Log(http.HandlerFunc(GetThumbnails))),
-		"/items/":      GetOnly(Log(http.HandlerFunc(GetItems))),
+		"/updates": Gzip(GetOnly(Log(http.HandlerFunc(GetUpdates)))),
+		// can be GET or POST (/tag/apply redirect)
+		"/product":       Gzip(Log(http.HandlerFunc(GetProduct))),
+		"/search":        Gzip(GetOnly(Log(http.HandlerFunc(GetSearch)))),
+		"/description":   Gzip(GetOnly(Log(http.HandlerFunc(GetDescription)))),
+		"/downloads":     Gzip(GetOnly(Log(http.HandlerFunc(GetDownloads)))),
+		"/changelog":     Gzip(GetOnly(Log(http.HandlerFunc(GetChangelog)))),
+		"/screenshots":   Gzip(GetOnly(Log(http.HandlerFunc(GetScreenshots)))),
+		"/videos":        Gzip(GetOnly(Log(http.HandlerFunc(GetVideos)))),
+		"/steam-news":    Gzip(GetOnly(Log(http.HandlerFunc(GetSteamNews)))),
+		"/steam-reviews": Gzip(GetOnly(Log(http.HandlerFunc(GetSteamReviews)))),
+		"/image":         GetOnly(Log(http.HandlerFunc(GetImage))),
+		"/video":         GetOnly(Log(http.HandlerFunc(GetVideo))),
+		"/thumbnails":    GetOnly(Log(http.HandlerFunc(GetThumbnails))),
+		"/items/":        GetOnly(Log(http.HandlerFunc(GetItems))),
 
 		// authenticated endpoints
 		"/files":           Auth(GetOnly(Log(http.HandlerFunc(GetFiles)))),

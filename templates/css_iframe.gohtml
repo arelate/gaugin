@@ -15,7 +15,8 @@
         #screenshots-content,
         #videos-content,
         #downloads-content,
-        #steam-news-content {
+        #steam-news-content,
+        #steam-reviews-content {
             line-height: calc(1.5 * var(--normal));
             font-weight: normal;
             margin: var(--normal) var(--small);
@@ -29,7 +30,8 @@
             #screenshots-content,
             #videos-content,
             #downloads-content,
-            #steam-news-content {
+            #steam-news-content,
+            #steam-reviews-content {
                 max-width: var(--product-details-width);
                 margin: var(--large) auto;
             }
@@ -137,6 +139,20 @@
         #steam-news-content mark.spoiler::selection,
         #steam-news-content mark.spoiler:active {
             color: var(--background-color);
+        }
+
+        #steam-reviews-content section {
+            margin: var(--normal);
+        }
+
+        #steam-reviews-content section .metadata {
+            font-size: var(--fs-smaller);
+            color: var(--subtle-color);
+        }
+
+        #steam-reviews-content section .steam-review-contents {
+            margin-block-start: var(--normal);
+            margin-block-end: var(--large);
         }
 
         #screenshots-content .screenshot {

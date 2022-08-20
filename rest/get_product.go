@@ -122,6 +122,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		http.DefaultClient,
 		id,
 		vangogh_local_data.SteamAppNews,
+		vangogh_local_data.SteamReviews,
 		vangogh_local_data.Details)
 
 	if err != nil {
@@ -131,6 +132,9 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	if hasData[vangogh_local_data.SteamAppNews.String()][id] == vangogh_local_data.TrueValue {
 		pvm.Sections = append(pvm.Sections, view_models.SteamNewsSection)
+	}
+	if hasData[vangogh_local_data.SteamReviews.String()][id] == vangogh_local_data.TrueValue {
+		pvm.Sections = append(pvm.Sections, view_models.SteamReviewsSection)
 	}
 	if hasData[vangogh_local_data.Details.String()][id] == vangogh_local_data.TrueValue {
 		pvm.Sections = append(pvm.Sections, view_models.DownloadsSection)

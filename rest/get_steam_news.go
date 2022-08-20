@@ -16,7 +16,7 @@ func GetSteamNews(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(nil, w)
 
-	san, err := getSteamAppNews(http.DefaultClient, id)
+	san, err := getSteamNews(http.DefaultClient, id)
 	if err != nil {
 		http.Error(w, nod.ErrorStr("error getting steam news"), http.StatusInternalServerError)
 		return

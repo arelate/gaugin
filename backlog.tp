@@ -1,10 +1,8 @@
-Deprecate media:
-	- I haven't been using movies ever and the investments required to get movies fully supported is significant
-	- Given that I'd rather deprecate media completely and simplify code maintanence
-
-Steam reviews:
-	- Add new section
-	- Display reviews like news
+Add validation status to downloads:
+	- after validating a file - store result and date
+	- Show validated badge per file?
+	- Add action to validate product files
+		- This needs to use sync framework for long operations
 
 Sync action:
 	- initiate sync
@@ -15,14 +13,14 @@ More icons, less text:
 	- genres
 	- features
 	- product details section
-	
-Add validation status to downloads:
-	- after validating a file - store result and date
-	- Show validated badge per file?
-	- Add action to validate product files
-		- This needs to use sync framework for long operations
 
 Archive:
+	Steam reviews: @done(2022-08-19)
+		- Add new section @done(2022-08-19)
+		- Display reviews like news @done(2022-08-19)
+	Deprecate media: @done(2022-08-19)
+		- I haven't been using movies ever and the investments required to get movies fully supported is significant @done(2022-08-19)
+		- Given that I'd rather deprecate media completely and simplify code maintanence @done(2022-08-19)
 	Bugs: @done(2022-08-19)
 		- 2140464279 has no Coming Soon @done(2022-08-19)
 		- MOST WANTED local tag disappeared @done(2022-08-19)

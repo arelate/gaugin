@@ -120,7 +120,7 @@ func getData(
 	return getThroughCache(client, dataUrl(id, pt), dataCache)
 }
 
-func getSteamAppNews(client *http.Client, id string) (*steam_integration.AppNews, error) {
+func getSteamNews(client *http.Client, id string) (*steam_integration.AppNews, error) {
 
 	data, err := getData(client, id, vangogh_local_data.SteamAppNews)
 	if err != nil {
@@ -135,6 +135,19 @@ func getSteamAppNews(client *http.Client, id string) (*steam_integration.AppNews
 	}
 
 	return nil, err
+}
+
+func getSteamReviews(client *http.Client, id string) (*steam_integration.AppReviews, error) {
+	data, err := getData(client, id, vangogh_local_data.SteamReviews)
+
+	if appReviewsData, ok := data[id]; ok {
+		if appReviews, sure := appReviewsData.(steam_integration.AppReviews); sure {
+			return &appReviews, nil
+		}
+	}
+
+	return nil, err
+
 }
 
 func wishlistMethod(client *http.Client, method string, id string) error {

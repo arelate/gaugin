@@ -1,0 +1,32 @@
+{{define "product-details-steam-reviews"}}
+    {{if gt .Count 0}}
+        {{range .Reviews}}
+            <section class="steam-review">
+                {{if .VotedUp}}
+                    {{if .VotesUp}}
+                        <div class="metadata">{{.VotesUp}} {{if gt .VotesUp 1}}people{{else}}person{{end}} found this
+                            review helpful
+                        </div>
+                    {{end}}
+                    {{if .VotesFunny}}
+                        <div class="metadata">{{.VotesFunny}} {{if gt .VotesFunny 1}}people{{else}}person{{end}} found
+                            this review
+                            funny
+                        </div>
+                    {{end}}
+                {{end}}
+                <div>
+                    {{if .Created}}
+                        <span class="metadata">Posted: {{.Created}}</span>
+                    {{end}}
+                    {{if .Updated}}
+                        <span class="metadata">, Updated: {{.Updated}}</span>
+                    {{end}}
+                </div>
+                <div class="steam-review-contents">
+                    {{.Review}}
+                </div>
+            </section>
+        {{end}}
+    {{else}}No recent reviews{{end}}
+{{end}}
