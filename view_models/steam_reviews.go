@@ -5,6 +5,8 @@ import (
 	"html/template"
 )
 
+const longReviewThreshold = 1024
+
 type steamReviews struct {
 	Context string
 	Count   int
@@ -20,6 +22,7 @@ type steamReview struct {
 	SteamPurchase            bool
 	ReceivedForFree          bool
 	WrittenDuringEarlyAccess bool
+	LongReview               bool
 	Review                   template.HTML
 }
 
@@ -42,6 +45,7 @@ func NewSteamReviews(sar *steam_integration.AppReviews) *steamReviews {
 			SteamPurchase:            rev.SteamPurchase,
 			ReceivedForFree:          rev.ReceivedForFree,
 			WrittenDuringEarlyAccess: rev.WrittenDuringEarlyAccess,
+			LongReview:               len(rev.Review) > longReviewThreshold,
 			Review:                   template.HTML(rev.Review),
 		})
 	}

@@ -23,9 +23,17 @@
                         <span class="metadata">, Updated: {{.Updated}}</span>
                     {{end}}
                 </div>
-                <div class="steam-review-contents">
-                    {{.Review}}
-                </div>
+
+                {{if .LongReview}}
+                <details>
+                    <summary>Expand to see full review{{template "svg-icon-show-more-less"}}</summary>
+                    {{end}}
+                    <div class="steam-review-contents">
+                        {{.Review}}
+                    </div>
+                    {{if .LongReview}}
+                </details>
+                {{end}}
             </section>
         {{end}}
     {{else}}No recent reviews{{end}}
