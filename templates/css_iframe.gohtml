@@ -145,8 +145,20 @@
             margin: var(--normal);
         }
 
+        #steam-reviews-content section .header {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        #steam-reviews-content section .recommendation {
+            padding-inline: var(--normal);
+            font-size: calc(1.5 * var(--normal));
+            filter: grayscale(100%);
+        }
+
         #steam-reviews-content section .metadata {
-            font-size: var(--fs-x-smaller);
+            font-size: var(--fs-smaller);
             color: var(--subtle-color);
         }
 
@@ -154,6 +166,7 @@
             margin-block-end: var(--large);
             display: flex;
             align-items: center;
+            font-weight: bold;
         }
 
         #steam-reviews-content section details[open]>summary {

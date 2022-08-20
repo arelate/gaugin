@@ -2,26 +2,33 @@
     {{if gt .Count 0}}
         {{range .Reviews}}
             <section class="steam-review">
-                {{if .VotedUp}}
-                    {{if .VotesUp}}
-                        <div class="metadata">{{.VotesUp}} {{if gt .VotesUp 1}}people{{else}}person{{end}} found this
-                            review helpful
+                <div class="header">
+                    <div class="recommendation">{{if .VotedUp}}👍{{else}}👎{{end}}</div>
+                    <div class="metadata">
+                        <div class="votes">
+                            {{if .VotesUp}}
+                                <div class="metadata">{{.VotesUp}} {{if gt .VotesUp 1}}people{{else}}person{{end}} found
+                                    this
+                                    review helpful
+                                </div>
+                            {{end}}
+                            {{if .VotesFunny}}
+                                <div class="metadata">{{.VotesFunny}} {{if gt .VotesFunny 1}}people{{else}}person{{end}}
+                                    found
+                                    this review
+                                    funny
+                                </div>
+                            {{end}}
                         </div>
-                    {{end}}
-                    {{if .VotesFunny}}
-                        <div class="metadata">{{.VotesFunny}} {{if gt .VotesFunny 1}}people{{else}}person{{end}} found
-                            this review
-                            funny
+                        <div class="dates">
+                            {{if .Created}}
+                                <span class="metadata">Posted: {{.Created}}</span>
+                            {{end}}
+                            {{if .Updated}}
+                                <span class="metadata">, Updated: {{.Updated}}</span>
+                            {{end}}
                         </div>
-                    {{end}}
-                {{end}}
-                <div>
-                    {{if .Created}}
-                        <span class="metadata">Posted: {{.Created}}</span>
-                    {{end}}
-                    {{if .Updated}}
-                        <span class="metadata">, Updated: {{.Updated}}</span>
-                    {{end}}
+                    </div>
                 </div>
 
                 {{if .LongReview}}
