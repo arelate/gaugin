@@ -4,9 +4,9 @@
             <section class="steam-review">
                 <div class="header">
                     <div class="recommendation">{{if .VotedUp}}👍{{else}}👎{{end}}</div>
-                    <div class="votes">
-                        {{if .VotesUp}}+{{.VotesUp}} helpful{{end}}
-                        {{if .VotesFunny}}, +{{.VotesFunny}} funny{{end}}
+                    <div class="votes">Votes:
+                        {{if .VotesUp}}{{.VotesUp}} helpful{{end}}
+                        {{if .VotesFunny}}, {{.VotesFunny}} funny{{end}}
                     </div>
                     <div class="dates">
                         {{if .Updated}}
