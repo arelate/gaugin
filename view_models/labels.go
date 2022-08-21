@@ -5,6 +5,8 @@ import "github.com/arelate/vangogh_local_data"
 type labels struct {
 	Wishlisted         bool
 	Owned              bool
+	ValidationSuccess  bool
+	ValidationResults  bool
 	PreOrder           bool
 	InDevelopment      bool
 	TBA                bool
@@ -22,19 +24,24 @@ type labels struct {
 
 func NewLabels(rdx map[string][]string) *labels {
 	lbs := &labels{
-		Wishlisted:     FlagFromRedux(rdx, vangogh_local_data.WishlistedProperty),
-		Owned:          FlagFromRedux(rdx, vangogh_local_data.OwnedProperty),
-		Free:           FlagFromRedux(rdx, vangogh_local_data.IsFreeProperty),
-		Discounted:     FlagFromRedux(rdx, vangogh_local_data.IsDiscountedProperty),
-		PreOrder:       FlagFromRedux(rdx, vangogh_local_data.PreOrderProperty),
-		TBA:            FlagFromRedux(rdx, vangogh_local_data.TBAProperty),
-		ComingSoon:     FlagFromRedux(rdx, vangogh_local_data.ComingSoonProperty),
-		InDevelopment:  FlagFromRedux(rdx, vangogh_local_data.InDevelopmentProperty),
-		IsUsingDOSBox:  FlagFromRedux(rdx, vangogh_local_data.IsUsingDOSBoxProperty),
-		IsUsingScummVM: FlagFromRedux(rdx, vangogh_local_data.IsUsingScummVMProperty),
-		Tags:           propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
-		LocalTags:      propertiesFromRedux(rdx, vangogh_local_data.LocalTagsProperty),
-		ProductType:    propertyFromRedux(rdx, vangogh_local_data.ProductTypeProperty),
+		Wishlisted:        FlagFromRedux(rdx, vangogh_local_data.WishlistedProperty),
+		Owned:             FlagFromRedux(rdx, vangogh_local_data.OwnedProperty),
+		ValidationSuccess: propertyFromRedux(rdx, vangogh_local_data.ValidationResultProperty) == vangogh_local_data.OKValue,
+		Free:              FlagFromRedux(rdx, vangogh_local_data.IsFreeProperty),
+		Discounted:        FlagFromRedux(rdx, vangogh_local_data.IsDiscountedProperty),
+		PreOrder:          FlagFromRedux(rdx, vangogh_local_data.PreOrderProperty),
+		TBA:               FlagFromRedux(rdx, vangogh_local_data.TBAProperty),
+		ComingSoon:        FlagFromRedux(rdx, vangogh_local_data.ComingSoonProperty),
+		InDevelopment:     FlagFromRedux(rdx, vangogh_local_data.InDevelopmentProperty),
+		IsUsingDOSBox:     FlagFromRedux(rdx, vangogh_local_data.IsUsingDOSBoxProperty),
+		IsUsingScummVM:    FlagFromRedux(rdx, vangogh_local_data.IsUsingScummVMProperty),
+		Tags:              propertiesFromRedux(rdx, vangogh_local_data.TagIdProperty),
+		LocalTags:         propertiesFromRedux(rdx, vangogh_local_data.LocalTagsProperty),
+		ProductType:       propertyFromRedux(rdx, vangogh_local_data.ProductTypeProperty),
+	}
+
+	if !lbs.ValidationSuccess {
+		lbs.ValidationResults = len(propertiesFromRedux(rdx, vangogh_local_data.ValidationResultProperty)) > 0
 	}
 
 	lbs.DiscountPercentage, lbs.DiscountLabel = discountPercentageLabelFromRedux(rdx)

@@ -2,7 +2,9 @@
     <ul class="labels">
         {{/* Owned products with downloads */}}
         {{if .Owned}}
-            <li class="label owned" title="Owned">OWN</li>
+            <li class="label owned {{if .ValidationSuccess}}validation_success{{else if .ValidationResults}}validation_results{{end}}"
+                title="Owned">OWN
+            </li>
         {{end}}
 
         {{/* GAME, DLC, PACK */}}

@@ -51,6 +51,7 @@ var productProperties = []string{
 	vangogh_local_data.SteamAppIdProperty,
 	vangogh_local_data.SteamReviewScoreDescProperty,
 	vangogh_local_data.SteamTagsProperty,
+	vangogh_local_data.ValidationResultProperty,
 }
 
 func GetProduct(w http.ResponseWriter, r *http.Request) {

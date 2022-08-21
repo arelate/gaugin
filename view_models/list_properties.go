@@ -20,4 +20,5 @@ var ListProperties = []string{
 	vangogh_local_data.ProductTypeProperty,
 	vangogh_local_data.IsFreeProperty,
 	vangogh_local_data.IsDiscountedProperty,
-	vangogh_local_data.DiscountPercentageProperty}
+	vangogh_local_data.DiscountPercentageProperty,
+	vangogh_local_data.ValidationResultProperty}
