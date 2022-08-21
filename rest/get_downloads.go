@@ -72,6 +72,16 @@ func getClientOperatingSystem(r *http.Request) vangogh_local_data.OperatingSyste
 
 func getDownloadsViewModel(id string, clientOS vangogh_local_data.OperatingSystem) (*view_models.Downloads, error) {
 
+	idRdx, err := getRedux(
+		http.DefaultClient,
+		id,
+		false,
+		vangogh_local_data.ValidationResultProperty,
+		vangogh_local_data.ValidationCompletedProperty)
+	if err != nil {
+		return nil, err
+	}
+
 	//we specifically get /downloads and not /data&product-type=details because of Details
 	//format complexities, see gog_integration/details.go/GetGameDownloads comment
 	dls, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes)
@@ -79,7 +89,7 @@ func getDownloadsViewModel(id string, clientOS vangogh_local_data.OperatingSyste
 		return nil, err
 	}
 
-	dvm := view_models.NewDownloads(clientOS, dls)
+	dvm := view_models.NewDownloads(idRdx[id], clientOS, dls)
 
 	return dvm, nil
 }

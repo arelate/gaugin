@@ -45,7 +45,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	)
 
 	shortQuery := false
-	queryProperties := append(view_models.SearchProperties)
+	queryProperties := view_models.SearchProperties
 	for _, p := range queryProperties {
 		if v := q.Get(p); v != "" {
 			spvm.Query[p] = v

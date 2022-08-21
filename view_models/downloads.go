@@ -1,17 +1,20 @@
 package view_models
 
 import (
-	"strings"
-
 	"github.com/arelate/vangogh_local_data"
 	"golang.org/x/exp/maps"
+	"strconv"
+	"strings"
 )
 
 type Downloads struct {
-	Context   string
-	CurrentOS *ProductDownloads
-	OtherOS   *ProductDownloads
-	Extras    *ProductDownloads
+	ValidationSuccess   bool
+	ValidationResults   []string
+	ValidationCompleted string
+	Context             string
+	CurrentOS           *ProductDownloads
+	OtherOS             *ProductDownloads
+	Extras              *ProductDownloads
 }
 
 type ProductDownloads struct {
@@ -22,10 +25,12 @@ type ProductDownloads struct {
 	Extras           vangogh_local_data.DownloadsList
 }
 
-func NewDownloads(clientOS vangogh_local_data.OperatingSystem, dls vangogh_local_data.DownloadsList) *Downloads {
+func NewDownloads(rdx map[string][]string, clientOS vangogh_local_data.OperatingSystem, dls vangogh_local_data.DownloadsList) *Downloads {
 
 	dvm := &Downloads{
-		Context: "iframe",
+		Context:           "iframe",
+		ValidationSuccess: propertyFromRedux(rdx, vangogh_local_data.ValidationResultProperty) == vangogh_local_data.OKValue,
+		ValidationResults: propertiesFromRedux(rdx, vangogh_local_data.ValidationResultProperty),
 		CurrentOS: &ProductDownloads{
 			OperatingSystems: clientOS.String(),
 			CurrentOS:        true,
@@ -41,6 +46,11 @@ func NewDownloads(clientOS vangogh_local_data.OperatingSystem, dls vangogh_local
 			CurrentOS: false,
 			Extras:    make(vangogh_local_data.DownloadsList, 0, len(dls)),
 		},
+	}
+
+	ustr := propertyFromRedux(rdx, vangogh_local_data.ValidationCompletedProperty)
+	if unix, err := strconv.ParseInt(ustr, 10, 64); err == nil {
+		dvm.ValidationCompleted = unixDateFormat(unix)
 	}
 
 	otherOS := make(map[string]interface{})

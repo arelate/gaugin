@@ -1,5 +1,26 @@
 {{define "css-downloads"}}
     <style id="css-downloads">
+
+        #downloads-content .validation {
+            display: flex;
+            justify-content: center;
+            padding: var(--small);
+            margin-block-end: var(--large);
+            font-size: var(--fs-x-smaller);
+            border-radius: var(--border-radius);
+            background-color: var(--background-color);
+        }
+
+        #downloads-content .validation.results {
+            background-color: var(--system-yellow-color);
+            color: black;
+        }
+
+        #downloads-content .validation.success {
+            background-color: var(--system-green-color);
+            color: black;
+        }
+
         #downloads-content .downloads summary {
             justify-content: center;
             font-weight: bold;

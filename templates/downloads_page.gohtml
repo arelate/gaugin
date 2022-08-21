@@ -5,6 +5,17 @@
     <body id="downloads">
     {{template "svg-icons"}}
     <div id="downloads-content">
+        <section class="validation {{if .ValidationSuccess}}success{{else if .ValidationResults}}results{{end}}">
+            {{if .ValidationSuccess}}All product files have been successfully validated on {{.ValidationCompleted}}
+            {{else if .ValidationResults}}Validation on {{.ValidationCompleted}} found problems:
+            <ul>
+                {{range .ValidationResults}}
+                    <li>.</li>
+                {{end}}
+            </ul>
+            {{else}}Product files have not been validated
+            {{end}}
+        </section>
         {{if hasDownloads .CurrentOS}}
             {{template "downloads" .CurrentOS}}
         {{end}}
