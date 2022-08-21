@@ -6,14 +6,14 @@
     {{template "svg-icons"}}
     <div id="downloads-content">
         <section class="validation {{if .ValidationSuccess}}success{{else if .ValidationResults}}results{{end}}">
-            {{if .ValidationSuccess}}All product files have been successfully validated on {{.ValidationCompleted}}
-            {{else if .ValidationResults}}Validation on {{.ValidationCompleted}} found problems:
+            {{if .ValidationSuccess}}<p>All product files have been successfully validated on {{.ValidationCompleted}}</p>
+            {{else if .ValidationResults}}<p>Validation problems found on {{.ValidationCompleted}}:</p>
             <ul>
                 {{range .ValidationResults}}
-                    <li>.</li>
+                    <li>{{.}}</li>
                 {{end}}
             </ul>
-            {{else}}Product files have not been validated
+            {{else}}<p>Product files have not been validated</p>
             {{end}}
         </section>
         {{if hasDownloads .CurrentOS}}

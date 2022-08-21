@@ -1,9 +1,3 @@
-Add validation status to downloads:
-	- after validating a file - store result and date
-	- Show validated badge per file?
-	- Add action to validate product files
-		- This needs to use sync framework for long operations
-
 Sync action:
 	- initiate sync
 	- get current sync status (one liner?)
@@ -15,6 +9,11 @@ More icons, less text:
 	- product details section
 
 Archive:
+	Add validation status to downloads: @done(2022-08-20)
+		- after validating a file - store result and date @done(2022-08-20)
+		- Show validated badge per file? @done(2022-08-20)
+		- Add action to validate product files @done(2022-08-20)
+			- This needs to use sync framework for long operations @done(2022-08-20)
 	Steam reviews: @done(2022-08-19)
 		- Add new section @done(2022-08-19)
 		- Display reviews like news @done(2022-08-19)

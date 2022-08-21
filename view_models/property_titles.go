@@ -38,6 +38,7 @@ var propertyTitles = map[string]string{
 	vangogh_local_data.GlobalReleaseDateProperty:    "Global Release",
 	vangogh_local_data.GOGReleaseDateProperty:       "GOG.com Release",
 	vangogh_local_data.GOGOrderDateProperty:         "GOG.com Order",
+	vangogh_local_data.ValidationResultProperty:     "Validation Result",
 	GauginGOGLinksProperty:                          "GOG.com Links",
 	vangogh_local_data.ForumUrlProperty:             "Forum",
 	vangogh_local_data.StoreUrlProperty:             "Store",

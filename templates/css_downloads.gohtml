@@ -3,12 +3,23 @@
 
         #downloads-content .validation {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             padding: var(--small);
             margin-block-end: var(--large);
+            margin-inline: var(--normal);
             font-size: var(--fs-x-smaller);
             border-radius: var(--border-radius);
             background-color: var(--background-color);
+        }
+
+        #downloads-content .validation p {
+            margin: 0;
+        }
+
+        #downloads-content .validation ul {
+            list-style: none;
+            margin: 0;
         }
 
         #downloads-content .validation.results {

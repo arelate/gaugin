@@ -25,4 +25,5 @@ var DigestProperties = []string{
 	vangogh_local_data.IsUsingScummVMProperty,
 	vangogh_local_data.TypesProperty,
 	vangogh_local_data.SteamReviewScoreDescProperty,
+	vangogh_local_data.ValidationResultProperty,
 }
