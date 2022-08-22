@@ -14,7 +14,7 @@ type steamNews struct {
 
 type steamNewsItem struct {
 	Title     string
-	Date      int
+	Date      int64
 	Author    string
 	Url       string
 	Tags      string

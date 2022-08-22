@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/arelate/gog_integration v0.2.0
-	github.com/arelate/steam_integration v0.1.16
+	github.com/arelate/steam_integration v0.1.17
 	github.com/arelate/vangogh_local_data v0.2.28
 	github.com/boggydigital/clo v0.3.1
 	github.com/boggydigital/issa v0.1.1
