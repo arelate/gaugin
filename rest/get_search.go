@@ -66,12 +66,21 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	dc := http.DefaultClient
 
+	var start time.Time
+	st := gaugin_middleware.NewServerTimings()
+
 	if len(spvm.Query) > 0 {
-		keys, err := getSearch(dc, q)
+		start = time.Now()
+		keys, cached, err := getSearch(dc, q)
 		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
 		}
+
+		if cached {
+			st.SetFlag("getSearch-cached")
+		}
+		st.Set("getSearch", time.Since(start).Milliseconds())
 
 		spvm.Total = len(keys)
 		if spvm.Total > spvm.Limit && spvm.Constrained {
@@ -92,12 +101,18 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
-		rdx, err := getRedux(dc, strings.Join(keys, ","), false, view_models.ListProperties...)
+		start = time.Now()
+		rdx, cached, err := getRedux(dc, strings.Join(keys, ","), false, view_models.ListProperties...)
 
 		if err != nil {
-			http.Error(w, nod.ErrorStr("error getting all_redux"), http.StatusInternalServerError)
+			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
 		}
+
+		if cached {
+			st.SetFlag("getRedux-cached")
+		}
+		st.Set("getRedux", time.Since(start).Milliseconds())
 
 		lvm := view_models.NewListViewModel(keys, rdx)
 		spvm.Products = lvm.Products
@@ -108,7 +123,18 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		spvm.Constrained = false
 	}
 
-	digests, err := getDigests(dc, view_models.DigestProperties...)
+	start = time.Now()
+	digests, cached, err := getDigests(dc, view_models.DigestProperties...)
+
+	if err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if cached {
+		st.SetFlag("getDigests-cached")
+	}
+	st.Set("getDigests", time.Since(start).Milliseconds())
 
 	digests[vangogh_local_data.SortProperty] = []string{
 		vangogh_local_data.GlobalReleaseDateProperty,
@@ -122,16 +148,12 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.TrueValue,
 		vangogh_local_data.FalseValue}
 
-	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting digests"), http.StatusInternalServerError)
-		return
-	}
 	spvm.Digests = digests
 
-	gaugin_middleware.DefaultHeaders(nil, w)
+	gaugin_middleware.DefaultHeaders(st, w)
 
 	if err := tmpl.ExecuteTemplate(w, "search-page", spvm); err != nil {
-		http.Error(w, nod.ErrorStr("template error"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 }

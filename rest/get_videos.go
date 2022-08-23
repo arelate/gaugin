@@ -17,21 +17,21 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(nil, w)
 
-	idRedux, err := getRedux(
+	idRedux, _, err := getRedux(
 		http.DefaultClient,
 		id,
 		false,
 		vangogh_local_data.VideoIdProperty)
 
 	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting redux"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 
 	vvm := view_models.NewVideos(idRedux[id])
 
 	if err := tmpl.ExecuteTemplate(w, "videos-page", vvm); err != nil {
-		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 }

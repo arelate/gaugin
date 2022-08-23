@@ -28,13 +28,13 @@ var (
 	mtx             = sync.Mutex{}
 )
 
-func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T) (T, error) {
+func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T) (T, bool, error) {
 
 	var data T
 
 	req, err := http.NewRequest(http.MethodGet, u.String(), nil)
 	if err != nil {
-		return data, err
+		return data, false, err
 	}
 
 	if lmt, ok := urlLastModified[u.String()]; ok {
@@ -43,13 +43,13 @@ func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T)
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return data, err
+		return data, false, err
 	}
 	defer resp.Body.Close()
 
 	if lm := resp.Header.Get(lastModified); lm != "" {
 		if lmt, err := time.Parse(time.RFC1123, lm); err != nil {
-			return data, err
+			return data, false, err
 		} else {
 			mtx.Lock()
 			urlLastModified[u.String()] = lmt.UTC().Unix()
@@ -59,7 +59,7 @@ func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T)
 
 	if resp.StatusCode == http.StatusNotModified {
 		if cdata, ok := cache[u.String()]; ok {
-			return cdata, nil
+			return cdata, true, nil
 		}
 	}
 
@@ -69,21 +69,21 @@ func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T)
 		mtx.Unlock()
 	}
 
-	return data, err
+	return data, false, err
 }
 
 func getDownloads(
 	client *http.Client,
 	id string,
 	operatingSystems []vangogh_local_data.OperatingSystem,
-	languageCodes []string) (vangogh_local_data.DownloadsList, error) {
+	languageCodes []string) (vangogh_local_data.DownloadsList, bool, error) {
 	return getThroughCache(client, downloadsUrl(id, operatingSystems, languageCodes), downloadsCache)
 }
 
 func getHasRedux(
 	client *http.Client,
 	id string,
-	properties ...string) (map[string]map[string][]string, error) {
+	properties ...string) (map[string]map[string][]string, bool, error) {
 	return getThroughCache(client, hasReduxUrl(id, properties...), hasReduxCache)
 }
 
@@ -91,62 +91,65 @@ func getRedux(
 	client *http.Client,
 	id string,
 	all bool,
-	properties ...string) (map[string]map[string][]string, error) {
+	properties ...string) (map[string]map[string][]string, bool, error) {
 	if all && len(properties) > 1 {
-		return nil, fmt.Errorf("cannot use all with more than 1 property")
+		return nil, false, fmt.Errorf("cannot use all with more than 1 property")
 	}
 	return getThroughCache(client, reduxUrl(id, all, properties...), reduxCache)
 }
 
-func getSearch(client *http.Client, q url.Values) ([]string, error) {
+func getSearch(client *http.Client, q url.Values) ([]string, bool, error) {
 	return getThroughCache(client, searchUrl(q), searchCache)
 }
 
-func getDigests(client *http.Client, properties ...string) (map[string][]string, error) {
+func getDigests(client *http.Client, properties ...string) (map[string][]string, bool, error) {
 	return getThroughCache(client, digestUrl(properties...), digestsCache)
 }
 
 func getHasData(
 	client *http.Client,
 	id string,
-	pts ...vangogh_local_data.ProductType) (map[string]map[string]string, error) {
+	pts ...vangogh_local_data.ProductType) (map[string]map[string]string, bool, error) {
 	return getThroughCache(client, hasDataUrl(id, pts...), hasDataCache)
 }
 
 func getData(
 	client *http.Client,
 	id string,
-	pt vangogh_local_data.ProductType) (map[string]interface{}, error) {
+	pt vangogh_local_data.ProductType) (map[string]interface{}, bool, error) {
 	return getThroughCache(client, dataUrl(id, pt), dataCache)
 }
 
-func getSteamNews(client *http.Client, id string) (*steam_integration.AppNews, error) {
+func getSteamNews(client *http.Client, id string) (*steam_integration.AppNews, bool, error) {
 
-	data, err := getData(client, id, vangogh_local_data.SteamAppNews)
+	data, cached, err := getData(client, id, vangogh_local_data.SteamAppNews)
 	if err != nil {
-		return nil, err
+		return nil, cached, err
 	}
 
 	if getNewsForAppResponseData, ok := data[id]; ok {
 		if getNewsForAppResponse, sure := getNewsForAppResponseData.(steam_integration.GetNewsForAppResponse); sure {
 			appNews := getNewsForAppResponse.AppNews
-			return &appNews, nil
+			return &appNews, cached, nil
 		}
 	}
 
-	return nil, err
+	return nil, cached, err
 }
 
-func getSteamReviews(client *http.Client, id string) (*steam_integration.AppReviews, error) {
-	data, err := getData(client, id, vangogh_local_data.SteamReviews)
+func getSteamReviews(client *http.Client, id string) (*steam_integration.AppReviews, bool, error) {
+	data, cached, err := getData(client, id, vangogh_local_data.SteamReviews)
+	if err != nil {
+		return nil, cached, err
+	}
 
 	if appReviewsData, ok := data[id]; ok {
 		if appReviews, sure := appReviewsData.(steam_integration.AppReviews); sure {
-			return &appReviews, nil
+			return &appReviews, cached, nil
 		}
 	}
 
-	return nil, err
+	return nil, cached, err
 
 }
 

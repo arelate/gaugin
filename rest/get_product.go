@@ -1,9 +1,10 @@
 package rest
 
 import (
-	"net/http"
-
 	"github.com/arelate/gaugin/gaugin_middleware"
+	"net/http"
+	"time"
+
 	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
@@ -77,13 +78,19 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get(vangogh_local_data.IdProperty)
 
-	idRedux, err := getRedux(http.DefaultClient, id, false, productProperties...)
+	st := gaugin_middleware.NewServerTimings()
+	start := time.Now()
+
+	idRedux, cached, err := getRedux(http.DefaultClient, id, false, productProperties...)
 	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting redux"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 
-	gaugin_middleware.DefaultHeaders(nil, w)
+	if cached {
+		st.SetFlag("getRedux-cached")
+	}
+	st.Set("getRedux", time.Since(start).Milliseconds())
 
 	pvm, err := view_models.NewProduct(idRedux)
 	if err != nil {
@@ -93,16 +100,23 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	// fill redux, data presence to allow showing only the section that will have data
 
-	hasRedux, err := getHasRedux(http.DefaultClient, id,
+	start = time.Now()
+	hasRedux, cached, err := getHasRedux(http.DefaultClient,
+		id,
 		vangogh_local_data.DescriptionOverviewProperty,
 		vangogh_local_data.ChangelogProperty,
 		vangogh_local_data.ScreenshotsProperty,
 		vangogh_local_data.VideoIdProperty)
 
 	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting has_redux"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
+
+	if cached {
+		st.SetFlag("getHasRedux-cached")
+	}
+	st.Set("getHasRedux", time.Since(start).Milliseconds())
 
 	if rdx, ok := hasRedux[id]; ok {
 		if view_models.FlagFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty) {
@@ -119,7 +133,8 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	hasData, err := getHasData(
+	start = time.Now()
+	hasData, cached, err := getHasData(
 		http.DefaultClient,
 		id,
 		vangogh_local_data.SteamAppNews,
@@ -127,9 +142,14 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.Details)
 
 	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting has_data"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
+
+	if cached {
+		st.SetFlag("getHasData-cached")
+	}
+	st.Set("getHasData", time.Since(start).Milliseconds())
 
 	if hasData[vangogh_local_data.SteamAppNews.String()][id] == vangogh_local_data.TrueValue {
 		pvm.Sections = append(pvm.Sections, view_models.SteamNewsSection)
@@ -141,8 +161,10 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		pvm.Sections = append(pvm.Sections, view_models.DownloadsSection)
 	}
 
+	gaugin_middleware.DefaultHeaders(st, w)
+
 	if err := tmpl.ExecuteTemplate(w, "product-page", pvm); err != nil {
-		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 }

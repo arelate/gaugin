@@ -84,6 +84,7 @@ func downloadsUrl(
 	}
 	q.Set("operating-system", strings.Join(osStr, ","))
 	q.Set("language-code", strings.Join(languageCodes, ","))
+	q.Set("product-type", vangogh_local_data.Details.String())
 	u.RawQuery = q.Encode()
 
 	return u

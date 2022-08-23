@@ -17,7 +17,7 @@ func GetTagsEdit(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(nil, w)
 
-	idRedux, err := getRedux(
+	idRedux, _, err := getRedux(
 		http.DefaultClient,
 		id,
 		false,
@@ -27,21 +27,21 @@ func GetTagsEdit(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.LocalTagsProperty)
 
 	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting redux"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 
-	digests, err := getDigests(http.DefaultClient, vangogh_local_data.TagIdProperty, vangogh_local_data.LocalTagsProperty)
+	digests, _, err := getDigests(http.DefaultClient, vangogh_local_data.TagIdProperty, vangogh_local_data.LocalTagsProperty)
 
 	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting redux"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 
 	tevm := view_models.NewTagsEdit(id, idRedux[id], digests)
 
 	if err := tmpl.ExecuteTemplate(w, "tags-edit-page", tevm); err != nil {
-		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 }

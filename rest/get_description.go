@@ -15,7 +15,7 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	idRedux, err := getRedux(
+	idRedux, _, err := getRedux(
 		http.DefaultClient,
 		id,
 		false,
@@ -25,7 +25,7 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.CopyrightsProperty)
 
 	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting redux"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -34,7 +34,7 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 	dvm := view_models.NewDescription(idRedux[id])
 
 	if err := tmpl.ExecuteTemplate(w, "description-page", dvm); err != nil {
-		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 }

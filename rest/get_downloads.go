@@ -26,7 +26,7 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := tmpl.ExecuteTemplate(w, "downloads-page", dvm); err != nil {
-		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 }
@@ -72,7 +72,7 @@ func getClientOperatingSystem(r *http.Request) vangogh_local_data.OperatingSyste
 
 func getDownloadsViewModel(id string, clientOS vangogh_local_data.OperatingSystem) (*view_models.Downloads, error) {
 
-	idRdx, err := getRedux(
+	idRdx, _, err := getRedux(
 		http.DefaultClient,
 		id,
 		false,
@@ -84,7 +84,7 @@ func getDownloadsViewModel(id string, clientOS vangogh_local_data.OperatingSyste
 
 	//we specifically get /downloads and not /data&product-type=details because of Details
 	//format complexities, see gog_integration/details.go/GetGameDownloads comment
-	dls, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes)
+	dls, _, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes)
 	if err != nil {
 		return nil, err
 	}

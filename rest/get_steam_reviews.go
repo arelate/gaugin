@@ -15,7 +15,7 @@ func GetSteamReviews(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(nil, w)
 
-	sar, err := getSteamReviews(http.DefaultClient, id)
+	sar, _, err := getSteamReviews(http.DefaultClient, id)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return

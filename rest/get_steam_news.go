@@ -16,16 +16,16 @@ func GetSteamNews(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(nil, w)
 
-	san, err := getSteamNews(http.DefaultClient, id)
+	san, _, err := getSteamNews(http.DefaultClient, id)
 	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting steam news"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 
 	sanvm := view_models.NewSteamNews(san)
 
 	if err := tmpl.ExecuteTemplate(w, "steam-news-page", sanvm); err != nil {
-		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 }

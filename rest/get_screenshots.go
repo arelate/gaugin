@@ -17,21 +17,21 @@ func GetScreenshots(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(nil, w)
 
-	idRedux, err := getRedux(
+	idRedux, _, err := getRedux(
 		http.DefaultClient,
 		id,
 		false,
 		vangogh_local_data.ScreenshotsProperty)
 
 	if err != nil {
-		http.Error(w, nod.ErrorStr("error getting redux"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 
 	svm := view_models.NewScreenshots(idRedux[id])
 
 	if err := tmpl.ExecuteTemplate(w, "screenshots-page", svm); err != nil {
-		http.Error(w, nod.ErrorStr("template exec error"), http.StatusInternalServerError)
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 }
