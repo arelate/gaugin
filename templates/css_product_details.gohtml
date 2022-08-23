@@ -46,7 +46,7 @@
 
         @media only screen and (max-width: 700px) {
             .product-details {
-                margin: 0 var(--small) calc(2 * var(--large));
+                margin: 0 var(--small) calc(4 * var(--large));
                 width: calc(100% - var(--normal));
             }
         }
@@ -241,6 +241,10 @@
             margin-inline-start: var(--x-small);
         }
 
+        .product-details .additional-properties {
+            margin-block-start: calc(2 * var(--large));
+        }
+
         .product-details .additional-properties details {
             cursor: pointer;
             border-radius: var(--border-radius-large);
@@ -267,8 +271,8 @@
         }
 
         .product-details .additional-properties > details > summary svg {
-            margin-inline-start: calc(3*var(--x-small));
-            width: calc(3*var(--x-small));
+            margin-inline-start: calc(3 * var(--x-small));
+            width: calc(3 * var(--x-small));
             height: calc(3 * var(--x-small));
         }
 
