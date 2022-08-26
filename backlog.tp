@@ -1,3 +1,6 @@
+Order reduction:
+	- don't reduce gift orders
+
 Sync action:
 	- initiate sync
 	- get current sync status (one liner?)
@@ -9,6 +12,11 @@ More icons, less text:
 	- product details section
 
 Archive:
+	Bugs: @done(2022-08-24)
+		- investigate origin of almost duplicate slugs: @done(2022-08-24)
+			- baldurs_gate_2_enhanced_edition / baldurs-gate-2-enhanced-edition @done(2022-08-24)
+			- baldurs_gate_enhanced_edition / baldurs-gate-enhanced-edition @done(2022-08-24)
+			- caesar_3 / caesar-3 @done(2022-08-24)
 	Add validation status to downloads: @done(2022-08-20)
 		- after validating a file - store result and date @done(2022-08-20)
 		- Show validated badge per file? @done(2022-08-20)

@@ -136,7 +136,6 @@ func hasLabel(lbs labels) bool {
 
 func showPrice(pvm product) bool {
 	if pvm.Labels.Free ||
-		pvm.Labels.TBA ||
 		pvm.Labels.Owned ||
 		pvm.Price == "" {
 		return false
