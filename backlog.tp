@@ -1,5 +1,8 @@
-Order reduction:
-	- don't reduce gift orders
+Dehydrate on the client side:
+	- rewrite dehydration in EcmaScript
+	- pass dehydrated string with the request for lower bandwidth consumption
+		- on a second thought - we'll need to embed palette, so likely no savings to speak of...
+		- ...unless this library is a file that will be cached client-side and we'll get savings on each page nav
 
 Sync action:
 	- initiate sync
@@ -12,6 +15,8 @@ More icons, less text:
 	- product details section
 
 Archive:
+	Order reduction: @done(2022-08-27)
+		- don't reduce gift orders @done(2022-08-27)
 	Bugs: @done(2022-08-24)
 		- investigate origin of almost duplicate slugs: @done(2022-08-24)
 			- baldurs_gate_2_enhanced_edition / baldurs-gate-2-enhanced-edition @done(2022-08-24)
