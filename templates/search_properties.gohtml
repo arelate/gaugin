@@ -13,24 +13,23 @@
                 {{range $property := .SearchProperties}}
                     {{$value := index $query $property}}
                     <div class="search-property {{if $value}}has-value{{end}}">
-                        {{$digests := index $digests $property}}
                         <label for="search-{{$property}}">{{propertyTitle $property}}</label>
+                        {{$digests := index $digests $property}}
                         {{if $digests}}
-                            <select id="search-{{$property}}" name="{{$property}}">
-                                <option {{if eq $value ""}}selected{{end}} value="">
-                                    Select {{propertyTitle $property}}...
-                                </option>
+                            <datalist id="{{$property}}">
                                 {{range $digests}}
-                                    {{$digestTitle := index $digestsTitles .}}
-                                    {{if eq $digestTitle ""}}{{$digestTitle = .}}{{end}}
-                                    <option {{if eq $value .}}selected{{end}} value="{{.}}">{{$digestTitle}}</option>
-                                {{end}}
-                            </select>
-                        {{else}}
-                            <input id="search-{{$property}}" type="search" name="{{$property}}"
-                                   placeholder="{{propertyTitle $property}}"
-                                   value="{{$value}}"/>
+                                {{$digestTitle := index $digestsTitles .}}
+                                {{if eq $digestTitle ""}}{{$digestTitle = .}}{{end}}
+                                <option value="{{$digestTitle}}">
+                                    {{end}}
+                            </datalist>
                         {{end}}
+                        <input id="search-{{$property}}"
+                               {{if $digests}}list="{{$property}}"{{end}}
+                               type="search"
+                               name="{{$property}}"
+                               placeholder="{{propertyTitle $property}}"
+                               value="{{$value}}"/>
                     </div>
                 {{end}}
             </section>

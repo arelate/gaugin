@@ -7,8 +7,8 @@
 # {^} - placeholder values, first value is default
 
 serve
-    port*
-    stderr
+    port$*
+    stderr$
     vangogh_scheme$*=http^,https
     vangogh_address$*
     vangogh_port$*

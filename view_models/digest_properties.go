@@ -5,7 +5,9 @@ import "github.com/arelate/vangogh_local_data"
 var DigestProperties = []string{
 	vangogh_local_data.TagIdProperty,
 	vangogh_local_data.LocalTagsProperty,
-	vangogh_local_data.LocalTagsProperty,
+	vangogh_local_data.DevelopersProperty,
+	vangogh_local_data.PublishersProperty,
+	vangogh_local_data.SeriesProperty,
 	vangogh_local_data.SteamTagsProperty,
 	vangogh_local_data.OperatingSystemsProperty,
 	vangogh_local_data.GenresProperty,
