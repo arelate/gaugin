@@ -15,7 +15,7 @@ require (
 )
 
 require (
-	github.com/boggydigital/kvas v0.3.17 // indirect
+	github.com/boggydigital/kvas v0.3.21 // indirect
 	github.com/boggydigital/match_node v0.1.5 // indirect
 	github.com/boggydigital/wits v0.2.3 // indirect
 	golang.org/x/net v0.0.0-20220617184016-355a448f1bc9 // indirect
