@@ -26,6 +26,9 @@ func Init() (*stencil.App, error) {
 	if err := app.SetLabels(ProductsLabels, nil); err != nil {
 		return app, err
 	}
+	if err := app.SetIcons(Icons, nil); err != nil {
+		return app, err
+	}
 
 	app.SetLinkParams(ProductPath, ImagePath, fmtTitle, fmtHref)
 
