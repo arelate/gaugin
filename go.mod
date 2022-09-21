@@ -8,17 +8,17 @@ require (
 	github.com/arelate/vangogh_local_data v0.2.28
 	github.com/boggydigital/clo v0.3.1
 	github.com/boggydigital/issa v0.1.1
+	github.com/boggydigital/kvas v0.3.24
 	github.com/boggydigital/middleware v0.1.2
 	github.com/boggydigital/nod v0.1.20
+	github.com/boggydigital/stencil v0.1.19
 	github.com/boggydigital/yt_urls v0.1.17
 	golang.org/x/exp v0.0.0-20220613132600-b0d781184e0d
+	golang.org/x/text v0.3.7
 )
 
 require (
-	github.com/boggydigital/kvas v0.3.24 // indirect
 	github.com/boggydigital/match_node v0.1.5 // indirect
-	github.com/boggydigital/stencil v0.1.18 // indirect
 	github.com/boggydigital/wits v0.2.3 // indirect
 	golang.org/x/net v0.0.0-20220920191752-2e0b12c274b7 // indirect
-	golang.org/x/text v0.3.7 // indirect
 )
