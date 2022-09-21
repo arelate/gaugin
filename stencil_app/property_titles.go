@@ -1,8 +1,11 @@
-package view_models
+package stencil_app
 
-import "github.com/arelate/vangogh_local_data"
+import (
+	"github.com/arelate/gaugin/data"
+	"github.com/arelate/vangogh_local_data"
+)
 
-var propertyTitles = map[string]string{
+var PropertyTitles = map[string]string{
 	vangogh_local_data.TextProperty:                 "Any Text",
 	vangogh_local_data.TitleProperty:                "Title",
 	vangogh_local_data.TagIdProperty:                "Account Tags",
@@ -39,10 +42,10 @@ var propertyTitles = map[string]string{
 	vangogh_local_data.GOGReleaseDateProperty:       "GOG.com Release",
 	vangogh_local_data.GOGOrderDateProperty:         "GOG.com Order",
 	vangogh_local_data.ValidationResultProperty:     "Validation Result",
-	GauginGOGLinksProperty:                          "GOG.com Links",
+	data.GauginGOGLinksProperty:                     "GOG.com Links",
 	vangogh_local_data.ForumUrlProperty:             "Forum",
 	vangogh_local_data.StoreUrlProperty:             "Store",
 	vangogh_local_data.SupportUrlProperty:           "Support",
-	GauginSteamLinksProperty:                        "Steam Links",
-	GauginSteamCommunityUrlProperty:                 "Community",
+	data.GauginSteamLinksProperty:                   "Steam Links",
+	data.GauginSteamCommunityUrlProperty:            "Community",
 }

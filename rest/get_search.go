@@ -1,12 +1,12 @@
 package rest
 
 import (
+	"github.com/arelate/gaugin/stencil_app"
 	"net/http"
 	"strings"
 	"time"
 
 	"github.com/arelate/gaugin/gaugin_middleware"
-	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
 )
@@ -15,40 +15,15 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	// GET /search?(search_params)
 
-	scope := ""
-	for route, path := range searchRoutes() {
-		if r.URL.RawQuery != "" &&
-			(strings.HasSuffix(path, r.URL.RawQuery) ||
-				strings.HasSuffix(unconstrainedPath(path), r.URL.RawQuery)) {
-			scope = route
-			break
-		}
-		if r.URL.RawQuery == "" &&
-			r.URL.Path == path {
-			scope = route
-			break
-		}
-	}
-
 	q := r.URL.Query()
 
-	constrained := !vangogh_local_data.FlagFromUrl(r.URL, "unconstrained")
-	path := ""
-	if constrained {
-		path = r.URL.RawPath + "?" + r.URL.RawQuery
-	}
-
-	spvm := view_models.NewSearchProducts(
-		scope,
-		constrained,
-		path,
-	)
+	query := make(map[string][]string)
 
 	shortQuery := false
-	queryProperties := view_models.SearchProperties
+	queryProperties := stencil_app.SearchProperties
 	for _, p := range queryProperties {
 		if v := q.Get(p); v != "" {
-			spvm.Query[p] = v
+			query[p] = strings.Split(v, ",")
 		} else {
 			if q.Has(p) {
 				q.Del(p)
@@ -64,14 +39,21 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var ids []string
+
 	dc := http.DefaultClient
 
 	var start time.Time
 	st := gaugin_middleware.NewServerTimings()
 
-	if len(spvm.Query) > 0 {
+	dra := NewEmpty(stencil_app.ProductsProperties)
+
+	if len(query) > 0 {
 		start = time.Now()
-		keys, cached, err := getSearch(dc, q)
+
+		var cached bool
+		var err error
+		ids, cached, err = getSearch(dc, q)
 		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
@@ -81,11 +63,6 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			st.SetFlag("getSearch-cached")
 		}
 		st.Set("getSearch", time.Since(start).Milliseconds())
-
-		spvm.Total = len(keys)
-		if spvm.Total > spvm.Limit && spvm.Constrained {
-			keys = keys[:view_models.SearchProductsLimit]
-		}
 
 		su := searchUrl(q)
 
@@ -102,29 +79,22 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		}
 
 		start = time.Now()
-		rdx, cached, err := getRedux(dc, strings.Join(keys, ","), false, view_models.ListProperties...)
-
+		rdx, cached, err := getRedux(dc, strings.Join(ids, ","), false, stencil_app.ProductsProperties...)
 		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
 		}
 
+		dra = NewDataRdx(rdx)
+
 		if cached {
 			st.SetFlag("getRedux-cached")
 		}
 		st.Set("getRedux", time.Since(start).Milliseconds())
-
-		lvm := view_models.NewListViewModel(keys, rdx)
-		spvm.Products = lvm.Products
-	}
-
-	// checking outside search action to account for empty query case
-	if spvm.Total <= spvm.Limit {
-		spvm.Constrained = false
 	}
 
 	start = time.Now()
-	digests, cached, err := getDigests(dc, view_models.DigestProperties...)
+	digests, cached, err := getDigests(dc, stencil_app.DigestProperties...)
 
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
@@ -148,11 +118,9 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.TrueValue,
 		vangogh_local_data.FalseValue}
 
-	spvm.Digests = digests
-
 	gaugin_middleware.DefaultHeaders(st, w)
 
-	if err := tmpl.ExecuteTemplate(w, "search-page", spvm); err != nil {
+	if err := app.RenderSearch(stencil_app.NavProducts, query, ids, digests, dra, w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}

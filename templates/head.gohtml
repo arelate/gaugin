@@ -5,9 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="color-scheme" content="dark light">
         <title>
-            {{if eq .Context "updates"}}Updates
-            {{else if eq .Context "product"}}{{.Title}}
-            {{else if eq .Context "filter-products"}}Products{{end}}
+            {{if eq .Context "product"}}{{.Title}}{{end}}
             - gaugin
         </title>
 
@@ -15,18 +13,10 @@
         {{template "css-nav"}}
         {{template "css-labels"}}
 
-        {{if eq .Context "updates"}}
-            {{template "css-scope"}}
-            {{template "css-updates"}}
-            {{template "css-products-list"}}
-        {{else if eq .Context "product"}}
+        {{if eq .Context "product"}}
             {{template "css-product-details"}}
             {{template "script-iframe-size-receive-message"}}
             {{template "script-image-fade-in"}}
-        {{else if eq .Context "filter-products"}}
-            {{template "css-scope"}}
-            {{template "css-search"}}
-            {{template "css-products-list"}}
         {{else if eq .Context "iframe"}}
             {{template "css-iframe"}}
             {{template "css-downloads"}}

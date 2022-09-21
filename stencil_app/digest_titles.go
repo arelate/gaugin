@@ -1,8 +1,8 @@
-package view_models
+package stencil_app
 
 import "github.com/arelate/vangogh_local_data"
 
-var digestTitles = map[string]string{
+var DigestTitles = map[string]string{
 	//vangogh_local_data.OperatingSystem
 	"macos":   "macOS",
 	"linux":   "Linux",

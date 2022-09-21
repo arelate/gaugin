@@ -1,6 +1,9 @@
 package view_models
 
-import "github.com/arelate/vangogh_local_data"
+import (
+	"github.com/arelate/gaugin/data"
+	"github.com/arelate/vangogh_local_data"
+)
 
 var detailsPropertyOrder = []string{
 	vangogh_local_data.SteamReviewScoreDescProperty,
@@ -19,6 +22,6 @@ var detailsPropertyOrder = []string{
 	vangogh_local_data.IsIncludedByGamesProperty,
 	vangogh_local_data.RequiresGamesProperty,
 	vangogh_local_data.IsRequiredByGamesProperty,
-	GauginGOGLinksProperty,
-	GauginSteamLinksProperty,
+	data.GauginGOGLinksProperty,
+	data.GauginSteamLinksProperty,
 }

@@ -3,11 +3,13 @@ package rest
 import (
 	"crypto/sha256"
 	"encoding/gob"
+	"github.com/arelate/gaugin/stencil_app"
 	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/gog_integration"
 	"github.com/arelate/steam_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/middleware"
+	"github.com/boggydigital/stencil"
 	"html/template"
 	"io/fs"
 )
@@ -16,6 +18,7 @@ var (
 	tmpl             *template.Template
 	operatingSystems []vangogh_local_data.OperatingSystem
 	languageCodes    []string
+	app              *stencil.App
 )
 
 func SetDownloadsOperatingSystems(os []vangogh_local_data.OperatingSystem) {
@@ -34,7 +37,7 @@ func SetPassword(p string) {
 	middleware.SetPassword(sha256.Sum256([]byte(p)))
 }
 
-func Init(templatesFS fs.FS) error {
+func Init(templatesFS fs.FS, stencilAppStyles fs.FS) error {
 
 	//GOG.com types
 	gob.Register(gog_integration.AccountPage{})
@@ -59,5 +62,10 @@ func Init(templatesFS fs.FS) error {
 			Funcs(view_models.FuncMap()).
 			ParseFS(templatesFS, "templates/*.gohtml"))
 
-	return nil
+	stencil.InitAppTemplates(stencilAppStyles, "stencil_app/styles/css.gohtml")
+
+	var err error
+	app, err = stencil_app.Init()
+
+	return err
 }

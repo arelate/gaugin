@@ -1,4 +1,4 @@
-package view_models
+package stencil_app
 
 import "github.com/arelate/vangogh_local_data"
 

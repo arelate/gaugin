@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
+	"github.com/arelate/gaugin/stencil_app"
 	"net/http"
 	"time"
 
@@ -120,16 +121,16 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	if rdx, ok := hasRedux[id]; ok {
 		if view_models.FlagFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty) {
-			pvm.Sections = append(pvm.Sections, view_models.DescriptionSection)
+			pvm.Sections = append(pvm.Sections, stencil_app.DescriptionSection)
 		}
 		if view_models.FlagFromRedux(rdx, vangogh_local_data.ScreenshotsProperty) {
-			pvm.Sections = append(pvm.Sections, view_models.ScreenshotsSection)
+			pvm.Sections = append(pvm.Sections, stencil_app.ScreenshotsSection)
 		}
 		if view_models.FlagFromRedux(rdx, vangogh_local_data.VideoIdProperty) {
-			pvm.Sections = append(pvm.Sections, view_models.VideosSection)
+			pvm.Sections = append(pvm.Sections, stencil_app.VideosSection)
 		}
 		if view_models.FlagFromRedux(rdx, vangogh_local_data.ChangelogProperty) {
-			pvm.Sections = append(pvm.Sections, view_models.ChangelogSection)
+			pvm.Sections = append(pvm.Sections, stencil_app.ChangelogSection)
 		}
 	}
 
@@ -152,13 +153,13 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	st.Set("getHasData", time.Since(start).Milliseconds())
 
 	if hasData[vangogh_local_data.SteamAppNews.String()][id] == vangogh_local_data.TrueValue {
-		pvm.Sections = append(pvm.Sections, view_models.SteamNewsSection)
+		pvm.Sections = append(pvm.Sections, stencil_app.SteamNewsSection)
 	}
 	if hasData[vangogh_local_data.SteamReviews.String()][id] == vangogh_local_data.TrueValue {
-		pvm.Sections = append(pvm.Sections, view_models.SteamReviewsSection)
+		pvm.Sections = append(pvm.Sections, stencil_app.SteamReviewsSection)
 	}
 	if hasData[vangogh_local_data.Details.String()][id] == vangogh_local_data.TrueValue {
-		pvm.Sections = append(pvm.Sections, view_models.DownloadsSection)
+		pvm.Sections = append(pvm.Sections, stencil_app.DownloadsSection)
 	}
 
 	gaugin_middleware.DefaultHeaders(st, w)

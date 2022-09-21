@@ -1,4 +1,4 @@
-package view_models
+package stencil_app
 
 const (
 	ChangelogSection    = "changelog"
@@ -10,7 +10,7 @@ const (
 	VideosSection       = "videos"
 )
 
-var sectionTitles = map[string]string{
+var SectionTitles = map[string]string{
 	ChangelogSection:    "Changelog",
 	DescriptionSection:  "Description",
 	DownloadsSection:    "Downloads",

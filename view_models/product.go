@@ -2,6 +2,8 @@ package view_models
 
 import (
 	"fmt"
+	"github.com/arelate/gaugin/data"
+	"github.com/arelate/gaugin/stencil_app"
 	"github.com/arelate/gog_integration"
 	"github.com/arelate/steam_integration"
 	"github.com/arelate/vangogh_local_data"
@@ -64,18 +66,18 @@ func NewProduct(redux map[string]map[string][]string) (*product, error) {
 
 				Properties:      make(map[string]map[string]string),
 				PropertyOrder:   detailsPropertyOrder,
-				PropertyTitles:  propertyTitles,
+				PropertyTitles:  stencil_app.PropertyTitles,
 				PropertyClasses: make(map[string]string),
 
 				Sections:      make([]string, 0),
-				SectionTitles: sectionTitles,
+				SectionTitles: stencil_app.SectionTitles,
 			}
 
 			for _, p := range []string{
 				vangogh_local_data.StoreUrlProperty,
 				vangogh_local_data.ForumUrlProperty,
 				vangogh_local_data.SupportUrlProperty} {
-				rdx[GauginGOGLinksProperty] = append(rdx[GauginGOGLinksProperty],
+				rdx[data.GauginGOGLinksProperty] = append(rdx[data.GauginGOGLinksProperty],
 					fmt.Sprintf("%s (%s)", p, propertyFromRedux(rdx, p)))
 			}
 
@@ -83,8 +85,8 @@ func NewProduct(redux map[string]map[string][]string) (*product, error) {
 			if steamAppId != "" {
 				if appId, err := strconv.Atoi(steamAppId); err == nil {
 					if scu := steam_integration.SteamCommunityUrl(uint32(appId)); scu != nil {
-						rdx[GauginSteamLinksProperty] = append(rdx[GauginSteamLinksProperty],
-							fmt.Sprintf("%s (%s)", GauginSteamCommunityUrlProperty, scu.String()))
+						rdx[data.GauginSteamLinksProperty] = append(rdx[data.GauginSteamLinksProperty],
+							fmt.Sprintf("%s (%s)", data.GauginSteamCommunityUrlProperty, scu.String()))
 					}
 				}
 			}
@@ -134,10 +136,10 @@ func formatPropertyLinkTitle(property, link string) string {
 		title = justTheDate(link)
 	case vangogh_local_data.LanguageCodeProperty:
 		title = languageCodeFlag(transitiveSrc(link)) + " " + transitiveDst(link)
-	case GauginGOGLinksProperty:
+	case data.GauginGOGLinksProperty:
 		fallthrough
-	case GauginSteamLinksProperty:
-		title = propertyTitles[transitiveDst(link)]
+	case data.GauginSteamLinksProperty:
+		title = stencil_app.PropertyTitles[transitiveDst(link)]
 	}
 
 	return title
@@ -159,9 +161,9 @@ func formatPropertyLinkHref(property, link string) string {
 		fallthrough
 	case vangogh_local_data.IsRequiredByGamesProperty:
 		return fmt.Sprintf("/product?id=%s", transitiveSrc(link))
-	case GauginGOGLinksProperty:
+	case data.GauginGOGLinksProperty:
 		return gogLink(transitiveSrc(link))
-	case GauginSteamLinksProperty:
+	case data.GauginSteamLinksProperty:
 		return transitiveSrc(link)
 	}
 	return fmt.Sprintf("/search?%s=%s", property, link)

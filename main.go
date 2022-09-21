@@ -15,6 +15,8 @@ var (
 	once = sync.Once{}
 	//go:embed "templates/*.gohtml"
 	templates embed.FS
+	//go:embed "stencil_app/styles/css.gohtml"
+	stencilAppStyles embed.FS
 	//go:embed "cli-commands.txt"
 	cliCommands []byte
 	//go:embed "cli-help.txt"
@@ -24,7 +26,7 @@ var (
 func main() {
 
 	once.Do(func() {
-		if err := rest.Init(templates); err != nil {
+		if err := rest.Init(templates, stencilAppStyles); err != nil {
 			log.Fatalln(err)
 		}
 	})

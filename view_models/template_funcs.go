@@ -2,6 +2,7 @@ package view_models
 
 import (
 	"fmt"
+	"github.com/arelate/gaugin/stencil_app"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/yt_urls"
 	"html/template"
@@ -144,7 +145,7 @@ func showPrice(pvm product) bool {
 }
 
 func propertyTitle(p string) string {
-	return propertyTitles[p]
+	return stencil_app.PropertyTitles[p]
 }
 
 func hasDownloads(pd *ProductDownloads) bool {

@@ -1,4 +1,4 @@
-package view_models
+package data
 
 const (
 	GauginGOGLinksProperty          = "gog-links"
