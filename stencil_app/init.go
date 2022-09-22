@@ -32,7 +32,10 @@ func Init() (*stencil.App, error) {
 
 	app.SetLinkParams(ProductPath, ImagePath, fmtTitle, fmtHref)
 
-	if err := app.SetListParams(ProductsProperties, nil); err != nil {
+	if err := app.SetListParams(
+		vangogh_local_data.VerticalImageProperty,
+		ProductsProperties,
+		nil); err != nil {
 		return app, err
 	}
 

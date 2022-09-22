@@ -5,6 +5,8 @@ import "github.com/arelate/vangogh_local_data"
 var ProductsProperties = []string{
 	vangogh_local_data.TitleProperty,
 
+	vangogh_local_data.VerticalImageProperty,
+
 	vangogh_local_data.OwnedProperty,
 	vangogh_local_data.ValidationResultProperty,
 	vangogh_local_data.ProductTypeProperty,
