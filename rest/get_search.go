@@ -46,7 +46,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	var start time.Time
 	st := gaugin_middleware.NewServerTimings()
 
-	dra := NewEmpty(stencil_app.ProductsProperties)
+	irap := vangogh_local_data.NewEmptyIRAProxy(stencil_app.ProductsProperties)
 
 	if len(query) > 0 {
 		start = time.Now()
@@ -85,7 +85,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		dra = NewDataRdx(rdx)
+		irap = vangogh_local_data.NewIRAProxy(rdx)
 
 		if cached {
 			st.SetFlag("getRedux-cached")
@@ -120,7 +120,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(st, w)
 
-	if err := app.RenderSearch(stencil_app.NavSearch, query, ids, digests, dra, w); err != nil {
+	if err := app.RenderSearch(stencil_app.NavSearch, query, ids, digests, irap, w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
