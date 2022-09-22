@@ -39,7 +39,7 @@ type product struct {
 	SectionTitles map[string]string
 }
 
-func NewProduct(redux map[string]map[string][]string) (*product, error) {
+func NewProduct(redux vangogh_local_data.IdReduxAssets) (*product, error) {
 	switch len(redux) {
 	case 0:
 		return nil, fmt.Errorf("empty rdx")

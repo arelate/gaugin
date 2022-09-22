@@ -21,9 +21,9 @@ var (
 	hasDataCache    = make(map[string]map[string]map[string]string)
 	dataCache       = make(map[string]map[string]interface{})
 	searchCache     = make(map[string][]string)
-	digestsCache    = make(map[string]map[string][]string)
-	hasReduxCache   = make(map[string]map[string]map[string][]string)
-	reduxCache      = make(map[string]map[string]map[string][]string)
+	digestsCache    = make(vangogh_local_data.IdReduxAssets)
+	hasReduxCache   = make(map[string]vangogh_local_data.IdReduxAssets)
+	reduxCache      = make(map[string]vangogh_local_data.IdReduxAssets)
 	downloadsCache  = make(map[string]vangogh_local_data.DownloadsList)
 	mtx             = sync.Mutex{}
 )
@@ -83,7 +83,7 @@ func getDownloads(
 func getHasRedux(
 	client *http.Client,
 	id string,
-	properties ...string) (map[string]map[string][]string, bool, error) {
+	properties ...string) (vangogh_local_data.IdReduxAssets, bool, error) {
 	return getThroughCache(client, hasReduxUrl(id, properties...), hasReduxCache)
 }
 
@@ -91,7 +91,7 @@ func getRedux(
 	client *http.Client,
 	id string,
 	all bool,
-	properties ...string) (map[string]map[string][]string, bool, error) {
+	properties ...string) (vangogh_local_data.IdReduxAssets, bool, error) {
 	if all && len(properties) > 1 {
 		return nil, false, fmt.Errorf("cannot use all with more than 1 property")
 	}
