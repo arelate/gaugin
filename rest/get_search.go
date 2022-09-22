@@ -120,7 +120,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(st, w)
 
-	if err := app.RenderSearch(stencil_app.NavProducts, query, ids, digests, dra, w); err != nil {
+	if err := app.RenderSearch(stencil_app.NavSearch, query, ids, digests, dra, w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
