@@ -9,7 +9,6 @@ import (
 const (
 	htmlContentType = "text/html"
 	defaultCSP      = "default-src 'self'; " +
-		"'unsafe-inline'; " +
 		"object-src 'none'; " +
 		"img-src 'self' data:; " +
 		"style-src 'unsafe-inline';"
