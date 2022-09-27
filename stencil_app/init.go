@@ -129,7 +129,11 @@ func ownedValidationResult(id string, rxa kvas.ReduxAssets) string {
 func fmtClass(id, property, link string, rxa kvas.ReduxAssets) string {
 	switch property {
 	case vangogh_local_data.OwnedProperty:
-		return ownedValidationResult(id, rxa)
+		if ownedValidationResult(id, rxa) == "OK" {
+			return "validation-result-ok"
+		} else {
+			return "validation-result-err"
+		}
 	}
 	return ""
 }
