@@ -1,8 +1,7 @@
-Dehydrate on the client side:
-	- rewrite dehydration in EcmaScript
-	- pass dehydrated string with the request for lower bandwidth consumption
-		- on a second thought - we'll need to embed palette, so likely no savings to speak of...
-		- ...unless this library is a file that will be cached client-side and we'll get savings on each page nav
+Community links:
+	- ProtonDB: https://www.protondb.com/app/{steam-app-id}
+	- PCGamingWiki: https://www.pcgamingwiki.com/api/appid.php?appid={steam-app-id}
+	- GOGDB: https://www.gogdb.org/product/{gog-id}
 
 Sync action:
 	- initiate sync
@@ -15,6 +14,11 @@ More icons, less text:
 	- product details section
 
 Archive:
+	Dehydrate on the client side: @done(2022-09-25)
+		- rewrite dehydration in EcmaScript @done(2022-09-25)
+		- pass dehydrated string with the request for lower bandwidth consumption @done(2022-09-25)
+			- on a second thought - we'll need to embed palette, so likely no savings to speak of... @done(2022-09-25)
+			- ...unless this library is a file that will be cached client-side and we'll get savings on each page nav @done(2022-09-25)
 	Order reduction: @done(2022-08-27)
 		- don't reduce gift orders @done(2022-08-27)
 	Bugs: @done(2022-08-24)
