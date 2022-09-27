@@ -121,24 +121,27 @@ func discountPercentageLabel(value string) string {
 	return dl
 }
 
-func ownedValidationResult(id string, rxa kvas.ReduxAssets) string {
-	vr, _ := rxa.GetFirstVal(vangogh_local_data.ValidationResultProperty, id)
-	return vr
+func ownedValidationResult(id string, rxa kvas.ReduxAssets) (string, bool) {
+	return rxa.GetFirstVal(vangogh_local_data.ValidationResultProperty, id)
 }
 
-func fmtClass(id, property, link string, rxa kvas.ReduxAssets) string {
+func fmtClass(id, property, _ string, rxa kvas.ReduxAssets) string {
 	switch property {
 	case vangogh_local_data.OwnedProperty:
-		if ownedValidationResult(id, rxa) == "OK" {
-			return "validation-result-ok"
+		if res, ok := ownedValidationResult(id, rxa); ok {
+			if res == "OK" {
+				return "validation-result-ok"
+			} else {
+				return "validation-result-err"
+			}
 		} else {
-			return "validation-result-err"
+			return ""
 		}
 	}
 	return ""
 }
 
-func fmtHref(id, property, link string, rxa kvas.ReduxAssets) string {
+func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 	switch property {
 	case vangogh_local_data.GOGOrderDateProperty:
 		//FIXME
@@ -164,7 +167,7 @@ func fmtHref(id, property, link string, rxa kvas.ReduxAssets) string {
 	return fmt.Sprintf("/search?%s=%s", property, link)
 }
 
-func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
+func fmtTitle(_, property, link string, _ kvas.ReduxAssets) string {
 	title := link
 
 	switch property {
