@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/arelate/gaugin/data"
 	"github.com/arelate/vangogh_local_data"
+	"github.com/boggydigital/kvas"
 	"github.com/boggydigital/stencil"
 	"strconv"
 	"strings"
@@ -30,11 +31,12 @@ func Init() (*stencil.App, error) {
 		return app, err
 	}
 
-	app.SetLinkParams(ProductPath, ImagePath, fmtTitle, fmtHref)
+	app.SetLinkParams(ProductPath, ImagePath, fmtTitle, fmtHref, fmtClass)
 
 	if err := app.SetListParams(
 		vangogh_local_data.VerticalImageProperty,
 		ProductsProperties,
+		ProductsClassProperties,
 		nil); err != nil {
 		return app, err
 	}
@@ -119,7 +121,46 @@ func discountPercentageLabel(value string) string {
 	return dl
 }
 
-func fmtTitle(id, property, link string) string {
+func ownedValidationResult(id string, rxa kvas.ReduxAssets) string {
+	vr, _ := rxa.GetFirstVal(vangogh_local_data.ValidationResultProperty, id)
+	return vr
+}
+
+func fmtClass(id, property, link string, rxa kvas.ReduxAssets) string {
+	switch property {
+	case vangogh_local_data.OwnedProperty:
+		return ownedValidationResult(id, rxa)
+	}
+	return ""
+}
+
+func fmtHref(id, property, link string, rxa kvas.ReduxAssets) string {
+	switch property {
+	case vangogh_local_data.GOGOrderDateProperty:
+		//FIXME
+		//link = justTheDate(link)
+	case vangogh_local_data.PublishersProperty:
+		fallthrough
+	case vangogh_local_data.DevelopersProperty:
+		return fmt.Sprintf("/search?%s=%s&sort=global-release-date&desc=true", property, link)
+	case vangogh_local_data.IncludesGamesProperty:
+		fallthrough
+	case vangogh_local_data.IsIncludedByGamesProperty:
+		fallthrough
+	case vangogh_local_data.RequiresGamesProperty:
+		fallthrough
+	case vangogh_local_data.IsRequiredByGamesProperty:
+		return fmt.Sprintf("/product?id=%s", transitiveSrc(link))
+	case data.GauginGOGLinksProperty:
+		//FIXME
+		//return gogLink(transitiveSrc(link))
+	case data.GauginSteamLinksProperty:
+		return transitiveSrc(link)
+	}
+	return fmt.Sprintf("/search?%s=%s", property, link)
+}
+
+func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 	title := link
 
 	switch property {
@@ -176,30 +217,4 @@ func fmtTitle(id, property, link string) string {
 	}
 
 	return title
-}
-
-func fmtHref(id, property, link string) string {
-	switch property {
-	case vangogh_local_data.GOGOrderDateProperty:
-		//FIXME
-		//link = justTheDate(link)
-	case vangogh_local_data.PublishersProperty:
-		fallthrough
-	case vangogh_local_data.DevelopersProperty:
-		return fmt.Sprintf("/search?%s=%s&sort=global-release-date&desc=true", property, link)
-	case vangogh_local_data.IncludesGamesProperty:
-		fallthrough
-	case vangogh_local_data.IsIncludedByGamesProperty:
-		fallthrough
-	case vangogh_local_data.RequiresGamesProperty:
-		fallthrough
-	case vangogh_local_data.IsRequiredByGamesProperty:
-		return fmt.Sprintf("/product?id=%s", transitiveSrc(link))
-	case data.GauginGOGLinksProperty:
-		//FIXME
-		//return gogLink(transitiveSrc(link))
-	case data.GauginSteamLinksProperty:
-		return transitiveSrc(link)
-	}
-	return fmt.Sprintf("/search?%s=%s", property, link)
 }

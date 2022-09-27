@@ -48,3 +48,7 @@ var ProductsPropertiesOrder = []string{
 	vangogh_local_data.DevelopersProperty,
 	vangogh_local_data.PublishersProperty,
 }
+
+var ProductsClassProperties = []string{
+	vangogh_local_data.ValidationResultProperty,
+}
