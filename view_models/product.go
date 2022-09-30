@@ -14,7 +14,7 @@ import (
 	"strings"
 )
 
-type product struct {
+type Product struct {
 	Context string
 	Id      string
 	// Title
@@ -39,14 +39,14 @@ type product struct {
 	SectionTitles map[string]string
 }
 
-func NewProduct(redux vangogh_local_data.IdReduxAssets) (*product, error) {
+func NewProduct(redux vangogh_local_data.IdReduxAssets) (*Product, error) {
 	switch len(redux) {
 	case 0:
 		return nil, fmt.Errorf("empty rdx")
 	case 1:
 		for id, rdx := range redux {
 
-			pvm := &product{
+			pvm := &Product{
 				Context: "product",
 				Id:      id,
 
@@ -83,7 +83,7 @@ func NewProduct(redux vangogh_local_data.IdReduxAssets) (*product, error) {
 
 			steamAppId := propertyFromRedux(rdx, vangogh_local_data.SteamAppIdProperty)
 			if steamAppId != "" {
-				if appId, err := strconv.Atoi(steamAppId); err == nil {
+				if appId, err := strconv.ParseUint(steamAppId, 10, 32); err == nil {
 					if scu := steam_integration.SteamCommunityUrl(uint32(appId)); scu != nil {
 						rdx[data.GauginSteamLinksProperty] = append(rdx[data.GauginSteamLinksProperty],
 							fmt.Sprintf("%s (%s)", data.GauginSteamCommunityUrlProperty, scu.String()))
