@@ -1,9 +1,13 @@
 package rest
 
 import (
+	"fmt"
+	"github.com/arelate/gaugin/data"
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/stencil_app"
+	"github.com/arelate/steam_integration"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/arelate/gaugin/view_models"
@@ -47,12 +51,6 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		st.SetFlag("getRedux-cached")
 	}
 	st.Set("getRedux", time.Since(start).Milliseconds())
-
-	//pvm, err := view_models.NewProduct(idRedux)
-	//if err != nil {
-	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	return
-	//}
 
 	// fill redux, data presence to allow showing only the section that will have data
 
@@ -121,15 +119,33 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(st, w)
 
+	for _, p := range []string{
+		vangogh_local_data.StoreUrlProperty,
+		vangogh_local_data.ForumUrlProperty,
+		vangogh_local_data.SupportUrlProperty} {
+		if len(idRedux[id][p]) == 1 {
+			idRedux[id][data.GauginGOGLinksProperty] = append(idRedux[id][data.GauginGOGLinksProperty],
+				fmt.Sprintf("%s (%s)", p, idRedux[id][p][0]))
+		}
+	}
+
+	if len(idRedux[id][vangogh_local_data.SteamAppIdProperty]) == 1 {
+		steamAppId := idRedux[id][vangogh_local_data.SteamAppIdProperty][0]
+		if steamAppId != "" {
+			if appId, err := strconv.ParseUint(steamAppId, 10, 32); err == nil {
+				if scu := steam_integration.SteamCommunityUrl(uint32(appId)); scu != nil {
+					idRedux[id][data.GauginSteamLinksProperty] =
+						append(idRedux[id][data.GauginSteamLinksProperty],
+							fmt.Sprintf("%s (%s)", data.GauginSteamCommunityUrlProperty, scu.String()))
+				}
+			}
+		}
+	}
+
 	irap := vangogh_local_data.NewIRAProxy(idRedux)
 
 	if err := app.RenderItem(id, hasSections, irap, w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
-
-	//if err := tmpl.ExecuteTemplate(w, "product-page", pvm); err != nil {
-	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	return
-	//}
 }

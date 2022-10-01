@@ -43,7 +43,7 @@
 
     /* Sale/price lifecycle labels */
     .label.is-free,
-    .label.discount-percentage,
+    .label.is-discounted,
     .label.wishlisted {
         color: var(--system-red-color);
     }
@@ -75,6 +75,10 @@
         color: var(--highlight-color);
         background-color: var(--system-orange-color);
     }
+    
+    #item .label {
+        cursor: pointer;
+    }
 
     /* Items */
 
@@ -93,6 +97,18 @@
 
     #item .item-details .text-properties .property-value.neutral li {
         color: var(--system-gray-color);
+    }
+
+    #item .item-details .text-properties .discount-percentage {
+        align-items: center;
+    }
+
+    #item .item-details .text-properties .discount-percentage li {
+        padding: var(--x-small) var(--small);
+        border-radius: var(--border-radius);
+        background-color: var(--system-red-color);
+        color: var(--background-color);
+        font-weight: bold;
     }
 
 </style>

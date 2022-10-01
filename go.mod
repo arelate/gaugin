@@ -11,7 +11,7 @@ require (
 	github.com/boggydigital/kvas v0.3.24
 	github.com/boggydigital/middleware v0.1.2
 	github.com/boggydigital/nod v0.1.20
-	github.com/boggydigital/stencil v0.1.28
+	github.com/boggydigital/stencil v0.1.32
 	github.com/boggydigital/yt_urls v0.1.17
 	golang.org/x/exp v0.0.0-20220613132600-b0d781184e0d
 	golang.org/x/text v0.3.7

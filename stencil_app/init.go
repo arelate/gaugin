@@ -3,9 +3,11 @@ package stencil_app
 import (
 	"fmt"
 	"github.com/arelate/gaugin/data"
+	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/kvas"
 	"github.com/boggydigital/stencil"
+	"net/url"
 	"strconv"
 	"strings"
 )
@@ -35,17 +37,18 @@ func Init() (*stencil.AppConfiguration, error) {
 
 	if err := app.SetListConfiguration(
 		ProductsProperties,
+		ProductsSkippedProperties,
 		ProductPath,
 		vangogh_local_data.VerticalImageProperty,
 		ImagePath,
-		ProductsClassProperties,
 		nil); err != nil {
 		return app, err
 	}
 
 	if err := app.SetItemConfiguration(
 		ProductProperties,
-		ProductClassProperties,
+		ProductComputedProperties,
+		ProductSkippedPropertied,
 		ProductSections,
 		vangogh_local_data.ImageProperty,
 		ImagePath,
@@ -147,6 +150,15 @@ func ReviewClass(sr string) string {
 	}
 }
 
+func gogLink(p string) string {
+	u := url.URL{
+		Scheme: gog_integration.HttpsScheme,
+		Host:   gog_integration.WwwGogHost,
+		Path:   p,
+	}
+	return u.String()
+}
+
 func fmtClass(id, property, link string, rxa kvas.ReduxAssets) string {
 	switch property {
 	case vangogh_local_data.OwnedProperty:
@@ -185,9 +197,12 @@ func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 		return fmt.Sprintf("/product?id=%s", transitiveSrc(link))
 	case vangogh_local_data.RatingProperty:
 		return ""
+	case vangogh_local_data.DiscountPercentageProperty:
+		return ""
+	case vangogh_local_data.PriceProperty:
+		return ""
 	case data.GauginGOGLinksProperty:
-		//FIXME
-		//return gogLink(transitiveSrc(link))
+		return gogLink(transitiveSrc(link))
 	case data.GauginSteamLinksProperty:
 		return transitiveSrc(link)
 	}
@@ -198,7 +213,17 @@ func justTheDate(s string) string {
 	return strings.Split(s, " ")[0]
 }
 
-func fmtTitle(_, property, link string, _ kvas.ReduxAssets) string {
+func fmtIsDiscountedProperty(id string, rxa kvas.ReduxAssets) string {
+	if dp, ok := rxa.GetFirstVal(vangogh_local_data.DiscountPercentageProperty, id); ok {
+		if dp == "0" {
+			return ""
+		}
+		return "Sale " + discountPercentageLabel(dp)
+	}
+	return ""
+}
+
+func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 	title := link
 
 	switch property {
@@ -227,11 +252,13 @@ func fmtTitle(_, property, link string, _ kvas.ReduxAssets) string {
 		if link == "GAME" {
 			return ""
 		}
+	case vangogh_local_data.IsDiscountedProperty:
+		return fmtIsDiscountedProperty(id, rxa)
 	case vangogh_local_data.DiscountPercentageProperty:
-		if link == "0" {
-			return ""
+		if link != "" && link != "0" {
+			return fmt.Sprintf("-%s%%", link)
 		}
-		return "Sale " + discountPercentageLabel(link)
+		return ""
 	case vangogh_local_data.TagIdProperty:
 		return transitiveDst(link)
 	case vangogh_local_data.IncludesGamesProperty:
@@ -258,20 +285,24 @@ func fmtTitle(_, property, link string, _ kvas.ReduxAssets) string {
 }
 
 func fmtGOGRating(rs string) string {
+	rd := ""
 	if ri, err := strconv.ParseInt(rs, 10, 32); err == nil {
 		if ri >= 45 {
-			return "Very Positive"
+			rd = "Very Positive"
 		} else if ri > 35 {
-			return "Positive"
+			rd = "Positive"
 		} else if ri > 25 {
-			return "Mixed"
+			rd = "Mixed"
 		} else if ri > 15 {
-			return "Negative"
+			rd = "Negative"
 		} else if ri > 0 {
-			return "Very Negative"
+			rd = "Very Negative"
 		} else {
-			return "Not rated"
+			rd = "Not rated"
+		}
+		if ri > 0 {
+			rd += fmt.Sprintf(" (%.1f)", float32(ri)/10.0)
 		}
 	}
-	return ""
+	return rd
 }
