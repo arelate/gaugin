@@ -11,51 +11,6 @@ import (
 	"github.com/boggydigital/nod"
 )
 
-var productProperties = []string{
-	vangogh_local_data.DehydratedImageProperty,
-	vangogh_local_data.ImageProperty,
-	vangogh_local_data.ProductTypeProperty,
-	vangogh_local_data.TitleProperty,
-	vangogh_local_data.TagIdProperty,
-	vangogh_local_data.LocalTagsProperty,
-	vangogh_local_data.OperatingSystemsProperty,
-	vangogh_local_data.RatingProperty,
-	vangogh_local_data.DevelopersProperty,
-	vangogh_local_data.PublishersProperty,
-	vangogh_local_data.SeriesProperty,
-	vangogh_local_data.GenresProperty,
-	vangogh_local_data.StoreTagsProperty,
-	vangogh_local_data.FeaturesProperty,
-	vangogh_local_data.LanguageCodeProperty,
-	vangogh_local_data.GlobalReleaseDateProperty,
-	vangogh_local_data.GOGReleaseDateProperty,
-	vangogh_local_data.GOGOrderDateProperty,
-	vangogh_local_data.IncludesGamesProperty,
-	vangogh_local_data.IsIncludedByGamesProperty,
-	vangogh_local_data.RequiresGamesProperty,
-	vangogh_local_data.IsRequiredByGamesProperty,
-	vangogh_local_data.StoreUrlProperty,
-	vangogh_local_data.ForumUrlProperty,
-	vangogh_local_data.SupportUrlProperty,
-	vangogh_local_data.WishlistedProperty,
-	vangogh_local_data.OwnedProperty,
-	vangogh_local_data.IsFreeProperty,
-	vangogh_local_data.IsDiscountedProperty,
-	vangogh_local_data.PreOrderProperty,
-	vangogh_local_data.TBAProperty,
-	vangogh_local_data.ComingSoonProperty,
-	vangogh_local_data.InDevelopmentProperty,
-	vangogh_local_data.IsUsingDOSBoxProperty,
-	vangogh_local_data.IsUsingScummVMProperty,
-	vangogh_local_data.BasePriceProperty,
-	vangogh_local_data.PriceProperty,
-	vangogh_local_data.DiscountPercentageProperty,
-	vangogh_local_data.SteamAppIdProperty,
-	vangogh_local_data.SteamReviewScoreDescProperty,
-	vangogh_local_data.SteamTagsProperty,
-	vangogh_local_data.ValidationResultProperty,
-}
-
 func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	// GET /product?slug -> /product?id
@@ -82,7 +37,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	st := gaugin_middleware.NewServerTimings()
 	start := time.Now()
 
-	idRedux, cached, err := getRedux(http.DefaultClient, id, false, productProperties...)
+	idRedux, cached, err := getRedux(http.DefaultClient, id, false, stencil_app.ProductProperties...)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
@@ -93,11 +48,11 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	st.Set("getRedux", time.Since(start).Milliseconds())
 
-	pvm, err := view_models.NewProduct(idRedux)
-	if err != nil {
-		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
-	}
+	//pvm, err := view_models.NewProduct(idRedux)
+	//if err != nil {
+	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+	//	return
+	//}
 
 	// fill redux, data presence to allow showing only the section that will have data
 
@@ -119,18 +74,20 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	st.Set("getHasRedux", time.Since(start).Milliseconds())
 
+	hasSections := make([]string, 0)
+
 	if rdx, ok := hasRedux[id]; ok {
 		if view_models.FlagFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty) {
-			pvm.Sections = append(pvm.Sections, stencil_app.DescriptionSection)
+			hasSections = append(hasSections, stencil_app.DescriptionSection)
 		}
 		if view_models.FlagFromRedux(rdx, vangogh_local_data.ScreenshotsProperty) {
-			pvm.Sections = append(pvm.Sections, stencil_app.ScreenshotsSection)
+			hasSections = append(hasSections, stencil_app.ScreenshotsSection)
 		}
 		if view_models.FlagFromRedux(rdx, vangogh_local_data.VideoIdProperty) {
-			pvm.Sections = append(pvm.Sections, stencil_app.VideosSection)
+			hasSections = append(hasSections, stencil_app.VideosSection)
 		}
 		if view_models.FlagFromRedux(rdx, vangogh_local_data.ChangelogProperty) {
-			pvm.Sections = append(pvm.Sections, stencil_app.ChangelogSection)
+			hasSections = append(hasSections, stencil_app.ChangelogSection)
 		}
 	}
 
@@ -153,19 +110,26 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	st.Set("getHasData", time.Since(start).Milliseconds())
 
 	if hasData[vangogh_local_data.SteamAppNews.String()][id] == vangogh_local_data.TrueValue {
-		pvm.Sections = append(pvm.Sections, stencil_app.SteamNewsSection)
+		hasSections = append(hasSections, stencil_app.SteamNewsSection)
 	}
 	if hasData[vangogh_local_data.SteamReviews.String()][id] == vangogh_local_data.TrueValue {
-		pvm.Sections = append(pvm.Sections, stencil_app.SteamReviewsSection)
+		hasSections = append(hasSections, stencil_app.SteamReviewsSection)
 	}
 	if hasData[vangogh_local_data.Details.String()][id] == vangogh_local_data.TrueValue {
-		pvm.Sections = append(pvm.Sections, stencil_app.DownloadsSection)
+		hasSections = append(hasSections, stencil_app.DownloadsSection)
 	}
 
 	gaugin_middleware.DefaultHeaders(st, w)
 
-	if err := tmpl.ExecuteTemplate(w, "product-page", pvm); err != nil {
+	irap := vangogh_local_data.NewIRAProxy(idRedux)
+
+	if err := app.RenderItem(id, hasSections, irap, w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
+
+	//if err := tmpl.ExecuteTemplate(w, "product-page", pvm); err != nil {
+	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+	//	return
+	//}
 }

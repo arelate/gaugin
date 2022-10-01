@@ -15,37 +15,49 @@ const (
 	appAccentColor = "blueviolet"
 )
 
-func Init() (*stencil.App, error) {
+func Init() (*stencil.AppConfiguration, error) {
 
-	app := stencil.NewApp(appTitle, appAccentColor)
+	app := stencil.NewAppConfig(appTitle, appAccentColor)
 
 	app.SetNavigation(NavItems, NavIcons, NavHrefs)
 	app.SetFooter(FooterLocation, FooterRepoUrl)
 
-	app.SetTitles(vangogh_local_data.TitleProperty, PropertyTitles, SectionTitles, DigestTitles)
-
-	if err := app.SetLabels(ProductsLabels, nil); err != nil {
-		return app, err
+	if err := app.SetCommonConfiguration(
+		ProductsLabels,
+		Icons,
+		vangogh_local_data.TitleProperty,
+		PropertyTitles,
+		SectionTitles,
+		DigestTitles,
+		nil); err != nil {
+		return app, nil
 	}
-	if err := app.SetIcons(Icons, nil); err != nil {
-		return app, err
-	}
 
-	app.SetLinkParams(ProductPath, ImagePath, fmtTitle, fmtHref, fmtClass)
-
-	if err := app.SetListParams(
-		vangogh_local_data.VerticalImageProperty,
+	if err := app.SetListConfiguration(
 		ProductsProperties,
+		ProductPath,
+		vangogh_local_data.VerticalImageProperty,
+		ImagePath,
 		ProductsClassProperties,
 		nil); err != nil {
 		return app, err
 	}
 
-	//if err := app.SetItemParams(BookProperties, BookSections); err != nil {
-	//	return app, err
-	//}
+	if err := app.SetItemConfiguration(
+		ProductProperties,
+		ProductClassProperties,
+		ProductSections,
+		vangogh_local_data.ImageProperty,
+		ImagePath,
+		fmtTitle, fmtHref, fmtClass,
+		nil); err != nil {
+		return app, err
+	}
 
-	if err := app.SetSearchParams(SearchScopes, SearchScopeQueries(), SearchProperties); err != nil {
+	if err := app.SetSearchConfiguration(
+		SearchProperties,
+		SearchScopes,
+		SearchScopeQueries()); err != nil {
 		return app, err
 	}
 
@@ -125,7 +137,17 @@ func ownedValidationResult(id string, rxa kvas.ReduxAssets) (string, bool) {
 	return rxa.GetFirstVal(vangogh_local_data.ValidationResultProperty, id)
 }
 
-func fmtClass(id, property, _ string, rxa kvas.ReduxAssets) string {
+func ReviewClass(sr string) string {
+	if strings.Contains(sr, "Positive") {
+		return "positive"
+	} else if strings.Contains(sr, "Negative") {
+		return "negative"
+	} else {
+		return "neutral"
+	}
+}
+
+func fmtClass(id, property, link string, rxa kvas.ReduxAssets) string {
 	switch property {
 	case vangogh_local_data.OwnedProperty:
 		if res, ok := ownedValidationResult(id, rxa); ok {
@@ -137,6 +159,10 @@ func fmtClass(id, property, _ string, rxa kvas.ReduxAssets) string {
 		} else {
 			return ""
 		}
+	case vangogh_local_data.SteamReviewScoreDescProperty:
+		return ReviewClass(link)
+	case vangogh_local_data.RatingProperty:
+		return ReviewClass(fmtGOGRating(link))
 	}
 	return ""
 }
@@ -144,8 +170,7 @@ func fmtClass(id, property, _ string, rxa kvas.ReduxAssets) string {
 func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 	switch property {
 	case vangogh_local_data.GOGOrderDateProperty:
-		//FIXME
-		//link = justTheDate(link)
+		link = justTheDate(link)
 	case vangogh_local_data.PublishersProperty:
 		fallthrough
 	case vangogh_local_data.DevelopersProperty:
@@ -158,6 +183,8 @@ func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 		fallthrough
 	case vangogh_local_data.IsRequiredByGamesProperty:
 		return fmt.Sprintf("/product?id=%s", transitiveSrc(link))
+	case vangogh_local_data.RatingProperty:
+		return ""
 	case data.GauginGOGLinksProperty:
 		//FIXME
 		//return gogLink(transitiveSrc(link))
@@ -165,6 +192,10 @@ func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 		return transitiveSrc(link)
 	}
 	return fmt.Sprintf("/search?%s=%s", property, link)
+}
+
+func justTheDate(s string) string {
+	return strings.Split(s, " ")[0]
 }
 
 func fmtTitle(_, property, link string, _ kvas.ReduxAssets) string {
@@ -212,11 +243,11 @@ func fmtTitle(_, property, link string, _ kvas.ReduxAssets) string {
 	case vangogh_local_data.IsRequiredByGamesProperty:
 		title = transitiveDst(link)
 	case vangogh_local_data.GOGOrderDateProperty:
-		//FIXME
-		//title = justTheDate(link)
+		title = justTheDate(link)
 	case vangogh_local_data.LanguageCodeProperty:
-		//FIXME
-		//title = languageCodeFlag(transitiveSrc(link)) + " " + transitiveDst(link)
+		title = LanguageCodeFlag(transitiveSrc(link)) + " " + transitiveDst(link)
+	case vangogh_local_data.RatingProperty:
+		title = fmtGOGRating(link)
 	case data.GauginGOGLinksProperty:
 		fallthrough
 	case data.GauginSteamLinksProperty:
@@ -224,4 +255,23 @@ func fmtTitle(_, property, link string, _ kvas.ReduxAssets) string {
 	}
 
 	return title
+}
+
+func fmtGOGRating(rs string) string {
+	if ri, err := strconv.ParseInt(rs, 10, 32); err == nil {
+		if ri >= 45 {
+			return "Very Positive"
+		} else if ri > 35 {
+			return "Positive"
+		} else if ri > 25 {
+			return "Mixed"
+		} else if ri > 15 {
+			return "Negative"
+		} else if ri > 0 {
+			return "Very Negative"
+		} else {
+			return "Not rated"
+		}
+	}
+	return ""
 }

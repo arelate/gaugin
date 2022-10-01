@@ -25,7 +25,7 @@ func FuncMap() template.FuncMap {
 		"showPrice":             showPrice,
 		"propertyTitle":         propertyTitle,
 		"hasDownloads":          hasDownloads,
-		"languageCodeFlag":      languageCodeFlag,
+		"languageCodeFlag":      stencil_app.LanguageCodeFlag,
 		"youtubeLink":           youtubeLink,
 		"shouldShowWishlist":    shouldShowWishlist,
 		"canAddToWishlist":      canAddToWishlist,
@@ -135,7 +135,7 @@ func hasLabel(lbs labels) bool {
 		len(lbs.Tags) > 0
 }
 
-func showPrice(pvm product) bool {
+func showPrice(pvm Product) bool {
 	if pvm.Labels.Free ||
 		pvm.Labels.Owned ||
 		pvm.Price == "" {
@@ -157,28 +157,20 @@ func hasDownloads(pd *ProductDownloads) bool {
 		len(pd.Extras) > 0
 }
 
-func languageCodeFlag(lc string) string {
-	if flag, ok := languageFlags[lc]; ok {
-		return flag
-	} else {
-		return lc
-	}
-}
-
 func youtubeLink(videoId string) string {
 	return yt_urls.VideoUrl(videoId).String()
 }
 
-func shouldShowWishlist(pvm *product) bool {
+func shouldShowWishlist(pvm *Product) bool {
 	return !pvm.Labels.Owned
 }
 
-func canAddToWishlist(pvm *product) bool {
+func canAddToWishlist(pvm *Product) bool {
 	return !pvm.Labels.Owned &&
 		!pvm.Labels.Wishlisted
 }
 
-func canRemoveFromWishlist(pvm *product) bool {
+func canRemoveFromWishlist(pvm *Product) bool {
 	return pvm.Labels.Wishlisted
 }
 

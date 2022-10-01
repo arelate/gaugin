@@ -75,6 +75,26 @@
         color: var(--highlight-color);
         background-color: var(--system-orange-color);
     }
+
+    /* Items */
+
+    #item .image img {
+        max-width: 800px;
+        height: 370px;
+    }
+
+    #item .item-details .text-properties .property-value.positive li {
+        color: var(--system-green-color);
+    }
+
+    #item .item-details .text-properties .property-value.negative li {
+        color: var(--system-pink-color);
+    }
+
+    #item .item-details .text-properties .property-value.neutral li {
+        color: var(--system-gray-color);
+    }
+
 </style>
 {{end}}
 {{define "app-css-base"}}

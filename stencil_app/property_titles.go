@@ -42,10 +42,12 @@ var PropertyTitles = map[string]string{
 	vangogh_local_data.GOGReleaseDateProperty:       "GOG.com Release",
 	vangogh_local_data.GOGOrderDateProperty:         "GOG.com Order",
 	vangogh_local_data.ValidationResultProperty:     "Validation Result",
-	data.GauginGOGLinksProperty:                     "GOG.com Links",
-	vangogh_local_data.ForumUrlProperty:             "Forum",
-	vangogh_local_data.StoreUrlProperty:             "Store",
-	vangogh_local_data.SupportUrlProperty:           "Support",
-	data.GauginSteamLinksProperty:                   "Steam Links",
-	data.GauginSteamCommunityUrlProperty:            "Community",
+	vangogh_local_data.RatingProperty:               "Rating",
+
+	data.GauginGOGLinksProperty:           "GOG.com Links",
+	vangogh_local_data.ForumUrlProperty:   "Forum",
+	vangogh_local_data.StoreUrlProperty:   "Store",
+	vangogh_local_data.SupportUrlProperty: "Support",
+	data.GauginSteamLinksProperty:         "Steam Links",
+	data.GauginSteamCommunityUrlProperty:  "Community",
 }

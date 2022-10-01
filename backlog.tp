@@ -1,6 +1,6 @@
 Community links:
 	- ProtonDB: https://www.protondb.com/app/{steam-app-id}
-	- PCGamingWiki: https://www.pcgamingwiki.com/api/appid.php?appid={steam-app-id}
+	- PCGamingWiki: https://www.pcgamingwiki.com/api/gog.php?page={gog-id}
 	- GOGDB: https://www.gogdb.org/product/{gog-id}
 
 Sync action:

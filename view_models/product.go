@@ -134,8 +134,8 @@ func formatPropertyLinkTitle(property, link string) string {
 		title = transitiveDst(link)
 	case vangogh_local_data.GOGOrderDateProperty:
 		title = justTheDate(link)
-	case vangogh_local_data.LanguageCodeProperty:
-		title = languageCodeFlag(transitiveSrc(link)) + " " + transitiveDst(link)
+	//case vangogh_local_data.LanguageCodeProperty:
+	//	title = languageCodeFlag(transitiveSrc(link)) + " " + transitiveDst(link)
 	case data.GauginGOGLinksProperty:
 		fallthrough
 	case data.GauginSteamLinksProperty:
@@ -182,20 +182,10 @@ func gogLink(p string) string {
 	return u.String()
 }
 
-func steamReviewClass(sr string) string {
-	if strings.Contains(sr, "Positive") {
-		return "positive"
-	} else if strings.Contains(sr, "Negative") {
-		return "negative"
-	} else {
-		return "neutral"
-	}
-}
-
 func getPropertyClass(property string, rdx map[string][]string) string {
 	switch property {
 	case vangogh_local_data.SteamReviewScoreDescProperty:
-		return steamReviewClass(propertyFromRedux(rdx, vangogh_local_data.SteamReviewScoreDescProperty))
+		return stencil_app.ReviewClass(propertyFromRedux(rdx, vangogh_local_data.SteamReviewScoreDescProperty))
 	}
 
 	return ""

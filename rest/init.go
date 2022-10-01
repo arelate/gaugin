@@ -18,7 +18,7 @@ var (
 	tmpl             *template.Template
 	operatingSystems []vangogh_local_data.OperatingSystem
 	languageCodes    []string
-	app              *stencil.App
+	app              *stencil.AppConfiguration
 )
 
 func SetDownloadsOperatingSystems(os []vangogh_local_data.OperatingSystem) {
