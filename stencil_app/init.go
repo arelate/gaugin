@@ -175,6 +175,8 @@ func fmtClass(id, property, link string, rxa kvas.ReduxAssets) string {
 		return ReviewClass(link)
 	case vangogh_local_data.RatingProperty:
 		return ReviewClass(fmtGOGRating(link))
+	case vangogh_local_data.IsDiscountedProperty:
+		return fmtIsDiscountedPropertyClass(id, rxa)
 	}
 	return ""
 }
@@ -213,12 +215,25 @@ func justTheDate(s string) string {
 	return strings.Split(s, " ")[0]
 }
 
-func fmtIsDiscountedProperty(id string, rxa kvas.ReduxAssets) string {
+func fmtIsDiscountedPropertyTitle(id string, rxa kvas.ReduxAssets) string {
 	if dp, ok := rxa.GetFirstVal(vangogh_local_data.DiscountPercentageProperty, id); ok {
 		if dp == "0" {
 			return ""
 		}
 		return "Sale " + discountPercentageLabel(dp)
+	}
+	return ""
+}
+
+func fmtIsDiscountedPropertyClass(id string, rxa kvas.ReduxAssets) string {
+	if dps, ok := rxa.GetFirstVal(vangogh_local_data.DiscountPercentageProperty, id); ok {
+		if dpi, err := strconv.ParseInt(dps, 10, 32); err == nil {
+			if dpi > 74 {
+				return "exceptional-discount"
+			} else if dpi > 49 {
+				return "notable-discount"
+			}
+		}
 	}
 	return ""
 }
@@ -253,7 +268,7 @@ func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 			return ""
 		}
 	case vangogh_local_data.IsDiscountedProperty:
-		return fmtIsDiscountedProperty(id, rxa)
+		return fmtIsDiscountedPropertyTitle(id, rxa)
 	case vangogh_local_data.DiscountPercentageProperty:
 		if link != "" && link != "0" {
 			return fmt.Sprintf("-%s%%", link)
