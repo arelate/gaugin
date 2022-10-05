@@ -58,7 +58,22 @@ var ProductComputedProperties = []string{
 	data.GauginSteamLinksProperty,
 }
 
-var ProductSkippedPropertied = []string{
+var ProductHiddenPropertied = []string{
+	vangogh_local_data.OwnedProperty,
+	vangogh_local_data.ValidationResultProperty,
+	vangogh_local_data.ProductTypeProperty,
+	vangogh_local_data.TBAProperty,
+	vangogh_local_data.ComingSoonProperty,
+	vangogh_local_data.PreOrderProperty,
+	vangogh_local_data.InDevelopmentProperty,
+	vangogh_local_data.IsUsingDOSBoxProperty,
+	vangogh_local_data.IsUsingScummVMProperty,
+	vangogh_local_data.TagIdProperty,
+	vangogh_local_data.LocalTagsProperty,
+	vangogh_local_data.IsFreeProperty,
+	vangogh_local_data.IsDiscountedProperty,
+	vangogh_local_data.WishlistedProperty,
+
 	vangogh_local_data.ValidationResultProperty,
 	vangogh_local_data.StoreUrlProperty,
 	vangogh_local_data.ForumUrlProperty,

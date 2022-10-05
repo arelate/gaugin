@@ -28,7 +28,12 @@ var ProductsProperties = []string{
 	vangogh_local_data.PublishersProperty,
 }
 
-var ProductsLabels = []string{
+var ProductsPropertiesOrder = []string{
+	vangogh_local_data.DevelopersProperty,
+	vangogh_local_data.PublishersProperty,
+}
+
+var ProductsHiddenProperties = []string{
 	vangogh_local_data.OwnedProperty,
 	vangogh_local_data.ValidationResultProperty,
 	vangogh_local_data.ProductTypeProperty,
@@ -43,14 +48,6 @@ var ProductsLabels = []string{
 	vangogh_local_data.IsFreeProperty,
 	vangogh_local_data.IsDiscountedProperty,
 	vangogh_local_data.WishlistedProperty,
-}
-
-var ProductsPropertiesOrder = []string{
-	vangogh_local_data.DevelopersProperty,
-	vangogh_local_data.PublishersProperty,
-}
-
-var ProductsSkippedProperties = []string{
 	vangogh_local_data.ValidationResultProperty,
 	vangogh_local_data.DiscountPercentageProperty,
 }

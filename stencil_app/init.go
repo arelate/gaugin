@@ -25,7 +25,8 @@ func Init() (*stencil.AppConfiguration, error) {
 	app.SetFooter(FooterLocation, FooterRepoUrl)
 
 	if err := app.SetCommonConfiguration(
-		ProductsLabels,
+		Labels,
+		HiddenLabels,
 		Icons,
 		vangogh_local_data.TitleProperty,
 		PropertyTitles,
@@ -37,7 +38,7 @@ func Init() (*stencil.AppConfiguration, error) {
 
 	if err := app.SetListConfiguration(
 		ProductsProperties,
-		ProductsSkippedProperties,
+		ProductsHiddenProperties,
 		ProductPath,
 		vangogh_local_data.VerticalImageProperty,
 		ImagePath,
@@ -48,14 +49,15 @@ func Init() (*stencil.AppConfiguration, error) {
 	if err := app.SetItemConfiguration(
 		ProductProperties,
 		ProductComputedProperties,
-		ProductSkippedPropertied,
+		ProductHiddenPropertied,
 		ProductSections,
 		vangogh_local_data.ImageProperty,
 		ImagePath,
-		fmtTitle, fmtHref, fmtClass,
 		nil); err != nil {
 		return app, err
 	}
+
+	app.SetFormatterConfiguration(fmtTitle, fmtHref, fmtClass, nil)
 
 	if err := app.SetSearchConfiguration(
 		SearchProperties,
