@@ -14,6 +14,7 @@ var ProductProperties = []string{
 	vangogh_local_data.TagIdProperty,
 	vangogh_local_data.LocalTagsProperty,
 
+	vangogh_local_data.WishlistedProperty,
 	vangogh_local_data.DiscountPercentageProperty,
 	vangogh_local_data.PriceProperty,
 	vangogh_local_data.OperatingSystemsProperty,
@@ -40,7 +41,6 @@ var ProductProperties = []string{
 	vangogh_local_data.SupportUrlProperty,
 	vangogh_local_data.SteamAppIdProperty,
 
-	vangogh_local_data.WishlistedProperty,
 	vangogh_local_data.OwnedProperty,
 	vangogh_local_data.IsFreeProperty,
 	vangogh_local_data.PreOrderProperty,
@@ -49,7 +49,6 @@ var ProductProperties = []string{
 	vangogh_local_data.InDevelopmentProperty,
 	vangogh_local_data.IsUsingDOSBoxProperty,
 	vangogh_local_data.IsUsingScummVMProperty,
-	//vangogh_local_data.IsDiscountedProperty,
 	vangogh_local_data.ValidationResultProperty,
 }
 
@@ -71,8 +70,7 @@ var ProductHiddenPropertied = []string{
 	vangogh_local_data.TagIdProperty,
 	vangogh_local_data.LocalTagsProperty,
 	vangogh_local_data.IsFreeProperty,
-	//vangogh_local_data.IsDiscountedProperty,
-	vangogh_local_data.WishlistedProperty,
+	//vangogh_local_data.WishlistedProperty,
 	vangogh_local_data.DiscountPercentageProperty,
 	vangogh_local_data.ValidationResultProperty,
 	vangogh_local_data.StoreUrlProperty,

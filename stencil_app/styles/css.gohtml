@@ -68,15 +68,28 @@
         background-color: var(--system-orange-color);
     }
     
-    #item .label {
-        cursor: pointer;
-    }
-
     /* Items */
 
+    #item .image {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-block-start: var(--normal);
+    }
+
     #item .image img {
-        max-width: 800px;
-        height: 370px;
+        width: 100%;
+        aspect-ratio: 1600 / 740;
+        max-width: var(--product-details-width);
+        line-height: 0;
+        border-radius: var(--border-radius);
+        background-color: var(--highlight-color);
+    }
+
+    @media only screen and (max-width: 800px) {
+        #item .image img {
+            border-radius: 0;
+        }
     }
 
     #item .item-details .text-properties .property-value.positive li {

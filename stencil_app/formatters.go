@@ -129,8 +129,9 @@ func justTheDate(s string) string {
 	return strings.Split(s, " ")[0]
 }
 
-func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
-	title := link
+func fmtLabel(_, property, link string, _ kvas.ReduxAssets) string {
+
+	label := link
 
 	switch property {
 	case vangogh_local_data.WishlistedProperty:
@@ -165,6 +166,15 @@ func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 		return ""
 	case vangogh_local_data.TagIdProperty:
 		return transitiveDst(link)
+
+	}
+	return label
+}
+
+func fmtTitle(_, property, link string, _ kvas.ReduxAssets) string {
+	title := link
+
+	switch property {
 	case vangogh_local_data.IncludesGamesProperty:
 		fallthrough
 	case vangogh_local_data.IsIncludedByGamesProperty:
