@@ -15,7 +15,7 @@ var Labels = []string{
 	vangogh_local_data.TagIdProperty,
 	vangogh_local_data.LocalTagsProperty,
 	vangogh_local_data.IsFreeProperty,
-	vangogh_local_data.IsDiscountedProperty,
+	vangogh_local_data.DiscountPercentageProperty,
 	vangogh_local_data.WishlistedProperty,
 }
 
