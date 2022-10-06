@@ -75,6 +75,32 @@ func gogLink(p string) string {
 	return u.String()
 }
 
+func fmtAction(id, property, link string, rxa kvas.ReduxAssets) string {
+	switch property {
+	case vangogh_local_data.WishlistedProperty:
+		switch link {
+		case "true":
+			return "Remove"
+		case "false":
+			return "Add"
+		}
+	}
+	return ""
+}
+
+func fmtActionHref(id, property, link string, rxa kvas.ReduxAssets) string {
+	switch property {
+	case vangogh_local_data.WishlistedProperty:
+		switch link {
+		case "Add":
+			return "/wishlist/add?id=" + id
+		case "Remove":
+			return "/wishlist/remove?id=" + id
+		}
+	}
+	return ""
+}
+
 func fmtClass(id, property, link string, rxa kvas.ReduxAssets) string {
 	switch property {
 	case vangogh_local_data.OwnedProperty:
@@ -175,6 +201,8 @@ func fmtTitle(_, property, link string, _ kvas.ReduxAssets) string {
 	title := link
 
 	switch property {
+	case vangogh_local_data.WishlistedProperty:
+		return DigestTitles[link]
 	case vangogh_local_data.IncludesGamesProperty:
 		fallthrough
 	case vangogh_local_data.IsIncludedByGamesProperty:

@@ -50,7 +50,8 @@ func Init() (*stencil.AppConfiguration, error) {
 		return app, err
 	}
 
-	app.SetFormatterConfiguration(fmtLabel, fmtTitle, fmtHref, fmtClass, nil)
+	app.SetFormatterConfiguration(
+		fmtLabel, fmtTitle, fmtHref, fmtClass, fmtAction, fmtActionHref)
 
 	if err := app.SetSearchConfiguration(
 		SearchProperties,
