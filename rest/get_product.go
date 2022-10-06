@@ -5,8 +5,10 @@ import (
 	"github.com/arelate/gaugin/data"
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/stencil_app"
+	"github.com/arelate/gog_integration"
 	"github.com/arelate/steam_integration"
 	"net/http"
+	"net/url"
 	"strconv"
 	"time"
 
@@ -125,9 +127,15 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.SupportUrlProperty} {
 		if len(idRedux[id][p]) == 1 {
 			idRedux[id][data.GauginGOGLinksProperty] = append(idRedux[id][data.GauginGOGLinksProperty],
-				fmt.Sprintf("%s (%s)", p, idRedux[id][p][0]))
+				fmt.Sprintf("%s (%s)", p, gogLink(idRedux[id][p][0])))
 		}
 	}
+
+	idRedux[id][data.GauginGOGLinksProperty] = append(idRedux[id][data.GauginGOGLinksProperty],
+		fmt.Sprintf("%s (%s)", data.GauginPCGamingWikiUrlProperty, "https://www.pcgamingwiki.com/api/gog.php?page="+id))
+
+	idRedux[id][data.GauginGOGLinksProperty] = append(idRedux[id][data.GauginGOGLinksProperty],
+		fmt.Sprintf("%s (%s)", data.GauginGOGDBUrlProperty, "https://www.gogdb.org/product/"+id))
 
 	if len(idRedux[id][vangogh_local_data.SteamAppIdProperty]) == 1 {
 		steamAppId := idRedux[id][vangogh_local_data.SteamAppIdProperty][0]
@@ -139,6 +147,9 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 							fmt.Sprintf("%s (%s)", data.GauginSteamCommunityUrlProperty, scu.String()))
 				}
 			}
+			idRedux[id][data.GauginSteamLinksProperty] =
+				append(idRedux[id][data.GauginSteamLinksProperty],
+					fmt.Sprintf("%s (%s)", data.GauginProtonDBUrlProperty, "https://www.protondb.com/app/"+steamAppId))
 		}
 	}
 
@@ -148,4 +159,13 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
+}
+
+func gogLink(p string) string {
+	u := url.URL{
+		Scheme: gog_integration.HttpsScheme,
+		Host:   gog_integration.WwwGogHost,
+		Path:   p,
+	}
+	return u.String()
 }

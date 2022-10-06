@@ -52,4 +52,7 @@ var PropertyTitles = map[string]string{
 	vangogh_local_data.SupportUrlProperty: "Support",
 	data.GauginSteamLinksProperty:         "Steam Links",
 	data.GauginSteamCommunityUrlProperty:  "Community",
+	data.GauginPCGamingWikiUrlProperty:    "PCGamingWiki",
+	data.GauginProtonDBUrlProperty:        "ProtonDB",
+	data.GauginGOGDBUrlProperty:           "GOGDB",
 }

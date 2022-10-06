@@ -3,10 +3,8 @@ package stencil_app
 import (
 	"fmt"
 	"github.com/arelate/gaugin/data"
-	"github.com/arelate/gog_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/kvas"
-	"net/url"
 	"strconv"
 	"strings"
 )
@@ -66,18 +64,13 @@ func ReviewClass(sr string) string {
 	}
 }
 
-func gogLink(p string) string {
-	u := url.URL{
-		Scheme: gog_integration.HttpsScheme,
-		Host:   gog_integration.WwwGogHost,
-		Path:   p,
-	}
-	return u.String()
-}
-
 func fmtAction(id, property, link string, rxa kvas.ReduxAssets) string {
 	switch property {
 	case vangogh_local_data.WishlistedProperty:
+		owned, _ := rxa.GetFirstVal(vangogh_local_data.OwnedProperty, id)
+		if owned == "true" {
+			return ""
+		}
 		switch link {
 		case "true":
 			return "Remove"
@@ -144,7 +137,7 @@ func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 	case vangogh_local_data.PriceProperty:
 		return ""
 	case data.GauginGOGLinksProperty:
-		return gogLink(transitiveSrc(link))
+		fallthrough
 	case data.GauginSteamLinksProperty:
 		return transitiveSrc(link)
 	}
@@ -196,11 +189,15 @@ func fmtLabel(_, property, link string, _ kvas.ReduxAssets) string {
 	return label
 }
 
-func fmtTitle(_, property, link string, _ kvas.ReduxAssets) string {
+func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 	title := link
 
 	switch property {
 	case vangogh_local_data.WishlistedProperty:
+		owned, _ := rxa.GetFirstVal(vangogh_local_data.OwnedProperty, id)
+		if owned == "true" {
+			return ""
+		}
 		return DigestTitles[link]
 	case vangogh_local_data.IncludesGamesProperty:
 		fallthrough
