@@ -192,7 +192,6 @@ func fmtLabel(_, property, link string, _ kvas.ReduxAssets) string {
 		return ""
 	case vangogh_local_data.TagIdProperty:
 		return transitiveDst(link)
-
 	}
 	return label
 }
@@ -217,6 +216,8 @@ func fmtTitle(_, property, link string, _ kvas.ReduxAssets) string {
 		title = LanguageCodeFlag(transitiveSrc(link)) + " " + transitiveDst(link)
 	case vangogh_local_data.RatingProperty:
 		title = fmtGOGRating(link)
+	case vangogh_local_data.TagIdProperty:
+		return transitiveDst(link)
 	case data.GauginGOGLinksProperty:
 		fallthrough
 	case data.GauginSteamLinksProperty:
