@@ -65,9 +65,11 @@ func ReviewClass(sr string) string {
 }
 
 func fmtAction(id, property, link string, rxa kvas.ReduxAssets) string {
+
+	owned, _ := rxa.GetFirstVal(vangogh_local_data.OwnedProperty, id)
+
 	switch property {
 	case vangogh_local_data.WishlistedProperty:
-		owned, _ := rxa.GetFirstVal(vangogh_local_data.OwnedProperty, id)
 		if owned == "true" {
 			return ""
 		}
@@ -78,7 +80,6 @@ func fmtAction(id, property, link string, rxa kvas.ReduxAssets) string {
 			return "Add"
 		}
 	case vangogh_local_data.TagIdProperty:
-		owned, _ := rxa.GetFirstVal(vangogh_local_data.OwnedProperty, id)
 		if owned != "true" {
 			return ""
 		}
@@ -90,6 +91,9 @@ func fmtAction(id, property, link string, rxa kvas.ReduxAssets) string {
 }
 
 func fmtActionHref(id, property, link string, rxa kvas.ReduxAssets) string {
+
+	owned, _ := rxa.GetFirstVal(vangogh_local_data.OwnedProperty, id)
+
 	switch property {
 	case vangogh_local_data.WishlistedProperty:
 		switch link {
@@ -99,7 +103,6 @@ func fmtActionHref(id, property, link string, rxa kvas.ReduxAssets) string {
 			return "/wishlist/remove?id=" + id
 		}
 	case vangogh_local_data.TagIdProperty:
-		owned, _ := rxa.GetFirstVal(vangogh_local_data.OwnedProperty, id)
 		if owned != "true" {
 			return ""
 		}
@@ -164,9 +167,10 @@ func justTheDate(s string) string {
 	return strings.Split(s, " ")[0]
 }
 
-func fmtLabel(_, property, link string, _ kvas.ReduxAssets) string {
+func fmtLabel(id, property, link string, rxa kvas.ReduxAssets) string {
 
 	label := link
+	owned, _ := rxa.GetFirstVal(vangogh_local_data.OwnedProperty, id)
 
 	switch property {
 	case vangogh_local_data.WishlistedProperty:
@@ -195,6 +199,9 @@ func fmtLabel(_, property, link string, _ kvas.ReduxAssets) string {
 			return ""
 		}
 	case vangogh_local_data.DiscountPercentageProperty:
+		if owned == "true" {
+			return ""
+		}
 		if link != "" && link != "0" {
 			return fmt.Sprintf("-%s%%", link)
 		}
@@ -208,9 +215,11 @@ func fmtLabel(_, property, link string, _ kvas.ReduxAssets) string {
 func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 	title := link
 
+	owned, _ := rxa.GetFirstVal(vangogh_local_data.OwnedProperty, id)
+	isFree, _ := rxa.GetFirstVal(vangogh_local_data.IsFreeProperty, id)
+
 	switch property {
 	case vangogh_local_data.WishlistedProperty:
-		owned, _ := rxa.GetFirstVal(vangogh_local_data.OwnedProperty, id)
 		if owned == "true" {
 			return ""
 		}
@@ -231,6 +240,10 @@ func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 		title = fmtGOGRating(link)
 	case vangogh_local_data.TagIdProperty:
 		return transitiveDst(link)
+	case vangogh_local_data.PriceProperty:
+		if isFree == "true" {
+			return ""
+		}
 	case data.GauginGOGLinksProperty:
 		fallthrough
 	case data.GauginSteamLinksProperty:
