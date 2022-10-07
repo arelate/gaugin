@@ -1,8 +1,3 @@
-Community links:
-	- ProtonDB: https://www.protondb.com/app/{steam-app-id}
-	- PCGamingWiki: https://www.pcgamingwiki.com/api/gog.php?page={gog-id}
-	- GOGDB: https://www.gogdb.org/product/{gog-id}
-
 Sync action:
 	- initiate sync
 	- get current sync status (one liner?)
@@ -14,6 +9,10 @@ More icons, less text:
 	- product details section
 
 Archive:
+	Community links: @done(2022-10-06)
+		- ProtonDB: https://www.protondb.com/app/{steam-app-id} @done(2022-10-06)
+		- PCGamingWiki: https://www.pcgamingwiki.com/api/gog.php?page={gog-id} @done(2022-10-06)
+		- GOGDB: https://www.gogdb.org/product/{gog-id} @done(2022-10-06)
 	Dehydrate on the client side: @done(2022-09-25)
 		- rewrite dehydration in EcmaScript @done(2022-09-25)
 		- pass dehydrated string with the request for lower bandwidth consumption @done(2022-09-25)

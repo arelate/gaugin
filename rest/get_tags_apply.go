@@ -5,9 +5,9 @@ import (
 	"net/http"
 )
 
-func PostTagsApply(w http.ResponseWriter, r *http.Request) {
+func GetTagsApply(w http.ResponseWriter, r *http.Request) {
 
-	// POST /tags/apply
+	// GET /tags/apply
 
 	if err := r.ParseForm(); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusBadRequest)
@@ -31,21 +31,6 @@ func PostTagsApply(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, nod.Error(err).Error(), http.StatusBadRequest)
 			return
 		}
-	}
-
-	//don't skip if local-tags are empty as this might be a signal to remove existing tags
-	newLocalTag := ""
-	if len(r.Form["new-local-tag"]) > 0 {
-		newLocalTag = r.Form["new-local-tag"][0]
-	}
-
-	localTags := r.Form["local-tag"]
-	if newLocalTag != "" {
-		localTags = append(localTags, newLocalTag)
-	}
-	if err := patchLocalTag(http.DefaultClient, id, localTags); err != nil {
-		http.Error(w, nod.Error(err).Error(), http.StatusBadRequest)
-		return
 	}
 
 	http.Redirect(w, r, "/product?id="+id, http.StatusTemporaryRedirect)

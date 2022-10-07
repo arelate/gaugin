@@ -6,7 +6,7 @@
     {{template "svg-icons"}}
     {{template "nav"}}
 
-    <form class="tags-edit-form" method="post" action="/tags/apply">
+    <form class="tags-edit-form" method="get" action="/tags/apply">
 
         <input type="hidden" name="id" value="{{.Id}}"/>
         <input type="hidden" name="owned" value="{{.Owned}}"/>
@@ -31,23 +31,6 @@
                     <label for="{{.}}" class="{{if $selected}}selected{{end}}">{{transitiveDst .}}</label>
                 </div>
             {{end}}
-        </div>
-
-        <h2>Local Tags</h2>
-        <div class="tags">
-            {{$localTags := .LocalTags}}
-            {{range .AllLocalTags}}
-                {{$selected := index $localTags .}}
-                <div class="tag-container">
-                    <input id="{{.}}" type="checkbox" name="local-tag"
-                           value="{{.}}" {{if $selected}}checked{{end}}/>
-                    <label for="{{.}}" class="{{if $selected}}selected{{end}}">{{.}}</label>
-                </div>
-            {{end}}
-            <div class="tag-container">
-                <input id="new-local-tag" type="text" name="new-local-tag"
-                       placeholder="New local tag"/>
-            </div>
         </div>
 
         <div class="submit-container">

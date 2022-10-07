@@ -1,0 +1,44 @@
+{{define "local-tags-edit-page"}}
+    <!doctype html>
+    <html lang="en">
+    {{template "head" .}}
+    <body>
+    {{template "svg-icons"}}
+    {{template "nav"}}
+
+    <form class="tags-edit-form" method="get" action="/local-tags/apply">
+
+        <input type="hidden" name="id" value="{{.Id}}"/>
+        <input type="hidden" name="owned" value="{{.Owned}}"/>
+
+        <h1>{{.Title}}</h1>
+
+        {{$owned := .Owned}}
+
+        <h2>Local Tags</h2>
+        <div class="tags">
+            {{$localTags := .LocalTags}}
+            {{range .AllLocalTags}}
+                {{$selected := index $localTags .}}
+                <div class="tag-container">
+                    <input id="{{.}}" type="checkbox" name="local-tag"
+                           value="{{.}}" {{if $selected}}checked{{end}}/>
+                    <label for="{{.}}" class="{{if $selected}}selected{{end}}">{{.}}</label>
+                </div>
+            {{end}}
+            <div class="tag-container">
+                <input id="new-local-tag" type="text" name="new-local-tag"
+                       placeholder="New local tag"/>
+            </div>
+        </div>
+
+        <div class="submit-container">
+            <input id="submit" type="submit" value="Apply">
+        </div>
+
+    </form>
+
+    {{template "footer"}}
+    </body>
+    </html>
+{{end}}

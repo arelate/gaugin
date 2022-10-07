@@ -77,6 +77,10 @@ func fmtAction(id, property, link string, rxa kvas.ReduxAssets) string {
 		case "false":
 			return "Add"
 		}
+	case vangogh_local_data.TagIdProperty:
+		return "Edit"
+	case vangogh_local_data.LocalTagsProperty:
+		return "Edit"
 	}
 	return ""
 }
@@ -90,6 +94,10 @@ func fmtActionHref(id, property, link string, rxa kvas.ReduxAssets) string {
 		case "Remove":
 			return "/wishlist/remove?id=" + id
 		}
+	case vangogh_local_data.TagIdProperty:
+		return "/tags/edit?id=" + id
+	case vangogh_local_data.LocalTagsProperty:
+		return "/local-tags/edit?id=" + id
 	}
 	return ""
 }
