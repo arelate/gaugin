@@ -1,9 +1,11 @@
 package rest
 
 import (
-	"net/http"
-
 	"github.com/arelate/gaugin/gaugin_middleware"
+	"github.com/arelate/gaugin/stencil_app"
+	"net/http"
+	"strings"
+
 	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
@@ -29,11 +31,17 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	gaugin_middleware.DefaultHeaders(nil, w)
-
+	sb := &strings.Builder{}
 	dvm := view_models.NewDescription(idRedux[id])
 
-	if err := tmpl.ExecuteTemplate(w, "description-page", dvm); err != nil {
+	if err := tmpl.ExecuteTemplate(sb, "description-content", dvm); err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
+	}
+
+	gaugin_middleware.DefaultHeaders(nil, w)
+
+	if err := app.RenderSection(id, stencil_app.DescriptionSection, sb.String(), w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}

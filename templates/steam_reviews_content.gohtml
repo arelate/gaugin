@@ -1,4 +1,4 @@
-{{define "product-details-steam-reviews"}}
+{{define "steam-reviews-content"}}
     {{if gt .Count 0}}
         {{range .Reviews}}
             <section class="steam-review">
@@ -19,7 +19,7 @@
 
                 {{if .LongReview}}
                 <details>
-                    <summary>Expand to see full review{{template "svg-icon-show-more-less"}}</summary>
+                    <summary>Expand to see full review</summary>
                     {{end}}
                     <div class="steam-review-contents">
                         {{.Review}}

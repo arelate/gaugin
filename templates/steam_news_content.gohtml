@@ -1,9 +1,9 @@
-{{define "product-details-steam-news"}}
+{{define "steam-news-content"}}
     {{if gt .Count 0}}
         {{$firstItem := true}}
         {{range .NewsItems}}
             <details {{if $firstItem}}open{{end}}>
-                <summary><h1>{{.Title}}</h1>{{template "svg-icon-show-more-less"}}</summary>
+                <summary><h1>{{.Title}}</h1></summary>
                 <div class="steam-news-metadata">
                     {{if .Date}}
                         <span class="steam-news-date">Date: <span class="metadata-value">{{unixDateFormat .Date}}</span></span>

@@ -11,7 +11,6 @@ type Downloads struct {
 	ValidationSuccess   bool
 	ValidationResults   []string
 	ValidationCompleted string
-	Context             string
 	CurrentOS           *ProductDownloads
 	OtherOS             *ProductDownloads
 	Extras              *ProductDownloads
@@ -28,7 +27,6 @@ type ProductDownloads struct {
 func NewDownloads(rdx map[string][]string, clientOS vangogh_local_data.OperatingSystem, dls vangogh_local_data.DownloadsList) *Downloads {
 
 	dvm := &Downloads{
-		Context:           "iframe",
 		ValidationSuccess: propertyFromRedux(rdx, vangogh_local_data.ValidationResultProperty) == vangogh_local_data.OKValue,
 		ValidationResults: propertiesFromRedux(rdx, vangogh_local_data.ValidationResultProperty),
 		CurrentOS: &ProductDownloads{

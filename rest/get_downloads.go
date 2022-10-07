@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
+	"github.com/arelate/gaugin/stencil_app"
 	"net/http"
 	"strings"
 
@@ -23,9 +24,16 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	sb := &strings.Builder{}
+
+	if err := tmpl.ExecuteTemplate(sb, "downloads-content", dvm); err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
+	}
+
 	gaugin_middleware.DefaultHeaders(nil, w)
 
-	if err := tmpl.ExecuteTemplate(w, "downloads-page", dvm); err != nil {
+	if err := app.RenderSection(id, stencil_app.DownloadsSection, sb.String(), w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}

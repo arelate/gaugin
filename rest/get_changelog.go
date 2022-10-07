@@ -1,7 +1,9 @@
 package rest
 
 import (
+	"github.com/arelate/gaugin/stencil_app"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/arelate/gaugin/gaugin_middleware"
@@ -34,11 +36,17 @@ func GetChangelog(w http.ResponseWriter, r *http.Request) {
 	}
 	st.Set("getRedux", time.Since(start).Milliseconds())
 
-	gaugin_middleware.DefaultHeaders(st, w)
-
+	sb := &strings.Builder{}
 	cvm := view_models.NewChangelog(idRedux[id])
 
-	if err := tmpl.ExecuteTemplate(w, "changelog-page", cvm); err != nil {
+	if err := tmpl.ExecuteTemplate(sb, "changelog-content", cvm); err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
+	}
+
+	gaugin_middleware.DefaultHeaders(st, w)
+
+	if err := app.RenderSection(id, stencil_app.ChangelogSection, sb.String(), w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}

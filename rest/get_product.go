@@ -119,11 +119,11 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		hasSections = append(hasSections, stencil_app.DownloadsSection)
 	}
 
-	gaugin_middleware.DefaultHeaders(st, w)
-
 	insertAggregateLinks(idRedux[id], id)
 
 	irap := vangogh_local_data.NewIRAProxy(idRedux)
+
+	gaugin_middleware.DefaultHeaders(st, w)
 
 	if err := app.RenderItem(id, hasSections, irap, w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
@@ -152,10 +152,10 @@ func insertAggregateLinks(rdx map[string][]string, id string) {
 	}
 
 	rdx[data.GauginGOGLinksProperty] = append(rdx[data.GauginGOGLinksProperty],
-		fmt.Sprintf("%s (%s)", data.GauginPCGamingWikiUrlProperty, "https://www.pcgamingwiki.com/api/gog.php?page="+id))
+		fmt.Sprintf("%s (%s)", data.GauginPCGamingWikiUrlProperty, gog_integration.PCGamingWikiUrl(id)))
 
 	rdx[data.GauginGOGLinksProperty] = append(rdx[data.GauginGOGLinksProperty],
-		fmt.Sprintf("%s (%s)", data.GauginGOGDBUrlProperty, "https://www.gogdb.org/product/"+id))
+		fmt.Sprintf("%s (%s)", data.GauginGOGDBUrlProperty, gog_integration.GOGDBUrl(id)))
 
 	if len(rdx[vangogh_local_data.SteamAppIdProperty]) == 1 {
 		steamAppId := rdx[vangogh_local_data.SteamAppIdProperty][0]
@@ -166,10 +166,12 @@ func insertAggregateLinks(rdx map[string][]string, id string) {
 						append(rdx[data.GauginSteamLinksProperty],
 							fmt.Sprintf("%s (%s)", data.GauginSteamCommunityUrlProperty, scu.String()))
 				}
+				if pdbu := steam_integration.ProtonDBUrl(uint32(appId)); pdbu != nil {
+					rdx[data.GauginSteamLinksProperty] =
+						append(rdx[data.GauginSteamLinksProperty],
+							fmt.Sprintf("%s (%s)", data.GauginProtonDBUrlProperty, pdbu.String()))
+				}
 			}
-			rdx[data.GauginSteamLinksProperty] =
-				append(rdx[data.GauginSteamLinksProperty],
-					fmt.Sprintf("%s (%s)", data.GauginProtonDBUrlProperty, "https://www.protondb.com/app/"+steamAppId))
 		}
 	}
 }

@@ -1,0 +1,16 @@
+{{define "videos-content"}}
+    {{range .LocalVideos}}
+        <video controls src="/video?id={{.}}" preload="metadata" poster="/thumbnails?id={{.}}"></video>
+    {{end}}
+    {{if .RemoteVideos}}
+        <details>
+            <summary><h1>Watch on YouTube</h1></summary>
+            {{range .RemoteVideos}}
+                {{$videoId := transitiveSrc .}}
+                <a target="_top" class="youtube-video-link" href="{{youtubeLink $videoId}}">
+                    <img src="/thumbnails?id={{$videoId}}"/>
+                </a>
+            {{end}}
+        </details>
+    {{end}}
+{{end}}

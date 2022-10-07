@@ -1,0 +1,13 @@
+{{define "description-content"}}
+    {{if .Description}}
+        {{.Description}}
+    {{else}}
+        Description is not available for this product.
+    {{end}}
+    {{if .AdditionalRequirements}}
+        <div class="additional-requirements">{{.AdditionalRequirements}}</div>
+    {{end}}
+    {{if .Copyrights}}
+        <div class="copyrights">{{.Copyrights}}</div>
+    {{end}}
+{{end}}

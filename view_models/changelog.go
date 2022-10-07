@@ -6,12 +6,11 @@ import (
 )
 
 type changelog struct {
-	Context   string
 	Changelog template.HTML
 }
 
 func NewChangelog(rdx map[string][]string) *changelog {
-	cvm := &changelog{Context: "iframe"}
+	cvm := &changelog{}
 
 	clog := propertyFromRedux(rdx, vangogh_local_data.ChangelogProperty)
 	clog = rewriteLinksAsTargetTop(clog)

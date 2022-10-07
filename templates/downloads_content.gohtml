@@ -1,10 +1,32 @@
+{{define "downloads-content"}}
+    <section class="validation {{if .ValidationSuccess}}success{{else if .ValidationResults}}results{{end}}">
+        {{if .ValidationSuccess}}<p>All product files have been successfully validated on {{.ValidationCompleted}}</p>
+        {{else if .ValidationResults}}<p>Validation problems found on {{.ValidationCompleted}}:</p>
+        <ul>
+            {{range .ValidationResults}}
+                <li>{{.}}</li>
+            {{end}}
+        </ul>
+        {{else}}<p>Product files have not been validated</p>
+        {{end}}
+    </section>
+    {{if hasDownloads .CurrentOS}}
+        {{template "downloads" .CurrentOS}}
+    {{end}}
+    {{if hasDownloads .OtherOS}}
+        {{template "downloads" .OtherOS}}
+    {{end}}
+    {{if hasDownloads .Extras}}
+        {{template "downloads" .Extras}}
+    {{end}}
+{{end}}
 {{define "downloads"}}
     <details id="{{if .CurrentOS}}current-os{{else}}other-os{{end}}-downloads" class="downloads"
              {{if .CurrentOS}}open{{end}} accesskey="f" tabindex="20">
-        <summary>{{.OperatingSystems}}{{template "svg-icon-show-more-less"}}</summary>
+        <summary>{{.OperatingSystems}}</summary>
         {{if .Installers}}
             <details class="downloads-type installers" open>
-                <summary>Installers{{template "svg-icon-show-more-less"}}</summary>
+                <summary>Installers</summary>
                 <div class="downloads-list">
                     {{template "download" .Installers}}
                 </div>
@@ -12,7 +34,7 @@
         {{end}}
         {{if .DLCs}}
             <details class="downloads-type downloadable-content">
-                <summary>DLCs{{template "svg-icon-show-more-less"}}</summary>
+                <summary>DLCs</summary>
                 <div class="downloads-list">
                     {{template "download" .DLCs}}
                 </div>
@@ -20,7 +42,7 @@
         {{end}}
         {{if .Extras}}
             <details class="downloads-type extras">
-                <summary>Extras{{template "svg-icon-show-more-less"}}</summary>
+                <summary>Extras</summary>
                 <div class="downloads-list">
                     {{template "download" .Extras}}
                 </div>
@@ -42,7 +64,9 @@
                 <li class="type label {{.Type}}">{{downloadTypeTitle .Type}}</li>
                 {{$os := toLower .OS.String}}
                 {{if ne $os "any-operating-system"}}
-                    {{template "svg-icon" $os}}
+                    <svg class="icon {{$os}}" aria-hidden="true" title="{{$os}}">
+                        <use xlink:href="#{{$os}}"></use>
+                    </svg>
                 {{end}}
                 {{if .LanguageCode}}
                     <li class="language">

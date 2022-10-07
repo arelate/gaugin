@@ -6,14 +6,13 @@ import (
 )
 
 type description struct {
-	Context                string
 	Description            template.HTML
 	AdditionalRequirements template.HTML
 	Copyrights             template.HTML
 }
 
 func NewDescription(rdx map[string][]string) *description {
-	dvm := &description{Context: "iframe"}
+	dvm := &description{}
 
 	//Description content preparation includes the following steps:
 	//1) combining DescriptionOverview and DescriptionFeatures
