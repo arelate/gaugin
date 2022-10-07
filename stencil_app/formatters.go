@@ -78,6 +78,10 @@ func fmtAction(id, property, link string, rxa kvas.ReduxAssets) string {
 			return "Add"
 		}
 	case vangogh_local_data.TagIdProperty:
+		owned, _ := rxa.GetFirstVal(vangogh_local_data.OwnedProperty, id)
+		if owned != "true" {
+			return ""
+		}
 		return "Edit"
 	case vangogh_local_data.LocalTagsProperty:
 		return "Edit"
@@ -95,6 +99,10 @@ func fmtActionHref(id, property, link string, rxa kvas.ReduxAssets) string {
 			return "/wishlist/remove?id=" + id
 		}
 	case vangogh_local_data.TagIdProperty:
+		owned, _ := rxa.GetFirstVal(vangogh_local_data.OwnedProperty, id)
+		if owned != "true" {
+			return ""
+		}
 		return "/tags/edit?id=" + id
 	case vangogh_local_data.LocalTagsProperty:
 		return "/local-tags/edit?id=" + id

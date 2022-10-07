@@ -1,10 +1,10 @@
 package rest
 
 import (
+	"github.com/arelate/gaugin/gaugin_middleware"
 	"net/http"
 	"strings"
 
-	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
@@ -16,14 +16,14 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	gaugin_middleware.DefaultHeaders(nil, w)
-
 	clientOS := getClientOperatingSystem(r)
 	dvm, err := getDownloadsViewModel(id, clientOS)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
+
+	gaugin_middleware.DefaultHeaders(nil, w)
 
 	if err := tmpl.ExecuteTemplate(w, "downloads-page", dvm); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)

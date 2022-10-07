@@ -1,11 +1,4 @@
-{{define "tags-edit-page"}}
-    <!doctype html>
-    <html lang="en">
-    {{template "head" .}}
-    <body>
-    {{template "svg-icons"}}
-    {{template "nav"}}
-
+{{define "tags-edit-form"}}
     <form class="tags-edit-form" method="get" action="/tags/apply">
 
         <input type="hidden" name="id" value="{{.Id}}"/>
@@ -38,8 +31,4 @@
         </div>
 
     </form>
-
-    {{template "footer"}}
-    </body>
-    </html>
 {{end}}
