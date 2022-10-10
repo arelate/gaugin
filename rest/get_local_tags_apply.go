@@ -21,11 +21,11 @@ func GetLocalTagsApply(w http.ResponseWriter, r *http.Request) {
 
 	//don't skip if local-tags are empty as this might be a signal to remove existing tags
 	newLocalTag := ""
-	if len(r.Form["new-local-tag"]) > 0 {
-		newLocalTag = r.Form["new-local-tag"][0]
+	if len(r.Form["new-property-value"]) > 0 {
+		newLocalTag = r.Form["new-property-value"][0]
 	}
 
-	localTags := r.Form["local-tag"]
+	localTags := r.Form["value"]
 	if newLocalTag != "" {
 		localTags = append(localTags, newLocalTag)
 	}

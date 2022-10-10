@@ -26,7 +26,7 @@ var labelTitles = map[string]string{
 	vangogh_local_data.WishlistedProperty:     "Wish",
 }
 
-func transitiveDst(s string) string {
+func TransitiveDst(s string) string {
 	dst := s
 	if strings.Contains(s, transitiveOpen) {
 		dst = s[:strings.LastIndex(s, transitiveOpen)]
@@ -34,7 +34,7 @@ func transitiveDst(s string) string {
 	return dst
 }
 
-func transitiveSrc(s string) string {
+func TransitiveSrc(s string) string {
 	src := ""
 	if strings.Contains(s, transitiveOpen) {
 		from, to := strings.LastIndex(s, transitiveOpen)+len(transitiveOpen), strings.Index(s, transitiveClose)
@@ -148,7 +148,7 @@ func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 	case vangogh_local_data.RequiresGamesProperty:
 		fallthrough
 	case vangogh_local_data.IsRequiredByGamesProperty:
-		return fmt.Sprintf("/product?id=%s", transitiveSrc(link))
+		return fmt.Sprintf("/product?id=%s", TransitiveSrc(link))
 	case vangogh_local_data.RatingProperty:
 		return ""
 	case vangogh_local_data.DiscountPercentageProperty:
@@ -158,7 +158,7 @@ func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 	case data.GauginGOGLinksProperty:
 		fallthrough
 	case data.GauginSteamLinksProperty:
-		return transitiveSrc(link)
+		return TransitiveSrc(link)
 	}
 	return fmt.Sprintf("/search?%s=%s", property, link)
 }
@@ -207,7 +207,7 @@ func fmtLabel(id, property, link string, rxa kvas.ReduxAssets) string {
 		}
 		return ""
 	case vangogh_local_data.TagIdProperty:
-		return transitiveDst(link)
+		return TransitiveDst(link)
 	}
 	return label
 }
@@ -231,15 +231,15 @@ func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 	case vangogh_local_data.RequiresGamesProperty:
 		fallthrough
 	case vangogh_local_data.IsRequiredByGamesProperty:
-		title = transitiveDst(link)
+		title = TransitiveDst(link)
 	case vangogh_local_data.GOGOrderDateProperty:
 		title = justTheDate(link)
 	case vangogh_local_data.LanguageCodeProperty:
-		title = LanguageCodeFlag(transitiveSrc(link)) + " " + transitiveDst(link)
+		title = LanguageCodeFlag(TransitiveSrc(link)) + " " + TransitiveDst(link)
 	case vangogh_local_data.RatingProperty:
 		title = fmtGOGRating(link)
 	case vangogh_local_data.TagIdProperty:
-		return transitiveDst(link)
+		return TransitiveDst(link)
 	case vangogh_local_data.PriceProperty:
 		if isFree == "true" {
 			return ""
@@ -247,7 +247,7 @@ func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 	case data.GauginGOGLinksProperty:
 		fallthrough
 	case data.GauginSteamLinksProperty:
-		title = PropertyTitles[transitiveDst(link)]
+		title = PropertyTitles[TransitiveDst(link)]
 	}
 
 	return title

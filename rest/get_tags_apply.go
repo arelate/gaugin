@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"github.com/arelate/gaugin/stencil_app"
 	"github.com/boggydigital/nod"
 	"net/http"
 )
@@ -20,13 +21,17 @@ func GetTagsApply(w http.ResponseWriter, r *http.Request) {
 	}
 
 	owned := false
-	if len(r.Form["owned"]) > 0 {
-		owned = r.Form["owned"][0] == "true"
+	if len(r.Form["condition"]) > 0 {
+		owned = r.Form["condition"][0] == "true"
 	}
 
 	if owned {
 		//don't skip if tags are empty as this might be a signal to remove existing tags
-		tags := r.Form["tag"]
+		tags := r.Form["value"]
+		for i, t := range tags {
+			tags[i] = stencil_app.TransitiveSrc(t)
+		}
+
 		if err := patchTag(http.DefaultClient, id, tags); err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusBadRequest)
 			return
