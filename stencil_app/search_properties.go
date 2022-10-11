@@ -27,7 +27,6 @@ var SearchProperties = []string{
 	vangogh_local_data.IsDiscountedProperty,
 	vangogh_local_data.PreOrderProperty,
 	vangogh_local_data.ComingSoonProperty,
-	vangogh_local_data.TBAProperty,
 	vangogh_local_data.InDevelopmentProperty,
 	vangogh_local_data.IsUsingDOSBoxProperty,
 	vangogh_local_data.IsUsingScummVMProperty,

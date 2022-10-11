@@ -30,7 +30,6 @@ var PropertyTitles = map[string]string{
 	vangogh_local_data.IsDiscountedProperty:         "On Sale",
 	vangogh_local_data.PreOrderProperty:             "Pre-order",
 	vangogh_local_data.ComingSoonProperty:           "Coming Soon",
-	vangogh_local_data.TBAProperty:                  "TBA",
 	vangogh_local_data.InDevelopmentProperty:        "In Development",
 	vangogh_local_data.IsUsingDOSBoxProperty:        "Using DOSBox",
 	vangogh_local_data.IsUsingScummVMProperty:       "Using ScummVM",

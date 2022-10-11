@@ -16,7 +16,6 @@ const (
 
 var labelTitles = map[string]string{
 	vangogh_local_data.OwnedProperty:          "Own",
-	vangogh_local_data.TBAProperty:            "TBA",
 	vangogh_local_data.ComingSoonProperty:     "Soon",
 	vangogh_local_data.PreOrderProperty:       "PO",
 	vangogh_local_data.InDevelopmentProperty:  "In Dev",
@@ -180,8 +179,6 @@ func fmtLabel(id, property, link string, rxa kvas.ReduxAssets) string {
 	case vangogh_local_data.PreOrderProperty:
 		fallthrough
 	case vangogh_local_data.ComingSoonProperty:
-		fallthrough
-	case vangogh_local_data.TBAProperty:
 		fallthrough
 	case vangogh_local_data.InDevelopmentProperty:
 		fallthrough

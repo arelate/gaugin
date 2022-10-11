@@ -6,7 +6,6 @@ var Labels = []string{
 	vangogh_local_data.OwnedProperty,
 	vangogh_local_data.ValidationResultProperty,
 	vangogh_local_data.ProductTypeProperty,
-	vangogh_local_data.TBAProperty,
 	vangogh_local_data.ComingSoonProperty,
 	vangogh_local_data.PreOrderProperty,
 	vangogh_local_data.InDevelopmentProperty,
