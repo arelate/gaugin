@@ -156,6 +156,8 @@ func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 		return ""
 	case data.GauginGOGLinksProperty:
 		fallthrough
+	case data.GauginOtherLinksProperty:
+		fallthrough
 	case data.GauginSteamLinksProperty:
 		return TransitiveSrc(link)
 	}
@@ -242,6 +244,8 @@ func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 			return ""
 		}
 	case data.GauginGOGLinksProperty:
+		fallthrough
+	case data.GauginOtherLinksProperty:
 		fallthrough
 	case data.GauginSteamLinksProperty:
 		title = PropertyTitles[TransitiveDst(link)]

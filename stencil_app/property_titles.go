@@ -46,6 +46,7 @@ var PropertyTitles = map[string]string{
 	vangogh_local_data.DiscountPercentageProperty:   "Discount",
 
 	data.GauginGOGLinksProperty:           "GOG.com Links",
+	data.GauginOtherLinksProperty:         "Other Links",
 	vangogh_local_data.ForumUrlProperty:   "Forum",
 	vangogh_local_data.StoreUrlProperty:   "Store",
 	vangogh_local_data.SupportUrlProperty: "Support",

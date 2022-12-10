@@ -151,10 +151,10 @@ func insertAggregateLinks(rdx map[string][]string, id string) {
 		}
 	}
 
-	rdx[data.GauginGOGLinksProperty] = append(rdx[data.GauginGOGLinksProperty],
+	rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
 		fmt.Sprintf("%s (%s)", data.GauginPCGamingWikiUrlProperty, gog_integration.PCGamingWikiUrl(id)))
 
-	rdx[data.GauginGOGLinksProperty] = append(rdx[data.GauginGOGLinksProperty],
+	rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
 		fmt.Sprintf("%s (%s)", data.GauginGOGDBUrlProperty, gog_integration.GOGDBUrl(id)))
 
 	if len(rdx[vangogh_local_data.SteamAppIdProperty]) == 1 {

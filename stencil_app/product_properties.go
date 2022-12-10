@@ -53,6 +53,7 @@ var ProductProperties = []string{
 
 var ProductComputedProperties = []string{
 	data.GauginGOGLinksProperty,
+	data.GauginOtherLinksProperty,
 	data.GauginSteamLinksProperty,
 }
 
