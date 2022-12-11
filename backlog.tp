@@ -1,14 +1,24 @@
-Sync action:
-	- initiate sync
-	- get current sync status (one liner?)
-	- basic auth protection, same password as downloads
+Improve image loading again:
+	- seriously need to be improved
+	
+Fixed cost rendering on initial navigations:
+	- long list performance is expensive on browsing, since it still gets a lot of data up front
+	- For data queries consider peek param to limit amount of data
+	- add "show all" to display everything when needed
+	- current idea:
+		- change all APIs that return data results to return fixed amount of data, total count and a flag to return all
+		- update stencil list, group renderers to take this into account and add "Show All" when only a subset of data is returned
 
-More icons, less text:
+More icons, less text (kanzen dep):
 	- genres
 	- features
 	- product details section
 
 Archive:
+	Sync action: @done(2022-12-10) @wontfix
+		- initiate sync @done(2022-12-10)
+		- get current sync status (one liner?) @done(2022-12-10)
+		- basic auth protection, same password as downloads @done(2022-12-10)
 	Community links: @done(2022-10-06)
 		- ProtonDB: https://www.protondb.com/app/{steam-app-id} @done(2022-10-06)
 		- PCGamingWiki: https://www.pcgamingwiki.com/api/gog.php?page={gog-id} @done(2022-10-06)

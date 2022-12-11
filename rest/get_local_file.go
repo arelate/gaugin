@@ -19,6 +19,9 @@ func GetLocalFile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if absLocalFilePath := vangogh_local_data.AbsDownloadDirFromRel(localPath); absLocalFilePath != "" {
+		_, filename := filepath.Split(absLocalFilePath)
+		w.Header().Set("Cache-Control", "max-age=31536000")
+		w.Header().Set("Content-Disposition", "attachment; filename=\""+filename+"\"")
 		http.ServeFile(w, r, absLocalFilePath)
 	} else {
 		_ = nod.Error(fmt.Errorf("file %s not found", absLocalFilePath))
