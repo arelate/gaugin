@@ -10,6 +10,7 @@ import (
 	"github.com/arelate/southern_light/hltb_integration"
 	"github.com/arelate/southern_light/igdb_integration"
 	"github.com/arelate/southern_light/pcgw_integration"
+	"github.com/arelate/southern_light/protondb_integration"
 	"github.com/arelate/southern_light/steam_integration"
 	"net/http"
 	"net/url"
@@ -158,16 +159,13 @@ func insertAggregateLinks(rdx map[string][]string, id string) {
 	if len(rdx[vangogh_local_data.SteamAppIdProperty]) > 0 {
 		if steamAppId := rdx[vangogh_local_data.SteamAppIdProperty][0]; steamAppId != "" {
 			if appId, err := strconv.ParseUint(steamAppId, 10, 32); err == nil {
-				if scu := steam_integration.SteamCommunityUrl(uint32(appId)); scu != nil {
-					rdx[data.GauginSteamLinksProperty] =
-						append(rdx[data.GauginSteamLinksProperty],
-							fmt.Sprintf("%s (%s)", data.GauginSteamCommunityUrlProperty, scu.String()))
-				}
-				if pdbu := steam_integration.ProtonDBUrl(uint32(appId)); pdbu != nil {
-					rdx[data.GauginOtherLinksProperty] =
-						append(rdx[data.GauginOtherLinksProperty],
-							fmt.Sprintf("%s (%s)", data.GauginProtonDBUrlProperty, pdbu.String()))
-				}
+				uAppId := uint32(appId)
+				rdx[data.GauginSteamLinksProperty] =
+					append(rdx[data.GauginSteamLinksProperty],
+						fmt.Sprintf("%s (%s)", data.GauginSteamCommunityUrlProperty, steam_integration.SteamCommunityUrl(uAppId)))
+				rdx[data.GauginOtherLinksProperty] =
+					append(rdx[data.GauginOtherLinksProperty],
+						fmt.Sprintf("%s (%s)", data.GauginProtonDBUrlProperty, protondb_integration.ProtonDBUrl(uAppId)))
 			}
 		}
 	}
