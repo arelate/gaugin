@@ -3,9 +3,8 @@ module github.com/arelate/gaugin
 go 1.19
 
 require (
-	github.com/arelate/gog_integration v0.2.9
-	github.com/arelate/steam_integration v0.1.18
-	github.com/arelate/vangogh_local_data v0.2.63
+	github.com/arelate/southern_light v0.1.0
+	github.com/arelate/vangogh_local_data v0.2.64
 	github.com/boggydigital/clo v0.3.1
 	github.com/boggydigital/kvas v0.3.26
 	github.com/boggydigital/middleware v0.1.3
@@ -17,9 +16,6 @@ require (
 )
 
 require (
-	github.com/arelate/hltb_integration v0.1.0 // indirect
-	github.com/arelate/igdb_integration v0.1.0 // indirect
-	github.com/arelate/pcgw_integration v0.1.5 // indirect
 	github.com/boggydigital/match_node v0.1.9 // indirect
 	github.com/boggydigital/wits v0.2.3 // indirect
 	golang.org/x/net v0.4.0 // indirect

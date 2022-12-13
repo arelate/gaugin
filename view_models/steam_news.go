@@ -1,7 +1,7 @@
 package view_models
 
 import (
-	"github.com/arelate/steam_integration"
+	"github.com/arelate/southern_light/steam_integration"
 	"html/template"
 	"strings"
 )

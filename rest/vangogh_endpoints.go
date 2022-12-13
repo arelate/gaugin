@@ -3,7 +3,7 @@ package rest
 import (
 	"encoding/gob"
 	"fmt"
-	"github.com/arelate/steam_integration"
+	"github.com/arelate/southern_light/steam_integration"
 	"github.com/arelate/vangogh_local_data"
 	"net/http"
 	"net/url"

@@ -5,11 +5,11 @@ import (
 	"github.com/arelate/gaugin/data"
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/stencil_app"
-	"github.com/arelate/gog_integration"
-	"github.com/arelate/hltb_integration"
-	"github.com/arelate/igdb_integration"
-	"github.com/arelate/pcgw_integration"
-	"github.com/arelate/steam_integration"
+	"github.com/arelate/southern_light/gog_integration"
+	"github.com/arelate/southern_light/gogdb_integration"
+	"github.com/arelate/southern_light/hltb_integration"
+	"github.com/arelate/southern_light/pcgw_integration"
+	"github.com/arelate/southern_light/steam_integration"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -154,15 +154,6 @@ func insertAggregateLinks(rdx map[string][]string, id string) {
 		}
 	}
 
-	rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
-		fmt.Sprintf("%s (%s)", data.GauginGOGDBUrlProperty, gog_integration.GOGDBUrl(id)))
-
-	if len(rdx[vangogh_local_data.PCGWPageIdProperty]) > 0 {
-		pcgwPageId := rdx[vangogh_local_data.PCGWPageIdProperty][0]
-		rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
-			fmt.Sprintf("%s (%s)", data.GauginPCGamingWikiUrlProperty, pcgw_integration.WikiUrl(pcgwPageId)))
-	}
-
 	if len(rdx[vangogh_local_data.SteamAppIdProperty]) > 0 {
 		if steamAppId := rdx[vangogh_local_data.SteamAppIdProperty][0]; steamAppId != "" {
 			if appId, err := strconv.ParseUint(steamAppId, 10, 32); err == nil {
@@ -178,6 +169,15 @@ func insertAggregateLinks(rdx map[string][]string, id string) {
 				}
 			}
 		}
+	}
+
+	rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
+		fmt.Sprintf("%s (%s)", data.GauginGOGDBUrlProperty, gogdb_integration.GOGDBUrl(id)))
+
+	if len(rdx[vangogh_local_data.PCGWPageIdProperty]) > 0 {
+		pcgwPageId := rdx[vangogh_local_data.PCGWPageIdProperty][0]
+		rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
+			fmt.Sprintf("%s (%s)", data.GauginPCGamingWikiUrlProperty, pcgw_integration.WikiUrl(pcgwPageId)))
 	}
 
 	if len(rdx[vangogh_local_data.HowLongToBeatIdProperty]) > 0 {
