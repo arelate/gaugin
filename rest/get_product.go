@@ -8,6 +8,7 @@ import (
 	"github.com/arelate/southern_light/gog_integration"
 	"github.com/arelate/southern_light/gogdb_integration"
 	"github.com/arelate/southern_light/hltb_integration"
+	"github.com/arelate/southern_light/igdb_integration"
 	"github.com/arelate/southern_light/pcgw_integration"
 	"github.com/arelate/southern_light/steam_integration"
 	"net/http"
