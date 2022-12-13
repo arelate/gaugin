@@ -6,6 +6,9 @@ import (
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/stencil_app"
 	"github.com/arelate/gog_integration"
+	"github.com/arelate/hltb_integration"
+	"github.com/arelate/igdb_integration"
+	"github.com/arelate/pcgw_integration"
 	"github.com/arelate/steam_integration"
 	"net/http"
 	"net/url"
@@ -152,14 +155,16 @@ func insertAggregateLinks(rdx map[string][]string, id string) {
 	}
 
 	rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
-		fmt.Sprintf("%s (%s)", data.GauginPCGamingWikiUrlProperty, gog_integration.PCGamingWikiUrl(id)))
-
-	rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
 		fmt.Sprintf("%s (%s)", data.GauginGOGDBUrlProperty, gog_integration.GOGDBUrl(id)))
 
-	if len(rdx[vangogh_local_data.SteamAppIdProperty]) == 1 {
-		steamAppId := rdx[vangogh_local_data.SteamAppIdProperty][0]
-		if steamAppId != "" {
+	if len(rdx[vangogh_local_data.PCGWPageIdProperty]) > 0 {
+		pcgwPageId := rdx[vangogh_local_data.PCGWPageIdProperty][0]
+		rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
+			fmt.Sprintf("%s (%s)", data.GauginPCGamingWikiUrlProperty, pcgw_integration.WikiUrl(pcgwPageId)))
+	}
+
+	if len(rdx[vangogh_local_data.SteamAppIdProperty]) > 0 {
+		if steamAppId := rdx[vangogh_local_data.SteamAppIdProperty][0]; steamAppId != "" {
 			if appId, err := strconv.ParseUint(steamAppId, 10, 32); err == nil {
 				if scu := steam_integration.SteamCommunityUrl(uint32(appId)); scu != nil {
 					rdx[data.GauginSteamLinksProperty] =
@@ -167,11 +172,23 @@ func insertAggregateLinks(rdx map[string][]string, id string) {
 							fmt.Sprintf("%s (%s)", data.GauginSteamCommunityUrlProperty, scu.String()))
 				}
 				if pdbu := steam_integration.ProtonDBUrl(uint32(appId)); pdbu != nil {
-					rdx[data.GauginSteamLinksProperty] =
-						append(rdx[data.GauginSteamLinksProperty],
+					rdx[data.GauginOtherLinksProperty] =
+						append(rdx[data.GauginOtherLinksProperty],
 							fmt.Sprintf("%s (%s)", data.GauginProtonDBUrlProperty, pdbu.String()))
 				}
 			}
 		}
+	}
+
+	if len(rdx[vangogh_local_data.HowLongToBeatIdProperty]) > 0 {
+		hltbId := rdx[vangogh_local_data.HowLongToBeatIdProperty][0]
+		rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
+			fmt.Sprintf("%s (%s)", data.GauginHowLongToBeatUrlProperty, hltb_integration.GameUrl(hltbId)))
+	}
+
+	if len(rdx[vangogh_local_data.IGDBIdProperty]) > 0 {
+		igdbId := rdx[vangogh_local_data.IGDBIdProperty][0]
+		rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
+			fmt.Sprintf("%s (%s)", data.GauginIGDBUrlProperty, igdb_integration.GameUrl(igdbId)))
 	}
 }

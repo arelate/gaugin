@@ -55,4 +55,6 @@ var PropertyTitles = map[string]string{
 	data.GauginPCGamingWikiUrlProperty:    "PCGamingWiki",
 	data.GauginProtonDBUrlProperty:        "ProtonDB",
 	data.GauginGOGDBUrlProperty:           "GOGDB",
+	data.GauginHowLongToBeatUrlProperty:   "HowLongToBeat",
+	data.GauginIGDBUrlProperty:            "IGDB",
 }

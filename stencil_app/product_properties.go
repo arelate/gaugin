@@ -40,6 +40,9 @@ var ProductProperties = []string{
 	vangogh_local_data.ForumUrlProperty,
 	vangogh_local_data.SupportUrlProperty,
 	vangogh_local_data.SteamAppIdProperty,
+	vangogh_local_data.PCGWPageIdProperty,
+	vangogh_local_data.HowLongToBeatIdProperty,
+	vangogh_local_data.IGDBIdProperty,
 
 	vangogh_local_data.OwnedProperty,
 	vangogh_local_data.IsFreeProperty,
@@ -73,4 +76,7 @@ var ProductHiddenPropertied = []string{
 	vangogh_local_data.ForumUrlProperty,
 	vangogh_local_data.SupportUrlProperty,
 	vangogh_local_data.SteamAppIdProperty,
+	vangogh_local_data.PCGWPageIdProperty,
+	vangogh_local_data.HowLongToBeatIdProperty,
+	vangogh_local_data.IGDBIdProperty,
 }
