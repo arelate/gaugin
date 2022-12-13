@@ -9,9 +9,14 @@ import (
 	"github.com/arelate/southern_light/gogdb_integration"
 	"github.com/arelate/southern_light/hltb_integration"
 	"github.com/arelate/southern_light/igdb_integration"
+	"github.com/arelate/southern_light/mobygames_integration"
 	"github.com/arelate/southern_light/pcgw_integration"
 	"github.com/arelate/southern_light/protondb_integration"
 	"github.com/arelate/southern_light/steam_integration"
+	"github.com/arelate/southern_light/strategywiki_integration"
+	"github.com/arelate/southern_light/vndb_integration"
+	"github.com/arelate/southern_light/wikipedia_integration"
+	"github.com/arelate/southern_light/winehq_integration"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -150,7 +155,7 @@ func insertAggregateLinks(rdx map[string][]string, id string) {
 		vangogh_local_data.StoreUrlProperty,
 		vangogh_local_data.ForumUrlProperty,
 		vangogh_local_data.SupportUrlProperty} {
-		if len(rdx[p]) == 1 {
+		if len(rdx[p]) > 0 {
 			rdx[data.GauginGOGLinksProperty] = append(rdx[data.GauginGOGLinksProperty],
 				fmt.Sprintf("%s (%s)", p, gogLink(rdx[p][0])))
 		}
@@ -173,21 +178,44 @@ func insertAggregateLinks(rdx map[string][]string, id string) {
 	rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
 		fmt.Sprintf("%s (%s)", data.GauginGOGDBUrlProperty, gogdb_integration.GOGDBUrl(id)))
 
-	if len(rdx[vangogh_local_data.PCGWPageIdProperty]) > 0 {
-		pcgwPageId := rdx[vangogh_local_data.PCGWPageIdProperty][0]
-		rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
-			fmt.Sprintf("%s (%s)", data.GauginPCGamingWikiUrlProperty, pcgw_integration.WikiUrl(pcgwPageId)))
-	}
+	otherLink(rdx,
+		vangogh_local_data.PCGWPageIdProperty,
+		data.GauginPCGamingWikiUrlProperty,
+		pcgw_integration.WikiUrl)
+	otherLink(rdx,
+		vangogh_local_data.HowLongToBeatIdProperty,
+		data.GauginHowLongToBeatUrlProperty,
+		hltb_integration.GameUrl)
+	otherLink(rdx,
+		vangogh_local_data.IGDBIdProperty,
+		data.GauginIGDBUrlProperty,
+		igdb_integration.GameUrl)
+	otherLink(rdx,
+		vangogh_local_data.StrategyWikiIdProperty,
+		data.GauginStrategyWikiUrlProperty,
+		strategywiki_integration.WikiUrl)
+	otherLink(rdx,
+		vangogh_local_data.MobyGamesIdProperty,
+		data.GauginMobyGamesUrlProperty,
+		mobygames_integration.GameUrl)
+	otherLink(rdx,
+		vangogh_local_data.WikipediaIdProperty,
+		data.GauginWikipediaUrlProperty,
+		wikipedia_integration.WikiUrl)
+	otherLink(rdx,
+		vangogh_local_data.WineHQIdProperty,
+		data.GauginWineHQUrlProperty,
+		winehq_integration.WineHQUrl)
+	otherLink(rdx,
+		vangogh_local_data.VNDBIdProperty,
+		data.GauginVNDBUrlProperty,
+		vndb_integration.ItemUrl)
+}
 
-	if len(rdx[vangogh_local_data.HowLongToBeatIdProperty]) > 0 {
-		hltbId := rdx[vangogh_local_data.HowLongToBeatIdProperty][0]
+func otherLink(rdx map[string][]string, p string, up string, uf func(string) *url.URL) {
+	if len(rdx[p]) > 0 {
+		id := rdx[p][0]
 		rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
-			fmt.Sprintf("%s (%s)", data.GauginHowLongToBeatUrlProperty, hltb_integration.GameUrl(hltbId)))
-	}
-
-	if len(rdx[vangogh_local_data.IGDBIdProperty]) > 0 {
-		igdbId := rdx[vangogh_local_data.IGDBIdProperty][0]
-		rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
-			fmt.Sprintf("%s (%s)", data.GauginIGDBUrlProperty, igdb_integration.GameUrl(igdbId)))
+			fmt.Sprintf("%s (%s)", up, uf(id)))
 	}
 }

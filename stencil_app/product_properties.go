@@ -43,6 +43,11 @@ var ProductProperties = []string{
 	vangogh_local_data.PCGWPageIdProperty,
 	vangogh_local_data.HowLongToBeatIdProperty,
 	vangogh_local_data.IGDBIdProperty,
+	vangogh_local_data.StrategyWikiIdProperty,
+	vangogh_local_data.MobyGamesIdProperty,
+	vangogh_local_data.WikipediaIdProperty,
+	vangogh_local_data.WineHQIdProperty,
+	vangogh_local_data.VNDBIdProperty,
 
 	vangogh_local_data.OwnedProperty,
 	vangogh_local_data.IsFreeProperty,
@@ -79,4 +84,9 @@ var ProductHiddenPropertied = []string{
 	vangogh_local_data.PCGWPageIdProperty,
 	vangogh_local_data.HowLongToBeatIdProperty,
 	vangogh_local_data.IGDBIdProperty,
+	vangogh_local_data.StrategyWikiIdProperty,
+	vangogh_local_data.MobyGamesIdProperty,
+	vangogh_local_data.WikipediaIdProperty,
+	vangogh_local_data.WineHQIdProperty,
+	vangogh_local_data.VNDBIdProperty,
 }

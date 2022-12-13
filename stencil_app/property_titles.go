@@ -45,16 +45,24 @@ var PropertyTitles = map[string]string{
 	vangogh_local_data.PriceProperty:                "Price",
 	vangogh_local_data.DiscountPercentageProperty:   "Discount",
 
-	data.GauginGOGLinksProperty:           "GOG.com Links",
-	data.GauginOtherLinksProperty:         "Other Links",
+	data.GauginGOGLinksProperty:   "GOG.com Links",
+	data.GauginOtherLinksProperty: "Other Links",
+	data.GauginSteamLinksProperty: "Steam Links",
+
 	vangogh_local_data.ForumUrlProperty:   "Forum",
 	vangogh_local_data.StoreUrlProperty:   "Store",
 	vangogh_local_data.SupportUrlProperty: "Support",
-	data.GauginSteamLinksProperty:         "Steam Links",
-	data.GauginSteamCommunityUrlProperty:  "Community",
-	data.GauginPCGamingWikiUrlProperty:    "PCGamingWiki",
-	data.GauginProtonDBUrlProperty:        "ProtonDB",
-	data.GauginGOGDBUrlProperty:           "GOGDB",
-	data.GauginHowLongToBeatUrlProperty:   "HowLongToBeat",
-	data.GauginIGDBUrlProperty:            "IGDB",
+
+	data.GauginSteamCommunityUrlProperty: "Community",
+
+	data.GauginGOGDBUrlProperty:         "GOGDB",
+	data.GauginIGDBUrlProperty:          "IGDB",
+	data.GauginHowLongToBeatUrlProperty: "HowLongToBeat",
+	data.GauginMobyGamesUrlProperty:     "MobyGames",
+	data.GauginPCGamingWikiUrlProperty:  "PCGamingWiki",
+	data.GauginProtonDBUrlProperty:      "ProtonDB",
+	data.GauginStrategyWikiUrlProperty:  "StrategyWiki",
+	data.GauginWikipediaUrlProperty:     "Wikipedia",
+	data.GauginWineHQUrlProperty:        "WineHQ",
+	data.GauginVNDBUrlProperty:          "VNDB",
 }
