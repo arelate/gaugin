@@ -17,10 +17,10 @@ var DigestTitles = map[string]string{
 	vangogh_local_data.TitleProperty:              "Title",
 	vangogh_local_data.RatingProperty:             "Rating",
 	vangogh_local_data.DiscountPercentageProperty: "Discount Percentage",
-	//Sort HowLongToBeatHoursToComplete
-	vangogh_local_data.HowLongToBeatHoursToCompleteMain: "HLTB Main Story",
-	vangogh_local_data.HowLongToBeatHoursToCompletePlus: "HLTB Story + Extras",
-	vangogh_local_data.HowLongToBeatHoursToComplete100:  "HLTB Completionist",
+	//Sort HLTBHoursToComplete
+	vangogh_local_data.HLTBHoursToCompleteMain: "HLTB Main Story",
+	vangogh_local_data.HLTBHoursToCompletePlus: "HLTB Story + Extras",
+	vangogh_local_data.HLTBHoursToComplete100:  "HLTB Completionist",
 	//vangogh_local_data.ProductTypeProperty
 	vangogh_local_data.CatalogProducts.String():      "Catalog Products",
 	vangogh_local_data.UserWishlistProducts.String(): "User Wishlist Products",

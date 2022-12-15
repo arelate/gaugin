@@ -184,8 +184,8 @@ func insertAggregateLinks(rdx map[string][]string, id string) {
 		data.GauginPCGamingWikiUrlProperty,
 		pcgw_integration.WikiUrl)
 	otherLink(rdx,
-		vangogh_local_data.HowLongToBeatIdProperty,
-		data.GauginHowLongToBeatUrlProperty,
+		vangogh_local_data.HLTBIdProperty,
+		data.GauginHLTBUrlProperty,
 		hltb_integration.GameUrl)
 	otherLink(rdx,
 		vangogh_local_data.IGDBIdProperty,
