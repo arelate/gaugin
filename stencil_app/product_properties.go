@@ -49,6 +49,10 @@ var ProductProperties = []string{
 	vangogh_local_data.WineHQIdProperty,
 	vangogh_local_data.VNDBIdProperty,
 
+	vangogh_local_data.HowLongToBeatHoursToCompleteMain,
+	vangogh_local_data.HowLongToBeatHoursToCompletePlus,
+	vangogh_local_data.HowLongToBeatHoursToComplete100,
+
 	vangogh_local_data.OwnedProperty,
 	vangogh_local_data.IsFreeProperty,
 	vangogh_local_data.PreOrderProperty,

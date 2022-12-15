@@ -5,6 +5,7 @@ import (
 	"github.com/arelate/gaugin/data"
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/stencil_app"
+	"github.com/arelate/southern_light"
 	"github.com/arelate/southern_light/gog_integration"
 	"github.com/arelate/southern_light/gogdb_integration"
 	"github.com/arelate/southern_light/hltb_integration"
@@ -143,7 +144,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 func gogLink(p string) string {
 	u := url.URL{
-		Scheme: gog_integration.HttpsScheme,
+		Scheme: southern_light.HttpsScheme,
 		Host:   gog_integration.WwwGogHost,
 		Path:   p,
 	}

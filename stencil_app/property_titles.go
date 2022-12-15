@@ -45,6 +45,10 @@ var PropertyTitles = map[string]string{
 	vangogh_local_data.PriceProperty:                "Price",
 	vangogh_local_data.DiscountPercentageProperty:   "Discount",
 
+	vangogh_local_data.HowLongToBeatHoursToCompleteMain: "HLTB Main Story",
+	vangogh_local_data.HowLongToBeatHoursToCompletePlus: "HLTB Story + Extras",
+	vangogh_local_data.HowLongToBeatHoursToComplete100:  "HLTB Completionist",
+
 	data.GauginGOGLinksProperty:   "GOG.com Links",
 	data.GauginOtherLinksProperty: "Other Links",
 	data.GauginSteamLinksProperty: "Steam Links",

@@ -112,7 +112,10 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.GOGOrderDateProperty,
 		vangogh_local_data.TitleProperty,
 		vangogh_local_data.RatingProperty,
-		vangogh_local_data.DiscountPercentageProperty}
+		vangogh_local_data.DiscountPercentageProperty,
+		vangogh_local_data.HowLongToBeatHoursToCompleteMain,
+		vangogh_local_data.HowLongToBeatHoursToCompletePlus,
+		vangogh_local_data.HowLongToBeatHoursToComplete100}
 
 	digests[vangogh_local_data.DescendingProperty] = []string{
 		vangogh_local_data.TrueValue,
