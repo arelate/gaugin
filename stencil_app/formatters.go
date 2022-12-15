@@ -254,7 +254,7 @@ func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 	case vangogh_local_data.HLTBHoursToCompletePlus:
 		fallthrough
 	case vangogh_local_data.HLTBHoursToComplete100:
-		return strings.Trim(link, "0") + " hrs"
+		return strings.TrimLeft(link, "0") + " hrs"
 	case data.GauginGOGLinksProperty:
 		fallthrough
 	case data.GauginOtherLinksProperty:
