@@ -27,4 +27,6 @@ var DigestProperties = []string{
 	vangogh_local_data.TypesProperty,
 	vangogh_local_data.SteamReviewScoreDescProperty,
 	vangogh_local_data.ValidationResultProperty,
+	vangogh_local_data.HLTBPlatformsProperty,
+	vangogh_local_data.HLTBGenresProperty,
 }
