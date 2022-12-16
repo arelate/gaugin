@@ -128,6 +128,8 @@ func fmtClass(id, property, link string, rxa kvas.ReduxAssets) string {
 		return ReviewClass(link)
 	case vangogh_local_data.RatingProperty:
 		return ReviewClass(fmtGOGRating(link))
+	case vangogh_local_data.HLTBReviewScoreProperty:
+		return ReviewClass(fmtHLTBRating(link))
 	}
 	return ""
 }
@@ -263,6 +265,11 @@ func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 		fallthrough
 	case data.GauginSteamLinksProperty:
 		title = PropertyTitles[TransitiveDst(link)]
+	case vangogh_local_data.HLTBReviewScoreProperty:
+		if link == "0" {
+			return ""
+		}
+		return fmtHLTBRating(link)
 	}
 
 	return title
@@ -286,6 +293,29 @@ func fmtGOGRating(rs string) string {
 		}
 		if ri > 0 {
 			rd += fmt.Sprintf(" (%.1f)", float32(ri)/10.0)
+		}
+	}
+	return rd
+}
+
+func fmtHLTBRating(rs string) string {
+	rd := ""
+	if ri, err := strconv.ParseInt(rs, 10, 32); err == nil {
+		if ri >= 90 {
+			rd = "Very Positive"
+		} else if ri > 70 {
+			rd = "Positive"
+		} else if ri > 50 {
+			rd = "Mixed"
+		} else if ri > 30 {
+			rd = "Negative"
+		} else if ri > 0 {
+			rd = "Very Negative"
+		} else {
+			rd = "Not rated"
+		}
+		if ri > 0 {
+			rd += fmt.Sprintf(" (%d)", ri)
 		}
 	}
 	return rd

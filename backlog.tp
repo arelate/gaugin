@@ -1,5 +1,8 @@
 Bug: Can't open product details if property doesn't exist yet:
 	- needs to be fixed
+	
+Bug: details/summary expand/collapse indicator is not visible in Chrome:
+	- needs to be fixed
 
 Improve image loading again:
 	- seriously need to be improved
