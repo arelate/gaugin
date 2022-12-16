@@ -45,9 +45,12 @@ var PropertyTitles = map[string]string{
 	vangogh_local_data.PriceProperty:                "Price",
 	vangogh_local_data.DiscountPercentageProperty:   "Discount",
 
-	vangogh_local_data.HLTBHoursToCompleteMain: "HLTB Main Story",
-	vangogh_local_data.HLTBHoursToCompletePlus: "HLTB Story + Extras",
-	vangogh_local_data.HLTBHoursToComplete100:  "HLTB Completionist",
+	vangogh_local_data.HLTBHoursToCompleteMainProperty: "HLTB Main Story",
+	vangogh_local_data.HLTBHoursToCompletePlusProperty: "HLTB Story + Extras",
+	vangogh_local_data.HLTBHoursToComplete100Property:  "HLTB Completionist",
+	vangogh_local_data.HLTBGenresProperty:              "HLTB Genres",
+	vangogh_local_data.HLTBPlatformsProperty:           "HLTB Platforms",
+	vangogh_local_data.HLTBReviewScoreProperty:         "HLTB Review Score",
 
 	data.GauginGOGLinksProperty:   "GOG.com Links",
 	data.GauginOtherLinksProperty: "Other Links",
@@ -69,4 +72,5 @@ var PropertyTitles = map[string]string{
 	data.GauginWikipediaUrlProperty:    "Wikipedia",
 	data.GauginWineHQUrlProperty:       "WineHQ",
 	data.GauginVNDBUrlProperty:         "VNDB",
+	data.GauginIGNWikiUrlProperty:      "IGN Wiki",
 }

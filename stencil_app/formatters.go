@@ -160,11 +160,13 @@ func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 		fallthrough
 	case data.GauginSteamLinksProperty:
 		return TransitiveSrc(link)
-	case vangogh_local_data.HLTBHoursToCompleteMain:
+	case vangogh_local_data.HLTBHoursToCompleteMainProperty:
 		fallthrough
-	case vangogh_local_data.HLTBHoursToCompletePlus:
+	case vangogh_local_data.HLTBHoursToCompletePlusProperty:
 		fallthrough
-	case vangogh_local_data.HLTBHoursToComplete100:
+	case vangogh_local_data.HLTBHoursToComplete100Property:
+		return ""
+	case vangogh_local_data.HLTBReviewScoreProperty:
 		return ""
 	}
 	return fmt.Sprintf("/search?%s=%s", property, link)
@@ -249,11 +251,11 @@ func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 		if isFree == "true" {
 			return ""
 		}
-	case vangogh_local_data.HLTBHoursToCompleteMain:
+	case vangogh_local_data.HLTBHoursToCompleteMainProperty:
 		fallthrough
-	case vangogh_local_data.HLTBHoursToCompletePlus:
+	case vangogh_local_data.HLTBHoursToCompletePlusProperty:
 		fallthrough
-	case vangogh_local_data.HLTBHoursToComplete100:
+	case vangogh_local_data.HLTBHoursToComplete100Property:
 		return strings.TrimLeft(link, "0") + " hrs"
 	case data.GauginGOGLinksProperty:
 		fallthrough

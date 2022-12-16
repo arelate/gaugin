@@ -10,6 +10,7 @@ import (
 	"github.com/arelate/southern_light/gogdb_integration"
 	"github.com/arelate/southern_light/hltb_integration"
 	"github.com/arelate/southern_light/igdb_integration"
+	"github.com/arelate/southern_light/ign_integration"
 	"github.com/arelate/southern_light/mobygames_integration"
 	"github.com/arelate/southern_light/pcgw_integration"
 	"github.com/arelate/southern_light/protondb_integration"
@@ -211,6 +212,10 @@ func insertAggregateLinks(rdx map[string][]string, id string) {
 		vangogh_local_data.VNDBIdProperty,
 		data.GauginVNDBUrlProperty,
 		vndb_integration.ItemUrl)
+	otherLink(rdx,
+		vangogh_local_data.IGNWikiSlugProperty,
+		data.GauginIGNWikiUrlProperty,
+		ign_integration.WikiUrl)
 }
 
 func otherLink(rdx map[string][]string, p string, up string, uf func(string) *url.URL) {

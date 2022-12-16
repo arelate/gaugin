@@ -3,8 +3,8 @@ module github.com/arelate/gaugin
 go 1.19
 
 require (
-	github.com/arelate/southern_light v0.1.19
-	github.com/arelate/vangogh_local_data v0.2.76
+	github.com/arelate/southern_light v0.1.21
+	github.com/arelate/vangogh_local_data v0.2.78
 	github.com/boggydigital/clo v0.3.1
 	github.com/boggydigital/kvas v0.3.26
 	github.com/boggydigital/middleware v0.1.3
