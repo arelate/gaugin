@@ -15,14 +15,12 @@ const (
 )
 
 var labelTitles = map[string]string{
-	vangogh_local_data.OwnedProperty:          "Own",
-	vangogh_local_data.ComingSoonProperty:     "Soon",
-	vangogh_local_data.PreOrderProperty:       "PO",
-	vangogh_local_data.InDevelopmentProperty:  "In Dev",
-	vangogh_local_data.IsUsingDOSBoxProperty:  "DOSBox",
-	vangogh_local_data.IsUsingScummVMProperty: "ScummVM",
-	vangogh_local_data.IsFreeProperty:         "Free",
-	vangogh_local_data.WishlistedProperty:     "Wish",
+	vangogh_local_data.OwnedProperty:         "Own",
+	vangogh_local_data.ComingSoonProperty:    "Soon",
+	vangogh_local_data.PreOrderProperty:      "PO",
+	vangogh_local_data.InDevelopmentProperty: "In Dev",
+	vangogh_local_data.IsFreeProperty:        "Free",
+	vangogh_local_data.WishlistedProperty:    "Wish",
 }
 
 func TransitiveDst(s string) string {
@@ -193,10 +191,6 @@ func fmtLabel(id, property, link string, rxa kvas.ReduxAssets) string {
 	case vangogh_local_data.ComingSoonProperty:
 		fallthrough
 	case vangogh_local_data.InDevelopmentProperty:
-		fallthrough
-	case vangogh_local_data.IsUsingDOSBoxProperty:
-		fallthrough
-	case vangogh_local_data.IsUsingScummVMProperty:
 		fallthrough
 	case vangogh_local_data.IsFreeProperty:
 		if link == "true" {

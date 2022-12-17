@@ -24,6 +24,7 @@ var ProductProperties = []string{
 	vangogh_local_data.HLTBReviewScoreProperty,
 	vangogh_local_data.DevelopersProperty,
 	vangogh_local_data.PublishersProperty,
+	vangogh_local_data.EngineProperty,
 	vangogh_local_data.SeriesProperty,
 	vangogh_local_data.GenresProperty,
 	vangogh_local_data.HLTBGenresProperty,
@@ -62,8 +63,6 @@ var ProductProperties = []string{
 	vangogh_local_data.PreOrderProperty,
 	vangogh_local_data.ComingSoonProperty,
 	vangogh_local_data.InDevelopmentProperty,
-	vangogh_local_data.IsUsingDOSBoxProperty,
-	vangogh_local_data.IsUsingScummVMProperty,
 	vangogh_local_data.ValidationResultProperty,
 }
 
@@ -80,8 +79,6 @@ var ProductHiddenPropertied = []string{
 	vangogh_local_data.ComingSoonProperty,
 	vangogh_local_data.PreOrderProperty,
 	vangogh_local_data.InDevelopmentProperty,
-	vangogh_local_data.IsUsingDOSBoxProperty,
-	vangogh_local_data.IsUsingScummVMProperty,
 	vangogh_local_data.IsFreeProperty,
 	vangogh_local_data.DiscountPercentageProperty,
 	vangogh_local_data.ValidationResultProperty,
