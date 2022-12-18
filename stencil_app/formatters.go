@@ -272,19 +272,7 @@ func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 func fmtGOGRating(rs string) string {
 	rd := ""
 	if ri, err := strconv.ParseInt(rs, 10, 32); err == nil {
-		if ri >= 45 {
-			rd = "Very Positive"
-		} else if ri > 35 {
-			rd = "Positive"
-		} else if ri > 25 {
-			rd = "Mixed"
-		} else if ri > 15 {
-			rd = "Negative"
-		} else if ri > 0 {
-			rd = "Very Negative"
-		} else {
-			rd = "Not rated"
-		}
+		rd = ratingDesc(ri * 2)
 		if ri > 0 {
 			rd += fmt.Sprintf(" (%.1f)", float32(ri)/10.0)
 		}
@@ -295,22 +283,30 @@ func fmtGOGRating(rs string) string {
 func fmtHLTBRating(rs string) string {
 	rd := ""
 	if ri, err := strconv.ParseInt(rs, 10, 32); err == nil {
-		if ri >= 90 {
-			rd = "Very Positive"
-		} else if ri > 70 {
-			rd = "Positive"
-		} else if ri > 50 {
-			rd = "Mixed"
-		} else if ri > 30 {
-			rd = "Negative"
-		} else if ri > 0 {
-			rd = "Very Negative"
-		} else {
-			rd = "Not rated"
-		}
+		rd = ratingDesc(ri)
 		if ri > 0 {
 			rd += fmt.Sprintf(" (%d)", ri)
 		}
+	}
+	return rd
+}
+
+func ratingDesc(ri int64) string {
+	rd := "Not Rated"
+	if ri >= 95 {
+		rd = "Overwhelming Positive"
+	} else if ri > 85 {
+		rd = "Very Positive"
+	} else if ri > 80 {
+		rd = "Positive"
+	} else if ri > 70 {
+		rd = "Mostly Positive"
+	} else if ri > 40 {
+		rd = "Mixed"
+	} else if ri > 20 {
+		rd = "Mostly Negative"
+	} else if ri > 0 {
+		rd = "Negative"
 	}
 	return rd
 }
