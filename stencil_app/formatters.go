@@ -295,15 +295,15 @@ func ratingDesc(ri int64) string {
 	rd := "Not Rated"
 	if ri >= 95 {
 		rd = "Overwhelming Positive"
-	} else if ri > 85 {
+	} else if ri >= 85 {
 		rd = "Very Positive"
-	} else if ri > 80 {
+	} else if ri >= 80 {
 		rd = "Positive"
-	} else if ri > 70 {
+	} else if ri >= 70 {
 		rd = "Mostly Positive"
-	} else if ri > 40 {
+	} else if ri >= 40 {
 		rd = "Mixed"
-	} else if ri > 20 {
+	} else if ri >= 20 {
 		rd = "Mostly Negative"
 	} else if ri > 0 {
 		rd = "Negative"
