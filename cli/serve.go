@@ -60,16 +60,20 @@ func ServeHandler(u *url.URL) error {
 	rest.SetDownloadsOperatingSystems(os)
 	rest.SetDownloadsLanguageCodes(lc)
 
-	username := vangogh_local_data.ValueFromUrl(u, "username")
-	password := vangogh_local_data.ValueFromUrl(u, "password")
+	sharedUsername := vangogh_local_data.ValueFromUrl(u, "shared-username")
+	sharedPassword := vangogh_local_data.ValueFromUrl(u, "shared-password")
+	adminUsername := vangogh_local_data.ValueFromUrl(u, "admin-username")
+	adminPassword := vangogh_local_data.ValueFromUrl(u, "admin-password")
 
-	rest.SetUsername(username)
-	rest.SetPassword(password)
+	rest.SetUsername(rest.SharedRole, sharedUsername)
+	rest.SetPassword(rest.SharedRole, sharedPassword)
+	rest.SetUsername(rest.AdminRole, adminUsername)
+	rest.SetPassword(rest.AdminRole, adminPassword)
 
 	return Serve(port, vangogh_local_data.FlagFromUrl(u, "stderr"))
 }
 
-//Serve starts a web server, listening to the specified port with optional logging
+// Serve starts a web server, listening to the specified port with optional logging
 func Serve(port int, stderr bool) error {
 
 	if stderr {

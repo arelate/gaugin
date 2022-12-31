@@ -37,15 +37,15 @@ func HandleFuncs() {
 		"/thumbnails": GetOnly(Log(http.HandlerFunc(GetThumbnails))),
 		"/items/":     GetOnly(Log(http.HandlerFunc(GetItems))),
 		// auth data endpoints
-		"/wishlist/add":     Auth(Gzip(GetOnly(Log(http.HandlerFunc(GetWishlistAdd))))),
-		"/wishlist/remove":  Auth(Gzip(GetOnly(Log(http.HandlerFunc(GetWishlistRemove))))),
-		"/tags/edit":        Auth(Gzip(GetOnly(Log(http.HandlerFunc(GetTagsEdit))))),
-		"/local-tags/edit":  Auth(Gzip(GetOnly(Log(http.HandlerFunc(GetLocalTagsEdit))))),
-		"/tags/apply":       Auth(Gzip(GetOnly(Log(http.HandlerFunc(GetTagsApply))))),
-		"/local-tags/apply": Auth(Gzip(GetOnly(Log(http.HandlerFunc(GetLocalTagsApply))))),
+		"/wishlist/add":     Auth(AdminRole, Gzip(GetOnly(Log(http.HandlerFunc(GetWishlistAdd))))),
+		"/wishlist/remove":  Auth(AdminRole, Gzip(GetOnly(Log(http.HandlerFunc(GetWishlistRemove))))),
+		"/tags/edit":        Auth(AdminRole, Gzip(GetOnly(Log(http.HandlerFunc(GetTagsEdit))))),
+		"/local-tags/edit":  Auth(AdminRole, Gzip(GetOnly(Log(http.HandlerFunc(GetLocalTagsEdit))))),
+		"/tags/apply":       Auth(AdminRole, Gzip(GetOnly(Log(http.HandlerFunc(GetTagsApply))))),
+		"/local-tags/apply": Auth(AdminRole, Gzip(GetOnly(Log(http.HandlerFunc(GetLocalTagsApply))))),
 		// auth media endpoints
-		"/files":       Auth(GetOnly(Log(http.HandlerFunc(GetFiles)))),
-		"/local-file/": Auth(GetOnly(Log(http.HandlerFunc(GetLocalFile)))),
+		"/files":       Auth(SharedRole, GetOnly(Log(http.HandlerFunc(GetFiles)))),
+		"/local-file/": Auth(SharedRole, GetOnly(Log(http.HandlerFunc(GetLocalFile)))),
 		// products redirects
 		"/products": Redirect("/search", http.StatusPermanentRedirect),
 		// start at the updates
