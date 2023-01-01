@@ -3,6 +3,7 @@ package rest
 import (
 	"github.com/arelate/gaugin/stencil_app"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -13,9 +14,19 @@ import (
 
 func GetSearch(w http.ResponseWriter, r *http.Request) {
 
-	// GET /search?(search_params)
+	// GET /search?(search_params)&from
 
 	q := r.URL.Query()
+
+	from, to := 0, 0
+	if q.Has("from") {
+		from64, err := strconv.ParseInt(q.Get("from"), 10, 32)
+		if err != nil {
+			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+			return
+		}
+		from = int(from64)
+	}
 
 	query := make(map[string][]string)
 
@@ -39,7 +50,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var ids []string
+	var ids, slice []string
 
 	dc := http.DefaultClient
 
@@ -58,6 +69,17 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
 		}
+
+		if from > len(ids)-1 {
+			from = 0
+		}
+
+		to = from + SearchResultsLimit
+		if to > len(ids) {
+			to = len(ids)
+		}
+
+		slice = ids[from:to]
 
 		if cached {
 			st.SetFlag("getSearch-cached")
@@ -79,7 +101,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		}
 
 		start = time.Now()
-		rdx, cached, err := getRedux(dc, strings.Join(ids, ","), false, stencil_app.ProductsProperties...)
+		rdx, cached, err := getRedux(dc, strings.Join(slice, ","), false, stencil_app.ProductsProperties...)
 		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
@@ -123,7 +145,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(st, w)
 
-	if err := app.RenderSearch(stencil_app.NavSearch, query, ids, digests, irap, w); err != nil {
+	if err := app.RenderSearch(stencil_app.NavSearch, query, slice, from, to, len(ids), r.URL, digests, irap, w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}

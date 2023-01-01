@@ -17,6 +17,8 @@ import (
 const (
 	AdminRole  = "admin"
 	SharedRole = "shared"
+
+	SearchResultsLimit = 20
 )
 
 var (
