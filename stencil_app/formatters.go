@@ -226,7 +226,11 @@ func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 		if owned == "true" {
 			return ""
 		}
-		return DigestTitles[link]
+		if link == vangogh_local_data.TrueValue {
+			return "Yes"
+		} else {
+			return "No"
+		}
 	case vangogh_local_data.IncludesGamesProperty:
 		fallthrough
 	case vangogh_local_data.IsIncludedByGamesProperty:

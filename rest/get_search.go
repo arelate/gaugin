@@ -115,37 +115,9 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		st.Set("getRedux", time.Since(start).Milliseconds())
 	}
 
-	start = time.Now()
-	digests, cached, err := getDigests(dc, stencil_app.DigestProperties...)
-
-	if err != nil {
-		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
-	}
-
-	if cached {
-		st.SetFlag("getDigests-cached")
-	}
-	st.Set("getDigests", time.Since(start).Milliseconds())
-
-	digests[vangogh_local_data.SortProperty] = []string{
-		vangogh_local_data.GlobalReleaseDateProperty,
-		vangogh_local_data.GOGReleaseDateProperty,
-		vangogh_local_data.GOGOrderDateProperty,
-		vangogh_local_data.TitleProperty,
-		vangogh_local_data.RatingProperty,
-		vangogh_local_data.DiscountPercentageProperty,
-		vangogh_local_data.HLTBHoursToCompleteMainProperty,
-		vangogh_local_data.HLTBHoursToCompletePlusProperty,
-		vangogh_local_data.HLTBHoursToComplete100Property}
-
-	digests[vangogh_local_data.DescendingProperty] = []string{
-		vangogh_local_data.TrueValue,
-		vangogh_local_data.FalseValue}
-
 	gaugin_middleware.DefaultHeaders(st, w)
 
-	if err := app.RenderSearch(stencil_app.NavSearch, query, slice, from, to, len(ids), r.URL, digests, irap, w); err != nil {
+	if err := app.RenderSearch(stencil_app.NavSearch, query, slice, from, to, len(ids), r.URL, irap, w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}

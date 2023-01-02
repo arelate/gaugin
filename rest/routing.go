@@ -24,6 +24,7 @@ func HandleFuncs() {
 		"/updates":       Gzip(GetOnly(Log(http.HandlerFunc(GetUpdates)))),
 		"/product":       Gzip(GetOnly(Log(http.HandlerFunc(GetProduct)))),
 		"/search":        Gzip(GetOnly(Log(http.HandlerFunc(GetSearch)))),
+		"/digest":        Gzip(GetOnly(Log(http.HandlerFunc(GetDigest)))),
 		"/description":   Gzip(GetOnly(Log(http.HandlerFunc(GetDescription)))),
 		"/downloads":     Gzip(GetOnly(Log(http.HandlerFunc(GetDownloads)))),
 		"/changelog":     Gzip(GetOnly(Log(http.HandlerFunc(GetChangelog)))),

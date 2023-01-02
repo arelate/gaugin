@@ -4,25 +4,11 @@ Bug: Can't open product details if property doesn't exist yet:
 Bug: details/summary expand/collapse indicator is not visible in Chrome:
 	- needs to be fixed
 
-Improve button styles: @done(2022-12-30)
-	- Need to make more prominent and consistent with actions @done(2022-12-30)
-	- Consider solid Highlight background and more rounded corners @done(2022-12-30)
-	
-Add admin user and guard certain operations on admin rights:
-	- Tags management
-	- Completion
-	- Wishlist
-
 Improve image loading again:
 	- seriously need to be improved
 	
-Fixed cost rendering on initial navigations:
-	- long list performance is expensive on browsing, since it still gets a lot of data up front
-	- For data queries consider peek param to limit amount of data
-	- add "show all" to display everything when needed
-	- current idea:
-		- change all APIs that return data results to return fixed amount of data, total count and a flag to return all
-		- update stencil list, group renderers to take this into account and add "Show All" when only a subset of data is returned
+Even faster search:
+		- Dynamically load digests on demand, instead of paying upfront costs
 
 More icons, less text (kanzen dep):
 	- genres
@@ -30,6 +16,21 @@ More icons, less text (kanzen dep):
 	- product details section
 
 Archive:
+	Improve button styles: @done(2022-12-30)
+		- Need to make more prominent and consistent with actions @done(2022-12-30)
+		- Consider solid Highlight background and more rounded corners @done(2022-12-30)
+		
+	Add admin user and guard certain operations on admin rights: @done(2022-12-31)
+		- Tags management @done(2022-12-31)
+		- Completion @done(2022-12-31)
+		- Wishlist @done(2022-12-31)
+	Fixed cost rendering on initial navigations: @done(2022-12-31)
+		- long list performance is expensive on browsing, since it still gets a lot of data up front @done(2022-12-31)
+		- For data queries consider peek param to limit amount of data @done(2022-12-31)
+		- add "show all" to display everything when needed @done(2022-12-31)
+		- current idea: @done(2022-12-31)
+			- change all APIs that return data results to return fixed amount of data, total count and a flag to return all @done(2022-12-31)
+			- update stencil list, group renderers to take this into account and add "Show All" when only a subset of data is returned @done(2022-12-31)
 	Sync action: @done(2022-12-10) @wontfix
 		- initiate sync @done(2022-12-10)
 		- get current sync status (one liner?) @done(2022-12-10)

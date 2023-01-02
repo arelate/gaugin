@@ -24,7 +24,6 @@ func Init() (*stencil.AppConfiguration, error) {
 		vangogh_local_data.TitleProperty,
 		PropertyTitles,
 		SectionTitles,
-		DigestTitles,
 		nil); err != nil {
 		return app, nil
 	}
@@ -55,6 +54,7 @@ func Init() (*stencil.AppConfiguration, error) {
 
 	if err := app.SetSearchConfiguration(
 		SearchProperties,
+		DigestProperties,
 		SearchScopes,
 		SearchScopeQueries()); err != nil {
 		return app, err
