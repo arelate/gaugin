@@ -5,8 +5,8 @@ import "github.com/arelate/vangogh_local_data"
 var SearchProperties = []string{
 	vangogh_local_data.TextProperty,
 	vangogh_local_data.TitleProperty,
-	vangogh_local_data.TagIdProperty,
 	vangogh_local_data.LocalTagsProperty,
+	vangogh_local_data.TagIdProperty,
 	vangogh_local_data.OperatingSystemsProperty,
 	vangogh_local_data.HLTBPlatformsProperty,
 	vangogh_local_data.DevelopersProperty,
@@ -39,4 +39,10 @@ var SearchProperties = []string{
 	vangogh_local_data.ValidationResultProperty,
 	vangogh_local_data.SortProperty,
 	vangogh_local_data.DescendingProperty,
+}
+
+var SearchHighlightProperties = []string{
+	vangogh_local_data.TextProperty,
+	vangogh_local_data.TitleProperty,
+	vangogh_local_data.LocalTagsProperty,
 }

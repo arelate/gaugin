@@ -4,18 +4,17 @@ Bug: Can't open product details if property doesn't exist yet:
 Bug: details/summary expand/collapse indicator is not visible in Chrome:
 	- needs to be fixed
 
-Improve image loading again:
-	- seriously need to be improved
-	
-Even faster search:
-		- Dynamically load digests on demand, instead of paying upfront costs
-
 More icons, less text (kanzen dep):
 	- genres
 	- features
 	- product details section
 
 Archive:
+	Improve image loading again: @done(2023-01-01)
+		- seriously need to be improved @done(2023-01-01)
+		
+	Even faster search: @done(2023-01-01)
+			- Dynamically load digests on demand, instead of paying upfront costs @done(2023-01-01)
 	Improve button styles: @done(2022-12-30)
 		- Need to make more prominent and consistent with actions @done(2022-12-30)
 		- Consider solid Highlight background and more rounded corners @done(2022-12-30)
