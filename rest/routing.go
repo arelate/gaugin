@@ -51,6 +51,8 @@ func HandleFuncs() {
 		"/products": Redirect("/search", http.StatusPermanentRedirect),
 		// start at the updates
 		"/": Redirect("/updates", http.StatusPermanentRedirect),
+		// robots.txt
+		"/robots.txt": Gzip(GetOnly(Log(http.HandlerFunc(GetRobotsTxt)))),
 	}
 
 	for route, path := range searchRoutes() {
