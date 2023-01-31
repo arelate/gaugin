@@ -15,6 +15,7 @@ var PropertyTitles = map[string]string{
 	vangogh_local_data.DevelopersProperty:           "Developers",
 	vangogh_local_data.PublishersProperty:           "Publishers",
 	vangogh_local_data.EnginesProperty:              "Engine",
+	vangogh_local_data.EnginesBuildsProperty:        "Engine Build",
 	vangogh_local_data.SeriesProperty:               "Series",
 	vangogh_local_data.GenresProperty:               "Genres",
 	vangogh_local_data.StoreTagsProperty:            "Store Tags",

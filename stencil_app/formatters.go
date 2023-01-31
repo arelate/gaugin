@@ -168,6 +168,8 @@ func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 		return ""
 	case vangogh_local_data.HLTBReviewScoreProperty:
 		return ""
+	case vangogh_local_data.EnginesBuildsProperty:
+		return ""
 	}
 	return fmt.Sprintf("/search?%s=%s", property, link)
 }
