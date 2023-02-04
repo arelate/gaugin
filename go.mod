@@ -7,7 +7,7 @@ require (
 	github.com/arelate/vangogh_local_data v0.2.83
 	github.com/boggydigital/clo v0.3.1
 	github.com/boggydigital/kvas v0.3.26
-	github.com/boggydigital/middleware v0.1.4
+	github.com/boggydigital/middleware v0.1.5
 	github.com/boggydigital/nod v0.1.20
 	github.com/boggydigital/stencil v0.1.51
 	github.com/boggydigital/yt_urls v0.1.19
