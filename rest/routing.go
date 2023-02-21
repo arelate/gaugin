@@ -99,7 +99,3 @@ func searchRoutes() map[string]string {
 
 	return routes
 }
-
-func unconstrainedPath(p string) string {
-	return p + "&unconstrained"
-}

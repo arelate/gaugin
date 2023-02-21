@@ -5,7 +5,7 @@ import "github.com/arelate/vangogh_local_data"
 var ProductsProperties = []string{
 	vangogh_local_data.TitleProperty,
 
-	vangogh_local_data.DehydratedImageProperty,
+	vangogh_local_data.DehydratedVerticalImageProperty,
 	vangogh_local_data.VerticalImageProperty,
 
 	vangogh_local_data.OwnedProperty,
@@ -45,5 +45,5 @@ var ProductsHiddenProperties = []string{
 	vangogh_local_data.WishlistedProperty,
 	vangogh_local_data.ValidationResultProperty,
 	vangogh_local_data.DiscountPercentageProperty,
-	vangogh_local_data.DehydratedImageProperty,
+	vangogh_local_data.DehydratedVerticalImageProperty,
 }
