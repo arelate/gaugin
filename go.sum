@@ -16,14 +16,10 @@ github.com/boggydigital/kvas v0.3.26 h1:ftl7RXNuaW+CMFfy2d4XHX7JJUWgnbqrl89HQ2ku
 github.com/boggydigital/kvas v0.3.26/go.mod h1:I+wVKLxOqWhzw0X8nez/ec/GVXcQY5GUksFJBx+G7Yc=
 github.com/boggydigital/match_node v0.1.9 h1:6kw2QvnvEjcVL4dDKa1mVqnNOq/jk9lGzkCWKpsE2jg=
 github.com/boggydigital/match_node v0.1.9/go.mod h1:LmKtZy8YgBYC14BStAS4g17MglrLqqUF6dehrBX7Zwc=
-github.com/boggydigital/middleware v0.1.4 h1:8BhqlEGyUNXd85dfGQLQ9jBP9yzKEBC9dzvFDyaaXtQ=
-github.com/boggydigital/middleware v0.1.4/go.mod h1:pU6ig6HG7HpwZtUatAy0Hp/H7bfllI5cZhZQOy2NIME=
 github.com/boggydigital/middleware v0.1.5 h1:Aj+y3jRQ5yQiSUAaB3TuLST860czUKCMMtMcvdiwDkg=
 github.com/boggydigital/middleware v0.1.5/go.mod h1:pU6ig6HG7HpwZtUatAy0Hp/H7bfllI5cZhZQOy2NIME=
 github.com/boggydigital/nod v0.1.20 h1:6cyK3fDxAUcDC9s+2JLNNHJKuCCObQbabpmJfpXCSfA=
 github.com/boggydigital/nod v0.1.20/go.mod h1:rghsJhj0wC5UL7qT8W3vSUc1MlE5IyheYjfAKIZ9kLQ=
-github.com/boggydigital/stencil v0.1.51 h1:jQ51FW+1uDckE9PcTqiKdT9hxTTJqVVOajE/JuSnByM=
-github.com/boggydigital/stencil v0.1.51/go.mod h1:Aaq11k9thTE2Y+Jub4XgfUyEQ+8J2OSVMSoNtoiHddk=
 github.com/boggydigital/stencil v0.1.52 h1:OEYcZivobi3gKxAl3kUHHnAkjP8TE+7svNcJFBSUYEk=
 github.com/boggydigital/stencil v0.1.52/go.mod h1:wGAGjkmbNSzCH5n3GiS8ThJB/JEaujZBRYe0V01bQDA=
 github.com/boggydigital/stencil v0.1.53 h1:71IRI0fTcGWDxOit2al1y2cpeyh3nkhx7uldF79K3Y0=
@@ -37,7 +33,7 @@ github.com/boggydigital/yt_urls v0.1.19 h1:O7jmvoXkJrRoH+YJcnNEh+eUJBeUYRHX+W0Nf
 github.com/boggydigital/yt_urls v0.1.19/go.mod h1:hIfQyToulrS54t3GAuOkF9age66NKh0gswVvVQndHcs=
 golang.org/x/exp v0.0.0-20221230185412-738e83a70c30 h1:m9O6OTJ627iFnN2JIWfdqlZCzneRO6EEBsHXI25P8ws=
 golang.org/x/exp v0.0.0-20221230185412-738e83a70c30/go.mod h1:CxIveKay+FTh1D0yPZemJVgC/95VzuuOLq5Qi4xnoYc=
-golang.org/x/net v0.4.0 h1:Q5QPcMlvfxFTAPV0+07Xz/MpK9NTXu2VDUuy0FeMfaU=
-golang.org/x/net v0.4.0/go.mod h1:MBQ8lrhLObU/6UmLb4fmbmk5OcyYmqtbGd/9yIeKjEE=
-golang.org/x/text v0.5.0 h1:OLmvp0KP+FVG99Ct/qFiL/Fhk4zp4QQnZ7b2U+5piUM=
-golang.org/x/text v0.5.0/go.mod h1:mrYo+phRRbMaCq/xk9113O4dZlRixOauAjOtrjsXDZ8=
+golang.org/x/net v0.7.0 h1:rJrUqqhjsgNp7KqAIc25s9pZnjU7TUcSY7HcVZjdn1g=
+golang.org/x/net v0.7.0/go.mod h1:2Tu9+aMcznHK/AK1HMvgo6xiTLG5rD5rZLDS+rp2Bjs=
+golang.org/x/text v0.7.0 h1:4BRB4x83lYWy72KwLD/qYDuTu7q9PjSagHvijDw7cLo=
+golang.org/x/text v0.7.0/go.mod h1:mrYo+phRRbMaCq/xk9113O4dZlRixOauAjOtrjsXDZ8=
