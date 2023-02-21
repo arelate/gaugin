@@ -38,6 +38,8 @@ func Init() (*stencil.AppConfiguration, error) {
 		return app, err
 	}
 
+	app.SetDehydratedImagesConfiguration(vangogh_local_data.DehydratedImageProperty)
+
 	if err := app.SetItemConfiguration(
 		ProductProperties,
 		ProductComputedProperties,

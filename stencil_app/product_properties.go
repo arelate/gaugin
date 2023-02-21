@@ -8,6 +8,7 @@ import (
 var ProductProperties = []string{
 	vangogh_local_data.TitleProperty,
 
+	vangogh_local_data.DehydratedImageProperty,
 	vangogh_local_data.ImageProperty,
 
 	vangogh_local_data.ProductTypeProperty,
@@ -74,6 +75,7 @@ var ProductComputedProperties = []string{
 }
 
 var ProductHiddenPropertied = []string{
+	vangogh_local_data.DehydratedImageProperty,
 	vangogh_local_data.OwnedProperty,
 	vangogh_local_data.ValidationResultProperty,
 	vangogh_local_data.ProductTypeProperty,

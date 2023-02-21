@@ -18,7 +18,7 @@ const (
 	AdminRole  = "admin"
 	SharedRole = "shared"
 
-	SearchResultsLimit = 60 // divides by 2,3,4,5,6 to allow that many columns
+	SearchResultsLimit = 24 // divides by 2,3,4,6 to allow that many columns
 )
 
 var (
