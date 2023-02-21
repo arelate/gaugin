@@ -170,6 +170,10 @@ func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 		return ""
 	case vangogh_local_data.EnginesBuildsProperty:
 		return ""
+	case vangogh_local_data.DehydratedImageProperty:
+		fallthrough
+	case vangogh_local_data.DehydratedVerticalImageProperty:
+		return link
 	}
 	return fmt.Sprintf("/search?%s=%s", property, link)
 }
@@ -213,6 +217,10 @@ func fmtLabel(id, property, link string, rxa kvas.ReduxAssets) string {
 		return ""
 	case vangogh_local_data.TagIdProperty:
 		return TransitiveDst(link)
+	case vangogh_local_data.DehydratedImageProperty:
+		fallthrough
+	case vangogh_local_data.DehydratedVerticalImageProperty:
+		return property
 	}
 	return label
 }
