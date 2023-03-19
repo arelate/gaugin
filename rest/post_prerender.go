@@ -42,25 +42,15 @@ func PostPrerender(w http.ResponseWriter, r *http.Request) {
 		paths = append(paths, p)
 	}
 
+	//TODO: consider pre-rendering products from updates
+
 	host := fmt.Sprintf("http://localhost:%d", port)
 
 	for _, p := range paths {
-		resp, err := http.DefaultClient.Get(host + p)
-		if err != nil {
+		if err := setStaticContent(host, p); err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
 		}
-		defer resp.Body.Close()
-
-		bs := make([]byte, 0, 1024*1024)
-		bb := bytes.NewBuffer(bs)
-
-		if _, err := io.Copy(bb, resp.Body); err != nil {
-			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-			return
-		}
-
-		staticContent[p] = bb.Bytes()
 	}
 
 	if _, err := io.WriteString(w, "ok"); err != nil {
@@ -68,4 +58,23 @@ func PostPrerender(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+}
+
+func setStaticContent(host, p string) error {
+	resp, err := http.DefaultClient.Get(host + p)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	bs := make([]byte, 0, 1024*1024)
+	bb := bytes.NewBuffer(bs)
+
+	if _, err := io.Copy(bb, resp.Body); err != nil {
+		return err
+	}
+
+	staticContent[p] = bb.Bytes()
+
+	return nil
 }
