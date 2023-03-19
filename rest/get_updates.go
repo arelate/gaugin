@@ -20,6 +20,10 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 
 	// GET /updates
 
+	if getStaticContent(w, r) {
+		return
+	}
+
 	st := gaugin_middleware.NewServerTimings()
 
 	start := time.Now()

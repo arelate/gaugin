@@ -17,7 +17,11 @@ var (
 	Redirect = http.RedirectHandler
 )
 
-func HandleFuncs() {
+var port int
+
+func HandleFuncs(p int) {
+
+	port = p
 
 	patternHandlers := map[string]http.Handler{
 		// unauth data endpoints
@@ -47,6 +51,8 @@ func HandleFuncs() {
 		// auth media endpoints
 		"/files":       Auth(GetOnly(Log(http.HandlerFunc(GetFiles))), AdminRole, SharedRole),
 		"/local-file/": Auth(GetOnly(Log(http.HandlerFunc(GetLocalFile))), AdminRole, SharedRole),
+		// prerender
+		"/prerender": PostOnly(Log(http.HandlerFunc(PostPrerender))),
 		// products redirects
 		"/products": Redirect("/search", http.StatusPermanentRedirect),
 		// start at the updates

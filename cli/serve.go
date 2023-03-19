@@ -81,7 +81,7 @@ func Serve(port int, stderr bool) error {
 		nod.DisableOutput(nod.StdOut)
 	}
 
-	rest.HandleFuncs()
+	rest.HandleFuncs(port)
 
 	return http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
 }
