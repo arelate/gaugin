@@ -26,9 +26,9 @@ func HandleFuncs(p int) {
 
 	patternHandlers := map[string]http.Handler{
 		// unauth data endpoints
-		"/updates":       Gzip(Static(GetOnly(Log(http.HandlerFunc(GetUpdates))))),
-		"/product":       Gzip(Static(GetOnly(Log(http.HandlerFunc(GetProduct))))),
-		"/search":        Gzip(Static(GetOnly(Log(http.HandlerFunc(GetSearch))))),
+		"/updates":       Gzip(GetOnly(Static(Log(http.HandlerFunc(GetUpdates))))),
+		"/product":       Gzip(GetOnly(Static(Log(http.HandlerFunc(GetProduct))))),
+		"/search":        Gzip(GetOnly(Static(Log(http.HandlerFunc(GetSearch))))),
 		"/digest":        Gzip(GetOnly(Log(http.HandlerFunc(GetDigest)))),
 		"/description":   Gzip(GetOnly(Log(http.HandlerFunc(GetDescription)))),
 		"/downloads":     Gzip(GetOnly(Log(http.HandlerFunc(GetDownloads)))),
