@@ -16,6 +16,8 @@ github.com/boggydigital/middleware v0.1.5 h1:Aj+y3jRQ5yQiSUAaB3TuLST860czUKCMMtM
 github.com/boggydigital/middleware v0.1.5/go.mod h1:pU6ig6HG7HpwZtUatAy0Hp/H7bfllI5cZhZQOy2NIME=
 github.com/boggydigital/middleware v0.1.6 h1:0a/IqTSHU79ZNAzILyziYIhdAcXt8JFlIODt1cp9sYg=
 github.com/boggydigital/middleware v0.1.6/go.mod h1:pU6ig6HG7HpwZtUatAy0Hp/H7bfllI5cZhZQOy2NIME=
+github.com/boggydigital/middleware v0.1.7 h1:BOgctgkbtPkWoIBgHYOuOwdQnpZYa0NrB0gpP66IHwE=
+github.com/boggydigital/middleware v0.1.7/go.mod h1:pU6ig6HG7HpwZtUatAy0Hp/H7bfllI5cZhZQOy2NIME=
 github.com/boggydigital/nod v0.1.20 h1:6cyK3fDxAUcDC9s+2JLNNHJKuCCObQbabpmJfpXCSfA=
 github.com/boggydigital/nod v0.1.20/go.mod h1:rghsJhj0wC5UL7qT8W3vSUc1MlE5IyheYjfAKIZ9kLQ=
 github.com/boggydigital/stencil v0.1.54 h1:OulVxVUQLU3IYJxO1Np10hQEbf8xnc+jlsb5qXEeF3U=

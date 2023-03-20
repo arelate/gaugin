@@ -53,7 +53,7 @@ func HandleFuncs(p int) {
 		"/files":       Auth(GetOnly(Log(http.HandlerFunc(GetFiles))), AdminRole, SharedRole),
 		"/local-file/": Auth(GetOnly(Log(http.HandlerFunc(GetLocalFile))), AdminRole, SharedRole),
 		// prerender
-		"/prerender": GetOnly(Log(http.HandlerFunc(PostPrerender))),
+		"/prerender": PostOnly(Log(http.HandlerFunc(PostPrerender))),
 		// products redirects
 		"/products": Redirect("/search", http.StatusPermanentRedirect),
 		// start at the updates

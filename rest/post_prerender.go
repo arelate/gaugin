@@ -49,6 +49,9 @@ func PostPrerender(w http.ResponseWriter, r *http.Request) {
 		paths = append(paths, "/product?id="+id)
 	}
 
+	// we don't want to accumulate existing static content over the lifetime of the app
+	middleware.ClearStaticContent()
+
 	host := fmt.Sprintf("http://localhost:%d", port)
 
 	for _, p := range paths {
