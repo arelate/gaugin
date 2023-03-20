@@ -16,10 +16,6 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	// GET /search?(search_params)&from
 
-	if getStaticContent(w, r) {
-		return
-	}
-
 	q := r.URL.Query()
 
 	from, to := 0, 0

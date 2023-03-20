@@ -13,6 +13,7 @@ var (
 	GetOnly  = middleware.GetMethodOnly
 	PostOnly = middleware.PostMethodOnly
 	Gzip     = middleware.Gzip
+	Static   = middleware.Static
 	Log      = nod.RequestLog
 	Redirect = http.RedirectHandler
 )
@@ -25,9 +26,9 @@ func HandleFuncs(p int) {
 
 	patternHandlers := map[string]http.Handler{
 		// unauth data endpoints
-		"/updates":       Gzip(GetOnly(Log(http.HandlerFunc(GetUpdates)))),
-		"/product":       Gzip(GetOnly(Log(http.HandlerFunc(GetProduct)))),
-		"/search":        Gzip(GetOnly(Log(http.HandlerFunc(GetSearch)))),
+		"/updates":       Gzip(Static(GetOnly(Log(http.HandlerFunc(GetUpdates))))),
+		"/product":       Gzip(Static(GetOnly(Log(http.HandlerFunc(GetProduct))))),
+		"/search":        Gzip(Static(GetOnly(Log(http.HandlerFunc(GetSearch))))),
 		"/digest":        Gzip(GetOnly(Log(http.HandlerFunc(GetDigest)))),
 		"/description":   Gzip(GetOnly(Log(http.HandlerFunc(GetDescription)))),
 		"/downloads":     Gzip(GetOnly(Log(http.HandlerFunc(GetDownloads)))),
@@ -52,7 +53,7 @@ func HandleFuncs(p int) {
 		"/files":       Auth(GetOnly(Log(http.HandlerFunc(GetFiles))), AdminRole, SharedRole),
 		"/local-file/": Auth(GetOnly(Log(http.HandlerFunc(GetLocalFile))), AdminRole, SharedRole),
 		// prerender
-		"/prerender": PostOnly(Log(http.HandlerFunc(PostPrerender))),
+		"/prerender": GetOnly(Log(http.HandlerFunc(PostPrerender))),
 		// products redirects
 		"/products": Redirect("/search", http.StatusPermanentRedirect),
 		// start at the updates

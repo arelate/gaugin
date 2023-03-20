@@ -3,36 +3,21 @@ package rest
 import (
 	"bytes"
 	"fmt"
+	"github.com/arelate/vangogh_local_data"
+	"github.com/boggydigital/middleware"
 	"github.com/boggydigital/nod"
 	"io"
 	"net/http"
 )
 
-var staticContent map[string][]byte
-
-func getStaticContent(w http.ResponseWriter, r *http.Request) bool {
-	key := r.URL.Path
-	if r.URL.RawQuery != "" {
-		key += "?" + r.URL.RawQuery
-	}
-	if bs, ok := staticContent[key]; ok {
-		br := bytes.NewReader(bs)
-		if _, err := io.Copy(w, br); err != nil {
-			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-			return false
-		}
-		return true
-	}
-	return false
-}
-
 func PostPrerender(w http.ResponseWriter, r *http.Request) {
 
 	// POST /prerender
 
-	if staticContent == nil {
-		staticContent = make(map[string][]byte)
-	}
+	// the following pages will be pre-rendered:
+	// - default path (/updates)
+	// - every top-level search route (/search, owned, wishlist, sale, all)
+	// - every product updated at the last sync
 
 	paths := []string{
 		"/updates",
@@ -42,7 +27,27 @@ func PostPrerender(w http.ResponseWriter, r *http.Request) {
 		paths = append(paths, p)
 	}
 
-	//TODO: consider pre-rendering products from updates
+	updRdx, _, err := getRedux(
+		http.DefaultClient,
+		"",
+		true,
+		vangogh_local_data.LastSyncUpdatesProperty)
+
+	if err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
+	}
+
+	keys := make(map[string]interface{})
+	for _, rdx := range updRdx {
+		for _, id := range rdx[vangogh_local_data.LastSyncUpdatesProperty] {
+			keys[id] = nil
+		}
+	}
+
+	for id := range keys {
+		paths = append(paths, "/product?id="+id)
+	}
 
 	host := fmt.Sprintf("http://localhost:%d", port)
 
@@ -74,7 +79,7 @@ func setStaticContent(host, p string) error {
 		return err
 	}
 
-	staticContent[p] = bb.Bytes()
+	middleware.SetStaticContent(p, bb.Bytes())
 
 	return nil
 }
