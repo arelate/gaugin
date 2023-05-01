@@ -1,13 +1,14 @@
 package rest
 
 import (
+	"github.com/arelate/gaugin/paths"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
 	"github.com/boggydigital/stencil/stencil_rest"
 	"net/http"
 )
 
-func PostPrerender(w http.ResponseWriter, r *http.Request) {
+func PostPrerender(w http.ResponseWriter, _ *http.Request) {
 
 	// POST /prerender
 
@@ -16,13 +17,54 @@ func PostPrerender(w http.ResponseWriter, r *http.Request) {
 	// - every top-level search route (/search, owned, wishlist, sale, all)
 	// - every product updated at the last sync
 
-	paths := []string{
-		"/updates",
+	if err := setPrerender(); err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
 	}
+}
+
+func setPrerender() error {
+	p := make([]string, 0)
+	p = appendListsPaths(p)
+
+	p, err := appendUpdatedItemsPaths(p)
+	if err != nil {
+		return err
+	}
+
+	if err := stencil_rest.Prerender(p, true, port); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func updatePrerender(ids ...string) error {
+	p := make([]string, 0)
+	p = appendListsPaths(p)
+
+	for _, id := range ids {
+		p = append(p, paths.ProductId(id))
+	}
+
+	if err := stencil_rest.Prerender(p, false, port); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func appendListsPaths(paths []string) []string {
+	paths = append(paths, "/updates")
 
 	for _, p := range searchRoutes() {
 		paths = append(paths, p)
 	}
+
+	return paths
+}
+
+func appendUpdatedItemsPaths(p []string) ([]string, error) {
 
 	updRdx, _, err := getRedux(
 		http.DefaultClient,
@@ -31,8 +73,7 @@ func PostPrerender(w http.ResponseWriter, r *http.Request) {
 		vangogh_local_data.LastSyncUpdatesProperty)
 
 	if err != nil {
-		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
+		return nil, err
 	}
 
 	keys := make(map[string]interface{})
@@ -43,8 +84,8 @@ func PostPrerender(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for id := range keys {
-		paths = append(paths, "/product?id="+id)
+		p = append(p, paths.ProductId(id))
 	}
 
-	stencil_rest.Prerender(paths, port, w)
+	return p, nil
 }

@@ -3,6 +3,7 @@ package stencil_app
 import (
 	"fmt"
 	"github.com/arelate/gaugin/data"
+	"github.com/arelate/gaugin/paths"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/kvas"
 	"strconv"
@@ -147,7 +148,7 @@ func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 	case vangogh_local_data.RequiresGamesProperty:
 		fallthrough
 	case vangogh_local_data.IsRequiredByGamesProperty:
-		return fmt.Sprintf("/product?id=%s", TransitiveSrc(link))
+		return paths.ProductId(TransitiveSrc(link))
 	case vangogh_local_data.RatingProperty:
 		return ""
 	case vangogh_local_data.DiscountPercentageProperty:

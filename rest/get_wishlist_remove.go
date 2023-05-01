@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"github.com/arelate/gaugin/paths"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
 	"net/http"
@@ -17,5 +18,10 @@ func GetWishlistRemove(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.Redirect(w, r, "/product?id="+id, http.StatusTemporaryRedirect)
+	if err := updatePrerender(id); err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, r, paths.ProductId(id), http.StatusTemporaryRedirect)
 }

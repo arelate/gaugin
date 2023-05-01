@@ -30,6 +30,12 @@ github.com/boggydigital/stencil v0.1.57 h1:JW5puT7z9hL9r852U9tNCZb2KMyjRWbtuu5OI
 github.com/boggydigital/stencil v0.1.57/go.mod h1:TNUuQSXkbQvj55NeKTnhvA8Ouz0qtpKJ4f/JgnetzZ0=
 github.com/boggydigital/stencil v0.1.58 h1:rdHpNmFO7/WGjFBKIq+fmipnrd+BiYENsN/P0SLA5cY=
 github.com/boggydigital/stencil v0.1.58/go.mod h1:TNUuQSXkbQvj55NeKTnhvA8Ouz0qtpKJ4f/JgnetzZ0=
+github.com/boggydigital/stencil v0.1.59 h1:Jt0sglIpvgbe5p60F3AfjAG/fDpRaDqj8kRVX+uwtoo=
+github.com/boggydigital/stencil v0.1.59/go.mod h1:TNUuQSXkbQvj55NeKTnhvA8Ouz0qtpKJ4f/JgnetzZ0=
+github.com/boggydigital/stencil v0.1.60 h1:iMY3Hjv5usi/FzjRkHeFTPYmsTdWbwyBM7i2sb1llQg=
+github.com/boggydigital/stencil v0.1.60/go.mod h1:TNUuQSXkbQvj55NeKTnhvA8Ouz0qtpKJ4f/JgnetzZ0=
+github.com/boggydigital/stencil v0.1.61 h1:CUSltlvQWHa+k/5Qwd0oqhoM/RqmwgVI3DToJkFH5Oc=
+github.com/boggydigital/stencil v0.1.61/go.mod h1:A3cjsQrgD7pynWlnAZgGyPjTi2ivoZ3GpXK8VcbJVd8=
 github.com/boggydigital/testo v0.1.7 h1:Sa5GIAwCyQNeGGXi8XgVpIpLQqWVeqBKQRcv0gkL098=
 github.com/boggydigital/wits v0.2.3 h1:Z0eB+QlIA18fJmblyV6ZJQ/swPYSFhOxfgMXOQz4/c8=
 github.com/boggydigital/wits v0.2.3/go.mod h1:aR/z0vfMLtg0b4hcts0qiSTZcA51O8A2N3U9laqd2Lc=
@@ -37,6 +43,7 @@ github.com/boggydigital/yt_urls v0.1.19 h1:O7jmvoXkJrRoH+YJcnNEh+eUJBeUYRHX+W0Nf
 github.com/boggydigital/yt_urls v0.1.19/go.mod h1:hIfQyToulrS54t3GAuOkF9age66NKh0gswVvVQndHcs=
 golang.org/x/exp v0.0.0-20221230185412-738e83a70c30 h1:m9O6OTJ627iFnN2JIWfdqlZCzneRO6EEBsHXI25P8ws=
 golang.org/x/exp v0.0.0-20221230185412-738e83a70c30/go.mod h1:CxIveKay+FTh1D0yPZemJVgC/95VzuuOLq5Qi4xnoYc=
+golang.org/x/exp v0.0.0-20230425010034-47ecfdc1ba53/go.mod h1:V1LtkGg67GoY2N1AnLN78QLrzxkLyJw7RJb1gzOOz9w=
 golang.org/x/net v0.7.0 h1:rJrUqqhjsgNp7KqAIc25s9pZnjU7TUcSY7HcVZjdn1g=
 golang.org/x/net v0.7.0/go.mod h1:2Tu9+aMcznHK/AK1HMvgo6xiTLG5rD5rZLDS+rp2Bjs=
 golang.org/x/text v0.7.0 h1:4BRB4x83lYWy72KwLD/qYDuTu7q9PjSagHvijDw7cLo=

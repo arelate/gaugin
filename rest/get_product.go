@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/arelate/gaugin/data"
 	"github.com/arelate/gaugin/gaugin_middleware"
+	"github.com/arelate/gaugin/paths"
 	"github.com/arelate/gaugin/stencil_app"
 	"github.com/arelate/southern_light"
 	"github.com/arelate/southern_light/gog_integration"
@@ -37,7 +38,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		if idSet, err := vangogh_local_data.IdSetFromUrl(r.URL); err == nil {
 			if len(idSet) > 0 {
 				for id := range idSet {
-					http.Redirect(w, r, "/product?id="+id, http.StatusPermanentRedirect)
+					http.Redirect(w, r, paths.ProductId(id), http.StatusPermanentRedirect)
 					return
 				}
 			} else {

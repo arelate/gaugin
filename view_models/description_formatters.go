@@ -1,6 +1,7 @@
 package view_models
 
 import (
+	"github.com/arelate/gaugin/paths"
 	"github.com/arelate/vangogh_local_data"
 	"net/url"
 	"path"
@@ -31,7 +32,7 @@ func rewriteGameLinks(desc string) string {
 			continue
 		} else {
 			_, slug := path.Split(u.Path)
-			ggUrl := "/product?slug=" + slug
+			ggUrl := paths.ProductSlug(slug)
 			desc = strings.Replace(desc, gameLink, ggUrl, -1)
 		}
 	}
@@ -55,11 +56,11 @@ const doubleNewLineChar = "\n\n"
 const newLineChar = "\n"
 const emDashCode = "\u2013"
 
-//implicitToExplicitList looks for embedded characters
-//that GOG.com is using for <ul> lists creation, e.g.
-//https://www.gog.com/en/game/deaths_gambit
-//and replaces that segment with explicit unordered lists.
-//Currently known characters are listed as consts above this func.
+// implicitToExplicitList looks for embedded characters
+// that GOG.com is using for <ul> lists creation, e.g.
+// https://www.gog.com/en/game/deaths_gambit
+// and replaces that segment with explicit unordered lists.
+// Currently known characters are listed as consts above this func.
 func implicitToExplicitList(text string) string {
 	var items []string
 	if strings.Contains(text, doubleNewLineChar) {

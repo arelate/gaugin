@@ -9,9 +9,9 @@ require (
 	github.com/boggydigital/kvas v0.3.26
 	github.com/boggydigital/middleware v0.1.7
 	github.com/boggydigital/nod v0.1.20
-	github.com/boggydigital/stencil v0.1.58
+	github.com/boggydigital/stencil v0.1.61
 	github.com/boggydigital/yt_urls v0.1.19
-	golang.org/x/exp v0.0.0-20221230185412-738e83a70c30
+	golang.org/x/exp v0.0.0-20230425010034-47ecfdc1ba53
 	golang.org/x/text v0.7.0
 )
 
