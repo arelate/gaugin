@@ -16,19 +16,23 @@ services:
     image: ghcr.io/arelate/gaugin:latest
     environment:
       # scheme to use for vangogh connection
-      - GG_SERVE_VANGOGH_SCHEME=https
+      - GG_SERVE_VANGOGH-SCHEME=https
       # vangogh address
-      - GG_SERVE_VANGOGH_ADDRESS=vangogh.example
+      - GG_SERVE_VANGOGH-ADDRESS=vangogh.example
       # vangogh port (1853 is the default)
-      - GG_SERVE_VANGOGH_PORT=1853
+      - GG_SERVE_VANGOGH-PORT=1853
       # OS to use for downloads display
-      - GG_SERVE_OPERATING_SYSTEM=windows
+      - GG_SERVE_OPERATING-SYSTEM=windows
       # language codes to use for downloads display
-      - GG_SERVE_LANGUAGE_CODE=en
-      # use this username to allow downloads access
-      - GG_SERVE_USERNAME=admin
-      # use this password to allow downloads access
-      - GG_SERVE_PASSWORD=password
+      - GG_SERVE_LANGUAGE-CODE=en
+      # use this username to restrict administrative actions and downloads
+      - GG_SERVE_ADMIN-USERNAME=admin
+      # use this password to restrict administrative actions and downloads
+      - GG_SERVE_ADMIN-PASSWORD=adminpassword
+      # use this username to restrict downloads
+      - GG_SERVE_SHARED-USERNAME=shared
+      # use this password to restrict downloads
+      - GG_SERVE_SHARED-PASSWORD=sharedpassword
     volumes:
       # vangogh artifacts: checksums, images, metadata, recycle_bin, videos
       - /docker/vangogh:/var/lib/vangogh:ro
