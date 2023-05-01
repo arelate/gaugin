@@ -15,10 +15,7 @@ const (
 )
 
 func DefaultHeaders(st *ServerTimings, w http.ResponseWriter) {
-
 	w.Header().Set("Content-Type", htmlContentType)
-	w.Header().Set("Cache-Control", "max-age=3600")
-
 	stencilCSP := defaultCSP + "script-src " + strings.Join(stencil.ScriptHashes, " ")
 	w.Header().Set("Content-Security-Policy", stencilCSP)
 
