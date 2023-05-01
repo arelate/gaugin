@@ -39,7 +39,7 @@ func GetTagsApply(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	if err := updatePrerender(id); err != nil {
+	if err := updatePrerender(); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}

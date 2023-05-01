@@ -35,7 +35,7 @@ func GetLocalTagsApply(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := updatePrerender(id); err != nil {
+	if err := updatePrerender(); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
