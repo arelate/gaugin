@@ -9,15 +9,15 @@
 serve
     port$*
     stderr$
-    vangogh_scheme$*=http^,https
-    vangogh_address$*
-    vangogh_port$*
-    vangogh_state_dir$
-    operating_system$
-    language_code$
-    admin_username$
-    admin_password$
-    shared_username$
-    shared_password$
+    vangogh-scheme$*=http^,https
+    vangogh-address$*
+    vangogh-port$*
+    vangogh-state-dir$
+    operating-system$
+    language-code$
+    admin-username$
+    admin-password$
+    shared-username$
+    shared-password$
 
 version
