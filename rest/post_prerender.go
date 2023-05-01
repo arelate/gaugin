@@ -24,44 +24,37 @@ func PostPrerender(w http.ResponseWriter, _ *http.Request) {
 }
 
 func setPrerender() error {
-	p := make([]string, 0)
-	p = appendListsPaths(p)
+	ps := createListsPaths()
+	var err error
 
-	p, err := appendUpdatedItemsPaths(p)
+	ps, err = appendUpdatedItemsPaths(ps)
 	if err != nil {
 		return err
 	}
 
-	if err := stencil_rest.Prerender(p, true, port); err != nil {
-		return err
-	}
-
-	return nil
+	return stencil_rest.Prerender(ps, true, port)
 }
 
 func updatePrerender(ids ...string) error {
-	p := make([]string, 0)
-	p = appendListsPaths(p)
+	ps := createListsPaths()
 
 	for _, id := range ids {
-		p = append(p, paths.ProductId(id))
+		ps = append(ps, paths.ProductId(id))
 	}
 
-	if err := stencil_rest.Prerender(p, false, port); err != nil {
-		return err
-	}
-
-	return nil
+	return stencil_rest.Prerender(ps, false, port)
 }
 
-func appendListsPaths(paths []string) []string {
-	paths = append(paths, "/updates")
+func createListsPaths() []string {
+
+	ps := make([]string, 0)
+	ps = append(ps, "/updates")
 
 	for _, p := range searchRoutes() {
-		paths = append(paths, p)
+		ps = append(ps, p)
 	}
 
-	return paths
+	return ps
 }
 
 func appendUpdatedItemsPaths(p []string) ([]string, error) {
