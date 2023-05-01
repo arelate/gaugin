@@ -15,9 +15,9 @@ serve
     vangogh_state_dir$
     operating_system$
     language_code$
-    admin-username$
-    admin-password$
-    shared-username$
-    shared-password$
+    admin_username$
+    admin_password$
+    shared_username$
+    shared_password$
 
 version

@@ -60,10 +60,10 @@ func ServeHandler(u *url.URL) error {
 	rest.SetDownloadsOperatingSystems(os)
 	rest.SetDownloadsLanguageCodes(lc)
 
-	sharedUsername := vangogh_local_data.ValueFromUrl(u, "shared-username")
-	sharedPassword := vangogh_local_data.ValueFromUrl(u, "shared-password")
-	adminUsername := vangogh_local_data.ValueFromUrl(u, "admin-username")
-	adminPassword := vangogh_local_data.ValueFromUrl(u, "admin-password")
+	sharedUsername := vangogh_local_data.ValueFromUrl(u, "shared_username")
+	sharedPassword := vangogh_local_data.ValueFromUrl(u, "shared_password")
+	adminUsername := vangogh_local_data.ValueFromUrl(u, "admin_username")
+	adminPassword := vangogh_local_data.ValueFromUrl(u, "admin_password")
 
 	rest.SetUsername(rest.SharedRole, sharedUsername)
 	rest.SetPassword(rest.SharedRole, sharedPassword)
