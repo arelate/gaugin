@@ -19,9 +19,9 @@ func ServeHandler(u *url.URL) error {
 		return err
 	}
 
-	vangoghScheme := vangogh_local_data.ValueFromUrl(u, "vangogh_scheme")
-	vangoghAddress := vangogh_local_data.ValueFromUrl(u, "vangogh_address")
-	vangoghPortStr := vangogh_local_data.ValueFromUrl(u, "vangogh_port")
+	vangoghScheme := vangogh_local_data.ValueFromUrl(u, "vangogh-scheme")
+	vangoghAddress := vangogh_local_data.ValueFromUrl(u, "vangogh-address")
+	vangoghPortStr := vangogh_local_data.ValueFromUrl(u, "vangogh-port")
 	vangoghPort, err := strconv.Atoi(vangoghPortStr)
 	if err != nil {
 		return err
@@ -39,16 +39,16 @@ func ServeHandler(u *url.URL) error {
 
 	rest.SetVangoghConnection(vangoghScheme, vangoghAddress, vangoghPort)
 
-	vangoghStateDir := vangogh_local_data.ValueFromUrl(u, "vangogh_state_dir")
+	vangoghStateDir := vangogh_local_data.ValueFromUrl(u, "vangogh-state-dir")
 	if vangoghStateDir == "" {
 		vangoghStateDir = defaultVangoghStateDir
 	}
 
 	vangogh_local_data.ChRoot(vangoghStateDir)
 
-	osStrings := vangogh_local_data.ValuesFromUrl(u, "operating_system")
+	osStrings := vangogh_local_data.ValuesFromUrl(u, "operating-system")
 	os := vangogh_local_data.ParseManyOperatingSystems(osStrings)
-	lc := vangogh_local_data.ValuesFromUrl(u, "language_code")
+	lc := vangogh_local_data.ValuesFromUrl(u, "language-code")
 
 	if len(os) == 0 {
 		os = []vangogh_local_data.OperatingSystem{vangogh_local_data.AnyOperatingSystem}
@@ -60,10 +60,10 @@ func ServeHandler(u *url.URL) error {
 	rest.SetDownloadsOperatingSystems(os)
 	rest.SetDownloadsLanguageCodes(lc)
 
-	sharedUsername := vangogh_local_data.ValueFromUrl(u, "shared_username")
-	sharedPassword := vangogh_local_data.ValueFromUrl(u, "shared_password")
-	adminUsername := vangogh_local_data.ValueFromUrl(u, "admin_username")
-	adminPassword := vangogh_local_data.ValueFromUrl(u, "admin_password")
+	sharedUsername := vangogh_local_data.ValueFromUrl(u, "shared-username")
+	sharedPassword := vangogh_local_data.ValueFromUrl(u, "shared-password")
+	adminUsername := vangogh_local_data.ValueFromUrl(u, "admin-username")
+	adminPassword := vangogh_local_data.ValueFromUrl(u, "admin-password")
 
 	rest.SetUsername(rest.SharedRole, sharedUsername)
 	rest.SetPassword(rest.SharedRole, sharedPassword)
