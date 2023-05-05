@@ -5,15 +5,11 @@ import (
 	"fmt"
 	"github.com/arelate/southern_light/steam_integration"
 	"github.com/arelate/vangogh_local_data"
+	"github.com/boggydigital/middleware"
 	"net/http"
 	"net/url"
 	"sync"
 	"time"
-)
-
-const (
-	lastModified          = "Last-Modified"
-	ifModifiedSinceHeader = "If-Modified-Since"
 )
 
 var (
@@ -38,7 +34,7 @@ func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T)
 	}
 
 	if lmt, ok := urlLastModified[u.String()]; ok {
-		req.Header.Set(ifModifiedSinceHeader, time.Unix(lmt, 0).UTC().Format(time.RFC1123))
+		req.Header.Set(middleware.IfModifiedSinceHeader, time.Unix(lmt, 0).UTC().Format(time.RFC1123))
 	}
 
 	resp, err := client.Do(req)
@@ -47,7 +43,7 @@ func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T)
 	}
 	defer resp.Body.Close()
 
-	if lm := resp.Header.Get(lastModified); lm != "" {
+	if lm := resp.Header.Get(middleware.LastModifiedHeader); lm != "" {
 		if lmt, err := time.Parse(time.RFC1123, lm); err != nil {
 			return data, false, err
 		} else {

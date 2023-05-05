@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/stencil_app"
+	"github.com/boggydigital/middleware"
 	"net/http"
 	"strconv"
 	"strings"
@@ -89,15 +90,12 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		su := searchUrl(q)
 
 		lmu := time.Unix(urlLastModified[su.String()], 0).UTC()
-		w.Header().Set("Last-Modified", lmu.Format(time.RFC1123))
+		w.Header().Set(middleware.LastModifiedHeader, lmu.Format(time.RFC1123))
 
-		if ims := r.Header.Get("If-Modified-Since"); ims != "" {
-			if imst, err := time.Parse(time.RFC1123, ims); err == nil {
-				if imst.UTC().Unix() <= lmu.Unix() {
-					w.WriteHeader(http.StatusNotModified)
-					return
-				}
-			}
+		ims := r.Header.Get(middleware.IfModifiedSinceHeader)
+		if middleware.IsNotModified(ims, lmu.Unix()) {
+			w.WriteHeader(http.StatusNotModified)
+			return
 		}
 
 		start = time.Now()
