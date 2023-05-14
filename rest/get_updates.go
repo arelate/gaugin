@@ -95,7 +95,7 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 	syncDra := vangogh_local_data.NewIRAProxy(syncRdx)
 	if scs, ok := syncDra.GetFirstVal(vangogh_local_data.SyncEventsProperty, vangogh_local_data.SyncCompleteKey); ok {
 		if sci, err := strconv.ParseInt(scs, 10, 64); err == nil {
-			updated = time.Unix(sci, 0).Format(time.RFC1123)
+			updated = time.Unix(sci, 0).Format(http.TimeFormat)
 		}
 	}
 

@@ -34,7 +34,7 @@ func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T)
 	}
 
 	if lmt, ok := urlLastModified[u.String()]; ok {
-		req.Header.Set(middleware.IfModifiedSinceHeader, time.Unix(lmt, 0).UTC().Format(time.RFC1123))
+		req.Header.Set(middleware.IfModifiedSinceHeader, time.Unix(lmt, 0).UTC().Format(http.TimeFormat))
 	}
 
 	resp, err := client.Do(req)
