@@ -89,11 +89,11 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 		su := searchUrl(q)
 
-		lmu := time.Unix(urlLastModified[su.String()], 0).UTC()
-		w.Header().Set(middleware.LastModifiedHeader, lmu.Format(http.TimeFormat))
+		lm := urlLastModified[su.String()]
+		w.Header().Set(middleware.LastModifiedHeader, lm)
 
 		ims := r.Header.Get(middleware.IfModifiedSinceHeader)
-		if middleware.IsNotModified(ims, lmu.Unix()) {
+		if middleware.IsNotModified(ims, lm) {
 			w.WriteHeader(http.StatusNotModified)
 			return
 		}

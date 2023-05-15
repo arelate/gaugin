@@ -9,11 +9,10 @@ import (
 	"net/http"
 	"net/url"
 	"sync"
-	"time"
 )
 
 var (
-	urlLastModified = make(map[string]int64)
+	urlLastModified = make(map[string]string)
 	hasDataCache    = make(map[string]map[string]map[string]string)
 	dataCache       = make(map[string]map[string]interface{})
 	searchCache     = make(map[string][]string)
@@ -34,7 +33,7 @@ func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T)
 	}
 
 	if lmt, ok := urlLastModified[u.String()]; ok {
-		req.Header.Set(middleware.IfModifiedSinceHeader, time.Unix(lmt, 0).UTC().Format(http.TimeFormat))
+		req.Header.Set(middleware.IfModifiedSinceHeader, lmt)
 	}
 
 	resp, err := client.Do(req)
@@ -44,13 +43,9 @@ func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T)
 	defer resp.Body.Close()
 
 	if lm := resp.Header.Get(middleware.LastModifiedHeader); lm != "" {
-		if lmt, err := time.Parse(http.TimeFormat, lm); err != nil {
-			return data, false, err
-		} else {
-			mtx.Lock()
-			urlLastModified[u.String()] = lmt.UTC().Unix()
-			mtx.Unlock()
-		}
+		mtx.Lock()
+		urlLastModified[u.String()] = lm
+		mtx.Unlock()
 	}
 
 	if resp.StatusCode == http.StatusNotModified {
