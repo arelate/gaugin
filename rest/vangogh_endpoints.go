@@ -44,7 +44,7 @@ func getThroughCache[T any](client *http.Client, u *url.URL, cache map[string]T)
 	defer resp.Body.Close()
 
 	if lm := resp.Header.Get(middleware.LastModifiedHeader); lm != "" {
-		if lmt, err := time.Parse(time.RFC1123, lm); err != nil {
+		if lmt, err := time.Parse(http.TimeFormat, lm); err != nil {
 			return data, false, err
 		} else {
 			mtx.Lock()
