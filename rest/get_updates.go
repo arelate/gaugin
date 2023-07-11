@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/stencil_app"
+	"golang.org/x/exp/maps"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 	"net/http"
@@ -13,12 +14,17 @@ import (
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
-	"golang.org/x/exp/maps"
+)
+
+const (
+	updatedProductsLimit = 24
 )
 
 func GetUpdates(w http.ResponseWriter, r *http.Request) {
 
 	// GET /updates
+
+	showAll := r.URL.Query().Get("show-all") == "true"
 
 	st := gaugin_middleware.NewServerTimings()
 
@@ -40,11 +46,20 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 	}
 
 	updates := make(map[string][]string)
+	updateTotals := make(map[string]int)
+
 	for section, rdx := range updRdx {
 		ids := rdx[vangogh_local_data.LastSyncUpdatesProperty]
-		if len(ids) > 0 {
-			updates[section] = ids
+		updateTotals[section] = len(ids)
+		for _, id := range ids {
+			if !showAll && len(updates[section]) >= updatedProductsLimit {
+				continue
+			}
+			updates[section] = append(updates[section], id)
 		}
+		//if len(ids) > 0 {
+		//	updates[section] = ids
+		//}
 	}
 
 	keys := make(map[string]bool)
@@ -113,7 +128,16 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		sectionTitles[t] = caser.String(t)
 	}
 
-	if err := app.RenderGroup(stencil_app.NavUpdates, sections, updates, sectionTitles, updated, irap, w); err != nil {
+	if err := app.RenderGroup(
+		stencil_app.NavUpdates,
+		sections,
+		updates,
+		sectionTitles,
+		updateTotals,
+		updated,
+		r.URL,
+		irap,
+		w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
