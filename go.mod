@@ -1,6 +1,6 @@
 module github.com/arelate/gaugin
 
-go 1.19
+go 1.20
 
 require (
 	github.com/arelate/southern_light v0.1.28

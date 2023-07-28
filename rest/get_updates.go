@@ -57,9 +57,6 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 			}
 			updates[section] = append(updates[section], id)
 		}
-		//if len(ids) > 0 {
-		//	updates[section] = ids
-		//}
 	}
 
 	keys := make(map[string]bool)
@@ -118,14 +115,32 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(st, w)
 
+	// section order will be based on full title ("new in ...", "updates in ...")
+	// so not changed after concise update titles change
 	sections := maps.Keys(updates)
 	sort.Strings(sections)
 
-	var caser = cases.Title(language.Russian)
+	var caser = cases.Title(language.English)
 
 	sectionTitles := make(map[string]string)
 	for t, _ := range updates {
-		sectionTitles[t] = caser.String(t)
+		st := t
+		switch t {
+		case "new in store":
+			st = "store"
+		case "new in account":
+			st = "account"
+		case "new in wishlist":
+			st = "wishlist"
+		case "released today":
+			st = "today"
+		case "updates in account":
+			st = "updates"
+		case "updates in news":
+			st = "news"
+		}
+
+		sectionTitles[t] = caser.String(st)
 	}
 
 	if err := app.RenderGroup(
