@@ -73,6 +73,7 @@ func Init(templatesFS fs.FS, stencilAppStyles fs.FS) error {
 
 	var err error
 	app, err = stencil_app.Init()
+	app, err = stencil_app.Init()
 
 	return err
 }
