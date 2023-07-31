@@ -64,6 +64,8 @@ github.com/boggydigital/stencil v0.1.70 h1:umt5lAJFjiM2Fbwcvh1de/C91GZLOFtiimdim
 github.com/boggydigital/stencil v0.1.70/go.mod h1:TV479DEX+KyGMkAzAiUDtjk/v78jJlPpLw1zQ/b3p/I=
 github.com/boggydigital/stencil v0.1.71 h1:S2zEB77/jTF4o1ysI3Gf6TzMtRUSDt89rLi/eiZowG4=
 github.com/boggydigital/stencil v0.1.71/go.mod h1:TV479DEX+KyGMkAzAiUDtjk/v78jJlPpLw1zQ/b3p/I=
+github.com/boggydigital/stencil v0.1.72 h1:P9I3FoWjbEWxO1Csh3NDVu2G/lXSCoYaqy0BKVMEoG4=
+github.com/boggydigital/stencil v0.1.72/go.mod h1:TV479DEX+KyGMkAzAiUDtjk/v78jJlPpLw1zQ/b3p/I=
 github.com/boggydigital/testo v0.1.7 h1:Sa5GIAwCyQNeGGXi8XgVpIpLQqWVeqBKQRcv0gkL098=
 github.com/boggydigital/wits v0.2.3 h1:Z0eB+QlIA18fJmblyV6ZJQ/swPYSFhOxfgMXOQz4/c8=
 github.com/boggydigital/wits v0.2.3/go.mod h1:aR/z0vfMLtg0b4hcts0qiSTZcA51O8A2N3U9laqd2Lc=
