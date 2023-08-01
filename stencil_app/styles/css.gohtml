@@ -68,11 +68,22 @@
         background-color: var(--system-orange-color);
     }
     
-    /* Items */
+    /* Items images */
 
-    #item .image img {
-        max-width: var(--product-details-width);
+    .image img {
+        width: var(--product-details-width);
+        height: 370px;
     }
+
+    @media only screen and (max-width: 800px) {
+        .image img {
+            width: 100%;
+            aspect-ratio: 1600/740;
+            height: unset
+        }
+    }
+
+    /* Items */
 
     #item .item-details .text-properties .property-value.positive li {
         color: var(--system-green-color);
