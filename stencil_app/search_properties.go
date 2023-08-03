@@ -41,9 +41,3 @@ var SearchProperties = []string{
 	vangogh_local_data.SortProperty,
 	vangogh_local_data.DescendingProperty,
 }
-
-var SearchHighlightProperties = []string{
-	vangogh_local_data.TextProperty,
-	vangogh_local_data.TitleProperty,
-	vangogh_local_data.LocalTagsProperty,
-}

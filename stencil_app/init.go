@@ -58,7 +58,6 @@ func Init() (*stencil.AppConfiguration, error) {
 
 	if err := app.SetSearchConfiguration(
 		SearchProperties,
-		SearchHighlightProperties,
 		DigestProperties,
 		SearchScopes,
 		SearchScopeQueries()); err != nil {
