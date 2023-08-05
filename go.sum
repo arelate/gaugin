@@ -88,6 +88,12 @@ github.com/boggydigital/stencil v0.1.83 h1:uic1jzxOljC2l3dp6I7SGDlPnsfpSDlTIGHvl
 github.com/boggydigital/stencil v0.1.83/go.mod h1:yUJAeXbGWxnbWWqPnRgbctYXf3YPA5bfh48igehwpss=
 github.com/boggydigital/stencil v0.1.84 h1:g52gncZ1/ebn1o6Tfx360LCEHQwjvSOa4ZUdS3mxk2U=
 github.com/boggydigital/stencil v0.1.84/go.mod h1:yUJAeXbGWxnbWWqPnRgbctYXf3YPA5bfh48igehwpss=
+github.com/boggydigital/stencil v0.1.85 h1:vHQYeek1QH3SXiMwZZMnjIyzmmowcesIxDHFooxUzug=
+github.com/boggydigital/stencil v0.1.85/go.mod h1:yUJAeXbGWxnbWWqPnRgbctYXf3YPA5bfh48igehwpss=
+github.com/boggydigital/stencil v0.1.87 h1:yLCWX/n1W9Nl7hkS97any75j85scQTcvKUR7Fd5zGM4=
+github.com/boggydigital/stencil v0.1.87/go.mod h1:yUJAeXbGWxnbWWqPnRgbctYXf3YPA5bfh48igehwpss=
+github.com/boggydigital/stencil v0.1.88 h1:lnHr0tyHrFjheIV82MijOMKC532sHhUWsWd9+7CRjKo=
+github.com/boggydigital/stencil v0.1.88/go.mod h1:yUJAeXbGWxnbWWqPnRgbctYXf3YPA5bfh48igehwpss=
 github.com/boggydigital/testo v0.1.7 h1:Sa5GIAwCyQNeGGXi8XgVpIpLQqWVeqBKQRcv0gkL098=
 github.com/boggydigital/wits v0.2.3 h1:Z0eB+QlIA18fJmblyV6ZJQ/swPYSFhOxfgMXOQz4/c8=
 github.com/boggydigital/wits v0.2.3/go.mod h1:aR/z0vfMLtg0b4hcts0qiSTZcA51O8A2N3U9laqd2Lc=
