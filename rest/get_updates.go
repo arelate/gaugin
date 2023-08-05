@@ -48,11 +48,16 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 	updates := make(map[string][]string)
 	updateTotals := make(map[string]int)
 
+	paginate := false
+
 	for section, rdx := range updRdx {
 		ids := rdx[vangogh_local_data.LastSyncUpdatesProperty]
 		updateTotals[section] = len(ids)
+		// limit number of items only if there are at least x2 the limit
+		// e.g. if the limit is 24, only start limiting if there are 49 or more items
+		paginate = len(ids) > updatedProductsLimit*2
 		for _, id := range ids {
-			if !showAll && len(updates[section]) >= updatedProductsLimit {
+			if paginate && !showAll && len(updates[section]) >= updatedProductsLimit {
 				continue
 			}
 			updates[section] = append(updates[section], id)
