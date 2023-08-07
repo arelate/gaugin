@@ -4,6 +4,8 @@ github.com/arelate/vangogh_local_data v0.2.91 h1:8g5RyuxdORH4Zblylaf1n8GbsXk8Yyk
 github.com/arelate/vangogh_local_data v0.2.91/go.mod h1:Kqq0ovd+Kx22em0PUn9t5z5aLKVC0NzfjQ4TU/LKdZc=
 github.com/boggydigital/clo v0.3.1 h1:hbODCWxflR7y4/O3+96uIuS/KNN5WXfItm5zoMpy36k=
 github.com/boggydigital/clo v0.3.1/go.mod h1:/3bLgOSu4HbChi6qbST8ZN6uDfKyrgVvVwEKNy/GxYw=
+github.com/boggydigital/clo v0.3.5 h1:cnvzlp6ewoV2qj8gPcLPClLCi3JzxBPE+T5p04PDO4c=
+github.com/boggydigital/clo v0.3.5/go.mod h1:7QbdMB008okXsdk41qJyJ6k/oJALIIXQ0GLYSxY9WFM=
 github.com/boggydigital/issa v0.1.3 h1:4aFBlW5htji3OhoJb3S17rDoib7dV0+jSyAgge5PdVU=
 github.com/boggydigital/issa v0.1.3/go.mod h1:evu3blQmQe6xJy9NRFJGIU+91IWy4/YCROVvUZi5k14=
 github.com/boggydigital/issa v0.1.5 h1:3thLinhaXNHYcmF3T5y3wOEvhxq+GyhW8WtNDcl0OC0=
@@ -30,6 +32,8 @@ github.com/boggydigital/middleware v0.1.10 h1:69KEbo1sKZykR5wnh6Ai7yyzErVqKOci1B
 github.com/boggydigital/middleware v0.1.10/go.mod h1:pU6ig6HG7HpwZtUatAy0Hp/H7bfllI5cZhZQOy2NIME=
 github.com/boggydigital/nod v0.1.20 h1:6cyK3fDxAUcDC9s+2JLNNHJKuCCObQbabpmJfpXCSfA=
 github.com/boggydigital/nod v0.1.20/go.mod h1:rghsJhj0wC5UL7qT8W3vSUc1MlE5IyheYjfAKIZ9kLQ=
+github.com/boggydigital/nod v0.1.21 h1:pQbrgswCuU5dr3IWS1Z902PJAm5BebSLG+Q3aG7KJ+4=
+github.com/boggydigital/nod v0.1.21/go.mod h1:bYucIZ3rLHBZKf/3+T+eTSxuijuja7Y6OgU2P6o2/vo=
 github.com/boggydigital/stencil v0.1.54 h1:OulVxVUQLU3IYJxO1Np10hQEbf8xnc+jlsb5qXEeF3U=
 github.com/boggydigital/stencil v0.1.54/go.mod h1:wGAGjkmbNSzCH5n3GiS8ThJB/JEaujZBRYe0V01bQDA=
 github.com/boggydigital/stencil v0.1.55 h1:3sY5X2OthBBywLJ8/0I27gnlL0V2B6LLXGmFTxEc3nQ=
@@ -103,6 +107,8 @@ golang.org/x/exp v0.0.0-20221230185412-738e83a70c30 h1:m9O6OTJ627iFnN2JIWfdqlZCz
 golang.org/x/exp v0.0.0-20221230185412-738e83a70c30/go.mod h1:CxIveKay+FTh1D0yPZemJVgC/95VzuuOLq5Qi4xnoYc=
 golang.org/x/exp v0.0.0-20230425010034-47ecfdc1ba53 h1:5llv2sWeaMSnA3w2kS57ouQQ4pudlXrR0dCgw51QK9o=
 golang.org/x/exp v0.0.0-20230425010034-47ecfdc1ba53/go.mod h1:V1LtkGg67GoY2N1AnLN78QLrzxkLyJw7RJb1gzOOz9w=
+golang.org/x/exp v0.0.0-20230728194245-b0cb94b80691 h1:/yRP+0AN7mf5DkD3BAI6TOFnd51gEoDEb8o35jIFtgw=
+golang.org/x/exp v0.0.0-20230728194245-b0cb94b80691/go.mod h1:FXUEEKJgO7OQYeo8N01OfiKP8RXMtf6e8aTskBGqWdc=
 golang.org/x/net v0.7.0 h1:rJrUqqhjsgNp7KqAIc25s9pZnjU7TUcSY7HcVZjdn1g=
 golang.org/x/net v0.7.0/go.mod h1:2Tu9+aMcznHK/AK1HMvgo6xiTLG5rD5rZLDS+rp2Bjs=
 golang.org/x/text v0.7.0 h1:4BRB4x83lYWy72KwLD/qYDuTu7q9PjSagHvijDw7cLo=
