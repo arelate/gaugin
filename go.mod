@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/arelate/southern_light v0.1.28
-	github.com/arelate/vangogh_local_data v0.2.92
+	github.com/arelate/vangogh_local_data v0.2.93
 	github.com/boggydigital/clo v0.3.6
 	github.com/boggydigital/kvas v0.3.28
 	github.com/boggydigital/middleware v0.1.10

@@ -6,7 +6,7 @@ import (
 )
 
 var PropertyTitles = map[string]string{
-	vangogh_local_data.TextProperty:                 "Any Text",
+	//vangogh_local_data.TextProperty:                 "Any Text",
 	vangogh_local_data.TitleProperty:                "Title",
 	vangogh_local_data.TagIdProperty:                "Account Tags",
 	vangogh_local_data.LocalTagsProperty:            "Local Tags",
