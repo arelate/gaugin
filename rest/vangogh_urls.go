@@ -34,6 +34,7 @@ const (
 	reduxEndpoint     = "/redux"
 	searchEndpoint    = "/search"
 	tagEndpoint       = "/tag"
+	titlesEndpoint    = "/titles"
 	wishlistEndpoint  = "/wishlist"
 )
 
@@ -178,6 +179,20 @@ func tagUrl(id string, tags []string) *url.URL {
 	q := u.Query()
 	q.Set(vangogh_local_data.IdProperty, id)
 	q.Set("tags", strings.Join(tags, ","))
+	u.RawQuery = q.Encode()
+
+	return u
+}
+
+func titlesUrl(ids ...string) *url.URL {
+	u := &url.URL{
+		Scheme: vangoghScheme,
+		Host:   vangoghHost(),
+		Path:   titlesEndpoint,
+	}
+
+	q := u.Query()
+	q.Set(vangogh_local_data.IdProperty, strings.Join(ids, ","))
 	u.RawQuery = q.Encode()
 
 	return u

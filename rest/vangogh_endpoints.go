@@ -111,6 +111,12 @@ func getData(
 	return getThroughCache(client, dataUrl(id, pt), dataCache)
 }
 
+func getTitles(
+	client *http.Client,
+	ids ...string) (vangogh_local_data.IdReduxAssets, bool, error) {
+	return getThroughCache(client, titlesUrl(ids...), reduxCache)
+}
+
 func getSteamNews(client *http.Client, id string) (*steam_integration.AppNews, bool, error) {
 
 	data, cached, err := getData(client, id, vangogh_local_data.SteamAppNews)

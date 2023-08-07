@@ -20,8 +20,10 @@ import (
 	"github.com/arelate/southern_light/vndb_integration"
 	"github.com/arelate/southern_light/wikipedia_integration"
 	"github.com/arelate/southern_light/winehq_integration"
+	"golang.org/x/exp/maps"
 	"net/http"
 	"net/url"
+	"sort"
 	"strconv"
 	"time"
 
@@ -139,13 +141,24 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	gaugin_middleware.DefaultHeaders(st, w)
 
 	// adding titles for related games
-	titleRedux, cached, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TitleProperty)
+	relatedIds := make(map[string]bool)
+	relatedProps := []string{vangogh_local_data.RequiresGamesProperty, vangogh_local_data.IsRequiredByGamesProperty, vangogh_local_data.IncludesGamesProperty, vangogh_local_data.IsIncludedByGamesProperty}
+	for _, p := range relatedProps {
+		if rids, ok := irap.GetAllValues(p, id); ok {
+			for _, rid := range rids {
+				relatedIds[rid] = true
+			}
+		}
+	}
+	rids := maps.Keys(relatedIds)
+	sort.Strings(rids)
+	titleRedux, cached, err := getTitles(http.DefaultClient, rids...)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 	if cached {
-		st.SetFlag("getRedux-titles-cached")
+		st.SetFlag("getTitles-cached")
 	}
 	irap.Merge(titleRedux)
 

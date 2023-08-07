@@ -115,15 +115,17 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		st.Set("getRedux", time.Since(start).Milliseconds())
 
 		// adding tag names for related games
-		tagNamesRedux, cached, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
-		if err != nil {
-			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-			return
+		if irap.Has(vangogh_local_data.TagIdProperty) {
+			tagNamesRedux, cached, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
+			if err != nil {
+				http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+				return
+			}
+			if cached {
+				st.SetFlag("getRedux-tagNames-cached")
+			}
+			irap.Merge(tagNamesRedux)
 		}
-		if cached {
-			st.SetFlag("getRedux-tagNames-cached")
-		}
-		irap.Merge(tagNamesRedux)
 	}
 
 	gaugin_middleware.DefaultHeaders(st, w)
