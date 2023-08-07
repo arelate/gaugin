@@ -24,6 +24,7 @@ func GetDigest(w http.ResponseWriter, r *http.Request) {
 	st := gaugin_middleware.NewServerTimings()
 
 	var values []string
+	valueTitles := make(map[string]string)
 	var digests map[string][]string
 	var cached bool
 	var err error
@@ -44,6 +45,17 @@ func GetDigest(w http.ResponseWriter, r *http.Request) {
 		values = []string{
 			vangogh_local_data.TrueValue,
 			vangogh_local_data.FalseValue}
+	case vangogh_local_data.TagIdProperty:
+		tagNamesRedux, _, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
+		if err != nil {
+			http.Error(w, nod.ErrorStr("missing digest property"), http.StatusBadRequest)
+			return
+		}
+		for tagId, tagNames := range tagNamesRedux {
+			if tns, ok := tagNames[vangogh_local_data.TagNameProperty]; ok && len(tns) > 0 {
+				valueTitles[tagId] = tns[0]
+			}
+		}
 	default:
 		digests, cached, err = getDigests(http.DefaultClient, property)
 	}
@@ -64,10 +76,14 @@ func GetDigest(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(st, w)
 
-	valueTitles, err := addTitles(property, values)
+	addedValueTitles, err := addTitles(property, values)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
+	}
+
+	for v, t := range addedValueTitles {
+		valueTitles[v] = t
 	}
 
 	if err := json.NewEncoder(w).Encode(valueTitles); err != nil {
@@ -81,25 +97,7 @@ func addTitles(property string, values []string) (map[string]string, error) {
 
 	switch property {
 	case vangogh_local_data.TagIdProperty:
-		tagNamesRedux, _, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
-		if err != nil {
-			return nil, err
-		}
-		for _, v := range values {
-			if tagNamesMap, ok := tagNamesRedux[v]; ok {
-				if tagNames, ok := tagNamesMap[vangogh_local_data.TagNameProperty]; ok {
-					if len(tagNames) > 0 {
-						valueTitles[v] = tagNames[0]
-					}
-				}
-			} else {
-				valueTitles[v] = v
-			}
-		}
-	case vangogh_local_data.SortProperty:
-		fallthrough
-	case vangogh_local_data.DescendingProperty:
-		fallthrough
+		// do nothing already filled earlier
 	default:
 		for _, v := range values {
 			if title, ok := stencil_app.PropertyTitles[v]; ok {

@@ -26,7 +26,7 @@ func GetLocalTagsEdit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	digests, _, err := getDigests(http.DefaultClient, vangogh_local_data.LocalTagsProperty)
+	localTagsDigest, _, err := getDigests(http.DefaultClient, vangogh_local_data.LocalTagsProperty)
 
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
@@ -40,6 +40,11 @@ func GetLocalTagsEdit(w http.ResponseWriter, r *http.Request) {
 		selectedValues[v] = true
 	}
 
+	localTags := make(map[string]string)
+	for _, v := range localTagsDigest[vangogh_local_data.LocalTagsProperty] {
+		localTags[v] = v
+	}
+
 	if err := app.RenderPropertyEditor(
 		id,
 		idRedux[id][vangogh_local_data.TitleProperty][0],
@@ -47,7 +52,7 @@ func GetLocalTagsEdit(w http.ResponseWriter, r *http.Request) {
 		true,
 		"",
 		selectedValues,
-		digests[vangogh_local_data.LocalTagsProperty],
+		localTags,
 		true,
 		"/local-tags/apply",
 		w); err != nil {

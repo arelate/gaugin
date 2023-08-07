@@ -27,7 +27,7 @@ func GetTagsEdit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	digests, _, err := getDigests(http.DefaultClient, vangogh_local_data.TagIdProperty)
+	tagNameRdx, _, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
 
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
@@ -41,6 +41,14 @@ func GetTagsEdit(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(nil, w)
 
+	tagNames := make(map[string]string)
+
+	for k, pv := range tagNameRdx {
+		if v, ok := pv[vangogh_local_data.TagNameProperty]; ok && len(v) > 0 {
+			tagNames[k] = v[0]
+		}
+	}
+
 	if err := app.RenderPropertyEditor(
 		id,
 		idRedux[id][vangogh_local_data.TitleProperty][0],
@@ -48,7 +56,7 @@ func GetTagsEdit(w http.ResponseWriter, r *http.Request) {
 		idRedux[id][vangogh_local_data.OwnedProperty][0] == "true",
 		"Account tags require product ownership",
 		selectedValues,
-		digests[vangogh_local_data.TagIdProperty],
+		tagNames,
 		false,
 		"/tags/apply",
 		w); err != nil {
