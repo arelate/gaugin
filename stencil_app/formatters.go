@@ -10,11 +10,6 @@ import (
 	"strings"
 )
 
-const (
-	transitiveOpen  = " ("
-	transitiveClose = ")"
-)
-
 var labelTitles = map[string]string{
 	vangogh_local_data.OwnedProperty:         "Own",
 	vangogh_local_data.ComingSoonProperty:    "Soon",
@@ -22,30 +17,6 @@ var labelTitles = map[string]string{
 	vangogh_local_data.InDevelopmentProperty: "In Dev",
 	vangogh_local_data.IsFreeProperty:        "Free",
 	vangogh_local_data.WishlistedProperty:    "Wish",
-}
-
-func TransitiveDst(s string) string {
-	dst := s
-	if strings.Contains(s, transitiveOpen) {
-		dst = s[:strings.LastIndex(s, transitiveOpen)]
-	}
-	return dst
-}
-
-func TransitiveSrc(s string) string {
-	src := ""
-	if strings.Contains(s, transitiveOpen) {
-		from, to := strings.LastIndex(s, transitiveOpen)+len(transitiveOpen), strings.Index(s, transitiveClose)
-		if from > to {
-			to = strings.LastIndex(s, transitiveClose)
-			if from > to {
-				from = 0
-				to = len(s) - 1
-			}
-		}
-		src = s[from:to]
-	}
-	return src
 }
 
 func ownedValidationResult(id string, rxa kvas.ReduxAssets) (string, bool) {
@@ -148,7 +119,7 @@ func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 	case vangogh_local_data.RequiresGamesProperty:
 		fallthrough
 	case vangogh_local_data.IsRequiredByGamesProperty:
-		return paths.ProductId(TransitiveSrc(link))
+		return paths.ProductId(link)
 	case vangogh_local_data.RatingProperty:
 		return ""
 	case vangogh_local_data.DiscountPercentageProperty:
@@ -160,7 +131,9 @@ func fmtHref(_, property, link string, _ kvas.ReduxAssets) string {
 	case data.GauginOtherLinksProperty:
 		fallthrough
 	case data.GauginSteamLinksProperty:
-		return TransitiveSrc(link)
+		if _, pv, ok := strings.Cut(link, "="); ok {
+			return pv
+		}
 	case vangogh_local_data.HLTBHoursToCompleteMainProperty:
 		fallthrough
 	case vangogh_local_data.HLTBHoursToCompletePlusProperty:
@@ -217,7 +190,11 @@ func fmtLabel(id, property, link string, rxa kvas.ReduxAssets) string {
 		}
 		return ""
 	case vangogh_local_data.TagIdProperty:
-		return TransitiveDst(link)
+		title, ok := rxa.GetFirstVal(vangogh_local_data.TagNameProperty, link)
+		if !ok {
+			title = link
+		}
+		return title
 	case vangogh_local_data.DehydratedImageProperty:
 		fallthrough
 	case vangogh_local_data.DehydratedVerticalImageProperty:
@@ -249,15 +226,23 @@ func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 	case vangogh_local_data.RequiresGamesProperty:
 		fallthrough
 	case vangogh_local_data.IsRequiredByGamesProperty:
-		title = TransitiveDst(link)
+		var ok bool
+		title, ok = rxa.GetFirstVal(vangogh_local_data.TitleProperty, link)
+		if !ok {
+			title = link
+		}
 	case vangogh_local_data.GOGOrderDateProperty:
 		title = justTheDate(link)
 	case vangogh_local_data.LanguageCodeProperty:
-		title = LanguageCodeFlag(TransitiveSrc(link)) + " " + TransitiveDst(link)
+		title = fmt.Sprintf("%s %s", LanguageCodeFlag(link), link)
 	case vangogh_local_data.RatingProperty:
 		title = fmtGOGRating(link)
 	case vangogh_local_data.TagIdProperty:
-		return TransitiveDst(link)
+		var ok bool
+		title, ok = rxa.GetFirstVal(vangogh_local_data.TagNameProperty, link)
+		if !ok {
+			title = link
+		}
 	case vangogh_local_data.PriceProperty:
 		if isFree == "true" {
 			return ""
@@ -273,7 +258,9 @@ func fmtTitle(id, property, link string, rxa kvas.ReduxAssets) string {
 	case data.GauginOtherLinksProperty:
 		fallthrough
 	case data.GauginSteamLinksProperty:
-		title = PropertyTitles[TransitiveDst(link)]
+		if pt, _, ok := strings.Cut(link, "="); ok {
+			title = PropertyTitles[pt]
+		}
 	case vangogh_local_data.HLTBReviewScoreProperty:
 		if link == "0" {
 			return ""

@@ -2,6 +2,8 @@ github.com/arelate/southern_light v0.1.28 h1:aq56O1ixk3bfBY2kUlZ7PaEEPQrdm2fG78T
 github.com/arelate/southern_light v0.1.28/go.mod h1:5P7A0MoqwBKSWhss/U26ny5qSwXkWJ83+PAWYQlvAXY=
 github.com/arelate/vangogh_local_data v0.2.91 h1:8g5RyuxdORH4Zblylaf1n8GbsXk8YykABsxogvRAT3w=
 github.com/arelate/vangogh_local_data v0.2.91/go.mod h1:Kqq0ovd+Kx22em0PUn9t5z5aLKVC0NzfjQ4TU/LKdZc=
+github.com/arelate/vangogh_local_data v0.2.92 h1:xF+ehobO6toWmPeeU+hnlMPrCa9eujhGcFUeV1GnIWc=
+github.com/arelate/vangogh_local_data v0.2.92/go.mod h1:b4VYneIcErLTW59EaV9ahJdeRUhKsF/nySvszZhBoz4=
 github.com/boggydigital/clo v0.3.1 h1:hbODCWxflR7y4/O3+96uIuS/KNN5WXfItm5zoMpy36k=
 github.com/boggydigital/clo v0.3.1/go.mod h1:/3bLgOSu4HbChi6qbST8ZN6uDfKyrgVvVwEKNy/GxYw=
 github.com/boggydigital/clo v0.3.5 h1:cnvzlp6ewoV2qj8gPcLPClLCi3JzxBPE+T5p04PDO4c=
@@ -18,6 +20,8 @@ github.com/boggydigital/issa v0.1.9 h1:Na0WO1gdF6wKGnoNXADBINLlUultOHY9x2F3qVSjk
 github.com/boggydigital/issa v0.1.9/go.mod h1:TNYZ7A1mx+Ib7/o4nGQ/G9QLm3JPKV2xP8qBy+DA+ck=
 github.com/boggydigital/kvas v0.3.26 h1:ftl7RXNuaW+CMFfy2d4XHX7JJUWgnbqrl89HQ2kutIg=
 github.com/boggydigital/kvas v0.3.26/go.mod h1:I+wVKLxOqWhzw0X8nez/ec/GVXcQY5GUksFJBx+G7Yc=
+github.com/boggydigital/kvas v0.3.28 h1:BfWdJwzbqLMOHrqdCSSgB3nIHEX4xRkH/5fHyyeNrj4=
+github.com/boggydigital/kvas v0.3.28/go.mod h1:I+wVKLxOqWhzw0X8nez/ec/GVXcQY5GUksFJBx+G7Yc=
 github.com/boggydigital/match_node v0.1.9 h1:6kw2QvnvEjcVL4dDKa1mVqnNOq/jk9lGzkCWKpsE2jg=
 github.com/boggydigital/match_node v0.1.9/go.mod h1:LmKtZy8YgBYC14BStAS4g17MglrLqqUF6dehrBX7Zwc=
 github.com/boggydigital/middleware v0.1.5 h1:Aj+y3jRQ5yQiSUAaB3TuLST860czUKCMMtMcvdiwDkg=
@@ -100,6 +104,8 @@ github.com/boggydigital/stencil v0.1.87 h1:yLCWX/n1W9Nl7hkS97any75j85scQTcvKUR7F
 github.com/boggydigital/stencil v0.1.87/go.mod h1:yUJAeXbGWxnbWWqPnRgbctYXf3YPA5bfh48igehwpss=
 github.com/boggydigital/stencil v0.1.88 h1:lnHr0tyHrFjheIV82MijOMKC532sHhUWsWd9+7CRjKo=
 github.com/boggydigital/stencil v0.1.88/go.mod h1:yUJAeXbGWxnbWWqPnRgbctYXf3YPA5bfh48igehwpss=
+github.com/boggydigital/stencil v0.1.89 h1:avtt6Gz7hkGNi26xmoaLf1eUbs2nGpvC/4Hx/o4CDN0=
+github.com/boggydigital/stencil v0.1.89/go.mod h1:qmu+FvjF8kq0/eGGiVu4huCTS2D9i40rQhjXHcGNOtw=
 github.com/boggydigital/testo v0.1.7 h1:Sa5GIAwCyQNeGGXi8XgVpIpLQqWVeqBKQRcv0gkL098=
 github.com/boggydigital/wits v0.2.3 h1:Z0eB+QlIA18fJmblyV6ZJQ/swPYSFhOxfgMXOQz4/c8=
 github.com/boggydigital/wits v0.2.3/go.mod h1:aR/z0vfMLtg0b4hcts0qiSTZcA51O8A2N3U9laqd2Lc=

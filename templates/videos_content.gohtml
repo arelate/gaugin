@@ -6,7 +6,7 @@
         <details>
             <summary><h1>Watch on YouTube</h1></summary>
             {{range .RemoteVideos}}
-                {{$videoId := transitiveSrc .}}
+                {{$videoId := .}}
                 <a target="_top" class="youtube-video-link" href="{{youtubeLink $videoId}}">
                     <img src="/thumbnails?id={{$videoId}}"/>
                 </a>

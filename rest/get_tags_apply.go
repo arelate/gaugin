@@ -2,7 +2,6 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/paths"
-	"github.com/arelate/gaugin/stencil_app"
 	"github.com/boggydigital/nod"
 	"net/http"
 )
@@ -30,7 +29,7 @@ func GetTagsApply(w http.ResponseWriter, r *http.Request) {
 		//don't skip if tags are empty as this might be a signal to remove existing tags
 		tags := r.Form["value"]
 		for i, t := range tags {
-			tags[i] = stencil_app.TransitiveSrc(t)
+			tags[i] = t
 		}
 
 		if err := patchTag(http.DefaultClient, id, tags); err != nil {

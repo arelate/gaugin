@@ -28,8 +28,23 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	irap := vangogh_local_data.NewIRAProxy(idRedux)
+
+	mvRedux, _, err := getRedux(
+		http.DefaultClient,
+		"",
+		true,
+		vangogh_local_data.MissingVideoUrlProperty)
+
+	if err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
+	}
+
+	irap.Merge(mvRedux)
+
 	sb := &strings.Builder{}
-	vvm := view_models.NewVideos(idRedux[id])
+	vvm := view_models.NewVideos(id, irap)
 
 	if err := tmpl.ExecuteTemplate(sb, "videos-content", vvm); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)

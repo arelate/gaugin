@@ -12,8 +12,6 @@ import (
 
 func FuncMap() template.FuncMap {
 	return template.FuncMap{
-		"transitiveDst":     stencil_app.TransitiveDst,
-		"transitiveSrc":     stencil_app.TransitiveSrc,
 		"formatBytes":       formatBytes,
 		"unixDateFormat":    unixDateFormat,
 		"toLower":           toLower,
