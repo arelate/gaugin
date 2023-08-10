@@ -148,6 +148,12 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		sectionTitles[t] = caser.String(st)
 	}
 
+	// adding tag names for related games
+	if err := mergeTagNames(irap); err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
+	}
+
 	if err := app.RenderGroup(
 		stencil_app.NavUpdates,
 		sections,

@@ -115,16 +115,9 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		st.Set("getRedux", time.Since(start).Milliseconds())
 
 		// adding tag names for related games
-		if irap.Has(vangogh_local_data.TagIdProperty) {
-			tagNamesRedux, cached, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
-			if err != nil {
-				http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-				return
-			}
-			if cached {
-				st.SetFlag("getRedux-tagNames-cached")
-			}
-			irap.Merge(tagNamesRedux)
+		if err := mergeTagNames(irap); err != nil {
+			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+			return
 		}
 	}
 
@@ -134,4 +127,15 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
+}
+
+func mergeTagNames(irap *vangogh_local_data.IRAProxy) error {
+	if irap.Has(vangogh_local_data.TagIdProperty) {
+		tagNamesRedux, _, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
+		if err != nil {
+			return err
+		}
+		irap.Merge(tagNamesRedux)
+	}
+	return nil
 }
