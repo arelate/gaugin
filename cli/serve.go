@@ -10,7 +10,12 @@ import (
 	"strconv"
 )
 
-const defaultVangoghStateDir = "/var/lib/vangogh"
+const (
+	defaultVangoghRootDir     = "/var/lib/vangogh"
+	defaultVangoghImagesDir   = defaultVangoghRootDir + "/images"
+	defaultVangoghItemsDir    = defaultVangoghRootDir + "/items"
+	defaultVangoghMetadataDir = defaultVangoghRootDir + "/metadata"
+)
 
 func ServeHandler(u *url.URL) error {
 	portStr := vangogh_local_data.ValueFromUrl(u, "port")
@@ -39,12 +44,29 @@ func ServeHandler(u *url.URL) error {
 
 	rest.SetVangoghConnection(vangoghScheme, vangoghAddress, vangoghPort)
 
-	vangoghStateDir := vangogh_local_data.ValueFromUrl(u, "vangogh-state-dir")
-	if vangoghStateDir == "" {
-		vangoghStateDir = defaultVangoghStateDir
+	vangoghRootDir := vangogh_local_data.ValueFromUrl(u, "vangogh-root-dir")
+	if vangoghRootDir == "" {
+		vangoghRootDir = defaultVangoghRootDir
 	}
+	vangogh_local_data.ChRoot(vangoghRootDir)
 
-	vangogh_local_data.ChRoot(vangoghStateDir)
+	vangoghImagesDir := vangogh_local_data.ValueFromUrl(u, "vangogh-images-dir")
+	if vangoghImagesDir == "" {
+		vangoghImagesDir = defaultVangoghImagesDir
+	}
+	vangogh_local_data.SetImagesDir(vangoghImagesDir)
+
+	vangoghItemsDir := vangogh_local_data.ValueFromUrl(u, "vangogh-items-dir")
+	if vangoghItemsDir == "" {
+		vangoghItemsDir = defaultVangoghItemsDir
+	}
+	vangogh_local_data.SetItemsDir(vangoghItemsDir)
+
+	vangoghMetadataDir := vangogh_local_data.ValueFromUrl(u, "vangogh-metadata-dir")
+	if vangoghMetadataDir == "" {
+		vangoghMetadataDir = defaultVangoghMetadataDir
+	}
+	vangogh_local_data.SetMetadataDir(vangoghMetadataDir)
 
 	osStrings := vangogh_local_data.ValuesFromUrl(u, "operating-system")
 	os := vangogh_local_data.ParseManyOperatingSystems(osStrings)
