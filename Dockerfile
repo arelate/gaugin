@@ -16,8 +16,6 @@ VOLUME /var/lib/vangogh
 VOLUME /var/lib/vangogh/images
 #items
 VOLUME /var/lib/vangogh/items
-#metadata
-VOLUME /var/lib/vangogh/metadata
 
 ENTRYPOINT ["/usr/bin/gg"]
 CMD ["serve","-port", "1848", "-stderr"]

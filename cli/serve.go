@@ -62,12 +62,6 @@ func ServeHandler(u *url.URL) error {
 	}
 	vangogh_local_data.SetItemsDir(vangoghItemsDir)
 
-	vangoghMetadataDir := vangogh_local_data.ValueFromUrl(u, "vangogh-metadata-dir")
-	if vangoghMetadataDir == "" {
-		vangoghMetadataDir = defaultVangoghMetadataDir
-	}
-	vangogh_local_data.SetMetadataDir(vangoghMetadataDir)
-
 	osStrings := vangogh_local_data.ValuesFromUrl(u, "operating-system")
 	os := vangogh_local_data.ParseManyOperatingSystems(osStrings)
 	lc := vangogh_local_data.ValuesFromUrl(u, "language-code")
