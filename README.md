@@ -34,8 +34,16 @@ services:
       # use this password to restrict downloads
       - GG_SERVE_SHARED-PASSWORD=sharedpassword
     volumes:
-      # vangogh artifacts: checksums, images, metadata, recycle_bin, videos
+      # vangogh artifacts: checksums, recycle_bin, videos
       - /docker/vangogh:/var/lib/vangogh:ro
+      # images
+      - /docker/vangogh/images:/var/lib/vangogh/images:ro
+      # items
+      - /docker/vangogh/items:/var/lib/vangogh/items:ro
+      # sharing timezone from the host
+      - /etc/localtime:/etc/localtime:ro
+      # certificates
+      - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro
     ports:
       # https://en.wikipedia.org/wiki/Paul_Gauguin
       - "1848:1848"
