@@ -27,56 +27,52 @@
         {{if .Installers}}
             <details class="downloads-type installers" open>
                 <summary>Installers</summary>
-                <div class="downloads-list resp-grid">
-                    {{template "download" .Installers}}
-                </div>
+                {{template "download" .Installers}}
             </details>
         {{end}}
         {{if .DLCs}}
             <details class="downloads-type downloadable-content">
                 <summary>DLCs</summary>
-                <div class="downloads-list">
-                    {{template "download" .DLCs}}
-                </div>
+                {{template "download" .DLCs}}
             </details>
         {{end}}
         {{if .Extras}}
             <details class="downloads-type extras">
                 <summary>Extras</summary>
-                <div class="downloads-list">
-                    {{template "download" .Extras}}
-                </div>
+                {{template "download" .Extras}}
             </details>
         {{end}}
     </details>
 {{end}}
 {{define "download"}}
-    {{range .}}
-        <a target="_top" class="download {{.Type}} {{.OS.String}}" href="/files?manual-url={{.ManualUrl}}"
-           aria-label="download {{downloadTitle .}}">
-            <div class="title">{{downloadTitle .}}</div>
-            <ul class="additional-details">
-                {{if .Version}}
-                    <li>Version: <span class="highlight">{{.Version}}</span></li>
-                {{end}}
-            </ul>
-            <ul>
-                <li class="type label {{.Type}}">{{downloadTypeTitle .Type}}</li>
-                {{$os := toLower .OS.String}}
-                {{if ne $os "any-operating-system"}}
-                    <svg class="icon {{$os}}" aria-hidden="true" title="{{$os}}">
-                        <use xlink:href="#{{$os}}"></use>
-                    </svg>
-                {{end}}
-                {{if .LanguageCode}}
-                    <li class="language">
-                        <span class="highlight" title="{{.LanguageCode}}">{{languageCodeFlag .LanguageCode}}</span>
-                    </li>
-                {{end}}
-                {{if .EstimatedBytes}}
-                    <li class="size">{{formatBytes .EstimatedBytes}}</li>
-                {{end}}
-            </ul>
-        </a>
-    {{end}}
+    <div class="downloads-list resp-grid">
+        {{range .}}
+            <a target="_top" class="download {{.Type}} {{.OS.String}}" href="/files?manual-url={{.ManualUrl}}"
+               aria-label="download {{downloadTitle .}}">
+                <div class="title">{{downloadTitle .}}</div>
+                <ul class="additional-details">
+                    {{if .Version}}
+                        <li>Version: <span class="highlight">{{.Version}}</span></li>
+                    {{end}}
+                </ul>
+                <ul>
+                    <li class="type label {{.Type}}">{{downloadTypeTitle .Type}}</li>
+                    {{$os := toLower .OS.String}}
+                    {{if ne $os "any-operating-system"}}
+                        <svg class="icon {{$os}}" aria-hidden="true" title="{{$os}}">
+                            <use xlink:href="#{{$os}}"></use>
+                        </svg>
+                    {{end}}
+                    {{if .LanguageCode}}
+                        <li class="language">
+                            <span class="highlight" title="{{.LanguageCode}}">{{languageCodeFlag .LanguageCode}}</span>
+                        </li>
+                    {{end}}
+                    {{if .EstimatedBytes}}
+                        <li class="size">{{formatBytes .EstimatedBytes}}</li>
+                    {{end}}
+                </ul>
+            </a>
+        {{end}}
+    </div>
 {{end}}
