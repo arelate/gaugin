@@ -15,11 +15,14 @@ func GetFiles(w http.ResponseWriter, r *http.Request) {
 	manualUrl := q.Get("manual-url")
 
 	if manualUrl != "" {
-		rxa, err := vangogh_local_data.ConnectReduxAssets(vangogh_local_data.LocalManualUrlProperty)
+
+		idRedux, _, err := getRedux(http.DefaultClient, manualUrl, false, vangogh_local_data.LocalManualUrlProperty)
 		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
 		}
+
+		rxa := vangogh_local_data.NewIRAProxy(idRedux)
 
 		relLocalFilePath, ok := rxa.GetFirstVal(vangogh_local_data.LocalManualUrlProperty, manualUrl)
 		if !ok {
