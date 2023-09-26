@@ -34,12 +34,12 @@ services:
       # use this password to restrict downloads
       - GG_SERVE_SHARED-PASSWORD=sharedpassword
     volumes:
-      # vangogh artifacts: checksums, recycle_bin, videos
-      - /docker/vangogh:/var/lib/vangogh:ro
       # images
       - /docker/vangogh/images:/var/lib/vangogh/images:ro
       # items
       - /docker/vangogh/items:/var/lib/vangogh/items:ro
+      # videos
+      - /docker/vangogh/videos:/var/lib/vangogh/videos:ro
       # sharing timezone from the host
       - /etc/localtime:/etc/localtime:ro
       # certificates

@@ -7,5 +7,5 @@ import (
 )
 
 func GetRobotsTxt(w http.ResponseWriter, r *http.Request) {
-	stencil_rest.GetRobotsTxt(vangogh_local_data.Pwd(), w, r)
+	stencil_rest.GetRobotsTxt(vangogh_local_data.AbsInputFilesDir(), w, r)
 }

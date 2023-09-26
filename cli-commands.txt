@@ -12,7 +12,7 @@ serve
     vangogh-scheme$*=http^,https
     vangogh-address$*
     vangogh-port$*
-    vangogh-root-dir$
+    vangogh-videos-dir$
     vangogh-images-dir$
     vangogh-items-dir$
     operating-system$
