@@ -12,9 +12,9 @@ serve
     vangogh-scheme$*=http^,https
     vangogh-address$*
     vangogh-port$*
-    vangogh-videos-dir$
     vangogh-images-dir$
     vangogh-items-dir$
+    vangogh-videos-dir$
     operating-system$
     language-code$
     admin-username$

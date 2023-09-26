@@ -11,10 +11,10 @@ import (
 )
 
 const (
-	defaultVangoghRootDir     = "/var/lib/vangogh"
-	defaultVangoghImagesDir   = defaultVangoghRootDir + "/images"
-	defaultVangoghItemsDir    = defaultVangoghRootDir + "/items"
-	defaultVangoghMetadataDir = defaultVangoghRootDir + "/metadata"
+	defaultRootDir          = "/var/lib/vangogh"
+	defaultVangoghVideosDir = defaultRootDir + "/videos"
+	defaultVangoghImagesDir = defaultRootDir + "/images"
+	defaultVangoghItemsDir  = defaultRootDir + "/items"
 )
 
 func ServeHandler(u *url.URL) error {
@@ -44,12 +44,6 @@ func ServeHandler(u *url.URL) error {
 
 	rest.SetVangoghConnection(vangoghScheme, vangoghAddress, vangoghPort)
 
-	//vangoghRootDir := vangogh_local_data.ValueFromUrl(u, "vangogh-root-dir")
-	//if vangoghRootDir == "" {
-	//	vangoghRootDir = defaultVangoghRootDir
-	//}
-	//vangogh_local_data.ChRoot(vangoghRootDir)
-
 	vangoghImagesDir := vangogh_local_data.ValueFromUrl(u, "vangogh-images-dir")
 	if vangoghImagesDir == "" {
 		vangoghImagesDir = defaultVangoghImagesDir
@@ -61,6 +55,12 @@ func ServeHandler(u *url.URL) error {
 		vangoghItemsDir = defaultVangoghItemsDir
 	}
 	vangogh_local_data.SetItemsDir(vangoghItemsDir)
+
+	vangoghVideosDir := vangogh_local_data.ValueFromUrl(u, "vangogh-videos-dir")
+	if vangoghVideosDir == "" {
+		vangoghVideosDir = defaultVangoghVideosDir
+	}
+	vangogh_local_data.SetVideosDir(vangoghVideosDir)
 
 	osStrings := vangogh_local_data.ValuesFromUrl(u, "operating-system")
 	os := vangogh_local_data.ParseManyOperatingSystems(osStrings)
