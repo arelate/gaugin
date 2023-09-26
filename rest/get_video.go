@@ -19,11 +19,13 @@ func GetVideo(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, nod.Error(err).Error(), http.StatusBadRequest)
 		return
 	}
-	if localVideoPath := vangogh_local_data.AbsLocalVideoPath(videoId); localVideoPath != "" {
+	if localVideoPath, err := vangogh_local_data.AbsLocalVideoPath(videoId); err == nil && localVideoPath != "" {
 		w.Header().Set("Cache-Control", "max-age=31536000")
 		http.ServeFile(w, r, localVideoPath)
 	} else {
-		_ = nod.Error(fmt.Errorf("no local video for id %s", videoId))
-		http.NotFound(w, r)
+		if err == nil {
+			err = fmt.Errorf("no local video for id %s", videoId)
+		}
+		http.Error(w, nod.Error(err).Error(), http.StatusNotFound)
 	}
 }

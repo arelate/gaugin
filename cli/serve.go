@@ -5,16 +5,10 @@ import (
 	"github.com/arelate/gaugin/rest"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
+	"maps"
 	"net/http"
 	"net/url"
 	"strconv"
-)
-
-const (
-	defaultRootDir          = "/var/lib/vangogh"
-	defaultVangoghVideosDir = defaultRootDir + "/videos"
-	defaultVangoghImagesDir = defaultRootDir + "/images"
-	defaultVangoghItemsDir  = defaultRootDir + "/items"
 )
 
 func ServeHandler(u *url.URL) error {
@@ -44,23 +38,21 @@ func ServeHandler(u *url.URL) error {
 
 	rest.SetVangoghConnection(vangoghScheme, vangoghAddress, vangoghPort)
 
-	vangoghImagesDir := vangogh_local_data.ValueFromUrl(u, "vangogh-images-dir")
-	if vangoghImagesDir == "" {
-		vangoghImagesDir = defaultVangoghImagesDir
-	}
-	vangogh_local_data.SetImagesDir(vangoghImagesDir)
+	vangoghDirs := maps.Clone(vangogh_local_data.DefaultDirs)
 
-	vangoghItemsDir := vangogh_local_data.ValueFromUrl(u, "vangogh-items-dir")
-	if vangoghItemsDir == "" {
-		vangoghItemsDir = defaultVangoghItemsDir
+	if vangoghImagesDir := vangogh_local_data.ValueFromUrl(u, "vangogh-images-dir"); vangoghImagesDir != "" {
+		vangoghDirs["images"] = vangoghImagesDir
 	}
-	vangogh_local_data.SetItemsDir(vangoghItemsDir)
+	if vangoghItemsDir := vangogh_local_data.ValueFromUrl(u, "vangogh-items-dir"); vangoghItemsDir != "" {
+		vangoghDirs["items"] = vangoghItemsDir
+	}
+	if vangoghVideosDir := vangogh_local_data.ValueFromUrl(u, "vangogh-videos-dir"); vangoghVideosDir != "" {
+		vangoghDirs["videos"] = vangoghVideosDir
+	}
 
-	vangoghVideosDir := vangogh_local_data.ValueFromUrl(u, "vangogh-videos-dir")
-	if vangoghVideosDir == "" {
-		vangoghVideosDir = defaultVangoghVideosDir
+	if err := vangogh_local_data.SetAbsDirs(vangoghDirs); err != nil {
+		return err
 	}
-	vangogh_local_data.SetVideosDir(vangoghVideosDir)
 
 	osStrings := vangogh_local_data.ValuesFromUrl(u, "operating-system")
 	os := vangogh_local_data.ParseManyOperatingSystems(osStrings)

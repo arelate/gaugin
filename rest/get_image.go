@@ -18,11 +18,13 @@ func GetImage(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, nod.Error(err).Error(), http.StatusBadRequest)
 		return
 	}
-	if localImagePath := vangogh_local_data.AbsLocalImagePath(imageId); localImagePath != "" {
+	if localImagePath, err := vangogh_local_data.AbsLocalImagePath(imageId); err == nil && localImagePath != "" {
 		w.Header().Set("Cache-Control", "max-age=31536000")
 		http.ServeFile(w, r, localImagePath)
 	} else {
-		_ = nod.Error(fmt.Errorf("no local image for id %s", imageId))
-		http.NotFound(w, r)
+		if err == nil {
+			err = fmt.Errorf("no local image for id %s", imageId)
+		}
+		http.Error(w, nod.Error(err).Error(), http.StatusNotFound)
 	}
 }

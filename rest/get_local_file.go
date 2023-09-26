@@ -18,13 +18,15 @@ func GetLocalFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if absLocalFilePath := vangogh_local_data.AbsDownloadDirFromRel(localPath); absLocalFilePath != "" {
+	if absLocalFilePath, err := vangogh_local_data.AbsDownloadDirFromRel(localPath); err == nil && absLocalFilePath != "" {
 		_, filename := filepath.Split(absLocalFilePath)
 		w.Header().Set("Cache-Control", "max-age=31536000")
 		w.Header().Set("Content-Disposition", "attachment; filename=\""+filename+"\"")
 		http.ServeFile(w, r, absLocalFilePath)
 	} else {
-		_ = nod.Error(fmt.Errorf("file %s not found", absLocalFilePath))
-		http.NotFound(w, r)
+		if err == nil {
+			err = fmt.Errorf("file %s not found", absLocalFilePath)
+		}
+		http.Error(w, nod.Error(err).Error(), http.StatusNotFound)
 	}
 }

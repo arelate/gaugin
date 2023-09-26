@@ -18,10 +18,12 @@ func GetItems(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if absLocalFilePath := vangogh_local_data.AbsItemPath(localPath); absLocalFilePath != "" {
+	if absLocalFilePath, err := vangogh_local_data.AbsItemPath(localPath); err == nil && absLocalFilePath != "" {
 		http.ServeFile(w, r, absLocalFilePath)
 	} else {
-		_ = nod.Error(fmt.Errorf("file %s not found", absLocalFilePath))
-		http.NotFound(w, r)
+		if err == nil {
+			err = fmt.Errorf("file %s not found", absLocalFilePath)
+		}
+		http.Error(w, nod.Error(err).Error(), http.StatusNotFound)
 	}
 }
