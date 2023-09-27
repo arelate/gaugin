@@ -4,14 +4,14 @@ go 1.21
 
 require (
 	github.com/arelate/southern_light v0.1.28
-	github.com/arelate/vangogh_local_data v0.3.2
+	github.com/arelate/vangogh_local_data v0.3.5
 	github.com/boggydigital/clo v0.3.6
-	github.com/boggydigital/kvas v0.3.28
+	github.com/boggydigital/kvas v0.3.29
 	github.com/boggydigital/middleware v0.1.10
 	github.com/boggydigital/nod v0.1.21
 	github.com/boggydigital/stencil v0.2.0
 	github.com/boggydigital/yt_urls v0.1.25
-	golang.org/x/exp v0.0.0-20230811145659-89c5cff77bcb
+	golang.org/x/exp v0.0.0-20230905200255-921286631fa9
 	golang.org/x/text v0.12.0
 )
 
