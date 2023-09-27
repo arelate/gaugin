@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	ScopeNewSearch = "New search"
+	ScopeNewSearch = "New"
 	ScopeOwned     = "Owned"
 	ScopeWishlist  = "Wishlist"
 	ScopeSale      = "Sale"
