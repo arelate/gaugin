@@ -4,17 +4,17 @@
 
         .label.owned {
             color: var(--background-color);
-            background-color: var(--system-gray-color);
+            background-color: var(--color-gray);
         }
 
         .label.owned.validation-result-ok {
             color: var(--background-color);
-            background-color: var(--system-green-color);
+            background-color: var(--color-green);
         }
 
         .label.owned.validation-result-err {
             color: var(--background-color);
-            background-color: var(--system-yellow-color);
+            background-color: var(--color-yellow);
         }
 
         /* GAME, DLC, PACK */
@@ -30,14 +30,14 @@
         .label.pre-order,
         .label.in-development {
             color: var(--background-color);
-            background-color: var(--system-teal-color);
+            background-color: var(--color-teal);
         }
 
         /* Engine/Source-port labels */
         .label.is-using-dosbox,
         .label.is-using-scummvm {
             color: var(--background-color);
-            background-color: var(--system-blue-color);
+            background-color: var(--color-blue);
         }
 
         /* User tags */
@@ -45,35 +45,35 @@
         .label.tag,
         .label.local-tags {
             color: var(--background-color);
-            background-color: var(--system-indigo-color);
+            background-color: var(--color-indigo);
         }
 
         /* Sale/price lifecycle labels */
         .label.wishlisted {
             color: var(--background-color);
-            background-color: var(--system-orange-color);
+            background-color: var(--color-orange);
         }
 
         .label.is-free,
         .label.discount-percentage {
             color: var(--background-color);
-            background-color: var(--system-red-color);
+            background-color: var(--color-red);
         }
 
         /* Download types */
         .label.installer {
             color: var(--highlight-color);
-            background-color: var(--system-purple-color);
+            background-color: var(--color-purple);
         }
 
         .label.downloadable-content {
             color: var(--highlight-color);
-            background-color: var(--system-green-color);
+            background-color: var(--color-green);
         }
 
         .label.extra {
             color: var(--highlight-color);
-            background-color: var(--system-orange-color);
+            background-color: var(--color-orange);
         }
 
         /* Items images */
@@ -96,15 +96,15 @@
             & .item-details {
                 & .text-properties {
                     & .property-value.positive li {
-                        color: var(--system-green-color);
+                        color: var(--color-green);
                     }
 
                     & .property-value.negative li {
-                        color: var(--system-pink-color);
+                        color: var(--color-red);
                     }
 
                     & .property-value.neutral li {
-                        color: var(--system-gray-color);
+                        color: var(--color-gray);
                     }
 
                     & .discount-percentage {
@@ -113,7 +113,7 @@
                         & li {
                             padding: var(--x-small) var(--small);
                             border-radius: var(--border-radius);
-                            background-color: var(--system-red-color);
+                            background-color: var(--color-red);
                             color: var(--background-color);
                             font-weight: bold;
                         }
@@ -147,12 +147,12 @@
             }
 
             & .validation.results {
-                background-color: var(--system-yellow-color);
+                background-color: var(--color-yellow);
                 color: var(--highlight-color);
             }
 
             & .validation.success {
-                background-color: var(--system-green-color);
+                background-color: var(--color-green);
                 color: var(--highlight-color);
             }
 
@@ -393,51 +393,62 @@
     </style>
 {{end}}
 {{define "app-css-base"}}
-    {{/* This stylesheet is not used - added here for code completion in the IDE  */}}
-    <style id="app-css-base">
+    <style id="css-base-themes">
+
+        {{/* This stylesheet is not used - added here for code completion in the IDE  */}}
         @media screen and (prefers-color-scheme: light) {
             :root {
-                --system-red-color: rgb(255, 49, 38);
-                --system-orange-color: rgb(245, 139, 0);
-                --system-yellow-color: rgb(245, 194, 0);
-                --system-green-color: rgb(30, 195, 55);
-                --system-mint-color: rgb(0, 189, 180);
-                --system-teal-color: rgb(46, 167, 189);
-                --system-cyan-color: rgb(65, 175, 220);
-                --system-blue-color: rgb(0, 112, 245);
-                --system-indigo-color: rgb(84, 82, 204);
-                --system-purple-color: rgb(159, 75, 201);
-                --system-pink-color: rgb(245, 35, 75);
-                --system-brown-color: rgb(152, 122, 84);
-                --system-gray-color: rgb(132, 132, 137);
-                --background-color: rgb(246, 246, 246);
-                --highlight-color: rgb(255, 255, 255);
-                --color: rgb(77, 77, 77);
-                --subtle-color: rgb(135, 135, 135);
-                --shadow-color: rgb(226, 226, 226);
+                --color-red: rgb(255, 59, 48);
+                --color-orange: rgb(245, 149, 0);
+                --color-yellow: rgb(245, 204, 0);
+                --color-green: rgb(52, 199, 89);
+                --color-mint: rgb(0, 199, 190);
+                --color-teal: rgb(48, 176, 199);
+                --color-cyan: rgb(50, 173, 230);
+                --color-blue: rgb(0, 122, 255);
+                --color-indigo: rgb(88, 86, 214);
+                --color-purple: rgb(175, 82, 222);
+                --color-pink: rgb(255, 45, 85);
+                --color-brown: rgb(162, 132, 94);
+
+                --color-gray0: rgb(71, 71, 73);
+                --color-gray: rgb(142, 142, 147);
+                --color-gray2: rgb(174, 174, 174);
+                --color-gray3: rgb(199, 199, 204);
+                --color-gray4: rgb(209, 209, 214);
+                --color-gray5: rgb(229, 229, 234);
+                --color-gray6: rgb(242, 242, 247);
+
+                --background-color: var(--color-gray5);
+                --highlight-color: var(--color-gray6);
+                --color: var(--color-gray0);
+                --subtle-color: var(--color-gray);
+                --shadow-color: var(--color-gray3);
             }
         }
 
         @media screen and (prefers-color-scheme: dark) {
             :root {
-                --system-red-color: rgb(255, 79, 68);
-                --system-orange-color: rgb(255, 169, 20);
-                --system-yellow-color: rgb(255, 224, 20);
-                --system-green-color: rgb(60, 225, 85);
-                --system-mint-color: rgb(108, 224, 219);
-                --system-teal-color: rgb(68, 212, 237);
-                --system-cyan-color: rgb(90, 205, 250);
-                --system-blue-color: rgb(20, 142, 255);
-                --system-indigo-color: rgb(99, 97, 242);
-                --system-purple-color: rgb(204, 101, 255);
-                --system-pink-color: rgb(255, 65, 105);
-                --system-brown-color: rgb(182, 152, 114);
-                --system-gray-color: rgb(162, 162, 167);
-                --background-color: rgb(38, 38, 38);
-                --highlight-color: rgb(20, 20, 20);
-                --color: rgb(243, 243, 243);
-                --subtle-color: rgb(166, 166, 166);
-                --shadow-color: rgb(18, 18, 18);
+                --color-red: rgb(255, 69, 58);
+                --color-orange: rgb(255, 159, 10);
+                --color-yellow: rgb(255, 214, 10);
+                --color-green: rgb(48, 209, 88);
+                --color-mint: rgb(99, 230, 226);
+                --color-teal: rgb(64, 200, 224);
+                --color-cyan: rgb(100, 210, 255);
+                --color-blue: rgb(10, 132, 255);
+                --color-indigo: rgb(94, 92, 230);
+                --color-purple: rgb(191, 90, 242);
+                --color-pink: rgb(255, 55, 95);
+                --color-brown: rgb(172, 142, 104);
+
+                --color-gray0: rgb(213, 213, 220);
+                --color-gray: rgb(142, 142, 147);
+                --color-gray2: rgb(99, 99, 102);
+                --color-gray3: rgb(72, 72, 74);
+                --color-gray4: rgb(58, 58, 60);
+                --color-gray5: rgb(44, 44, 46);
+                --color-gray6: rgb(28, 28, 30);
             }
         }
 
@@ -455,17 +466,21 @@
             --border-radius: var(--x-small);
             --border-radius-large: var(--small);
 
-            --search-width: calc(20 * var(--normal));
             --product-details-width: calc(50 * var(--normal));
-            --product-card-width: calc(18.75 * var(--normal)); /* 300px */
-            --small-screen-width: calc(40 * var(--normal));
+            --product-card-width: calc(20 * var(--normal)); /* 320px */
 
             --fs-xxx-larger: 250%;
+            --fs-xx-larger: 200%;
             --fs-x-larger: 150%;
             --fs-larger: 125%;
             --fs-smaller: 90%;
             --fs-x-smaller: 80%;
             --fs-xx-smaller: 50%;
+            --fs-xxx-smaller: calc(0.75 * var(--fs-xx-smaller));
+
+            --resp-grid-column-width: calc(20 * var(--normal));
+            --resp-grid-columns-default: 3;
+            --resp-grid-columns: var(--resp-grid-columns-default);
 
             /* defaults */
             background-color: var(--background-color);
@@ -473,5 +488,186 @@
             font-family: -apple-system, sans-serif;
             position: relative;
         }
-    </style>
+
+        html {
+            min-height: 100%;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .resp-grid {
+            display: grid;
+            grid-template-columns: repeat(var(--resp-grid-columns), var(--resp-grid-column-width));
+            grid-column-gap: var(--normal);
+            grid-row-gap: var(--normal);
+            justify-content: center;
+        }
+
+        @container (max-width: 700px) {
+            .resp-grid {
+                grid-template-columns: 1fr;
+                justify-content: start;
+            }
+        }
+
+        @container (max-width: 1000px) {
+            .resp-grid {
+                --resp-grid-columns: 2;
+            }
+        }
+
+
+        @container (min-width: 1200px) {
+            .resp-grid {
+                --resp-grid-columns: 3;
+            }
+        }
+
+        @container (min-width: 1400px) {
+            .resp-grid {
+                --resp-grid-columns: 4;
+            }
+        }
+
+        @container (min-width: 1800px) {
+            .resp-grid {
+                --resp-grid-columns: 5;
+            }
+        }
+
+        @container (min-width: 2200px) {
+            .resp-grid {
+                --resp-grid-columns: 6;
+            }
+        }
+
+        @container (min-width: 2600px) {
+            .resp-grid {
+                --resp-grid-columns: 7;
+            }
+        }
+
+        @container (min-width: 3000px) {
+            .resp-grid {
+                --resp-grid-columns: 8;
+            }
+        }
+
+        @container (min-width: 3400px) {
+            .resp-grid {
+                --resp-grid-columns: 9;
+            }
+        }
+
+        @container (min-width: 3800px) {
+            .resp-grid {
+                --resp-grid-columns: 10;
+            }
+        }
+
+        details {
+            content-visibility: auto;
+
+            & summary {
+                display: flex;
+                align-items: center;
+                font-weight: bold;
+
+                &::after {
+                    content: "\2026";
+                    padding-inline-start: var(--x-small);
+                    color: var(--subtle-color);
+                    flex-shrink: 0;
+                }
+
+                &::-webkit-details-marker {
+                    display: none;
+                }
+            }
+        }
+
+        input[type=text],
+        input[type=search] {
+            appearance: none;
+            border: none;
+            border-radius: var(--border-radius);
+            background-color: var(--highlight-color);
+            padding: var(--small);
+            font-size: var(--fs-x-smaller);
+            font-weight: bold;
+
+            &::placeholder {
+                font-weight: normal;
+                color: var(--subtle-color);
+            }
+        }
+
+        button, input[type=submit] {
+            border: var(--xx-small) solid var(--subtle-color);
+            background-color: var(--color);
+            text-decoration: none;
+            color: var(--highlight-color);
+            font-weight: 600;
+            font-size: var(--fs-x-smaller);
+            width: 100%;
+            margin: var(--large) 0;
+            padding: var(--small);
+            border-radius: var(--border-radius-large);
+            cursor: pointer;
+        }
+
+        .shortcuts {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            row-gap: var(--small);
+            margin-block: var(--normal);
+
+            & ul {
+                font-size: var(--fs-x-smaller);
+                list-style: none;
+                margin-inline: var(--normal);
+                margin-block: 0;
+                display: flex;
+                column-gap: var(--small);
+                flex-direction: row;
+                flex-wrap: wrap;
+                background-color: var(--highlight-color);
+                padding: calc(3 * var(--xx-small));
+                border-radius: var(--border-radius-large);
+                justify-content: center;
+                box-shadow: var(--box-shadow);
+                max-width: var(--product-details-width);
+            }
+
+            & a {
+                display: block;
+                color: var(--color);
+                text-decoration: none;
+                padding: var(--small);
+                border-radius: var(--border-radius);
+            }
+
+            & .current a {
+                background-color: var(--color);
+                color: var(--background-color);
+                box-shadow: var(--box-shadow);
+            }
+        }
+
+        .footer-spacer {
+            margin-block-end: calc(3 * var(--large));
+        }
+
+        .placeholder {
+            image-rendering: pixelated;
+        }
+
+        .poster {
+            opacity: 0;
+            transition: opacity 2s ease-in;
+        }
 {{end}}
