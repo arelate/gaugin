@@ -5,6 +5,7 @@ import "github.com/arelate/vangogh_local_data"
 var SearchProperties = []string{
 	//vangogh_local_data.TextProperty,
 	vangogh_local_data.TitleProperty,
+	vangogh_local_data.DescriptionOverviewProperty,
 	vangogh_local_data.LocalTagsProperty,
 	vangogh_local_data.TagIdProperty,
 	vangogh_local_data.OperatingSystemsProperty,
