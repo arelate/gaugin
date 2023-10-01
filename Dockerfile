@@ -10,12 +10,15 @@ COPY --from=build /go/src/app/gg /usr/bin/gg
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 EXPOSE 1848
-#vangogh application root: checksums, recycle_bin, videos
-VOLUME /var/lib/vangogh
+
 #images
 VOLUME /var/lib/vangogh/images
 #items
 VOLUME /var/lib/vangogh/items
+#videos
+VOLUME /var/lib/vangogh/videos
+#downloads
+VOLUME /var/lib/vangogh/downloads
 
 ENTRYPOINT ["/usr/bin/gg"]
 CMD ["serve","-port", "1848", "-stderr"]

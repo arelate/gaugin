@@ -40,6 +40,8 @@ services:
       - /docker/vangogh/items:/var/lib/vangogh/items:ro
       # videos
       - /docker/vangogh/videos:/var/lib/vangogh/videos:ro
+     # downloads
+      - /docker/vangogh/downloads:/var/lib/vangogh/downloads:ro
       # sharing timezone from the host
       - /etc/localtime:/etc/localtime:ro
       # certificates
