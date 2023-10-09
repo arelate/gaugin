@@ -6,6 +6,7 @@ name: Docker
 # documentation.
 
 on:
+  push:
     tags: [ 'v*.*.*' ]
 
 env:
