@@ -6,7 +6,7 @@ import (
 	"github.com/arelate/gaugin/cli"
 	"github.com/arelate/gaugin/rest"
 	"github.com/boggydigital/clo"
-	"log"
+	"github.com/boggydigital/nod"
 	"os"
 	"sync"
 )
@@ -25,9 +25,15 @@ var (
 
 func main() {
 
+	nod.EnableStdOutPresenter()
+
+	gs := nod.Begin("gaugin is serving vangogh data")
+	defer gs.End()
+
 	once.Do(func() {
 		if err := rest.Init(templates, stencilAppStyles); err != nil {
-			log.Fatalln(err)
+			_ = gs.EndWithError(err)
+			os.Exit(1)
 		}
 	})
 
@@ -36,7 +42,8 @@ func main() {
 		bytes.NewBuffer(cliHelp),
 		nil)
 	if err != nil {
-		log.Fatalln(err)
+		_ = gs.EndWithError(err)
+		os.Exit(1)
 	}
 
 	clo.HandleFuncs(map[string]clo.Handler{
@@ -45,10 +52,12 @@ func main() {
 	})
 
 	if err := defs.AssertCommandsHaveHandlers(); err != nil {
-		log.Fatalln(err)
+		_ = gs.EndWithError(err)
+		os.Exit(1)
 	}
 
 	if err := defs.Serve(os.Args[1:]); err != nil {
-		log.Fatalln(err)
+		_ = gs.EndWithError(err)
+		os.Exit(1)
 	}
 }
