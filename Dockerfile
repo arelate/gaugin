@@ -3,7 +3,11 @@ RUN apk add --no-cache --update git
 ADD . /go/src/app
 WORKDIR /go/src/app
 RUN go get ./...
-RUN CGO_ENABLED=0 go build -a -installsuffix cgo -tags timetzdata -o gg main.go -ldflags="-s -w -X 'github.com/arelate/gaugin/cli.GitTag=`git describe --tags --abbrev=0`'"
+RUN go build \
+    -a -tags timetzdata \
+    -o gg \
+    -ldflags="-s -w -X 'github.com/arelate/gaugin/cli.GitTag=`git describe --tags --abbrev=0`'" \
+    main.go
 
 FROM scratch
 COPY --from=build /go/src/app/gg /usr/bin/gg
