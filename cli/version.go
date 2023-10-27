@@ -10,14 +10,10 @@ var (
 )
 
 func VersionHandler(u *url.URL) error {
-	Version()
-	return nil
-}
-
-func Version() {
 	if GitTag == "" {
-		fmt.Println("version unknown")
+		fmt.Println("unknown version")
 	} else {
 		fmt.Println(GitTag)
 	}
+	return nil
 }
