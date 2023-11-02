@@ -38,9 +38,9 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	// GET /product?slug -> /product?id
 
 	if r.URL.Query().Has(vangogh_local_data.SlugProperty) {
-		if idSet, err := vangogh_local_data.IdSetFromUrl(r.URL); err == nil {
-			if len(idSet) > 0 {
-				for id := range idSet {
+		if ids, _, err := getSearch(http.DefaultClient, r.URL.Query()); err == nil {
+			if len(ids) > 0 {
+				for _, id := range ids {
 					http.Redirect(w, r, paths.ProductId(id), http.StatusPermanentRedirect)
 					return
 				}
