@@ -6,13 +6,13 @@ import (
 )
 
 const (
-	appTitle       = "gaugin"
-	appAccentColor = "blueviolet"
+	appTitle        = "gaugin"
+	appFavIconEmoji = "\U0001FAB8"
 )
 
 func Init() (*stencil.AppConfiguration, error) {
 
-	app := stencil.NewAppConfig(appTitle, appAccentColor)
+	app := stencil.NewAppConfig(appTitle, appFavIconEmoji)
 
 	app.SetNavigation(NavItems, NavIcons, NavHrefs)
 	app.SetFooter(FooterLocation, FooterRepoUrl)
