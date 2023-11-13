@@ -9,7 +9,7 @@ import (
 
 func GetRobotsTxt(w http.ResponseWriter, r *http.Request) {
 	// BUG: this needs directories rewrite
-	aifp, err := vangogh_local_data.GetAbsDir(vangogh_local_data.InputFiles)
+	aifp, err := vangogh_local_data.GetAbsDir(vangogh_local_data.Input)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusNotFound)
 		return
