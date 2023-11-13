@@ -7,7 +7,7 @@ import (
 
 const (
 	appTitle        = "gaugin"
-	appFavIconEmoji = "\U0001FAB8"
+	appFavIconEmoji = "🪸"
 )
 
 func Init() (*stencil.AppConfiguration, error) {
