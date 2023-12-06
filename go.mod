@@ -6,12 +6,12 @@ require (
 	github.com/arelate/southern_light v0.1.28
 	github.com/arelate/vangogh_local_data v0.3.9
 	github.com/boggydigital/clo v1.0.4
-	github.com/boggydigital/kvas v0.3.31
+	github.com/boggydigital/kvas v0.3.34
 	github.com/boggydigital/middleware v0.1.11
 	github.com/boggydigital/nod v0.1.21
 	github.com/boggydigital/stencil v0.2.20
 	github.com/boggydigital/yt_urls v0.1.29
-	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa
+	golang.org/x/exp v0.0.0-20231127185646-65229373498e
 	golang.org/x/text v0.14.0
 )
 
