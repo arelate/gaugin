@@ -11,7 +11,7 @@ type videos struct {
 	RemoteVideos []string
 }
 
-func NewVideos(id string, rdx kvas.ReduxAssets) *videos {
+func NewVideos(id string, rdx kvas.ReadableRedux) *videos {
 	vvm := &videos{
 		Context:      "iframe",
 		LocalVideos:  make([]string, 0),

@@ -2,7 +2,6 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/stencil_app"
-	"github.com/boggydigital/kvas"
 	"github.com/boggydigital/middleware"
 	"net/http"
 	"strconv"
@@ -59,7 +58,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	var start time.Time
 	st := gaugin_middleware.NewServerTimings()
 
-	irap := kvas.NewEmptyIRAProxy(stencil_app.ProductsProperties)
+	irap := NewEmptyIRAProxy(stencil_app.ProductsProperties)
 
 	if len(query) > 0 {
 		start = time.Now()
@@ -108,7 +107,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		irap = kvas.NewIRAProxy(rdx)
+		irap = NewIRAProxy(rdx)
 
 		if cached {
 			st.SetFlag("getRedux-cached")
@@ -130,8 +129,8 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func mergeTagNames(irap *kvas.IRAProxy) error {
-	if irap.Has(vangogh_local_data.TagIdProperty) {
+func mergeTagNames(irap *IRAProxy) error {
+	if irap.HasAsset(vangogh_local_data.TagIdProperty) {
 		tagNamesRedux, _, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
 		if err != nil {
 			return err

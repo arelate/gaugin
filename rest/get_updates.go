@@ -2,7 +2,6 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/stencil_app"
-	"github.com/boggydigital/kvas"
 	"golang.org/x/exp/maps"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
@@ -110,14 +109,14 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 	}
 
 	updated := "recently"
-	syncDra := kvas.NewIRAProxy(syncRdx)
+	syncDra := NewIRAProxy(syncRdx)
 	if scs, ok := syncDra.GetFirstVal(vangogh_local_data.SyncEventsProperty, vangogh_local_data.SyncCompleteKey); ok {
 		if sci, err := strconv.ParseInt(scs, 10, 64); err == nil {
 			updated = time.Unix(sci, 0).Format(time.RFC1123)
 		}
 	}
 
-	irap := kvas.NewIRAProxy(dataRdx)
+	irap := NewIRAProxy(dataRdx)
 
 	gaugin_middleware.DefaultHeaders(st, w)
 

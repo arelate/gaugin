@@ -19,6 +19,7 @@ var SearchProperties = []string{
 	vangogh_local_data.HLTBGenresProperty,
 	vangogh_local_data.StoreTagsProperty,
 	vangogh_local_data.SteamTagsProperty,
+	vangogh_local_data.SteamDeckAppCompatibilityCategoryProperty,
 	vangogh_local_data.FeaturesProperty,
 	vangogh_local_data.LanguageCodeProperty,
 	vangogh_local_data.IncludesGamesProperty,

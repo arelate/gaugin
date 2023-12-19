@@ -3,15 +3,15 @@ module github.com/arelate/gaugin
 go 1.21
 
 require (
-	github.com/arelate/southern_light v0.1.28
-	github.com/arelate/vangogh_local_data v0.3.10
+	github.com/arelate/southern_light v0.1.31
+	github.com/arelate/vangogh_local_data v0.4.0
 	github.com/boggydigital/clo v1.0.4
-	github.com/boggydigital/kvas v0.3.35
+	github.com/boggydigital/kvas v0.4.1
 	github.com/boggydigital/middleware v0.1.11
 	github.com/boggydigital/nod v0.1.21
-	github.com/boggydigital/stencil v0.2.21
-	github.com/boggydigital/yt_urls v0.1.31
-	golang.org/x/exp v0.0.0-20231206192017-f3f8817b8deb
+	github.com/boggydigital/stencil v0.2.22
+	github.com/boggydigital/yt_urls v0.1.32
+	golang.org/x/exp v0.0.0-20231219180239-dc181d75b848
 	golang.org/x/text v0.14.0
 )
 

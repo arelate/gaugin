@@ -20,7 +20,6 @@ import (
 	"github.com/arelate/southern_light/vndb_integration"
 	"github.com/arelate/southern_light/wikipedia_integration"
 	"github.com/arelate/southern_light/winehq_integration"
-	"github.com/boggydigital/kvas"
 	"golang.org/x/exp/maps"
 	"net/http"
 	"net/url"
@@ -137,7 +136,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	insertAggregateLinks(idRedux[id], id)
 
-	irap := kvas.NewIRAProxy(idRedux)
+	irap := NewIRAProxy(idRedux)
 
 	gaugin_middleware.DefaultHeaders(st, w)
 

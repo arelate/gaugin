@@ -3,7 +3,6 @@ package rest
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/stencil_app"
-	"github.com/boggydigital/kvas"
 	"net/http"
 	"strings"
 
@@ -29,7 +28,7 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	irap := kvas.NewIRAProxy(idRedux)
+	irap := NewIRAProxy(idRedux)
 
 	mvRedux, _, err := getRedux(
 		http.DefaultClient,

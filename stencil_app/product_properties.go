@@ -23,6 +23,7 @@ var ProductProperties = []string{
 	vangogh_local_data.RatingProperty,
 	vangogh_local_data.SteamReviewScoreDescProperty,
 	vangogh_local_data.HLTBReviewScoreProperty,
+	vangogh_local_data.SteamDeckAppCompatibilityCategoryProperty,
 	vangogh_local_data.DevelopersProperty,
 	vangogh_local_data.PublishersProperty,
 	vangogh_local_data.EnginesProperty,

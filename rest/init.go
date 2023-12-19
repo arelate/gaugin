@@ -61,6 +61,7 @@ func Init(templatesFS fs.FS, stencilAppStyles fs.FS) error {
 	//Steam types
 	gob.Register(steam_integration.AppList{})
 	gob.Register(steam_integration.GetNewsForAppResponse{})
+	gob.Register(steam_integration.DeckAppCompatibilityReport{})
 	gob.Register(steam_integration.AppReviews{})
 
 	tmpl = template.Must(

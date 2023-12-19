@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/arelate/southern_light/steam_integration"
 	"github.com/arelate/vangogh_local_data"
-	"github.com/boggydigital/kvas"
 	"github.com/boggydigital/middleware"
 	"net/http"
 	"net/url"
@@ -17,9 +16,9 @@ var (
 	hasDataCache    = make(map[string]map[string]map[string]string)
 	dataCache       = make(map[string]map[string]interface{})
 	searchCache     = make(map[string][]string)
-	digestsCache    = make(kvas.IdReduxAssets)
-	hasReduxCache   = make(map[string]kvas.IdReduxAssets)
-	reduxCache      = make(map[string]kvas.IdReduxAssets)
+	digestsCache    = make(IdReduxAssets)
+	hasReduxCache   = make(map[string]IdReduxAssets)
+	reduxCache      = make(map[string]IdReduxAssets)
 	downloadsCache  = make(map[string]vangogh_local_data.DownloadsList)
 	mtx             = sync.Mutex{}
 )
@@ -75,7 +74,7 @@ func getDownloads(
 func getHasRedux(
 	client *http.Client,
 	id string,
-	properties ...string) (kvas.IdReduxAssets, bool, error) {
+	properties ...string) (IdReduxAssets, bool, error) {
 	return getThroughCache(client, hasReduxUrl(id, properties...), hasReduxCache)
 }
 
@@ -83,7 +82,7 @@ func getRedux(
 	client *http.Client,
 	id string,
 	all bool,
-	properties ...string) (kvas.IdReduxAssets, bool, error) {
+	properties ...string) (IdReduxAssets, bool, error) {
 	if all && len(properties) > 1 {
 		return nil, false, fmt.Errorf("cannot use all with more than 1 property")
 	}
@@ -114,7 +113,7 @@ func getData(
 
 func getTitles(
 	client *http.Client,
-	ids ...string) (kvas.IdReduxAssets, bool, error) {
+	ids ...string) (IdReduxAssets, bool, error) {
 	return getThroughCache(client, titlesUrl(ids...), reduxCache)
 }
 
