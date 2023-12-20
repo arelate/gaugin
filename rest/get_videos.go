@@ -3,6 +3,7 @@ package rest
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/stencil_app"
+	"github.com/boggydigital/kvas"
 	"net/http"
 	"strings"
 
@@ -28,8 +29,6 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	irap := NewIRAProxy(idRedux)
-
 	mvRedux, _, err := getRedux(
 		http.DefaultClient,
 		"",
@@ -41,10 +40,10 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	irap.Merge(mvRedux)
+	rdx := kvas.ReduxProxy(MergeIdPropertyValues(idRedux, mvRedux))
 
 	sb := &strings.Builder{}
-	vvm := view_models.NewVideos(id, irap)
+	vvm := view_models.NewVideos(id, rdx)
 
 	if err := tmpl.ExecuteTemplate(sb, "videos-content", vvm); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)

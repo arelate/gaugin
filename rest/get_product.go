@@ -20,6 +20,7 @@ import (
 	"github.com/arelate/southern_light/vndb_integration"
 	"github.com/arelate/southern_light/wikipedia_integration"
 	"github.com/arelate/southern_light/winehq_integration"
+	"github.com/boggydigital/kvas"
 	"golang.org/x/exp/maps"
 	"net/http"
 	"net/url"
@@ -91,17 +92,17 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	hasSections := make([]string, 0)
 
-	if rdx, ok := hasRedux[id]; ok {
-		if view_models.FlagFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty) {
+	if hRdx, ok := hasRedux[id]; ok {
+		if view_models.FlagFromRedux(hRdx, vangogh_local_data.DescriptionOverviewProperty) {
 			hasSections = append(hasSections, stencil_app.DescriptionSection)
 		}
-		if view_models.FlagFromRedux(rdx, vangogh_local_data.ScreenshotsProperty) {
+		if view_models.FlagFromRedux(hRdx, vangogh_local_data.ScreenshotsProperty) {
 			hasSections = append(hasSections, stencil_app.ScreenshotsSection)
 		}
-		if view_models.FlagFromRedux(rdx, vangogh_local_data.VideoIdProperty) {
+		if view_models.FlagFromRedux(hRdx, vangogh_local_data.VideoIdProperty) {
 			hasSections = append(hasSections, stencil_app.VideosSection)
 		}
-		if view_models.FlagFromRedux(rdx, vangogh_local_data.ChangelogProperty) {
+		if view_models.FlagFromRedux(hRdx, vangogh_local_data.ChangelogProperty) {
 			hasSections = append(hasSections, stencil_app.ChangelogSection)
 		}
 	}
@@ -136,17 +137,17 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	insertAggregateLinks(idRedux[id], id)
 
-	irap := NewIRAProxy(idRedux)
-
 	gaugin_middleware.DefaultHeaders(st, w)
 
 	// adding titles for related games
 	relatedIds := make(map[string]bool)
 	relatedProps := []string{vangogh_local_data.RequiresGamesProperty, vangogh_local_data.IsRequiredByGamesProperty, vangogh_local_data.IncludesGamesProperty, vangogh_local_data.IsIncludedByGamesProperty}
 	for _, p := range relatedProps {
-		if rids, ok := irap.GetAllValues(p, id); ok {
-			for _, rid := range rids {
-				relatedIds[rid] = true
+		if pvs, ok := idRedux[id]; ok {
+			if rids, ok := pvs[p]; ok {
+				for _, rid := range rids {
+					relatedIds[rid] = true
+				}
 			}
 		}
 	}
@@ -160,7 +161,8 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	if cached {
 		st.SetFlag("getTitles-cached")
 	}
-	irap.Merge(titleRedux)
+
+	idRedux = MergeIdPropertyValues(idRedux, titleRedux)
 
 	// adding tag names for related games
 	tagNamesRedux, cached, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
@@ -171,9 +173,10 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	if cached {
 		st.SetFlag("getRedux-tagNames-cached")
 	}
-	irap.Merge(tagNamesRedux)
 
-	if err := app.RenderItem(id, hasSections, irap, w); err != nil {
+	rdx := kvas.ReduxProxy(MergeIdPropertyValues(idRedux, tagNamesRedux))
+
+	if err := app.RenderItem(id, hasSections, rdx, w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}

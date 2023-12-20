@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/stencil_app"
+	"github.com/boggydigital/kvas"
 	"golang.org/x/exp/maps"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
@@ -109,14 +110,12 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 	}
 
 	updated := "recently"
-	syncDra := NewIRAProxy(syncRdx)
+	syncDra := kvas.ReduxProxy(syncRdx)
 	if scs, ok := syncDra.GetFirstVal(vangogh_local_data.SyncEventsProperty, vangogh_local_data.SyncCompleteKey); ok {
 		if sci, err := strconv.ParseInt(scs, 10, 64); err == nil {
 			updated = time.Unix(sci, 0).Format(time.RFC1123)
 		}
 	}
-
-	irap := NewIRAProxy(dataRdx)
 
 	gaugin_middleware.DefaultHeaders(st, w)
 
@@ -148,11 +147,13 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		sectionTitles[t] = caser.String(st)
 	}
 
-	// adding tag names for related games
-	if err := mergeTagNames(irap); err != nil {
+	tagNamesRedux, _, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
+	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
+
+	rdx := kvas.ReduxProxy(MergeIdPropertyValues(dataRdx, tagNamesRedux))
 
 	if err := app.RenderGroup(
 		stencil_app.NavUpdates,
@@ -162,7 +163,7 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		updateTotals,
 		updated,
 		r.URL,
-		irap,
+		rdx,
 		w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return

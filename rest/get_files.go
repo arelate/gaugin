@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/vangogh_local_data"
+	"github.com/boggydigital/kvas"
 	"github.com/boggydigital/nod"
 	"net/http"
 )
@@ -22,7 +23,7 @@ func GetFiles(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		rxa := NewIRAProxy(idRedux)
+		rxa := kvas.ReduxProxy(idRedux)
 
 		relLocalFilePath, ok := rxa.GetFirstVal(vangogh_local_data.LocalManualUrlProperty, manualUrl)
 		if !ok {

@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/stencil_app"
+	"github.com/boggydigital/kvas"
 	"github.com/boggydigital/middleware"
 	"net/http"
 	"strconv"
@@ -58,7 +59,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	var start time.Time
 	st := gaugin_middleware.NewServerTimings()
 
-	irap := NewEmptyIRAProxy(stencil_app.ProductsProperties)
+	idRedux := NewIdPropertyValues(stencil_app.ProductsProperties)
 
 	if len(query) > 0 {
 		start = time.Now()
@@ -101,13 +102,11 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		}
 
 		start = time.Now()
-		rdx, cached, err := getRedux(dc, strings.Join(slice, ","), false, stencil_app.ProductsProperties...)
+		irx, cached, err := getRedux(dc, strings.Join(slice, ","), false, stencil_app.ProductsProperties...)
 		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
 		}
-
-		irap = NewIRAProxy(rdx)
 
 		if cached {
 			st.SetFlag("getRedux-cached")
@@ -115,27 +114,24 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		st.Set("getRedux", time.Since(start).Milliseconds())
 
 		// adding tag names for related games
-		if err := mergeTagNames(irap); err != nil {
+
+		tagNamesRedux, _, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
+		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
 		}
+
+		if len(irx) > 0 {
+			idRedux = MergeIdPropertyValues(irx, tagNamesRedux)
+		}
 	}
+
+	rdx := kvas.ReduxProxy(idRedux)
 
 	gaugin_middleware.DefaultHeaders(st, w)
 
-	if err := app.RenderSearch(stencil_app.NavSearch, query, slice, from, to, len(ids), r.URL, irap, w); err != nil {
+	if err := app.RenderSearch(stencil_app.NavSearch, query, slice, from, to, len(ids), r.URL, rdx, w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
-}
-
-func mergeTagNames(irap *IRAProxy) error {
-	if irap.HasAsset(vangogh_local_data.TagIdProperty) {
-		tagNamesRedux, _, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
-		if err != nil {
-			return err
-		}
-		irap.Merge(tagNamesRedux)
-	}
-	return nil
 }
