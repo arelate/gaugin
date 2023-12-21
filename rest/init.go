@@ -58,6 +58,7 @@ func Init(templatesFS fs.FS, stencilAppStyles fs.FS) error {
 	gob.Register(gog_integration.OrderPage{})
 	gob.Register(gog_integration.Order{})
 	gob.Register(gog_integration.UserWishlist{})
+
 	//Steam types
 	gob.Register(steam_integration.AppList{})
 	gob.Register(steam_integration.GetNewsForAppResponse{})

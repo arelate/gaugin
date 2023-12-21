@@ -37,6 +37,7 @@ func HandleFuncs(p int) {
 		"/videos":        BrGzip(GetOnly(Log(http.HandlerFunc(GetVideos)))),
 		"/steam-news":    BrGzip(GetOnly(Log(http.HandlerFunc(GetSteamNews)))),
 		"/steam-reviews": BrGzip(GetOnly(Log(http.HandlerFunc(GetSteamReviews)))),
+		"/steam-deck":    BrGzip(GetOnly(Log(http.HandlerFunc(GetSteamDeck)))),
 		// unauth media endpoints
 		"/image":      GetOnly(Log(http.HandlerFunc(GetImage))),
 		"/video":      GetOnly(Log(http.HandlerFunc(GetVideo))),

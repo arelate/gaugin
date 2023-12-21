@@ -147,7 +147,21 @@ func getSteamReviews(client *http.Client, id string) (*steam_integration.AppRevi
 	}
 
 	return nil, cached, err
+}
 
+func getSteamDeckReport(client *http.Client, id string) (*steam_integration.DeckAppCompatibilityReport, bool, error) {
+	data, cached, err := getData(client, id, vangogh_local_data.SteamDeckCompatibilityReport)
+	if err != nil {
+		return nil, cached, err
+	}
+
+	if deckCompatibilityReport, ok := data[id]; ok {
+		if deckReport, sure := deckCompatibilityReport.(steam_integration.DeckAppCompatibilityReport); sure {
+			return &deckReport, cached, nil
+		}
+	}
+
+	return nil, cached, err
 }
 
 func wishlistMethod(client *http.Client, method string, id string) error {

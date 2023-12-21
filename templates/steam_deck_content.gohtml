@@ -1,0 +1,11 @@
+{{define "steam-deck-content"}}
+    <h1>{{.Category}}</h1>
+    {{if .BlogUrl}}
+        <a href="{{.BlogUrl}}">Read more in the Steam blog</a>
+    {{end}}
+    <ul>
+        {{range .Results}}
+            <li>{{.}}</li>
+        {{end}}
+    </ul>
+{{end}}

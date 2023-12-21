@@ -33,6 +33,35 @@ import (
 	"github.com/boggydigital/nod"
 )
 
+var (
+	propertiesSections = map[string]string{
+		vangogh_local_data.DescriptionOverviewProperty: stencil_app.DescriptionSection,
+		vangogh_local_data.ChangelogProperty:           stencil_app.ChangelogSection,
+		vangogh_local_data.ScreenshotsProperty:         stencil_app.ScreenshotsSection,
+		vangogh_local_data.VideoIdProperty:             stencil_app.VideosSection,
+	}
+	propertiesSectionsOrder = []string{
+		vangogh_local_data.DescriptionOverviewProperty,
+		vangogh_local_data.ChangelogProperty,
+		vangogh_local_data.ScreenshotsProperty,
+		vangogh_local_data.VideoIdProperty,
+	}
+
+	dataTypesSections = map[vangogh_local_data.ProductType]string{
+		vangogh_local_data.SteamAppNews:                 stencil_app.SteamNewsSection,
+		vangogh_local_data.SteamReviews:                 stencil_app.SteamReviewsSection,
+		vangogh_local_data.SteamDeckCompatibilityReport: stencil_app.SteamDeckSection,
+		vangogh_local_data.Details:                      stencil_app.DownloadsSection,
+	}
+
+	dataTypesSectionsOrder = []vangogh_local_data.ProductType{
+		vangogh_local_data.SteamAppNews,
+		vangogh_local_data.SteamReviews,
+		vangogh_local_data.SteamDeckCompatibilityReport,
+		vangogh_local_data.Details,
+	}
+)
+
 func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	// GET /product?slug -> /product?id
@@ -73,12 +102,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	// fill redux, data presence to allow showing only the section that will have data
 
 	start = time.Now()
-	hasRedux, cached, err := getHasRedux(http.DefaultClient,
-		id,
-		vangogh_local_data.DescriptionOverviewProperty,
-		vangogh_local_data.ChangelogProperty,
-		vangogh_local_data.ScreenshotsProperty,
-		vangogh_local_data.VideoIdProperty)
+	hasRedux, cached, err := getHasRedux(http.DefaultClient, id, maps.Keys(propertiesSections)...)
 
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
@@ -93,27 +117,17 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	hasSections := make([]string, 0)
 
 	if hRdx, ok := hasRedux[id]; ok {
-		if view_models.FlagFromRedux(hRdx, vangogh_local_data.DescriptionOverviewProperty) {
-			hasSections = append(hasSections, stencil_app.DescriptionSection)
-		}
-		if view_models.FlagFromRedux(hRdx, vangogh_local_data.ScreenshotsProperty) {
-			hasSections = append(hasSections, stencil_app.ScreenshotsSection)
-		}
-		if view_models.FlagFromRedux(hRdx, vangogh_local_data.VideoIdProperty) {
-			hasSections = append(hasSections, stencil_app.VideosSection)
-		}
-		if view_models.FlagFromRedux(hRdx, vangogh_local_data.ChangelogProperty) {
-			hasSections = append(hasSections, stencil_app.ChangelogSection)
+		for _, property := range propertiesSectionsOrder {
+			if section, ok := propertiesSections[property]; ok {
+				if view_models.FlagFromRedux(hRdx, property) {
+					hasSections = append(hasSections, section)
+				}
+			}
 		}
 	}
 
 	start = time.Now()
-	hasData, cached, err := getHasData(
-		http.DefaultClient,
-		id,
-		vangogh_local_data.SteamAppNews,
-		vangogh_local_data.SteamReviews,
-		vangogh_local_data.Details)
+	hasData, cached, err := getHasData(http.DefaultClient, id, maps.Keys(dataTypesSections)...)
 
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
@@ -125,14 +139,12 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	st.Set("getHasData", time.Since(start).Milliseconds())
 
-	if hasData[vangogh_local_data.SteamAppNews.String()][id] == vangogh_local_data.TrueValue {
-		hasSections = append(hasSections, stencil_app.SteamNewsSection)
-	}
-	if hasData[vangogh_local_data.SteamReviews.String()][id] == vangogh_local_data.TrueValue {
-		hasSections = append(hasSections, stencil_app.SteamReviewsSection)
-	}
-	if hasData[vangogh_local_data.Details.String()][id] == vangogh_local_data.TrueValue {
-		hasSections = append(hasSections, stencil_app.DownloadsSection)
+	for _, dt := range dataTypesSectionsOrder {
+		if section, ok := dataTypesSections[dt]; ok {
+			if hasData[dt.String()][id] == vangogh_local_data.TrueValue {
+				hasSections = append(hasSections, section)
+			}
+		}
 	}
 
 	insertAggregateLinks(idRedux[id], id)
@@ -141,7 +153,11 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	// adding titles for related games
 	relatedIds := make(map[string]bool)
-	relatedProps := []string{vangogh_local_data.RequiresGamesProperty, vangogh_local_data.IsRequiredByGamesProperty, vangogh_local_data.IncludesGamesProperty, vangogh_local_data.IsIncludedByGamesProperty}
+	relatedProps := []string{
+		vangogh_local_data.RequiresGamesProperty,
+		vangogh_local_data.IsRequiredByGamesProperty,
+		vangogh_local_data.IncludesGamesProperty,
+		vangogh_local_data.IsIncludedByGamesProperty}
 	for _, p := range relatedProps {
 		if pvs, ok := idRedux[id]; ok {
 			if rids, ok := pvs[p]; ok {
