@@ -11,6 +11,8 @@ var DigestProperties = []string{
 	vangogh_local_data.SeriesProperty,
 	vangogh_local_data.SteamTagsProperty,
 	vangogh_local_data.SteamDeckAppCompatibilityCategoryProperty,
+	vangogh_local_data.ProtonDBTierProperty,
+	vangogh_local_data.ProtonDBConfidenceProperty,
 	vangogh_local_data.OperatingSystemsProperty,
 	vangogh_local_data.GenresProperty,
 	vangogh_local_data.StoreTagsProperty,

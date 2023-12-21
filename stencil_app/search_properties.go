@@ -20,6 +20,8 @@ var SearchProperties = []string{
 	vangogh_local_data.StoreTagsProperty,
 	vangogh_local_data.SteamTagsProperty,
 	vangogh_local_data.SteamDeckAppCompatibilityCategoryProperty,
+	vangogh_local_data.ProtonDBTierProperty,
+	vangogh_local_data.ProtonDBConfidenceProperty,
 	vangogh_local_data.FeaturesProperty,
 	vangogh_local_data.LanguageCodeProperty,
 	vangogh_local_data.IncludesGamesProperty,
