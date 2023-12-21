@@ -266,10 +266,7 @@ func fmtTitle(id, property, link string, rdx kvas.ReadableRedux) string {
 			return ""
 		}
 		return fmtHLTBRating(link)
-	case vangogh_local_data.ProtonDBTierProperty:
-		fallthrough
-	case vangogh_local_data.ProtonDBConfidenceProperty:
-		return strings.ToTitle(link)
+
 	}
 
 	return title
