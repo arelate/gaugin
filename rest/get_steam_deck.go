@@ -22,7 +22,6 @@ func GetSteamDeck(w http.ResponseWriter, r *http.Request) {
 	}
 
 	sb := &strings.Builder{}
-
 	sdvm := view_models.NewSteamDeck(sdacr)
 
 	if err := tmpl.ExecuteTemplate(sb, "steam-deck-content", sdvm); err != nil {

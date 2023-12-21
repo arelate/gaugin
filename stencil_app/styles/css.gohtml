@@ -387,6 +387,27 @@
             margin-block-start: var(--normal);
             margin-block-end: var(--large);
         }
+
+        /* Steam Deck */
+        #steam-deck-content {
+
+            & h1 {
+                margin: 1rem;
+                font-size: var(--fs-larger);
+            }
+
+            & ul {
+                list-style: none;
+                padding: 0;
+                margin: 1rem;
+
+                & li {
+                    margin-block: 1rem;
+                }
+            }
+
+        }
+
     </style>
 {{end}}
 {{define "ref-css-base-themes"}}
