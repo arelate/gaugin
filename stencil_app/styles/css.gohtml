@@ -399,13 +399,33 @@
             & ul {
                 list-style: none;
                 padding: 0;
-                margin: 1rem;
+                margin-block: 1rem;
 
                 & li {
                     margin-block: 1rem;
                 }
             }
 
+            .message {
+
+                margin-block: 1rem;
+
+                & .category {
+                    font-weight: bold;
+                }
+
+                & .verified {
+                    color: var(--color-green)
+                }
+
+                & .playable {
+                    color: var(--color-yellow)
+                }
+
+                & .unsupported {
+                    color: var(--subtle-color)
+                }
+            }
         }
 
     </style>

@@ -50,7 +50,7 @@ var (
 	dataTypesSections = map[vangogh_local_data.ProductType]string{
 		vangogh_local_data.SteamAppNews:                 stencil_app.SteamNewsSection,
 		vangogh_local_data.SteamReviews:                 stencil_app.SteamReviewsSection,
-		vangogh_local_data.SteamDeckCompatibilityReport: stencil_app.SteamDeckSection,
+		vangogh_local_data.SteamDeckCompatibilityReport: stencil_app.SteamDeckCompatibilitySection,
 		vangogh_local_data.Details:                      stencil_app.DownloadsSection,
 	}
 
