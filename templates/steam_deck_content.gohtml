@@ -1,6 +1,8 @@
 {{define "steam-deck-content"}}
     <div class="message">{{.Message}}</div>
-    <hr />
+    {{if .Results}}
+        <hr/>
+    {{end}}
     {{if .BlogUrl}}
         <a href="{{.BlogUrl}}">Read more in the Steam blog</a>
     {{end}}
