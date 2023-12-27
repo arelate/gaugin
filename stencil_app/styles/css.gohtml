@@ -107,6 +107,22 @@
                         color: var(--subtle-color);
                     }
 
+                    & .property-value.Verified li {
+                        color: var(--color-green)
+                    }
+
+                    & .property-value.Playable li {
+                        color: var(--color-yellow)
+                    }
+
+                    & .property-value.Unsupported li {
+                        color: var(--color-red)
+                    }
+
+                    & .property-value.Unknown li {
+                        color: var(--subtle-color)
+                    }
+
                     & .discount-percentage {
                         align-items: center;
 
@@ -118,6 +134,7 @@
                             font-weight: bold;
                         }
                     }
+
                 }
             }
         }
@@ -399,6 +416,25 @@
 
                 & li {
                     margin-block: 1rem;
+
+                    &.Verified::before {
+                        content: "✅";
+                        margin-inline-end: 0.5rem;
+                    }
+
+                    &.Playable::before {
+                        content: "⚠️";
+                        margin-inline-end: 0.5rem;
+                    }
+
+                    &.Unsupported::before {
+                        content: "🚫";
+                        margin-inline-end: 0.5rem;
+                    }
+
+                    &.Unknown {
+                        font-style: italic;
+                    }
                 }
             }
 
@@ -419,6 +455,10 @@
                 }
 
                 & .unsupported {
+                    color: var(--color-red)
+                }
+
+                & .unknown {
                     color: var(--subtle-color)
                 }
             }

@@ -100,6 +100,8 @@ func fmtClass(id, property, link string, rdx kvas.ReadableRedux) string {
 		return ReviewClass(fmtGOGRating(link))
 	case vangogh_local_data.HLTBReviewScoreProperty:
 		return ReviewClass(fmtHLTBRating(link))
+	case vangogh_local_data.SteamDeckAppCompatibilityCategoryProperty:
+		return link
 	}
 	return ""
 }

@@ -5,8 +5,9 @@
         <a href="{{.BlogUrl}}">Read more in the Steam blog</a>
     {{end}}
     <ul>
-        {{range .Results}}
-            <li>{{.}}</li>
+        {{$displayTypes := .DisplayTypes}}
+        {{range $ii, $result := .Results}}
+            <li class="{{index $displayTypes $ii}}">{{$result}}</li>
         {{end}}
     </ul>
 {{end}}

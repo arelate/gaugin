@@ -20,20 +20,20 @@ var messageByCategory = map[string]string{
 }
 
 type steamDeck struct {
-	Message            template.HTML
-	BlogUrl            string
-	ResultsDisplayType []int
-	Results            []string
+	Message      template.HTML
+	BlogUrl      string
+	DisplayTypes []string
+	Results      []string
 }
 
 func NewSteamDeck(title string, dacr *steam_integration.DeckAppCompatibilityReport) *steamDeck {
 	message := template.HTML(fmt.Sprintf(messageByCategory[dacr.String()], title))
 
 	return &steamDeck{
-		Message:            message,
-		BlogUrl:            dacr.GetSteamDeckBlogUrl(),
-		ResultsDisplayType: dacr.GetResultsDisplayTypes(),
-		Results:            dacr.GetResults(),
+		Message:      message,
+		BlogUrl:      dacr.GetSteamDeckBlogUrl(),
+		DisplayTypes: dacr.GetResultsDisplayTypes(),
+		Results:      dacr.GetResults(),
 	}
 
 }
