@@ -6,6 +6,8 @@ github.com/arelate/vangogh_local_data v0.4.4 h1:2xG+TlonCkIlwNtvfrkGfbyd0CCXGYs/
 github.com/arelate/vangogh_local_data v0.4.4/go.mod h1:seCnqG06X3vh6x/0Lm80kerB/aNLcD5QPHNzX+bFsvA=
 github.com/arelate/vangogh_local_data v0.4.9 h1:kucbkdnlV/SUBwmFZbzUpbxL5KokBxAWBCVQEbQfmNo=
 github.com/arelate/vangogh_local_data v0.4.9/go.mod h1:zbNKzfGYXHSaqoZdFYdSADbXhf9+KVGbZ+qhSTukfoQ=
+github.com/arelate/vangogh_local_data v0.4.10 h1:e8NJtdoxXcSOFwHLkGrQWW2tFRXnrmtlxGn6pY/SMPc=
+github.com/arelate/vangogh_local_data v0.4.10/go.mod h1:vwSh3AMuItHqdej9plcyAvZS5lBAPw0hP+1UDzsJxHo=
 github.com/boggydigital/clo v1.0.4 h1:LKvXktyG+EeemzjnSp0DYIAEbY2/rvFcuHtjjwJk280=
 github.com/boggydigital/clo v1.0.4/go.mod h1:7QbdMB008okXsdk41qJyJ6k/oJALIIXQ0GLYSxY9WFM=
 github.com/boggydigital/issa v0.1.10 h1:zHSRJHkOz3DwVvp4/YL06qq/VHXexL7qrn4m48hRf/o=
@@ -22,6 +24,8 @@ github.com/boggydigital/nod v0.1.21 h1:pQbrgswCuU5dr3IWS1Z902PJAm5BebSLG+Q3aG7KJ
 github.com/boggydigital/nod v0.1.21/go.mod h1:bYucIZ3rLHBZKf/3+T+eTSxuijuja7Y6OgU2P6o2/vo=
 github.com/boggydigital/pathology v0.1.7 h1:mo6IQ3e4eLmP7xL437mIiZn1uqC0JdXIZm8OI9FPnX8=
 github.com/boggydigital/pathology v0.1.7/go.mod h1:IqegmSGqlK1UR9+P6Mrua7+ZYdB8NC07sIs4Z+u2BMk=
+github.com/boggydigital/pathology v0.1.8 h1:a5brNIQS//yednzdJsxtCExHVJLlu8hhi2pB1D/us0U=
+github.com/boggydigital/pathology v0.1.8/go.mod h1:kv9hzFMn1Ud0Hxn2vITcZAS68YuB/XbaErXXcANcolU=
 github.com/boggydigital/stencil v0.2.22 h1:zI7/H/IChtxU44nJWsGAOjT2gRuRAIcCOw8gSaOsTKU=
 github.com/boggydigital/stencil v0.2.22/go.mod h1:JXbmD3aD/74C0WRm6tzIhyFdAwuPjeK4gJxdc8jvatY=
 github.com/boggydigital/testo v0.1.8 h1:NKuKLpWKn8gG3dYq8xNrFYHimxoCTdzLOs242q6jeQo=

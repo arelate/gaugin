@@ -44,9 +44,23 @@ func ServeHandler(u *url.URL) error {
 		vangogh_local_data.Videos,
 	}
 
+	pathology.SetDefaultRootDir(vangogh_local_data.DefaultVangoghRootDir)
 	if err := pathology.SetAbsDirs(vangoghAbsDirs...); err != nil {
 		return err
 	}
+
+	vangoghDirs := make(map[string]string)
+	if vangoghImagesDir := vangogh_local_data.ValueFromUrl(u, "vangogh-images-dir"); vangoghImagesDir != "" {
+		vangoghDirs[string(vangogh_local_data.Images)] = vangoghImagesDir
+	}
+	if vangoghItemsDir := vangogh_local_data.ValueFromUrl(u, "vangogh-items-dir"); vangoghItemsDir != "" {
+		vangoghDirs[string(vangogh_local_data.Items)] = vangoghItemsDir
+	}
+	if vangoghVideosDir := vangogh_local_data.ValueFromUrl(u, "vangogh-videos-dir"); vangoghVideosDir != "" {
+		vangoghDirs[string(vangogh_local_data.Videos)] = vangoghVideosDir
+	}
+
+	pathology.SetUserDirsOverrides(vangoghDirs)
 
 	osStrings := vangogh_local_data.ValuesFromUrl(u, "operating-system")
 	os := vangogh_local_data.ParseManyOperatingSystems(osStrings)
