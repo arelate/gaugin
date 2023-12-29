@@ -5,7 +5,7 @@ import (
 	"github.com/arelate/gaugin/rest"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
-	"maps"
+	"github.com/boggydigital/pathology"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -38,19 +38,13 @@ func ServeHandler(u *url.URL) error {
 
 	rest.SetVangoghConnection(vangoghScheme, vangoghAddress, vangoghPort)
 
-	vangoghDirs := maps.Clone(vangogh_local_data.DefaultDirs)
-
-	if vangoghImagesDir := vangogh_local_data.ValueFromUrl(u, "vangogh-images-dir"); vangoghImagesDir != "" {
-		vangoghDirs["images"] = vangoghImagesDir
-	}
-	if vangoghItemsDir := vangogh_local_data.ValueFromUrl(u, "vangogh-items-dir"); vangoghItemsDir != "" {
-		vangoghDirs["items"] = vangoghItemsDir
-	}
-	if vangoghVideosDir := vangogh_local_data.ValueFromUrl(u, "vangogh-videos-dir"); vangoghVideosDir != "" {
-		vangoghDirs["videos"] = vangoghVideosDir
+	vangoghAbsDirs := []pathology.AbsDir{
+		vangogh_local_data.Images,
+		vangogh_local_data.Items,
+		vangogh_local_data.Videos,
 	}
 
-	if err := vangogh_local_data.SetAbsDirs(vangoghDirs); err != nil {
+	if err := pathology.SetAbsDirs(vangoghAbsDirs...); err != nil {
 		return err
 	}
 
