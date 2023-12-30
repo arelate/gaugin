@@ -16,7 +16,7 @@ var messageByCategory = map[string]string{
 	"Unsupported": "Valve’s testing indicates that <span class='title'>%s</span> is " +
 		"<span class='category unsupported'>Unsupported</span> on Steam Deck. " +
 		"Some or all of this game currently doesn't function on Steam Deck.",
-	"Unknown": "Valve is still learning about this title (<span class='title'>%s</span>). " +
+	"Unknown": "Valve is still learning about <span class='title'>%s</span>. " +
 		"We do not currently have further information regarding Steam Deck compatibility.",
 }
 
