@@ -43,7 +43,7 @@ func GetSteamDeck(w http.ResponseWriter, r *http.Request) {
 
 	gaugin_middleware.DefaultHeaders(nil, w)
 
-	if err := app.RenderSection(id, stencil_app.SteamDeckCompatibilitySection, sb.String(), w); err != nil {
+	if err := app.RenderSection(id, stencil_app.SteamDeckSection, sb.String(), w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}

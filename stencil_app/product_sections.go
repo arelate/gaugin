@@ -6,7 +6,7 @@ var ProductSections = []string{
 	ChangelogSection,
 	SteamNewsSection,
 	SteamReviewsSection,
-	SteamDeckCompatibilitySection,
+	SteamDeckSection,
 	VideosSection,
 	DownloadsSection,
 }
