@@ -44,6 +44,10 @@ func rewriteLinksAsTargetTop(desc string) string {
 	return strings.Replace(desc, "<a ", "<a target='_top' ", -1)
 }
 
+func rewriteVideoAsInline(desc string) string {
+	return strings.Replace(desc, "<video ", "<video playsinline ", -1)
+}
+
 func fixQuotes(desc string) string {
 	return strings.Replace(desc, "”", "\"", -1)
 }

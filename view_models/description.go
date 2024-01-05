@@ -22,6 +22,7 @@ func NewDescription(rdx map[string][]string) *description {
 	//5) rewriting links <a href="..."/> as <a target='_top' href="..."/> to do top level navigation
 	//6) fix quotes used for links in some products
 	//7) replace data-fallbackurl with poster, so that missing video sources will allow fallback image to show
+	//8) add playsinline attribute to video elements to avoid those items going full-screen on mobile
 
 	desc := propertyFromRedux(rdx, vangogh_local_data.DescriptionOverviewProperty)
 	desc += implicitToExplicitList(propertyFromRedux(rdx, vangogh_local_data.DescriptionFeaturesProperty))
@@ -31,6 +32,7 @@ func NewDescription(rdx map[string][]string) *description {
 	desc = rewriteLinksAsTargetTop(desc)
 	desc = fixQuotes(desc)
 	desc = replaceDataFallbackUrls(desc)
+	desc = rewriteVideoAsInline(desc)
 
 	dvm.Description = template.HTML(desc)
 
