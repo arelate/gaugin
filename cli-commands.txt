@@ -15,6 +15,7 @@ serve
     vangogh-images-dir$
     vangogh-items-dir$
     vangogh-videos-dir$
+    vangogh-downloads-dir$
     operating-system$
     language-code$
     admin-username$
