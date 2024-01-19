@@ -236,7 +236,7 @@ func fmtTitle(id, property, link string, rdx kvas.ReadableRedux) string {
 	case vangogh_local_data.GOGOrderDateProperty:
 		title = justTheDate(link)
 	case vangogh_local_data.LanguageCodeProperty:
-		title = fmt.Sprintf("%s %s", LanguageCodeFlag(link), link)
+		title = fmt.Sprintf("%s %s", LanguageCodeFlag(link), LanguageCodeTitle(link))
 	case vangogh_local_data.RatingProperty:
 		title = fmtGOGRating(link)
 	case vangogh_local_data.TagIdProperty:

@@ -41,14 +41,63 @@ var LanguageFlags = map[string]string{
 	"is":    "🇮🇸",
 	"fa":    "🇮🇷",
 	"et":    "🇪🇪",
-	//Inuktitut (gog_IN): 2 items
-	//latine (la): 1 items
+	"id":    "🇮🇩",
+	"vi":    "🇻🇳",
+}
+
+var LanguageTitles = map[string]string{
+	"en":     "English",
+	"id":     "bahasa Indonesia",
+	"ca":     "català",
+	"cz":     "český",
+	"da":     "Dansk",
+	"de":     "Deutsch",
+	"et":     "eesti",
+	"es":     "español",
+	"es_mx":  "Español (AL)",
+	"fr":     "français",
+	"gog_IN": "Inuktitut",
+	"is":     "Íslenska",
+	"it":     "italiano",
+	"la":     "latine",
+	"hu":     "magyar",
+	"nl":     "nederlands",
+	"no":     "norsk",
+	"pl":     "polski",
+	"pt":     "português",
+	"br":     "Português do Brasil",
+	"ro":     "română",
+	"sk":     "slovenský",
+	"fi":     "suomi",
+	"sv":     "svenska",
+	"vi":     "Tiếng Việt",
+	"tr":     "Türkçe",
+	"uk":     "yкраїнська",
+	"gk":     "Ελληνικά",
+	"be":     "беларуская",
+	"bl":     "български",
+	"ru":     "русский",
+	"sb":     "Српска",
+	"he":     "עברית",
+	"ar":     "العربية",
+	"fa":     "فارسی",
+	"th":     "ไทย",
+	"ko":     "한국어",
+	"cn":     "中文(简体)",
+	"zh":     "中文(繁體)",
+	"jp":     "日本語",
 }
 
 func LanguageCodeFlag(lc string) string {
 	if flag, ok := LanguageFlags[lc]; ok {
 		return flag
-	} else {
-		return lc
 	}
+	return ""
+}
+
+func LanguageCodeTitle(lc string) string {
+	if title, ok := LanguageTitles[lc]; ok {
+		return title
+	}
+	return lc
 }
