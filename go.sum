@@ -20,12 +20,16 @@ github.com/boggydigital/middleware v0.1.11 h1:jmUbgB1EPUoM9vP8BllgZMwbx2Gar17uNP
 github.com/boggydigital/middleware v0.1.11/go.mod h1:RCbCF5f5evepYZyVcZpqzMwiF+xSY62xi9CKEeQJJCg=
 github.com/boggydigital/middleware v0.1.15 h1:cMxPMz8o5BVJ/kLm1jTUU0Fe4Cp8HmBR22bwZNIoWEY=
 github.com/boggydigital/middleware v0.1.15/go.mod h1:KUe0GXODjXyAcX7ow2o5lEz4+86dhG7ChTX5ekjqGro=
+github.com/boggydigital/middleware v0.1.16 h1:ajmnG2A2gCCkVAj85GrC7Pokp+KtB0rG9caOfxnGyUs=
+github.com/boggydigital/middleware v0.1.16/go.mod h1:KUe0GXODjXyAcX7ow2o5lEz4+86dhG7ChTX5ekjqGro=
 github.com/boggydigital/nod v0.1.21 h1:pQbrgswCuU5dr3IWS1Z902PJAm5BebSLG+Q3aG7KJ+4=
 github.com/boggydigital/nod v0.1.21/go.mod h1:bYucIZ3rLHBZKf/3+T+eTSxuijuja7Y6OgU2P6o2/vo=
 github.com/boggydigital/pasu v0.1.12 h1:RoPaV+1n2Rjw110yEHJe2wR0xYdRfJ4fJOGtBkPCLZc=
 github.com/boggydigital/pasu v0.1.12/go.mod h1:Czw+h2/3GgxhOdY7vRWVCYBZ84F7GdSTwQkqc//2w84=
 github.com/boggydigital/stencil v0.2.22 h1:zI7/H/IChtxU44nJWsGAOjT2gRuRAIcCOw8gSaOsTKU=
 github.com/boggydigital/stencil v0.2.22/go.mod h1:JXbmD3aD/74C0WRm6tzIhyFdAwuPjeK4gJxdc8jvatY=
+github.com/boggydigital/stencil v0.2.23 h1:bRJ0QrjFkJiJCWBrn2jT/cvvABl/eSM72J8eY5T9c78=
+github.com/boggydigital/stencil v0.2.23/go.mod h1:qH+bd4aKD8JT/RYvYOTRFM1q9EYk61/LsmhiZ9JuPp8=
 github.com/boggydigital/testo v0.1.8 h1:NKuKLpWKn8gG3dYq8xNrFYHimxoCTdzLOs242q6jeQo=
 github.com/boggydigital/testo v0.1.8/go.mod h1:8JTO6UKeQPsHS82vbCH/3NLDfewmr/84vVQ6rNLdCas=
 github.com/boggydigital/wits v0.2.3 h1:Z0eB+QlIA18fJmblyV6ZJQ/swPYSFhOxfgMXOQz4/c8=

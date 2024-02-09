@@ -38,10 +38,5 @@ func GetTagsApply(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	if err := updatePrerender(); err != nil {
-		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
-	}
-
 	http.Redirect(w, r, paths.ProductId(id), http.StatusTemporaryRedirect)
 }

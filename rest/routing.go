@@ -10,7 +10,6 @@ import (
 
 var (
 	Auth     = middleware.BasicHttpAuth
-	Static   = middleware.Static
 	Log      = nod.RequestLog
 	Redirect = http.RedirectHandler
 )
@@ -23,9 +22,9 @@ func HandleFuncs(p int) {
 
 	patternHandlers := map[string]http.Handler{
 		// unauth data endpoints
-		"GET /updates":       Static(Log(http.HandlerFunc(GetUpdates))),
-		"GET /product":       Static(Log(http.HandlerFunc(GetProduct))),
-		"GET /search":        Static(Log(http.HandlerFunc(GetSearch))),
+		"GET /updates":       Log(http.HandlerFunc(GetUpdates)),
+		"GET /product":       Log(http.HandlerFunc(GetProduct)),
+		"GET /search":        Log(http.HandlerFunc(GetSearch)),
 		"GET /digest":        Log(http.HandlerFunc(GetDigest)),
 		"GET /description":   Log(http.HandlerFunc(GetDescription)),
 		"GET /downloads":     Log(http.HandlerFunc(GetDownloads)),
@@ -50,8 +49,6 @@ func HandleFuncs(p int) {
 		// auth media endpoints
 		"GET /files":       Auth(Log(http.HandlerFunc(GetFiles)), AdminRole, SharedRole),
 		"GET /local-file/": Auth(Log(http.HandlerFunc(GetLocalFile)), AdminRole, SharedRole),
-		// prerender
-		"POST /prerender": Log(http.HandlerFunc(PostPrerender)),
 		// products redirects
 		"GET /products": Redirect("/search", http.StatusPermanentRedirect),
 		// start at the updates

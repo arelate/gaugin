@@ -18,10 +18,5 @@ func GetWishlistAdd(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := updatePrerender(); err != nil {
-		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
-	}
-
 	http.Redirect(w, r, paths.ProductId(id), http.StatusTemporaryRedirect)
 }
