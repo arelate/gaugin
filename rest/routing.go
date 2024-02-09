@@ -10,9 +10,6 @@ import (
 
 var (
 	Auth     = middleware.BasicHttpAuth
-	GetOnly  = middleware.GetMethodOnly
-	PostOnly = middleware.PostMethodOnly
-	BrGzip   = middleware.BrGzip
 	Static   = middleware.Static
 	Log      = nod.RequestLog
 	Redirect = http.RedirectHandler
@@ -26,41 +23,41 @@ func HandleFuncs(p int) {
 
 	patternHandlers := map[string]http.Handler{
 		// unauth data endpoints
-		"/updates":       BrGzip(GetOnly(Static(Log(http.HandlerFunc(GetUpdates))))),
-		"/product":       BrGzip(GetOnly(Static(Log(http.HandlerFunc(GetProduct))))),
-		"/search":        BrGzip(GetOnly(Static(Log(http.HandlerFunc(GetSearch))))),
-		"/digest":        BrGzip(GetOnly(Log(http.HandlerFunc(GetDigest)))),
-		"/description":   BrGzip(GetOnly(Log(http.HandlerFunc(GetDescription)))),
-		"/downloads":     BrGzip(GetOnly(Log(http.HandlerFunc(GetDownloads)))),
-		"/changelog":     BrGzip(GetOnly(Log(http.HandlerFunc(GetChangelog)))),
-		"/screenshots":   BrGzip(GetOnly(Log(http.HandlerFunc(GetScreenshots)))),
-		"/videos":        BrGzip(GetOnly(Log(http.HandlerFunc(GetVideos)))),
-		"/steam-news":    BrGzip(GetOnly(Log(http.HandlerFunc(GetSteamNews)))),
-		"/steam-reviews": BrGzip(GetOnly(Log(http.HandlerFunc(GetSteamReviews)))),
-		"/steam-deck":    BrGzip(GetOnly(Log(http.HandlerFunc(GetSteamDeck)))),
+		"GET /updates":       Static(Log(http.HandlerFunc(GetUpdates))),
+		"GET /product":       Static(Log(http.HandlerFunc(GetProduct))),
+		"GET /search":        Static(Log(http.HandlerFunc(GetSearch))),
+		"GET /digest":        Log(http.HandlerFunc(GetDigest)),
+		"GET /description":   Log(http.HandlerFunc(GetDescription)),
+		"GET /downloads":     Log(http.HandlerFunc(GetDownloads)),
+		"GET /changelog":     Log(http.HandlerFunc(GetChangelog)),
+		"GET /screenshots":   Log(http.HandlerFunc(GetScreenshots)),
+		"GET /videos":        Log(http.HandlerFunc(GetVideos)),
+		"GET /steam-news":    Log(http.HandlerFunc(GetSteamNews)),
+		"GET /steam-reviews": Log(http.HandlerFunc(GetSteamReviews)),
+		"GET /steam-deck":    Log(http.HandlerFunc(GetSteamDeck)),
 		// unauth media endpoints
-		"/image":      GetOnly(Log(http.HandlerFunc(GetImage))),
-		"/video":      GetOnly(Log(http.HandlerFunc(GetVideo))),
-		"/thumbnails": GetOnly(Log(http.HandlerFunc(GetThumbnails))),
-		"/items/":     GetOnly(Log(http.HandlerFunc(GetItems))),
+		"GET /image":      Log(http.HandlerFunc(GetImage)),
+		"GET /video":      Log(http.HandlerFunc(GetVideo)),
+		"GET /thumbnails": Log(http.HandlerFunc(GetThumbnails)),
+		"GET /items/":     Log(http.HandlerFunc(GetItems)),
 		// auth data endpoints
-		"/wishlist/add":     Auth(BrGzip(GetOnly(Log(http.HandlerFunc(GetWishlistAdd)))), AdminRole),
-		"/wishlist/remove":  Auth(BrGzip(GetOnly(Log(http.HandlerFunc(GetWishlistRemove)))), AdminRole),
-		"/tags/edit":        Auth(BrGzip(GetOnly(Log(http.HandlerFunc(GetTagsEdit)))), AdminRole),
-		"/local-tags/edit":  Auth(BrGzip(GetOnly(Log(http.HandlerFunc(GetLocalTagsEdit)))), AdminRole),
-		"/tags/apply":       Auth(BrGzip(GetOnly(Log(http.HandlerFunc(GetTagsApply)))), AdminRole),
-		"/local-tags/apply": Auth(BrGzip(GetOnly(Log(http.HandlerFunc(GetLocalTagsApply)))), AdminRole),
+		"GET /wishlist/add":     Auth(Log(http.HandlerFunc(GetWishlistAdd)), AdminRole),
+		"GET /wishlist/remove":  Auth(Log(http.HandlerFunc(GetWishlistRemove)), AdminRole),
+		"GET /tags/edit":        Auth(Log(http.HandlerFunc(GetTagsEdit)), AdminRole),
+		"GET /local-tags/edit":  Auth(Log(http.HandlerFunc(GetLocalTagsEdit)), AdminRole),
+		"GET /tags/apply":       Auth(Log(http.HandlerFunc(GetTagsApply)), AdminRole),
+		"GET /local-tags/apply": Auth(Log(http.HandlerFunc(GetLocalTagsApply)), AdminRole),
 		// auth media endpoints
-		"/files":       Auth(GetOnly(Log(http.HandlerFunc(GetFiles))), AdminRole, SharedRole),
-		"/local-file/": Auth(GetOnly(Log(http.HandlerFunc(GetLocalFile))), AdminRole, SharedRole),
+		"GET /files":       Auth(Log(http.HandlerFunc(GetFiles)), AdminRole, SharedRole),
+		"GET /local-file/": Auth(Log(http.HandlerFunc(GetLocalFile)), AdminRole, SharedRole),
 		// prerender
-		"/prerender": PostOnly(Log(http.HandlerFunc(PostPrerender))),
+		"POST /prerender": Log(http.HandlerFunc(PostPrerender)),
 		// products redirects
-		"/products": Redirect("/search", http.StatusPermanentRedirect),
+		"GET /products": Redirect("/search", http.StatusPermanentRedirect),
 		// start at the updates
-		"/": Redirect("/updates", http.StatusPermanentRedirect),
+		"GET /": Redirect("/updates", http.StatusPermanentRedirect),
 		// robots.txt
-		"/robots.txt": BrGzip(GetOnly(Log(http.HandlerFunc(GetRobotsTxt)))),
+		"GET /robots.txt": Log(http.HandlerFunc(GetRobotsTxt)),
 	}
 
 	for route, path := range searchRoutes() {
