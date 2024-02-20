@@ -10,7 +10,7 @@ require (
 	github.com/boggydigital/middleware v0.1.16
 	github.com/boggydigital/nod v0.1.21
 	github.com/boggydigital/pasu v0.1.12
-	github.com/boggydigital/stencil v0.2.25
+	github.com/boggydigital/stencil v0.2.26
 	github.com/boggydigital/yt_urls v0.1.45
 	golang.org/x/exp v0.0.0-20240213143201-ec583247a57a
 	golang.org/x/text v0.14.0
