@@ -67,8 +67,9 @@ func getDownloads(
 	client *http.Client,
 	id string,
 	operatingSystems []vangogh_local_data.OperatingSystem,
-	languageCodes []string) (vangogh_local_data.DownloadsList, bool, error) {
-	return getThroughCache(client, downloadsUrl(id, operatingSystems, languageCodes), downloadsCache)
+	languageCodes []string,
+	excludePatches bool) (vangogh_local_data.DownloadsList, bool, error) {
+	return getThroughCache(client, downloadsUrl(id, operatingSystems, languageCodes, excludePatches), downloadsCache)
 }
 
 func getHasRedux(

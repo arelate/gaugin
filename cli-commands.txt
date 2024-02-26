@@ -18,6 +18,7 @@ serve
     vangogh-downloads-dir$
     operating-system$
     language-code$
+    exclude-patches$
     admin-username$
     admin-password$
     shared-username$

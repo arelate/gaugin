@@ -71,7 +71,8 @@ func searchUrl(q url.Values) *url.URL {
 func downloadsUrl(
 	id string,
 	operatingSystems []vangogh_local_data.OperatingSystem,
-	languageCodes []string) *url.URL {
+	languageCodes []string,
+	excludePatches bool) *url.URL {
 	u := &url.URL{
 		Scheme: vangoghScheme,
 		Host:   vangoghHost(),
@@ -85,6 +86,9 @@ func downloadsUrl(
 	}
 	q.Set("operating-system", strings.Join(osStr, ","))
 	q.Set("language-code", strings.Join(languageCodes, ","))
+	if excludePatches {
+		q.Set("exclude-patches", "true")
+	}
 	q.Set("product-type", vangogh_local_data.Details.String())
 	u.RawQuery = q.Encode()
 

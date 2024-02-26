@@ -77,8 +77,9 @@ func ServeHandler(u *url.URL) error {
 		lc = []string{"en"}
 	}
 
-	rest.SetDownloadsOperatingSystems(os)
-	rest.SetDownloadsLanguageCodes(lc)
+	excludePatches := vangogh_local_data.FlagFromUrl(u, "exclude-patches")
+
+	rest.SetDefaultDownloadsFilters(os, lc, excludePatches)
 
 	sharedUsername := vangogh_local_data.ValueFromUrl(u, "shared-username")
 	sharedPassword := vangogh_local_data.ValueFromUrl(u, "shared-password")

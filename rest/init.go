@@ -25,15 +25,17 @@ var (
 	tmpl             *template.Template
 	operatingSystems []vangogh_local_data.OperatingSystem
 	languageCodes    []string
+	excludePatches   bool
 	app              *stencil.AppConfiguration
 )
 
-func SetDownloadsOperatingSystems(os []vangogh_local_data.OperatingSystem) {
+func SetDefaultDownloadsFilters(
+	os []vangogh_local_data.OperatingSystem,
+	lc []string,
+	ep bool) {
 	operatingSystems = os
-}
-
-func SetDownloadsLanguageCodes(lc []string) {
 	languageCodes = lc
+	excludePatches = ep
 }
 
 func SetUsername(role, u string) {

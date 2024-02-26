@@ -92,7 +92,7 @@ func getDownloadsViewModel(id string, clientOS vangogh_local_data.OperatingSyste
 
 	//we specifically get /downloads and not /data&product-type=details because of Details
 	//format complexities, see gog_integration/details.go/GetGameDownloads comment
-	dls, _, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes)
+	dls, _, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes, excludePatches)
 	if err != nil {
 		return nil, err
 	}
