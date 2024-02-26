@@ -25,6 +25,8 @@ services:
       - GG_SERVE_OPERATING-SYSTEM=windows
       # language codes to use for downloads display
       - GG_SERVE_LANGUAGE-CODE=en
+      # exclude patches from downloads
+      - GG_SERVE_EXCLUDE-PATCHES=true
       # use this username to restrict administrative actions and downloads
       - GG_SERVE_ADMIN-USERNAME=admin
       # use this password to restrict administrative actions and downloads
