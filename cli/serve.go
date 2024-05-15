@@ -5,7 +5,7 @@ import (
 	"github.com/arelate/gaugin/rest"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
-	"github.com/boggydigital/pasu"
+	"github.com/boggydigital/pathways"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -38,15 +38,15 @@ func ServeHandler(u *url.URL) error {
 
 	rest.SetVangoghConnection(vangoghScheme, vangoghAddress, vangoghPort)
 
-	vangoghAbsDirs := []pasu.AbsDir{
+	vangoghAbsDirs := []pathways.AbsDir{
 		vangogh_local_data.Images,
 		vangogh_local_data.Items,
 		vangogh_local_data.Videos,
 		vangogh_local_data.Downloads,
 	}
 
-	pasu.SetDefaultRootDir(vangogh_local_data.DefaultVangoghRootDir)
-	if err := pasu.SetAbsDirs(vangoghAbsDirs...); err != nil {
+	pathways.SetDefaultRootDir(vangogh_local_data.DefaultVangoghRootDir)
+	if err := pathways.SetAbsDirs(vangoghAbsDirs...); err != nil {
 		return err
 	}
 
@@ -64,7 +64,7 @@ func ServeHandler(u *url.URL) error {
 		vangoghDirs[string(vangogh_local_data.Downloads)] = vangoghDownloadsDir
 	}
 
-	pasu.SetUserDirsOverrides(vangoghDirs)
+	pathways.SetUserDirsOverrides(vangoghDirs)
 
 	osStrings := vangogh_local_data.ValuesFromUrl(u, "operating-system")
 	os := vangogh_local_data.ParseManyOperatingSystems(osStrings)
