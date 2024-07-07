@@ -2,7 +2,7 @@ package view_models
 
 import (
 	"fmt"
-	"github.com/boggydigital/yt_urls"
+	"github.com/boggydigital/yet_urls/youtube_urls"
 	"regexp"
 	"strings"
 )
@@ -130,7 +130,7 @@ func replaceYoutubePreviews(c string) string {
 		vidId = strings.TrimSuffix(vidId, "][/previewyoutube]")
 		vidId = strings.Split(vidId, ";")[0]
 
-		nyp := fmt.Sprintf("<p><a target='_top' href='%s'>YouTube Link</a></p>", yt_urls.VideoUrl(vidId))
+		nyp := fmt.Sprintf("<p><a target='_top' href='%s'>YouTube Link</a></p>", youtube_urls.VideoUrl(vidId))
 
 		c = strings.Replace(c, yp, nyp, -1)
 	}

@@ -2,7 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/vangogh_local_data"
-	"github.com/boggydigital/kvas"
+	"github.com/boggydigital/kevlar"
 	"github.com/boggydigital/nod"
 	"net/http"
 )
@@ -23,9 +23,9 @@ func GetFiles(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		rxa := kvas.ReduxProxy(idRedux)
+		rxa := kevlar.ReduxProxy(idRedux)
 
-		relLocalFilePath, ok := rxa.GetFirstVal(vangogh_local_data.LocalManualUrlProperty, manualUrl)
+		relLocalFilePath, ok := rxa.GetLastVal(vangogh_local_data.LocalManualUrlProperty, manualUrl)
 		if !ok {
 			http.Error(w, nod.ErrorStr("no file for manual-url %s", manualUrl), http.StatusNotFound)
 			return

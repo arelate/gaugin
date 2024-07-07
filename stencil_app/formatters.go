@@ -5,7 +5,7 @@ import (
 	"github.com/arelate/gaugin/data"
 	"github.com/arelate/gaugin/paths"
 	"github.com/arelate/vangogh_local_data"
-	"github.com/boggydigital/kvas"
+	"github.com/boggydigital/kevlar"
 	"strconv"
 	"strings"
 )
@@ -19,8 +19,8 @@ var labelTitles = map[string]string{
 	vangogh_local_data.WishlistedProperty:    "Wish",
 }
 
-func ownedValidationResult(id string, rdx kvas.ReadableRedux) (string, bool) {
-	return rdx.GetFirstVal(vangogh_local_data.ValidationResultProperty, id)
+func ownedValidationResult(id string, rdx kevlar.ReadableRedux) (string, bool) {
+	return rdx.GetLastVal(vangogh_local_data.ValidationResultProperty, id)
 }
 
 func ReviewClass(sr string) string {
@@ -33,9 +33,9 @@ func ReviewClass(sr string) string {
 	}
 }
 
-func fmtAction(id, property, link string, rdx kvas.ReadableRedux) string {
+func fmtAction(id, property, link string, rdx kevlar.ReadableRedux) string {
 
-	owned, _ := rdx.GetFirstVal(vangogh_local_data.OwnedProperty, id)
+	owned, _ := rdx.GetLastVal(vangogh_local_data.OwnedProperty, id)
 
 	switch property {
 	case vangogh_local_data.WishlistedProperty:
@@ -59,9 +59,9 @@ func fmtAction(id, property, link string, rdx kvas.ReadableRedux) string {
 	return ""
 }
 
-func fmtActionHref(id, property, link string, rdx kvas.ReadableRedux) string {
+func fmtActionHref(id, property, link string, rdx kevlar.ReadableRedux) string {
 
-	owned, _ := rdx.GetFirstVal(vangogh_local_data.OwnedProperty, id)
+	owned, _ := rdx.GetLastVal(vangogh_local_data.OwnedProperty, id)
 
 	switch property {
 	case vangogh_local_data.WishlistedProperty:
@@ -82,7 +82,7 @@ func fmtActionHref(id, property, link string, rdx kvas.ReadableRedux) string {
 	return ""
 }
 
-func fmtClass(id, property, link string, rdx kvas.ReadableRedux) string {
+func fmtClass(id, property, link string, rdx kevlar.ReadableRedux) string {
 	switch property {
 	case vangogh_local_data.OwnedProperty:
 		if res, ok := ownedValidationResult(id, rdx); ok {
@@ -106,7 +106,7 @@ func fmtClass(id, property, link string, rdx kvas.ReadableRedux) string {
 	return ""
 }
 
-func fmtHref(_, property, link string, _ kvas.ReadableRedux) string {
+func fmtHref(_, property, link string, _ kevlar.ReadableRedux) string {
 	switch property {
 	case vangogh_local_data.GOGOrderDateProperty:
 		link = justTheDate(link)
@@ -158,10 +158,10 @@ func justTheDate(s string) string {
 	return strings.Split(s, " ")[0]
 }
 
-func fmtLabel(id, property, link string, rdx kvas.ReadableRedux) string {
+func fmtLabel(id, property, link string, rdx kevlar.ReadableRedux) string {
 
 	label := link
-	owned, _ := rdx.GetFirstVal(vangogh_local_data.OwnedProperty, id)
+	owned, _ := rdx.GetLastVal(vangogh_local_data.OwnedProperty, id)
 
 	switch property {
 	case vangogh_local_data.WishlistedProperty:
@@ -192,7 +192,7 @@ func fmtLabel(id, property, link string, rdx kvas.ReadableRedux) string {
 		}
 		return ""
 	case vangogh_local_data.TagIdProperty:
-		title, ok := rdx.GetFirstVal(vangogh_local_data.TagNameProperty, link)
+		title, ok := rdx.GetLastVal(vangogh_local_data.TagNameProperty, link)
 		if !ok {
 			title = link
 		}
@@ -205,11 +205,11 @@ func fmtLabel(id, property, link string, rdx kvas.ReadableRedux) string {
 	return label
 }
 
-func fmtTitle(id, property, link string, rdx kvas.ReadableRedux) string {
+func fmtTitle(id, property, link string, rdx kevlar.ReadableRedux) string {
 	title := link
 
-	owned, _ := rdx.GetFirstVal(vangogh_local_data.OwnedProperty, id)
-	isFree, _ := rdx.GetFirstVal(vangogh_local_data.IsFreeProperty, id)
+	owned, _ := rdx.GetLastVal(vangogh_local_data.OwnedProperty, id)
+	isFree, _ := rdx.GetLastVal(vangogh_local_data.IsFreeProperty, id)
 
 	switch property {
 	case vangogh_local_data.WishlistedProperty:
@@ -229,7 +229,7 @@ func fmtTitle(id, property, link string, rdx kvas.ReadableRedux) string {
 		fallthrough
 	case vangogh_local_data.IsRequiredByGamesProperty:
 		var ok bool
-		title, ok = rdx.GetFirstVal(vangogh_local_data.TitleProperty, link)
+		title, ok = rdx.GetLastVal(vangogh_local_data.TitleProperty, link)
 		if !ok {
 			title = link
 		}
@@ -241,7 +241,7 @@ func fmtTitle(id, property, link string, rdx kvas.ReadableRedux) string {
 		title = fmtGOGRating(link)
 	case vangogh_local_data.TagIdProperty:
 		var ok bool
-		title, ok = rdx.GetFirstVal(vangogh_local_data.TagNameProperty, link)
+		title, ok = rdx.GetLastVal(vangogh_local_data.TagNameProperty, link)
 		if !ok {
 			title = link
 		}

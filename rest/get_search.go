@@ -2,7 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/stencil_app"
-	"github.com/boggydigital/kvas"
+	"github.com/boggydigital/kevlar"
 	"github.com/boggydigital/middleware"
 	"net/http"
 	"strconv"
@@ -126,7 +126,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	rdx := kvas.ReduxProxy(idRedux)
+	rdx := kevlar.ReduxProxy(idRedux)
 
 	gaugin_middleware.DefaultHeaders(st, w)
 

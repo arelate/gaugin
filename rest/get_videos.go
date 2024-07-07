@@ -3,7 +3,7 @@ package rest
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/stencil_app"
-	"github.com/boggydigital/kvas"
+	"github.com/boggydigital/kevlar"
 	"net/http"
 	"strings"
 
@@ -40,7 +40,7 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rdx := kvas.ReduxProxy(MergeIdPropertyValues(idRedux, mvRedux))
+	rdx := kevlar.ReduxProxy(MergeIdPropertyValues(idRedux, mvRedux))
 
 	sb := &strings.Builder{}
 	vvm := view_models.NewVideos(id, rdx)

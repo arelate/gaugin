@@ -20,7 +20,7 @@ import (
 	"github.com/arelate/southern_light/vndb_integration"
 	"github.com/arelate/southern_light/wikipedia_integration"
 	"github.com/arelate/southern_light/winehq_integration"
-	"github.com/boggydigital/kvas"
+	"github.com/boggydigital/kevlar"
 	"golang.org/x/exp/maps"
 	"net/http"
 	"net/url"
@@ -190,7 +190,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		st.SetFlag("getRedux-tagNames-cached")
 	}
 
-	rdx := kvas.ReduxProxy(MergeIdPropertyValues(idRedux, tagNamesRedux))
+	rdx := kevlar.ReduxProxy(MergeIdPropertyValues(idRedux, tagNamesRedux))
 
 	if err := app.RenderItem(id, hasSections, rdx, w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)

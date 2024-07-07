@@ -2,7 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/stencil_app"
-	"github.com/boggydigital/kvas"
+	"github.com/boggydigital/kevlar"
 	"golang.org/x/exp/maps"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
@@ -110,8 +110,8 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 	}
 
 	updated := "recently"
-	syncDra := kvas.ReduxProxy(syncRdx)
-	if scs, ok := syncDra.GetFirstVal(vangogh_local_data.SyncEventsProperty, vangogh_local_data.SyncCompleteKey); ok {
+	syncDra := kevlar.ReduxProxy(syncRdx)
+	if scs, ok := syncDra.GetLastVal(vangogh_local_data.SyncEventsProperty, vangogh_local_data.SyncCompleteKey); ok {
 		if sci, err := strconv.ParseInt(scs, 10, 64); err == nil {
 			updated = time.Unix(sci, 0).Format(time.RFC1123)
 		}
@@ -153,7 +153,7 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rdx := kvas.ReduxProxy(MergeIdPropertyValues(dataRdx, tagNamesRedux))
+	rdx := kevlar.ReduxProxy(MergeIdPropertyValues(dataRdx, tagNamesRedux))
 
 	if err := app.RenderGroup(
 		stencil_app.NavUpdates,

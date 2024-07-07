@@ -2,7 +2,7 @@ package view_models
 
 import (
 	"github.com/arelate/vangogh_local_data"
-	"github.com/boggydigital/kvas"
+	"github.com/boggydigital/kevlar"
 )
 
 type videos struct {
@@ -11,7 +11,7 @@ type videos struct {
 	RemoteVideos []string
 }
 
-func NewVideos(id string, rdx kvas.ReadableRedux) *videos {
+func NewVideos(id string, rdx kevlar.ReadableRedux) *videos {
 	vvm := &videos{
 		Context:      "iframe",
 		LocalVideos:  make([]string, 0),

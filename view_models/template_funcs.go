@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/arelate/gaugin/stencil_app"
 	"github.com/arelate/vangogh_local_data"
-	"github.com/boggydigital/yt_urls"
+	"github.com/boggydigital/yet_urls/youtube_urls"
 	"html/template"
 	"strings"
 	"time"
@@ -74,7 +74,7 @@ func hasDownloads(pd *ProductDownloads) bool {
 }
 
 func youtubeLink(videoId string) string {
-	return yt_urls.VideoUrl(videoId).String()
+	return youtube_urls.VideoUrl(videoId).String()
 }
 
 func downloadTypeTitle(dt vangogh_local_data.DownloadType) string {
