@@ -1,15 +1,13 @@
 package rest
 
 import (
-	"github.com/arelate/gaugin/stencil_app"
-	"net/http"
-	"strings"
-	"time"
-
 	"github.com/arelate/gaugin/gaugin_middleware"
+	"github.com/arelate/gaugin/stencil_app"
 	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
+	"net/http"
+	"strings"
 )
 
 func GetChangelog(w http.ResponseWriter, r *http.Request) {
@@ -18,10 +16,7 @@ func GetChangelog(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	st := gaugin_middleware.NewServerTimings()
-	start := time.Now()
-
-	idRedux, cached, err := getRedux(
+	idRedux, err := getRedux(
 		http.DefaultClient,
 		id,
 		false,
@@ -31,11 +26,6 @@ func GetChangelog(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if cached {
-		st.SetFlag("getRedux-cached")
-	}
-	st.Set("getRedux", time.Since(start).Milliseconds())
-
 	sb := &strings.Builder{}
 	cvm := view_models.NewChangelog(idRedux[id])
 
@@ -44,7 +34,7 @@ func GetChangelog(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	gaugin_middleware.DefaultHeaders(st, w)
+	gaugin_middleware.DefaultHeaders(w)
 
 	if err := app.RenderSection(id, stencil_app.ChangelogSection, sb.String(), w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)

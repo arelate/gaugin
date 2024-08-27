@@ -16,7 +16,7 @@ func GetSteamNews(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	san, _, err := getSteamNews(http.DefaultClient, id)
+	san, err := getSteamNews(http.DefaultClient, id)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
@@ -30,7 +30,7 @@ func GetSteamNews(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	gaugin_middleware.DefaultHeaders(nil, w)
+	gaugin_middleware.DefaultHeaders(w)
 
 	if err := app.RenderSection(id, stencil_app.SteamNewsSection, sb.String(), w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)

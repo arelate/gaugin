@@ -27,19 +27,11 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 
 	showAll := r.URL.Query().Get("show-all") == "true"
 
-	st := gaugin_middleware.NewServerTimings()
-
-	start := time.Now()
-	updRdx, cached, err := getRedux(
+	updRdx, err := getRedux(
 		http.DefaultClient,
 		"",
 		true,
 		vangogh_local_data.LastSyncUpdatesProperty)
-
-	if cached {
-		st.SetFlag("updRdx-cached")
-	}
-	st.Set("updRdx", time.Since(start).Milliseconds())
 
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
@@ -75,34 +67,22 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 	ids := maps.Keys(keys)
 	sort.Strings(ids)
 
-	start = time.Now()
-	dataRdx, cached, err := getRedux(
+	dataRdx, err := getRedux(
 		http.DefaultClient,
 		strings.Join(ids, ","),
 		false,
 		stencil_app.ProductsProperties...)
-
-	if cached {
-		st.SetFlag("dataRdx-cached")
-	}
-	st.Set("dataRdx", time.Since(start).Milliseconds())
 
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 
-	start = time.Now()
-	syncRdx, cached, err := getRedux(
+	syncRdx, err := getRedux(
 		http.DefaultClient,
 		vangogh_local_data.SyncCompleteKey,
 		false,
 		vangogh_local_data.SyncEventsProperty)
-
-	if cached {
-		st.SetFlag("syncRdx-cached")
-	}
-	st.Set("syncRdx", time.Since(start).Milliseconds())
 
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
@@ -117,7 +97,7 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	gaugin_middleware.DefaultHeaders(st, w)
+	gaugin_middleware.DefaultHeaders(w)
 
 	// section order will be based on full title ("new in ...", "updates in ...")
 	// so not changed after concise update titles change
@@ -147,7 +127,7 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		sectionTitles[t] = caser.String(st)
 	}
 
-	tagNamesRedux, _, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
+	tagNamesRedux, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return

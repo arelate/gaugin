@@ -7,7 +7,6 @@ import (
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
 	"net/http"
-	"time"
 )
 
 func GetDigest(w http.ResponseWriter, r *http.Request) {
@@ -20,13 +19,9 @@ func GetDigest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	start := time.Now()
-	st := gaugin_middleware.NewServerTimings()
-
 	var values []string
 	valueTitles := make(map[string]string)
 	var digests map[string][]string
-	var cached bool
 	var err error
 
 	switch property {
@@ -46,7 +41,7 @@ func GetDigest(w http.ResponseWriter, r *http.Request) {
 			vangogh_local_data.TrueValue,
 			vangogh_local_data.FalseValue}
 	case vangogh_local_data.TagIdProperty:
-		tagNamesRedux, _, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
+		tagNamesRedux, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
 		if err != nil {
 			http.Error(w, nod.ErrorStr("missing digest property"), http.StatusBadRequest)
 			return
@@ -57,7 +52,7 @@ func GetDigest(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	default:
-		digests, cached, err = getDigests(http.DefaultClient, property)
+		digests, err = getDigests(http.DefaultClient, property)
 	}
 
 	if err != nil {
@@ -69,12 +64,7 @@ func GetDigest(w http.ResponseWriter, r *http.Request) {
 		values = digests[property]
 	}
 
-	if cached {
-		st.SetFlag("getDigests-cached")
-	}
-	st.Set("getDigests", time.Since(start).Milliseconds())
-
-	gaugin_middleware.DefaultHeaders(st, w)
+	gaugin_middleware.DefaultHeaders(w)
 
 	addedValueTitles, err := addTitles(property, values)
 	if err != nil {

@@ -17,7 +17,7 @@ func GetScreenshots(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	idRedux, _, err := getRedux(
+	idRedux, err := getRedux(
 		http.DefaultClient,
 		id,
 		false,
@@ -36,7 +36,7 @@ func GetScreenshots(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	gaugin_middleware.DefaultHeaders(nil, w)
+	gaugin_middleware.DefaultHeaders(w)
 
 	if err := app.RenderSection(id, stencil_app.ScreenshotsSection, sb.String(), w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)

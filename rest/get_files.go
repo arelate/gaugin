@@ -17,7 +17,7 @@ func GetFiles(w http.ResponseWriter, r *http.Request) {
 
 	if manualUrl != "" {
 
-		idRedux, _, err := getRedux(http.DefaultClient, manualUrl, false, vangogh_local_data.LocalManualUrlProperty)
+		idRedux, err := getRedux(http.DefaultClient, manualUrl, false, vangogh_local_data.LocalManualUrlProperty)
 		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
