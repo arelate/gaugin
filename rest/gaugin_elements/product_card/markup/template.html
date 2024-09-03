@@ -2,7 +2,7 @@
     <style>
 
         :host {
-            --s-snh: calc((var(--s-n) + var(--s-s))/2);
+            --s-snh: calc((var(--s-n) + var(--s-s)) / 2);
             background-color: var(--c-highlight);
             padding: var(--s-snh);
             border-radius: var(--br-l);
@@ -18,11 +18,11 @@
             text-overflow: ellipsis;
             font-size: var(--fs-l);
             font-weight: var(--fw-b);
-            margin-block-end: auto;
+            margin-block-end: var(--s-xs);
         }
 
         div {
-            font-size: calc((var(--fs-xxs) + var(--fs-xs))/2);
+            font-size: calc((var(--fs-xxs) + var(--fs-xs)) / 2);
             display: grid;
             grid-template-columns: var(--s-xl) auto;
             align-content: center;
@@ -39,14 +39,15 @@
             width: 85px;
             height: 120px;
         }
+
     </style>
 
     <slot name="poster"></slot>
     <flex-items data-flex-direction="column" data-row-gap="x-small">
-        <h3><slot name="title"></slot></h3>
-        <flex-items data-direction="row" data-row-gap="xx-small" data-column-gap="xx-small">
-            <slot name="labels"></slot>
-        </flex-items>
+        <h3>
+            <slot name="title"></slot>
+        </h3>
+        <slot name="labels"></slot>
         <div>
             <span>OS</span>
             <slot name="operating-systems"></slot>

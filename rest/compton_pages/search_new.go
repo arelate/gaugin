@@ -1,9 +1,12 @@
 package compton_pages
 
 import (
+	"github.com/arelate/gaugin/paths"
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/gaugin/rest/gaugin_elements/product_card"
+	"github.com/arelate/gaugin/rest/gaugin_styles"
+	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/elements/details_toggle"
@@ -15,7 +18,9 @@ import (
 
 func SearchNew(query map[string][]string) compton.Element {
 
-	p := page.New("Search - gaugin").SetFavIconEmoji("🪸")
+	p := page.New("Search - gaugin").
+		SetFavIconEmoji("🪸").
+		SetCustomStyles(gaugin_styles.GauginStyle)
 
 	pageStack := flex_items.New(p, direction.Column)
 	p.Append(pageStack)
@@ -29,14 +34,25 @@ func SearchNew(query map[string][]string) compton.Element {
 
 	productCards := grid_items.New(p)
 
-	testProductCard := product_card.New(p, "Anger Foot").
-		SetDevelopers("Free Lives").
-		SetPublishers("Devolver Digital").
-		SetPoster(
-			"21=30=I/wABCBTYZmCkFUkEJhwI4ABDSZKStElia46tSJIutYlUgiFBXpLa2LIlKdKcSxVN2uooMABFSRdHloyEcQ7GSAMDBICI8pKkJxAh2rpEFCeAFS5tgTsgwwodcFVgPnlS4slJSXPUBVghj45QWytKpLvkhufIOSRWHAgQaaS8KhZBSpKHydaTSAsBOGhwo+5TSew+zEkX44mtNm0CDNQAAgRMeeZspUsHLgPCwU8OOAQw4UOGS5E+fDA3B9yEJ0lipJuDVDEJBKop32ARzgEFhElKmJjDooTiFQ1izJlDp40SEyYElEiSJIAJdUpKAG/gIMOE4ElM5A5AYjuLPSXCr/9lAUJ0hgwHSggIgKS9gHDgwwc44KBxY+vrS7QnEQB+eBOa1WdfBg0EoB9zJRyQQ3wsNLCCA4zdtx4JSLSRjmYIuKNEEiwYAEAAEYKQAQK5LbcCOOqEsw4UVQnUQIR8TaAZCyxAQc8eV7jDom8NUQCCBiZURqB0JkBhQjiC7KhWAPUBeQOBOgWAwAE4iNGOOlCwEBaTIFBQwpMTRDnBBF3ocZwJ6Rh5AAUfeAlOAw3QiKE8x+kExRNK0AcCAtKtQGNrJtBhQpQBPAEFAA2MmCCNuiFnwhMG1tlnFTEY6KBvjkKBlBJKRNHCoMuRAAAJT1RqoE4AOucociyNmlqUBqwVtRYChALQETa2lqDCWgB4mJNOAwUEADs",
-			"https://gaugin.frmnt.io/image?id=0d9684e197ff3a8d34bddab41e2ef8c9f6d1050242b44b56dfab11ff69b670bb")
+	labelValues := map[string]string{
+		"owned": "Own",
+	}
 
-	productLink := els.NewA("https://gaugin.frmnt.io/product?id=1983918143")
+	labelClasses := map[string][]string{
+		"owned": {"validation-result-ok"},
+	}
+
+	testProductCard := product_card.New(p).
+		SetTitle("SteamWorld Heist II").
+		SetDevelopers("Thunderful Development").
+		SetPublishers("Thunderful Publishing").
+		SetPoster(
+			"21=30=I/wATKIBAA4LABAgRKljIsOFCCA4f0qAxo2BDCBgnQsxI0cqTJytmYHxYrly8LhVplOtCDpyVcOFWgJtYkIY7k126xNvJE92MclaqALIiEgLOk+TIsQTHrsqfKqP+jApZsBy5HOCqVMmDZ9QoPFVSgcvD7g+CigTLzSiL76uoPKPy5JGRpwoeGSxo6tDBTtQoUXjA1tX6p3AMB3v3ehmntUqMxw0OHHDQIMbkxOVkgJNxYMUBGUnLefGSyAuCcjt26JjxxIoMFSo+eyHHBV6Z1KmDqNaxQoVOluXK5Fix5Z2OIMjRtSODnAQJplbKSEfnBE896WXIVB/F3MkKK03JkP/JDs6JnHjw4qFb8cQJoDJPNstsByhR+zxI0lUhV25POwNdlKFUPFrVE8gcSOCRhxxOtGNFPoGsIEM7h+jUTjrlAUKCHJbIgQQS7egzSj766MNeK+04kc4TJHyEBIMktMNKPeyQUgo7T6gQSBdPhMOCc4GA85EVrZTCST2AsMPeE4k8EmRM4OjDDlmttJJHJ1Y4aEWWiSSCSDtXXOFOIPqlE4ge5qWjU5dsIuLmTm52saIMM2hmBSJsikcGInrG4xELZTyyWnngiMenm26iQ0Z5TliBDjoercDCCl2skQgZXtbTSSf15KGCE53k0V45QTxQJxCPYPoIIvFMmccKZ8lDAFKgZJiawyO4OmIoGTk9YAFvK1QgnQ4P5KCom2QAAQQZiqLjwAMIBPDsAw44UEEO5WD7qKJAoANEDtBOVgG1DigaEAA7",
+			"/image?id=3e352d9097ffd33cff8c43c7ddd31c2bb3d3a8f11089a6b737e21235777f71ad").
+		SetOperatingSystems(vangogh_local_data.Windows).
+		SetLabels(labelValues, labelClasses)
+
+	productLink := els.NewA(paths.ProductId("1965670180"))
 	productLink.Append(testProductCard)
 
 	productCards.Append(productLink)
