@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/gaugin_middleware"
+	"github.com/arelate/gaugin/rest/compton_pages"
 	"github.com/arelate/gaugin/stencil_app"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/kevlar"
@@ -106,6 +107,12 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		if len(irx) > 0 {
 			idRedux = MergeIdPropertyValues(irx, tagNamesRedux)
 		}
+	} else {
+		searchPage := compton_pages.SearchNew(query)
+		if err := searchPage.WriteContent(w); err != nil {
+			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		}
+		return
 	}
 
 	rdx := kevlar.ReduxProxy(idRedux)

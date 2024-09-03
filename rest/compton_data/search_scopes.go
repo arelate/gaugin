@@ -6,38 +6,38 @@ import (
 )
 
 const (
-	ScopeNewSearch = "New"
-	ScopeOwned     = "Owned"
-	ScopeWishlist  = "Wishlist"
-	ScopeSale      = "Sale"
-	ScopeAll       = "All"
+	SearchNew      = "New"
+	SearchOwned    = "Owned"
+	SearchWishlist = "Wishlist"
+	SearchSale     = "Sale"
+	SearchAll      = "All"
 )
 
-var SearchScopes = []string{
-	ScopeNewSearch,
-	ScopeOwned,
-	ScopeWishlist,
-	ScopeSale,
-	ScopeAll,
+var SearchOrder = []string{
+	SearchNew,
+	SearchOwned,
+	SearchWishlist,
+	SearchSale,
+	SearchAll,
 }
 
-func SearchScopeQueries() map[string]string {
+func SearchQueries() map[string]string {
 
-	scopes := make(map[string]string)
+	queries := make(map[string]string)
 
-	scopes[ScopeNewSearch] = ""
+	queries[SearchNew] = ""
 
 	q := make(url.Values)
 	q.Set(vangogh_local_data.TypesProperty, vangogh_local_data.AccountProducts.String())
 	q.Set(vangogh_local_data.SortProperty, vangogh_local_data.GOGOrderDateProperty)
 	q.Set(vangogh_local_data.DescendingProperty, vangogh_local_data.TrueValue)
-	scopes[ScopeOwned] = q.Encode()
+	queries[SearchOwned] = q.Encode()
 
 	q = make(url.Values)
 	q.Set(vangogh_local_data.WishlistedProperty, vangogh_local_data.TrueValue)
 	q.Set(vangogh_local_data.SortProperty, vangogh_local_data.GOGReleaseDateProperty)
 	q.Set(vangogh_local_data.DescendingProperty, vangogh_local_data.TrueValue)
-	scopes[ScopeWishlist] = q.Encode()
+	queries[SearchWishlist] = q.Encode()
 
 	q = make(url.Values)
 	q.Set(vangogh_local_data.TypesProperty, vangogh_local_data.CatalogProducts.String())
@@ -45,13 +45,13 @@ func SearchScopeQueries() map[string]string {
 	q.Set(vangogh_local_data.IsDiscountedProperty, vangogh_local_data.TrueValue)
 	q.Set(vangogh_local_data.SortProperty, vangogh_local_data.DiscountPercentageProperty)
 	q.Set(vangogh_local_data.DescendingProperty, vangogh_local_data.TrueValue)
-	scopes[ScopeSale] = q.Encode()
+	queries[SearchSale] = q.Encode()
 
 	q = make(url.Values)
 	q.Set(vangogh_local_data.TypesProperty, vangogh_local_data.CatalogProducts.String())
 	q.Set(vangogh_local_data.SortProperty, vangogh_local_data.GOGReleaseDateProperty)
 	q.Set(vangogh_local_data.DescendingProperty, vangogh_local_data.TrueValue)
-	scopes[ScopeAll] = q.Encode()
+	queries[SearchAll] = q.Encode()
 
-	return scopes
+	return queries
 }
