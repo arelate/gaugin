@@ -1,0 +1,63 @@
+<template id="product-card-template">
+    <style>
+
+        :host {
+            --s-snh: calc((var(--s-n) + var(--s-s))/2);
+            background-color: var(--c-highlight);
+            padding: var(--s-snh);
+            border-radius: var(--br-l);
+            display: flex;
+            column-gap: var(--s-snh);
+        }
+
+        h3 {
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: var(--fs-l);
+            font-weight: var(--fw-b);
+            margin-block-end: auto;
+        }
+
+        div {
+            font-size: calc((var(--fs-xxs) + var(--fs-xs))/2);
+            display: grid;
+            grid-template-columns: var(--s-xl) auto;
+            align-content: center;
+            grid-column-gap: var(--s-s);
+            grid-row-gap: var(--s-s);
+            align-items: center;
+
+            & span {
+                color: var(--c-subtle)
+            }
+        }
+
+        ::slotted(issa-image) {
+            width: 85px;
+            height: 120px;
+        }
+    </style>
+
+    <slot name="poster"></slot>
+    <flex-items data-flex-direction="column" data-row-gap="x-small">
+        <h3><slot name="title"></slot></h3>
+        <flex-items data-direction="row" data-row-gap="xx-small" data-column-gap="xx-small">
+            <slot name="labels"></slot>
+        </flex-items>
+        <div>
+            <span>OS</span>
+            <slot name="operating-systems"></slot>
+        </div>
+        <div>
+            <span>Developers</span>
+            <slot name="developers"></slot>
+        </div>
+        <div>
+            <span>Publishers</span>
+            <slot name="publishers"></slot>
+        </div>
+    </flex-items>
+
+</template>
