@@ -4,12 +4,10 @@ import (
 	"bytes"
 	_ "embed"
 	"github.com/arelate/gaugin/rest/gaugin_atoms"
+	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/consts/direction"
-	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/custom_elements"
 	"github.com/boggydigital/compton/elements/els"
-	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/issa_image"
 	"github.com/boggydigital/compton/elements/svg_inline"
 	"golang.org/x/exp/maps"
@@ -34,8 +32,8 @@ type ProductCard struct {
 	wcr              compton.Registrar
 	poster           compton.Element
 	title            string
-	labels           compton.Element
-	operatingSystems compton.Element
+	labels           []compton.Element
+	operatingSystems []compton.Element
 	developers       []string
 	publishers       []string
 }
@@ -74,12 +72,16 @@ func (pc *ProductCard) elementFragmentWriter(t string, w io.Writer) error {
 			return err
 		}
 	case ".Labels":
-		if err := pc.labels.WriteContent(w); err != nil {
-			return err
+		for _, label := range pc.labels {
+			if err := label.WriteContent(w); err != nil {
+				return err
+			}
 		}
 	case ".OperatingSystems":
-		if err := pc.operatingSystems.WriteContent(w); err != nil {
-			return err
+		for _, os := range pc.operatingSystems {
+			if err := os.WriteContent(w); err != nil {
+				return err
+			}
 		}
 	case ".Developers":
 		if _, err := io.WriteString(w, strings.Join(pc.developers, ", ")); err != nil {
@@ -89,6 +91,8 @@ func (pc *ProductCard) elementFragmentWriter(t string, w io.Writer) error {
 		if _, err := io.WriteString(w, strings.Join(pc.publishers, ", ")); err != nil {
 			return err
 		}
+	case compton.AttributesToken:
+		return pc.BaseElement.WriteFragment(compton.AttributesToken, w)
 	default:
 		return compton.ErrUnknownToken(t)
 	}
@@ -112,9 +116,7 @@ func (pc *ProductCard) SetPoster(dehydratedSrc, posterSrc string) *ProductCard {
 }
 
 func (pc *ProductCard) SetOperatingSystems(operatingSystems ...vangogh_local_data.OperatingSystem) *ProductCard {
-	osFlexItems := flex_items.New(pc.wcr, direction.Row).
-		SetColumnGap(size.Small)
-	osFlexItems.SetAttr("slot", "operating-systems")
+	pc.operatingSystems = nil
 	for _, os := range operatingSystems {
 		var symbol svg_inline.Symbol
 		switch os {
@@ -127,19 +129,14 @@ func (pc *ProductCard) SetOperatingSystems(operatingSystems ...vangogh_local_dat
 		default:
 			panic("unknown operating system")
 		}
-		osFlexItems.Append(svg_inline.New(symbol))
+		pc.operatingSystems = append(pc.operatingSystems, svg_inline.New(symbol))
 	}
-	pc.operatingSystems = osFlexItems
 	return pc
 }
 
 func (pc *ProductCard) SetLabels(values map[string]string, classes map[string][]string, order ...string) *ProductCard {
 
-	labelsFlexItems := flex_items.New(pc.wcr, direction.Row).
-		SetColumnGap(size.XXSmall).
-		SetRowGap(size.XXSmall)
-	labelsFlexItems.SetClass("labels")
-	labelsFlexItems.SetAttr("slot", "labels")
+	pc.labels = nil
 
 	if order == nil {
 		order = maps.Keys(values)
@@ -147,18 +144,18 @@ func (pc *ProductCard) SetLabels(values map[string]string, classes map[string][]
 	}
 
 	for _, l := range order {
-		label := els.NewLabel("")
+		label := els.NewDiv()
+
 		value := values[l]
 		label.Append(els.NewText(value))
-		cs := []string{l, value}
+		cs := []string{"label", l, value}
 		if lcs, ok := classes[l]; ok {
 			cs = append(cs, lcs...)
 		}
 		label.SetClass(cs...)
-		labelsFlexItems.Append(label)
+		pc.labels = append(pc.labels, label)
 	}
 
-	pc.labels = labelsFlexItems
 	return pc
 }
 
@@ -167,14 +164,18 @@ func (pc *ProductCard) SetTitle(title string) *ProductCard {
 	return pc
 }
 
-func New(wcr compton.Registrar) *ProductCard {
-	return &ProductCard{
+func New(wcr compton.Registrar, id string) *ProductCard {
+	pc := &ProductCard{
 		BaseElement: compton.BaseElement{
 			TagName: gaugin_atoms.ProductCard,
 			Markup:  markupProductCard,
 		},
 		wcr: wcr,
 	}
+
+	pc.SetAttr("data-id", id)
+
+	return pc
 }
 
 //func NewData(wcr compton.Registrar, id string, rdx kevlar.ReadableRedux) (*ProductCard, error) {

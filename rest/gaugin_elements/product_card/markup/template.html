@@ -7,8 +7,11 @@
             padding: var(--s-snh);
             border-radius: var(--br-l);
             display: flex;
+            flex-direction: row;
             column-gap: var(--s-snh);
             color: var(--c-foreground);
+            content-visibility: auto;
+            contain-intrinsic-size: var(--resp-grid-column-width) 120px;
         }
 
         h3 {
@@ -31,15 +34,18 @@
             align-items: center;
 
             & span {
-                color: var(--c-subtle)
+                &.title {
+                    width: var(--s-xl);
+                    color: var(--c-subtle)
+                }
+
+                &.value {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
             }
         }
-
-        ::slotted(issa-image) {
-            width: 85px;
-            height: 120px;
-        }
-
     </style>
 
     <slot name="poster"></slot>
@@ -49,16 +55,16 @@
         </h3>
         <slot name="labels"></slot>
         <div>
-            <span>OS</span>
+            <span class="title">OS</span>
             <slot name="operating-systems"></slot>
         </div>
         <div>
-            <span>Developers</span>
-            <slot name="developers"></slot>
+            <span class="title">Developers</span>
+            <span class="value"><slot name="developers"></slot></span>
         </div>
         <div>
-            <span>Publishers</span>
-            <slot name="publishers"></slot>
+            <span class="title">Publishers</span>
+            <span class="value"><slot name="publishers"></slot></span>
         </div>
     </flex-items>
 
