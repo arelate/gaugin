@@ -119,7 +119,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	rdx := kevlar.ReduxProxy(idRedux)
 
-	searchPage := compton_pages.SearchNew(query, ids, from, to, rdx)
+	searchPage := compton_pages.Search(query, ids, from, to, rdx)
 	if err := searchPage.WriteContent(w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 	}

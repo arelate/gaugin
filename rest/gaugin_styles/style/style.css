@@ -6,6 +6,10 @@
     font-weight: var(--fw-b);
 }
 
+.fs-s {
+    font-size: var(--fs-s)
+}
+
 .fs-xs {
     font-size: var(--fs-xs)
 }
@@ -13,6 +17,13 @@
 .search-show-more {
     width: 100%;
     max-width: calc(5 * var(--s-xl));
+}
+
+.footer {
+    & a {
+        font-weight: var(--fw-b);
+        color: var(--c-foreground);
+    }
 }
 
 @container (max-width: 700px) {

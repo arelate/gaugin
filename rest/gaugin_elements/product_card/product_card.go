@@ -116,15 +116,6 @@ func (pc *ProductCard) elementFragmentWriter(t string, w io.Writer) error {
 	return nil
 }
 
-//	func (pc *ProductCard) SetDevelopers(developers ...string) *ProductCard {
-//		pc.developers = developers
-//		return pc
-//	}
-//
-//	func (pc *ProductCard) SetPublishers(publishers ...string) *ProductCard {
-//		pc.publishers = publishers
-//		return pc
-//	}
 func (pc *ProductCard) SetDehydratedPoster(dehydratedSrc, posterSrc string) *ProductCard {
 	pc.poster = issa_image.NewDehydrated(pc.wcr, dehydratedSrc, posterSrc)
 	pc.poster.SetAttr("slot", "poster")
@@ -136,27 +127,6 @@ func (pc *ProductCard) SetHydratedPoster(hydratedSrc, posterSrc string) *Product
 	pc.poster.SetAttr("slot", "poster")
 	return pc
 }
-
-//func operatingSystemSymbol()
-
-//func (pc *ProductCard) SetOperatingSystems(operatingSystems ...vangogh_local_data.OperatingSystem) *ProductCard {
-//	pc.operatingSystems = nil
-//	for _, os := range operatingSystems {
-//		var symbol svg_inline.Symbol
-//		switch os {
-//		case vangogh_local_data.Windows:
-//			symbol = svg_inline.Windows
-//		case vangogh_local_data.MacOS:
-//			symbol = svg_inline.MacOS
-//		case vangogh_local_data.Linux:
-//			symbol = svg_inline.Linux
-//		default:
-//			panic("unknown operating system")
-//		}
-//		pc.operatingSystems = append(pc.operatingSystems, svg_inline.New(symbol))
-//	}
-//	return pc
-//}
 
 //
 //func (pc *ProductCard) SetLabels(values map[string]string, classes map[string][]string, order ...string) *ProductCard {
@@ -202,7 +172,6 @@ func New(wcr compton.Registrar, id string, rdx kevlar.ReadableRedux) *ProductCar
 
 	if viSrc, ok := rdx.GetLastVal(vangogh_local_data.VerticalImageProperty, id); ok {
 		dhSrc, _ := rdx.GetLastVal(vangogh_local_data.DehydratedVerticalImageProperty, id)
-		//hSrc := issa.HydrateColor(dhSrc)
 		pc.SetDehydratedPoster(dhSrc, "image?id="+viSrc)
 	}
 
@@ -210,38 +179,3 @@ func New(wcr compton.Registrar, id string, rdx kevlar.ReadableRedux) *ProductCar
 
 	return pc
 }
-
-//func NewData(wcr compton.Registrar, id string, rdx kevlar.ReadableRedux) (*ProductCard, error) {
-//
-//	if err := rdx.MustHave(
-//		vangogh_local_data.DehydratedVerticalImageProperty,
-//		vangogh_local_data.TitleProperty); err != nil {
-//		return nil, err
-//	}
-//
-//	pc := New(wcr, id)
-//
-//	if viSrc, ok := rdx.GetLastVal(vangogh_local_data.VerticalImageProperty, id); ok {
-//		dhSrc, _ := rdx.GetLastVal(vangogh_local_data.DehydratedVerticalImageProperty, id)
-//		pc.SetDehydratedPoster(dhSrc, "image?id="+viSrc)
-//	}
-//
-//	if title, ok := rdx.GetLastVal(vangogh_local_data.TitleProperty, id); ok {
-//		pc.SetTitle(title)
-//	}
-//
-//	if oses, ok := rdx.GetAllValues(vangogh_local_data.OperatingSystemsProperty, id); ok {
-//		poses := vangogh_local_data.ParseManyOperatingSystems(oses)
-//		pc.SetOperatingSystems(poses...)
-//	}
-//
-//	if developers, ok := rdx.GetAllValues(vangogh_local_data.DevelopersProperty, id); ok {
-//		pc.SetDevelopers(developers...)
-//	}
-//
-//	if publishers, ok := rdx.GetAllValues(vangogh_local_data.PublishersProperty, id); ok {
-//		pc.SetPublishers(publishers...)
-//	}
-//
-//	return pc, nil
-//}
