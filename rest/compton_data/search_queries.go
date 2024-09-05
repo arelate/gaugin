@@ -3,6 +3,7 @@ package compton_data
 import (
 	"github.com/arelate/vangogh_local_data"
 	"net/url"
+	"strings"
 )
 
 const (
@@ -54,4 +55,22 @@ func SearchQueries() map[string]string {
 	queries[SearchAll] = q.Encode()
 
 	return queries
+}
+
+func SearchScopeFromQuery(query map[string][]string) string {
+	q := &url.Values{}
+	for property, values := range query {
+		q.Set(property, strings.Join(values, ", "))
+	}
+
+	enq := q.Encode()
+
+	searchScope := SearchNew
+	for st, sq := range SearchQueries() {
+		if sq == enq {
+			searchScope = st
+		}
+	}
+
+	return searchScope
 }

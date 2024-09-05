@@ -1,3 +1,15 @@
+.fg-subtle {
+    color: var(--c-subtle);
+}
+
+.fw-b {
+    font-weight: var(--fw-b);
+}
+
+.fs-xs {
+    font-size: var(--fs-xs)
+}
+
 product-card {
     --s-snh: calc((var(--s-n) + var(--s-s))/2);
 

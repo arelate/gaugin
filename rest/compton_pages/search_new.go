@@ -6,17 +6,18 @@ import (
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/gaugin/rest/gaugin_elements/product_card"
 	"github.com/arelate/gaugin/rest/gaugin_styles"
-	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/direction"
+	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_toggle"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/grid_items"
 	"github.com/boggydigital/compton/elements/page"
+	"github.com/boggydigital/kevlar"
 )
 
-func SearchNew(query map[string][]string) compton.Element {
+func SearchNew(query map[string][]string, ids []string, from, to int, rdx kevlar.ReadableRedux) compton.Element {
 
 	p := page.New("Search - gaugin").
 		SetFavIconEmoji("🪸").
@@ -26,43 +27,45 @@ func SearchNew(query map[string][]string) compton.Element {
 	p.Append(pageStack)
 
 	appNavLinks := compton_fragments.AppNavLinks(p, compton_data.AppNavSearch)
-	searchLinks := compton_fragments.SearchLinks(p, compton_data.SearchNew)
+	pageStack.Append(appNavLinks)
 
-	filterSearchDetails := details_toggle.NewClosed(p, "Filter & Search")
+	searchScope := compton_data.SearchScopeFromQuery(query)
+	searchLinks := compton_fragments.SearchLinks(p, searchScope)
+	pageStack.Append(searchLinks)
 
-	filterSearchDetails.Append(compton_fragments.SearchForm(p))
+	searchQuery := compton_fragments.SearchQuery(query, p)
 
-	productCards := grid_items.New(p)
+	var detailsToggle func(compton.Registrar, string) *details_toggle.Details
+	if len(ids) > 0 {
+		detailsToggle = details_toggle.NewClosed
+	} else {
+		detailsToggle = details_toggle.NewOpen
+	}
+	filterSearchDetails := detailsToggle(p, "Filter & Search")
+	filterSearchDetails.Append(compton_fragments.SearchForm(searchQuery, p))
+	pageStack.Append(filterSearchDetails)
 
-	testProductCard := product_card.New(p, "1965670180").
-		SetTitle("SteamWorld Heist II").
-		SetDevelopers("Thunderful Development").
-		SetPublishers("Thunderful Publishing").
-		SetPoster(
-			"21=30=I/wATKIBAA4LABAgRKljIsOFCCA4f0qAxo2BDCBgnQsxI0cqTJytmYHxYrly8LhVplOtCDpyVcOFWgJtYkIY7k126xNvJE92MclaqALIiEgLOk+TIsQTHrsqfKqP+jApZsBy5HOCqVMmDZ9QoPFVSgcvD7g+CigTLzSiL76uoPKPy5JGRpwoeGSxo6tDBTtQoUXjA1tX6p3AMB3v3ehmntUqMxw0OHHDQIMbkxOVkgJNxYMUBGUnLefGSyAuCcjt26JjxxIoMFSo+eyHHBV6Z1KmDqNaxQoVOluXK5Fix5Z2OIMjRtSODnAQJplbKSEfnBE896WXIVB/F3MkKK03JkP/JDs6JnHjw4qFb8cQJoDJPNstsByhR+zxI0lUhV25POwNdlKFUPFrVE8gcSOCRhxxOtGNFPoGsIEM7h+jUTjrlAUKCHJbIgQQS7egzSj766MNeK+04kc4TJHyEBIMktMNKPeyQUgo7T6gQSBdPhMOCc4GA85EVrZTCST2AsMPeE4k8EmRM4OjDDlmttJJHJ1Y4aEWWiSSCSDtXXOFOIPqlE4ge5qWjU5dsIuLmTm52saIMM2hmBSJsikcGInrG4xELZTyyWnngiMenm26iQ0Z5TliBDjoercDCCl2skQgZXtbTSSf15KGCE53k0V45QTxQJxCPYPoIIvFMmccKZ8lDAFKgZJiawyO4OmIoGTk9YAFvK1QgnQ4P5KCom2QAAQQZiqLjwAMIBPDsAw44UEEO5WD7qKJAoANEDtBOVgG1DigaEAA7",
-			"/image?id=3e352d9097ffd33cff8c43c7ddd31c2bb3d3a8f11089a6b737e21235777f71ad").
-		SetOperatingSystems(vangogh_local_data.Windows).
-		SetLabels(
-			map[string]string{
-				"owned": "Own",
-			},
-			map[string][]string{
-				"owned": {"validation-result-ok"},
-			})
+	if searchQuery != nil {
+		pageStack.Append(searchQuery)
+	}
 
-	productLink := els.NewA(paths.ProductId("1965670180"))
-	productLink.Append(testProductCard)
+	itemsCount := compton_fragments.ItemsCount(p, from, to, len(ids))
+	pageStack.Append(itemsCount)
 
-	for range 100 {
+	productCards := grid_items.New(p).
+		SetColumnGap(size.Normal).
+		SetRowGap(size.Normal)
 
+	for ii := from; ii < to; ii++ {
+		id := ids[ii]
+		productLink := els.NewA(paths.ProductId(id))
+
+		productCard := product_card.New(p, id, rdx)
+		productLink.Append(productCard)
 		productCards.Append(productLink)
 	}
 
-	pageStack.Append(
-		appNavLinks,
-		searchLinks,
-		filterSearchDetails,
-		productCards)
+	pageStack.Append(productCards)
 
 	return p
 }

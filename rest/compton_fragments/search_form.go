@@ -13,11 +13,15 @@ import (
 	"slices"
 )
 
-func SearchForm(r compton.Registrar) compton.Element {
+func SearchForm(searchQuery compton.Element, r compton.Registrar) compton.Element {
 
 	form := els.NewForm("/search", "GET")
 	formStack := flex_items.New(r, direction.Column)
 	form.Append(formStack)
+
+	if searchQuery != nil {
+		formStack.Append(searchQuery)
+	}
 
 	submitRow := flex_items.New(r, direction.Row).
 		JustifyContent(alignment.Center)
