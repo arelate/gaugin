@@ -9,7 +9,7 @@ import (
 func SearchLinks(r compton.Registrar, current string) compton.Element {
 
 	searchLinks := make(map[string]string)
-	for dst, q := range compton_data.SearchQueries() {
+	for dst, q := range compton_data.SearchScopes() {
 		searchLinks[dst] = compton_data.SearchPath + "?" + q
 	}
 

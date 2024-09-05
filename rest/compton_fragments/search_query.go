@@ -14,7 +14,7 @@ import (
 	"strings"
 )
 
-func SearchQuery(query map[string][]string, r compton.Registrar) compton.Element {
+func SearchQueryDisplay(query map[string][]string, r compton.Registrar) compton.Element {
 	if len(query) == 0 {
 		return nil
 	}

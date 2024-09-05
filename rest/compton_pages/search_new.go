@@ -33,7 +33,7 @@ func SearchNew(query map[string][]string, ids []string, from, to int, rdx kevlar
 	searchLinks := compton_fragments.SearchLinks(p, searchScope)
 	pageStack.Append(searchLinks)
 
-	searchQuery := compton_fragments.SearchQuery(query, p)
+	searchQueryDisplay := compton_fragments.SearchQueryDisplay(query, p)
 
 	var detailsToggle func(compton.Registrar, string) *details_toggle.Details
 	if len(ids) > 0 {
@@ -42,11 +42,11 @@ func SearchNew(query map[string][]string, ids []string, from, to int, rdx kevlar
 		detailsToggle = details_toggle.NewOpen
 	}
 	filterSearchDetails := detailsToggle(p, "Filter & Search")
-	filterSearchDetails.Append(compton_fragments.SearchForm(searchQuery, p))
+	filterSearchDetails.Append(compton_fragments.SearchForm(p, query, searchQueryDisplay))
 	pageStack.Append(filterSearchDetails)
 
-	if searchQuery != nil {
-		pageStack.Append(searchQuery)
+	if searchQueryDisplay != nil {
+		pageStack.Append(searchQueryDisplay)
 	}
 
 	itemsCount := compton_fragments.ItemsCount(p, from, to, len(ids))
@@ -66,6 +66,10 @@ func SearchNew(query map[string][]string, ids []string, from, to int, rdx kevlar
 	}
 
 	pageStack.Append(productCards)
+
+	if to < len(ids) {
+		pageStack.Append(compton_fragments.ShowMoreButton(p, query, to))
+	}
 
 	return p
 }

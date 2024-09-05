@@ -11,16 +11,17 @@ import (
 	"github.com/boggydigital/compton/elements/grid_items"
 	"github.com/boggydigital/compton/elements/title_values"
 	"slices"
+	"strings"
 )
 
-func SearchForm(searchQuery compton.Element, r compton.Registrar) compton.Element {
+func SearchForm(r compton.Registrar, query map[string][]string, searchQueryDisplay compton.Element) compton.Element {
 
 	form := els.NewForm("/search", "GET")
 	formStack := flex_items.New(r, direction.Column)
 	form.Append(formStack)
 
-	if searchQuery != nil {
-		formStack.Append(searchQuery)
+	if searchQueryDisplay != nil {
+		formStack.Append(searchQueryDisplay)
 	}
 
 	submitRow := flex_items.New(r, direction.Row).
@@ -32,7 +33,7 @@ func SearchForm(searchQuery compton.Element, r compton.Registrar) compton.Elemen
 	inputsGrid := grid_items.New(r)
 	formStack.Append(inputsGrid)
 
-	searchInputs(r, inputsGrid)
+	searchInputs(r, query, inputsGrid)
 
 	// duplicating Submit button after inputs at the end
 	formStack.Append(submitRow)
@@ -40,10 +41,11 @@ func SearchForm(searchQuery compton.Element, r compton.Registrar) compton.Elemen
 	return form
 }
 
-func searchInputs(r compton.Registrar, container compton.Element) {
+func searchInputs(r compton.Registrar, query map[string][]string, container compton.Element) {
 	for _, property := range compton_data.SearchProperties {
 		title := compton_data.PropertyTitles[property]
-		titleInput := title_values.NewSearchValue(r, title, property, "")
+		value := strings.Join(query[property], ", ")
+		titleInput := title_values.NewSearchValue(r, title, property, value)
 		if slices.Contains(compton_data.DigestProperties, property) {
 			// set datalist for that property
 		}

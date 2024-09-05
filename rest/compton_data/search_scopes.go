@@ -22,7 +22,7 @@ var SearchOrder = []string{
 	SearchAll,
 }
 
-func SearchQueries() map[string]string {
+func SearchScopes() map[string]string {
 
 	queries := make(map[string]string)
 
@@ -57,16 +57,20 @@ func SearchQueries() map[string]string {
 	return queries
 }
 
-func SearchScopeFromQuery(query map[string][]string) string {
+func EncodeQuery(query map[string][]string) string {
 	q := &url.Values{}
 	for property, values := range query {
 		q.Set(property, strings.Join(values, ", "))
 	}
 
-	enq := q.Encode()
+	return q.Encode()
+}
+
+func SearchScopeFromQuery(query map[string][]string) string {
+	enq := EncodeQuery(query)
 
 	searchScope := SearchNew
-	for st, sq := range SearchQueries() {
+	for st, sq := range SearchScopes() {
 		if sq == enq {
 			searchScope = st
 		}
