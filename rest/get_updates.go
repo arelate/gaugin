@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"github.com/arelate/gaugin/rest/compton_pages"
 	"github.com/arelate/gaugin/stencil_app"
 	"github.com/boggydigital/kevlar"
 	"golang.org/x/exp/maps"
@@ -12,7 +13,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
 )
@@ -97,7 +97,7 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	gaugin_middleware.DefaultHeaders(w)
+	//gaugin_middleware.DefaultHeaders(w)
 
 	// section order will be based on full title ("new in ...", "updates in ...")
 	// so not changed after concise update titles change
@@ -135,17 +135,22 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 
 	rdx := kevlar.ReduxProxy(MergeIdPropertyValues(dataRdx, tagNamesRedux))
 
-	if err := app.RenderGroup(
-		stencil_app.NavUpdates,
-		sections,
-		updates,
-		sectionTitles,
-		updateTotals,
-		updated,
-		r.URL,
-		rdx,
-		w); err != nil {
+	updatesPage := compton_pages.Updates(sections, updates, sectionTitles, updateTotals, updated, rdx)
+	if err := updatesPage.WriteContent(w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
 	}
+
+	//if err := app.RenderGroup(
+	//	stencil_app.NavUpdates,
+	//	sections,
+	//	updates,
+	//	sectionTitles,
+	//	updateTotals,
+	//	updated,
+	//	r.URL,
+	//	rdx,
+	//	w); err != nil {
+	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+	//	return
+	//}
 }

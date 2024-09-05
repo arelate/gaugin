@@ -107,13 +107,6 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			idRedux = MergeIdPropertyValues(irx, tagNamesRedux)
 		}
 	}
-	//else {
-	//	searchPage := compton_pages.SearchNew(query, ids, from, to, nil)
-	//	if err := searchPage.WriteContent(w); err != nil {
-	//		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	}
-	//	return
-	//}
 
 	//gaugin_middleware.DefaultHeaders(w)
 
