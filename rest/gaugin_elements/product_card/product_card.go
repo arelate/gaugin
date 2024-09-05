@@ -3,10 +3,12 @@ package product_card
 import (
 	"bytes"
 	_ "embed"
+	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/gaugin_atoms"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/custom_elements"
+	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/issa_image"
 	"github.com/boggydigital/compton/elements/svg_inline"
 	"github.com/boggydigital/kevlar"
@@ -35,13 +37,8 @@ type ProductCard struct {
 	compton.BaseElement
 	wcr    compton.Registrar
 	poster compton.Element
-	//title            string
-	//labels           []compton.Element
-	//operatingSystems []compton.Element
-	//developers       []string
-	//publishers       []string
-	rdx kevlar.ReadableRedux
-	id  string
+	rdx    kevlar.ReadableRedux
+	id     string
 }
 
 func (pc *ProductCard) WriteRequirements(w io.Writer) error {
@@ -80,6 +77,15 @@ func (pc *ProductCard) elementFragmentWriter(t string, w io.Writer) error {
 			}
 		}
 	case ".Labels":
+		for _, property := range compton_data.LabelProperties {
+			if title := compton_data.LabelTitle(pc.id, property, pc.rdx); title != "" {
+				class := compton_data.LabelClass(pc.id, property, pc.rdx)
+				label := createLabel(property, title, class)
+				if err := label.WriteContent(w); err != nil {
+					return err
+				}
+			}
+		}
 		//for _, label := range pc.labels {
 		//	if err := label.WriteContent(w); err != nil {
 		//		return err
@@ -128,7 +134,14 @@ func (pc *ProductCard) SetHydratedPoster(hydratedSrc, posterSrc string) *Product
 	return pc
 }
 
-//
+func createLabel(property, title, class string) compton.Element {
+	label := els.NewDiv()
+	label.Append(els.NewText(title))
+	cs := []string{"label", property, title, class}
+	label.SetClass(cs...)
+	return label
+}
+
 //func (pc *ProductCard) SetLabels(values map[string]string, classes map[string][]string, order ...string) *ProductCard {
 //
 //	pc.labels = nil
@@ -172,7 +185,7 @@ func New(wcr compton.Registrar, id string, rdx kevlar.ReadableRedux) *ProductCar
 
 	if viSrc, ok := rdx.GetLastVal(vangogh_local_data.VerticalImageProperty, id); ok {
 		dhSrc, _ := rdx.GetLastVal(vangogh_local_data.DehydratedVerticalImageProperty, id)
-		pc.SetDehydratedPoster(dhSrc, "image?id="+viSrc)
+		pc.SetDehydratedPoster(dhSrc, "/image?id="+viSrc)
 	}
 
 	pc.SetAttr("data-id", id)
