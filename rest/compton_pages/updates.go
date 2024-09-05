@@ -38,6 +38,12 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 	sectionNav := nav_links.NewLinks(p, sectionTargets...)
 	pageStack.Append(sectionNav)
 
+	var showAll compton.Element
+	if hasMoreItems(sections, updates, updateTotals) {
+		showAll = compton_fragments.ShowAllButton(p)
+		pageStack.Append(showAll)
+	}
+
 	for _, section := range sections {
 
 		sectionDetailsToggle := details_toggle.NewOpen(p, sectionTitles[section])
@@ -55,9 +61,22 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 		sectionStack.Append(productsList)
 	}
 
+	if showAll != nil {
+		pageStack.Append(showAll)
+	}
+
 	pageStack.Append(compton_fragments.Updated(p, updated))
 
 	pageStack.Append(compton_fragments.Footer(p))
 
 	return p
+}
+
+func hasMoreItems(sections []string, updates map[string][]string, updateTotals map[string]int) bool {
+	for _, section := range sections {
+		if len(updates[section]) < updateTotals[section] {
+			return true
+		}
+	}
+	return false
 }
