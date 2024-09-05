@@ -5,7 +5,6 @@ import (
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/elements/details_toggle"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/page"
@@ -14,11 +13,11 @@ import (
 
 func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.ReadableRedux) compton.Element {
 
-	p := page.New("Search - gaugin").
+	p := page.Page("Search - gaugin").
 		SetFavIconEmoji("🪸").
 		SetCustomStyles(gaugin_styles.GauginStyle)
 
-	pageStack := flex_items.New(p, direction.Column)
+	pageStack := flex_items.FlexItemsColumn(p)
 	p.Append(pageStack)
 
 	appNavLinks := compton_fragments.AppNavLinks(p, compton_data.AppNavSearch)
@@ -30,7 +29,7 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 
 	searchQueryDisplay := compton_fragments.SearchQueryDisplay(query, p)
 
-	filterSearchDetails := details_toggle.NewToggle(p, "Filter & Search", len(ids) == 0)
+	filterSearchDetails := details_toggle.Toggle(p, "Filter & Search", len(ids) == 0)
 	filterSearchDetails.Append(compton_fragments.SearchForm(p, query, searchQueryDisplay))
 	pageStack.Append(filterSearchDetails)
 

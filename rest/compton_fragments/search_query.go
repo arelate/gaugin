@@ -4,7 +4,6 @@ import (
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/alignment"
-	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
@@ -19,10 +18,10 @@ func SearchQueryDisplay(query map[string][]string, r compton.Registrar) compton.
 		return nil
 	}
 
-	sh := section_highlight.New(r)
+	sh := section_highlight.SectionHighlight(r)
 	sh.SetClass("fs-xs")
 
-	shStack := flex_items.New(r, direction.Row).
+	shStack := flex_items.FlexItemsRow(r).
 		SetColumnGap(size.Normal).
 		SetRowGap(size.Small).
 		JustifyContent(alignment.Center)
@@ -33,16 +32,16 @@ func SearchQueryDisplay(query map[string][]string, r compton.Registrar) compton.
 
 	for _, property := range sortedProperties {
 		values := query[property]
-		span := els.NewSpan()
-		propertyTitle := els.NewSpanText(compton_data.PropertyTitles[property] + ": ")
+		span := els.Span()
+		propertyTitle := els.SpanText(compton_data.PropertyTitles[property] + ": ")
 		propertyTitle.SetClass("fg-subtle")
-		propertyValue := els.NewSpanText(strings.Join(values, ", "))
+		propertyValue := els.SpanText(strings.Join(values, ", "))
 		propertyValue.SetClass("fw-b")
 		span.Append(propertyTitle, propertyValue)
 		shStack.Append(span)
 	}
 
-	clearAction := els.NewAText("Clear", "/search")
+	clearAction := els.AText("Clear", "/search")
 	clearAction.SetClass("action")
 	shStack.Append(clearAction)
 

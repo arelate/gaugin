@@ -14,9 +14,17 @@
     font-size: var(--fs-xs)
 }
 
+.updates-show-all,
 .search-show-more {
     width: 100%;
     max-width: calc(5 * var(--s-xl));
+}
+
+@container (max-width: 700px) {
+    .updates-show-all,
+    .search-show-more {
+        max-width: unset;
+    }
 }
 
 .footer {
@@ -26,11 +34,7 @@
     }
 }
 
-@container (max-width: 700px) {
-    .search-show-more {
-        max-width: unset;
-    }
-}
+
 
 product-card {
     --s-snh: calc((var(--s-n) + var(--s-s))/2);

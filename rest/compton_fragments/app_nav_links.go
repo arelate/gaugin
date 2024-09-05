@@ -13,5 +13,5 @@ func AppNavLinks(r compton.Registrar, current string) compton.Element {
 		compton_data.AppNavOrder...)
 	nav_links.SetIcons(targets, compton_data.AppNavIcons)
 
-	return nav_links.NewLinks(r, targets...)
+	return nav_links.NavLinksTargets(r, targets...)
 }

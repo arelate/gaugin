@@ -2,7 +2,6 @@ package compton_fragments
 
 import (
 	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
@@ -10,16 +9,16 @@ import (
 )
 
 func Footer(r compton.Registrar) compton.Element {
-	sh := section_highlight.New(r)
+	sh := section_highlight.SectionHighlight(r)
 	sh.SetClass("footer", "fs-xs")
 
-	row := flex_items.New(r, direction.Row).SetColumnGap(size.XSmall)
+	row := flex_items.FlexItemsRow(r).SetColumnGap(size.XSmall)
 	sh.Append(row)
 
-	hello := els.NewSpanText("👋")
-	from := els.NewSpanText("from")
-	arlesFrance := els.NewAText("Arles 🇫🇷", "https://github.com/arelate")
-	row.Append(hello, from, arlesFrance)
+	row.Append(
+		els.SpanText("👋"), els.SpanText("from"),
+		els.AText("Arles", "https://github.com/arelate"),
+		els.SpanText("🇫🇷"))
 
 	return sh
 }

@@ -5,7 +5,6 @@ import (
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/elements/details_toggle"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/nav_links"
@@ -15,11 +14,11 @@ import (
 
 func Updates(sections []string, updates map[string][]string, sectionTitles map[string]string, updateTotals map[string]int, updated string, rdx kevlar.ReadableRedux) compton.Element {
 
-	p := page.New("Updates - gaugin").
+	p := page.Page("Updates - gaugin").
 		SetFavIconEmoji("🪸").
 		SetCustomStyles(gaugin_styles.GauginStyle)
 
-	pageStack := flex_items.New(p, direction.Column)
+	pageStack := flex_items.FlexItemsColumn(p)
 	p.Append(pageStack)
 
 	appNavLinks := compton_fragments.AppNavLinks(p, compton_data.AppNavUpdates)
@@ -35,7 +34,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 
 	sectionTargets := nav_links.TextLinks(sectionLinks, "", order...)
 
-	sectionNav := nav_links.NewLinks(p, sectionTargets...)
+	sectionNav := nav_links.NavLinksTargets(p, sectionTargets...)
 	pageStack.Append(sectionNav)
 
 	var showAll compton.Element
@@ -46,10 +45,10 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 
 	for _, section := range sections {
 
-		sectionDetailsToggle := details_toggle.NewOpen(p, sectionTitles[section])
+		sectionDetailsToggle := details_toggle.Open(p, sectionTitles[section])
 		pageStack.Append(sectionDetailsToggle)
 
-		sectionStack := flex_items.New(p, direction.Column)
+		sectionStack := flex_items.FlexItemsColumn(p)
 		sectionDetailsToggle.Append(sectionStack)
 
 		ids := updates[section]

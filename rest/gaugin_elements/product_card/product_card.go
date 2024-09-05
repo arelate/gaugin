@@ -28,12 +28,12 @@ var (
 )
 
 var operatingSystemSymbols = map[vangogh_local_data.OperatingSystem]compton.Element{
-	vangogh_local_data.Windows: svg_inline.New(svg_inline.Windows),
-	vangogh_local_data.MacOS:   svg_inline.New(svg_inline.MacOS),
-	vangogh_local_data.Linux:   svg_inline.New(svg_inline.Linux),
+	vangogh_local_data.Windows: svg_inline.SvgInline(svg_inline.Windows),
+	vangogh_local_data.MacOS:   svg_inline.SvgInline(svg_inline.MacOS),
+	vangogh_local_data.Linux:   svg_inline.SvgInline(svg_inline.Linux),
 }
 
-type ProductCard struct {
+type ProductCardElement struct {
 	compton.BaseElement
 	wcr    compton.Registrar
 	poster compton.Element
@@ -41,7 +41,7 @@ type ProductCard struct {
 	id     string
 }
 
-func (pc *ProductCard) WriteRequirements(w io.Writer) error {
+func (pc *ProductCardElement) WriteRequirements(w io.Writer) error {
 	if pc.wcr.RequiresRegistration(productCardElementName) {
 		if err := custom_elements.Define(w, custom_elements.Defaults(productCardElementName)); err != nil {
 			return err
@@ -58,11 +58,11 @@ func (pc *ProductCard) WriteRequirements(w io.Writer) error {
 	return pc.BaseElement.WriteRequirements(w)
 }
 
-func (pc *ProductCard) WriteContent(w io.Writer) error {
+func (pc *ProductCardElement) WriteContent(w io.Writer) error {
 	return compton.WriteContents(bytes.NewReader(markupProductCard), w, pc.elementFragmentWriter)
 }
 
-func (pc *ProductCard) elementFragmentWriter(t string, w io.Writer) error {
+func (pc *ProductCardElement) elementFragmentWriter(t string, w io.Writer) error {
 	switch t {
 	case ".Poster":
 		if pc.poster != nil {
@@ -122,58 +122,27 @@ func (pc *ProductCard) elementFragmentWriter(t string, w io.Writer) error {
 	return nil
 }
 
-func (pc *ProductCard) SetDehydratedPoster(dehydratedSrc, posterSrc string) *ProductCard {
-	pc.poster = issa_image.NewDehydrated(pc.wcr, dehydratedSrc, posterSrc)
+func (pc *ProductCardElement) SetDehydratedPoster(dehydratedSrc, posterSrc string) *ProductCardElement {
+	pc.poster = issa_image.IssaImageDehydrated(pc.wcr, dehydratedSrc, posterSrc)
 	pc.poster.SetAttr("slot", "poster")
 	return pc
 }
 
-func (pc *ProductCard) SetHydratedPoster(hydratedSrc, posterSrc string) *ProductCard {
-	pc.poster = issa_image.NewHydrated(pc.wcr, hydratedSrc, posterSrc)
+func (pc *ProductCardElement) SetHydratedPoster(hydratedSrc, posterSrc string) *ProductCardElement {
+	pc.poster = issa_image.IssaImageHydrated(pc.wcr, hydratedSrc, posterSrc)
 	pc.poster.SetAttr("slot", "poster")
 	return pc
 }
 
 func createLabel(property, title, class string) compton.Element {
-	label := els.NewDiv()
-	label.Append(els.NewText(title))
+	label := els.DivText(title)
 	cs := []string{"label", property, title, class}
 	label.SetClass(cs...)
 	return label
 }
 
-//func (pc *ProductCard) SetLabels(values map[string]string, classes map[string][]string, order ...string) *ProductCard {
-//
-//	pc.labels = nil
-//
-//	if order == nil {
-//		order = maps.Keys(values)
-//		slices.Sort(order)
-//	}
-//
-//	for _, l := range order {
-//		label := els.NewDiv()
-//
-//		value := values[l]
-//		label.Append(els.NewText(value))
-//		cs := []string{"label", l, value}
-//		if lcs, ok := classes[l]; ok {
-//			cs = append(cs, lcs...)
-//		}
-//		label.SetClass(cs...)
-//		pc.labels = append(pc.labels, label)
-//	}
-//
-//	return pc
-//}
-//
-//func (pc *ProductCard) SetTitle(title string) *ProductCard {
-//	pc.title = title
-//	return pc
-//}
-
-func New(wcr compton.Registrar, id string, rdx kevlar.ReadableRedux) *ProductCard {
-	pc := &ProductCard{
+func ProductCard(wcr compton.Registrar, id string, rdx kevlar.ReadableRedux) *ProductCardElement {
+	pc := &ProductCardElement{
 		BaseElement: compton.BaseElement{
 			TagName: gaugin_atoms.ProductCard,
 			Markup:  markupProductCard,

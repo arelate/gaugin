@@ -18,5 +18,5 @@ func SearchLinks(r compton.Registrar, current string) compton.Element {
 		current,
 		compton_data.SearchOrder...)
 
-	return nav_links.NewLinks(r, targets...)
+	return nav_links.NavLinksTargets(r, targets...)
 }

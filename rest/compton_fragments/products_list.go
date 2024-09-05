@@ -10,13 +10,13 @@ import (
 )
 
 func ProductsList(r compton.Registrar, ids []string, from, to int, rdx kevlar.ReadableRedux) compton.Element {
-	productCards := grid_items.New(r)
+	productCards := grid_items.GridItems(r)
 
 	for ii := from; ii < to; ii++ {
 		id := ids[ii]
-		productLink := els.NewA(paths.ProductId(id))
+		productLink := els.A(paths.ProductId(id))
 
-		productCard := product_card.New(r, id, rdx)
+		productCard := product_card.ProductCard(r, id, rdx)
 		productLink.Append(productCard)
 		productCards.Append(productLink)
 	}

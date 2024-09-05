@@ -3,19 +3,18 @@ package compton_fragments
 import (
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/alignment"
-	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 )
 
 func Updated(r compton.Registrar, updated string) compton.Element {
-	row := flex_items.New(r, direction.Row).JustifyContent(alignment.Center)
+	row := flex_items.FlexItemsRow(r).JustifyContent(alignment.Center)
 
-	span := els.NewSpan()
+	span := els.Span()
 	span.SetClass("fs-xs")
-	updatedTitle := els.NewSpanText("Updated: ")
+	updatedTitle := els.SpanText("Updated: ")
 	updatedTitle.SetClass("fg-subtle")
-	updatedValue := els.NewSpanText(updated)
+	updatedValue := els.SpanText(updated)
 	span.Append(updatedTitle, updatedValue)
 	row.Append(span)
 

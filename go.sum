@@ -34,6 +34,8 @@ github.com/boggydigital/compton v0.1.15 h1:VKThCjSHJ48QHhg1t2s5tYdHXfmPgDiYMADEh
 github.com/boggydigital/compton v0.1.15/go.mod h1:dj/yZ2cCfts6+heUS60Favateu+gNTIsoxfX6yNZWLg=
 github.com/boggydigital/compton v0.1.16 h1:Pa3nm4ucD+H8yBtkU1knDJwAYZyNz0UHFKZZevce2c4=
 github.com/boggydigital/compton v0.1.16/go.mod h1:dj/yZ2cCfts6+heUS60Favateu+gNTIsoxfX6yNZWLg=
+github.com/boggydigital/compton v0.1.17 h1:w2um2yIopqMibPx2xMetV9EoCPmRjGnsnSsn8EhgHIs=
+github.com/boggydigital/compton v0.1.17/go.mod h1:dj/yZ2cCfts6+heUS60Favateu+gNTIsoxfX6yNZWLg=
 github.com/boggydigital/issa v0.1.10 h1:zHSRJHkOz3DwVvp4/YL06qq/VHXexL7qrn4m48hRf/o=
 github.com/boggydigital/issa v0.1.10/go.mod h1:Rq+f8yeTlM/3ov4MCjmxWNL90n47h5CkwP6/628McKU=
 github.com/boggydigital/issa v0.1.12 h1:fuMrmTwScX5jHA+DYc4jfi0fiOjW3XVV23y3kTH+2Og=
@@ -60,9 +62,17 @@ github.com/boggydigital/yet_urls v0.1.54 h1:UWtw0glV0wC6Fu8AsXCWUVJFB5s155A6OIib
 github.com/boggydigital/yet_urls v0.1.54/go.mod h1:gwp6JmGZPfDTYn7DZJWk3cM2+8cBjatpCJmXR3AzIRo=
 golang.org/x/exp v0.0.0-20240823005443-9b4947da3948 h1:kx6Ds3MlpiUHKj7syVnbp57++8WpuKPcR5yjLBjvLEA=
 golang.org/x/exp v0.0.0-20240823005443-9b4947da3948/go.mod h1:akd2r19cwCdwSwWeIdzYQGa/EZZyqcOdwWiwj5L5eKQ=
+golang.org/x/exp v0.0.0-20240904232852-e7e105dedf7e h1:I88y4caeGeuDQxgdoFPUq097j7kNfw6uvuiNxUBfcBk=
+golang.org/x/exp v0.0.0-20240904232852-e7e105dedf7e/go.mod h1:akd2r19cwCdwSwWeIdzYQGa/EZZyqcOdwWiwj5L5eKQ=
 golang.org/x/image v0.19.0 h1:D9FX4QWkLfkeqaC62SonffIIuYdOk/UE2XKUBgRIBIQ=
 golang.org/x/image v0.19.0/go.mod h1:y0zrRqlQRWQ5PXaYCOMLTW2fpsxZ8Qh9I/ohnInJEys=
+golang.org/x/image v0.20.0 h1:7cVCUjQwfL18gyBJOmYvptfSHS8Fb3YUDtfLIZ7Nbpw=
+golang.org/x/image v0.20.0/go.mod h1:0a88To4CYVBAHp5FXJm8o7QbUl37Vd85ply1vyD8auM=
 golang.org/x/net v0.28.0 h1:a9JDOJc5GMUJ0+UDqmLT86WiEy7iWyIhz8gz8E4e5hE=
 golang.org/x/net v0.28.0/go.mod h1:yqtgsTWOOnlGLG9GFRrK3++bGOUEkNBoHZc8MEDWPNg=
+golang.org/x/net v0.29.0 h1:5ORfpBpCs4HzDYoodCDBbwHzdR5UrLBZ3sOnUJmFoHo=
+golang.org/x/net v0.29.0/go.mod h1:gLkgy8jTGERgjzMic6DS9+SP0ajcu6Xu3Orq/SpETg0=
 golang.org/x/text v0.17.0 h1:XtiM5bkSOt+ewxlOE/aE/AKEHibwj/6gvWMl9Rsh0Qc=
 golang.org/x/text v0.17.0/go.mod h1:BuEKDfySbSR4drPmRPG/7iBdf8hvFMuRexcpahXilzY=
+golang.org/x/text v0.18.0 h1:XvMDiNzPAl0jr17s6W9lcaIhGUfUORdGCNsuLmPG224=
+golang.org/x/text v0.18.0/go.mod h1:BuEKDfySbSR4drPmRPG/7iBdf8hvFMuRexcpahXilzY=
