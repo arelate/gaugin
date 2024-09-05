@@ -1,0 +1,8 @@
+<product-card {{.Attributes}}>
+    {{.Poster}}
+    <span slot="title">{{.Title}}</span>
+    <flex-items slot="labels" class="labels" data-flex-direction="row" data-column-gap="xx-small" data-row-gap="xx-small">{{.Labels}}</flex-items>
+    <flex-items slot="operating-systems" data-flex-direction="row" data-column-gap="small">{{.OperatingSystems}}</flex-items>
+    <span slot="developers">{{.Developers}}</span>
+    <span slot="publishers">{{.Publishers}}</span>
+</product-card>

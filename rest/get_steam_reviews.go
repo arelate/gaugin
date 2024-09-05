@@ -15,7 +15,7 @@ func GetSteamReviews(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	sar, _, err := getSteamReviews(http.DefaultClient, id)
+	sar, err := getSteamReviews(http.DefaultClient, id)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
@@ -29,7 +29,7 @@ func GetSteamReviews(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	gaugin_middleware.DefaultHeaders(nil, w)
+	gaugin_middleware.DefaultHeaders(w)
 
 	if err := app.RenderSection(id, stencil_app.SteamReviewsSection, sb.String(), w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)

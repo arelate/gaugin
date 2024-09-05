@@ -6,6 +6,7 @@ import (
 	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/paths"
 	"github.com/arelate/gaugin/stencil_app"
+	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/southern_light"
 	"github.com/arelate/southern_light/gog_integration"
 	"github.com/arelate/southern_light/gogdb_integration"
@@ -20,17 +21,14 @@ import (
 	"github.com/arelate/southern_light/vndb_integration"
 	"github.com/arelate/southern_light/wikipedia_integration"
 	"github.com/arelate/southern_light/winehq_integration"
+	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/kevlar"
+	"github.com/boggydigital/nod"
 	"golang.org/x/exp/maps"
 	"net/http"
 	"net/url"
 	"sort"
 	"strconv"
-	"time"
-
-	"github.com/arelate/gaugin/view_models"
-	"github.com/arelate/vangogh_local_data"
-	"github.com/boggydigital/nod"
 )
 
 var (
@@ -67,7 +65,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	// GET /product?slug -> /product?id
 
 	if r.URL.Query().Has(vangogh_local_data.SlugProperty) {
-		if ids, _, err := getSearch(http.DefaultClient, r.URL.Query()); err == nil {
+		if ids, err := getSearch(http.DefaultClient, r.URL.Query()); err == nil {
 			if len(ids) > 0 {
 				for _, id := range ids {
 					http.Redirect(w, r, paths.ProductId(id), http.StatusPermanentRedirect)
@@ -85,34 +83,20 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get(vangogh_local_data.IdProperty)
 
-	st := gaugin_middleware.NewServerTimings()
-	start := time.Now()
-
-	idRedux, cached, err := getRedux(http.DefaultClient, id, false, stencil_app.ProductProperties...)
+	idRedux, err := getRedux(http.DefaultClient, id, false, stencil_app.ProductProperties...)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
-
-	if cached {
-		st.SetFlag("getRedux-cached")
-	}
-	st.Set("getRedux", time.Since(start).Milliseconds())
 
 	// fill redux, data presence to allow showing only the section that will have data
 
-	start = time.Now()
-	hasRedux, cached, err := getHasRedux(http.DefaultClient, id, maps.Keys(propertiesSections)...)
+	hasRedux, err := getHasRedux(http.DefaultClient, id, maps.Keys(propertiesSections)...)
 
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
-
-	if cached {
-		st.SetFlag("getHasRedux-cached")
-	}
-	st.Set("getHasRedux", time.Since(start).Milliseconds())
 
 	hasSections := make([]string, 0)
 
@@ -126,18 +110,12 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	start = time.Now()
-	hasData, cached, err := getHasData(http.DefaultClient, id, maps.Keys(dataTypesSections)...)
+	hasData, err := getHasData(http.DefaultClient, id, maps.Keys(dataTypesSections)...)
 
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
-
-	if cached {
-		st.SetFlag("getHasData-cached")
-	}
-	st.Set("getHasData", time.Since(start).Milliseconds())
 
 	for _, dt := range dataTypesSectionsOrder {
 		if section, ok := dataTypesSections[dt]; ok {
@@ -149,7 +127,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	insertAggregateLinks(idRedux[id], id)
 
-	gaugin_middleware.DefaultHeaders(st, w)
+	gaugin_middleware.DefaultHeaders(w)
 
 	// adding titles for related games
 	relatedIds := make(map[string]bool)
@@ -169,27 +147,20 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	rids := maps.Keys(relatedIds)
 	sort.Strings(rids)
-	titleRedux, cached, err := getTitles(http.DefaultClient, rids...)
+	titleRedux, err := getTitles(http.DefaultClient, rids...)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
-	}
-	if cached {
-		st.SetFlag("getTitles-cached")
 	}
 
 	idRedux = MergeIdPropertyValues(idRedux, titleRedux)
 
 	// adding tag names for related games
-	tagNamesRedux, cached, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
+	tagNamesRedux, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
-	if cached {
-		st.SetFlag("getRedux-tagNames-cached")
-	}
-
 	rdx := kevlar.ReduxProxy(MergeIdPropertyValues(idRedux, tagNamesRedux))
 
 	if err := app.RenderItem(id, hasSections, rdx, w); err != nil {

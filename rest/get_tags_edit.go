@@ -14,7 +14,7 @@ func GetTagsEdit(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	idRedux, _, err := getRedux(
+	idRedux, err := getRedux(
 		http.DefaultClient,
 		id,
 		false,
@@ -27,7 +27,7 @@ func GetTagsEdit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tagNameRdx, _, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
+	tagNameRdx, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
 
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
@@ -39,7 +39,7 @@ func GetTagsEdit(w http.ResponseWriter, r *http.Request) {
 		selectedValues[v] = true
 	}
 
-	gaugin_middleware.DefaultHeaders(nil, w)
+	gaugin_middleware.DefaultHeaders(w)
 
 	tagNames := make(map[string]string)
 

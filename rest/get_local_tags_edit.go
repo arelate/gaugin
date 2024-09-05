@@ -14,7 +14,7 @@ func GetLocalTagsEdit(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	idRedux, _, err := getRedux(
+	idRedux, err := getRedux(
 		http.DefaultClient,
 		id,
 		false,
@@ -26,14 +26,14 @@ func GetLocalTagsEdit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	localTagsDigest, _, err := getDigests(http.DefaultClient, vangogh_local_data.LocalTagsProperty)
+	localTagsDigest, err := getDigests(http.DefaultClient, vangogh_local_data.LocalTagsProperty)
 
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 
-	gaugin_middleware.DefaultHeaders(nil, w)
+	gaugin_middleware.DefaultHeaders(w)
 
 	selectedValues := make(map[string]bool)
 	for _, v := range idRedux[id][vangogh_local_data.LocalTagsProperty] {

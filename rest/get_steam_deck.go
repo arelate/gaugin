@@ -16,13 +16,13 @@ func GetSteamDeck(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	sdacr, _, err := getSteamDeckReport(http.DefaultClient, id)
+	sdacr, err := getSteamDeckReport(http.DefaultClient, id)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 
-	titleResult, _, err := getRedux(http.DefaultClient, id, false, vangogh_local_data.TitleProperty)
+	titleResult, err := getRedux(http.DefaultClient, id, false, vangogh_local_data.TitleProperty)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
@@ -41,7 +41,7 @@ func GetSteamDeck(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	gaugin_middleware.DefaultHeaders(nil, w)
+	gaugin_middleware.DefaultHeaders(w)
 
 	if err := app.RenderSection(id, stencil_app.SteamDeckSection, sb.String(), w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)

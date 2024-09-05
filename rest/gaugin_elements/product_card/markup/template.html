@@ -1,0 +1,77 @@
+<template id="product-card-template">
+    <style>
+
+        :host {
+            --s-snh: calc((var(--s-n) + var(--s-s)) / 2);
+            background-color: var(--c-highlight);
+            padding: var(--s-snh);
+            border-radius: var(--br-l);
+            display: grid;
+            grid-template-columns: 85px calc(var(--resp-grid-column-width) - 85px - 3*var(--s-snh));
+            column-gap: var(--s-snh);
+            color: var(--c-foreground);
+            content-visibility: auto;
+            contain-intrinsic-size: var(--resp-grid-column-width) 120px;
+        }
+
+        h3 {
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: var(--fs-l);
+            font-weight: var(--fw-b);
+            margin-block-end: var(--s-xs);
+            width: 100%;
+        }
+
+        div {
+            font-size: calc((var(--fs-xxs) + var(--fs-xs)) / 2);
+            display: flex;
+            grid-template-columns: var(--s-xl) auto;
+            align-content: center;
+            grid-column-gap: var(--s-s);
+            grid-row-gap: var(--s-s);
+            align-items: center;
+            max-width: 100%;
+            /*outline: 1px solid green;*/
+
+            & span {
+                &.title {
+                    width: var(--s-xl);
+                    color: var(--c-subtle);
+                    flex-shrink: 0;
+                    /*outline: 1px solid teal;*/
+                }
+
+                &.value {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    /*outline: 1px solid pink;*/
+                }
+            }
+        }
+    </style>
+
+    <slot name="poster"></slot>
+    <flex-items data-flex-direction="column" data-row-gap="x-small">
+        <h3>
+            <slot name="title"></slot>
+        </h3>
+        <slot name="labels"></slot>
+        <div>
+            <span class="title">OS</span>
+            <slot name="operating-systems"></slot>
+        </div>
+        <div>
+            <span class="title">Developers</span>
+            <span class="value"><slot name="developers"></slot></span>
+        </div>
+        <div>
+            <span class="title">Publishers</span>
+            <span class="value"><slot name="publishers"></slot></span>
+        </div>
+    </flex-items>
+
+</template>

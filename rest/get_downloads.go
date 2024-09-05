@@ -31,7 +31,7 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	gaugin_middleware.DefaultHeaders(nil, w)
+	gaugin_middleware.DefaultHeaders(w)
 
 	if err := app.RenderSection(id, stencil_app.DownloadsSection, sb.String(), w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
@@ -80,7 +80,7 @@ func getClientOperatingSystem(r *http.Request) vangogh_local_data.OperatingSyste
 
 func getDownloadsViewModel(id string, clientOS vangogh_local_data.OperatingSystem) (*view_models.Downloads, error) {
 
-	idRdx, _, err := getRedux(
+	idRdx, err := getRedux(
 		http.DefaultClient,
 		id,
 		false,
@@ -92,7 +92,7 @@ func getDownloadsViewModel(id string, clientOS vangogh_local_data.OperatingSyste
 
 	//we specifically get /downloads and not /data&product-type=details because of Details
 	//format complexities, see gog_integration/details.go/GetGameDownloads comment
-	dls, _, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes, excludePatches)
+	dls, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes, excludePatches)
 	if err != nil {
 		return nil, err
 	}

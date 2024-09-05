@@ -1,17 +1,15 @@
 package rest
 
 import (
+	"github.com/arelate/gaugin/rest/compton_pages"
 	"github.com/arelate/gaugin/stencil_app"
+	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/kevlar"
 	"github.com/boggydigital/middleware"
+	"github.com/boggydigital/nod"
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
-
-	"github.com/arelate/gaugin/gaugin_middleware"
-	"github.com/arelate/vangogh_local_data"
-	"github.com/boggydigital/nod"
 )
 
 func GetSearch(w http.ResponseWriter, r *http.Request) {
@@ -56,17 +54,12 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	dc := http.DefaultClient
 
-	var start time.Time
-	st := gaugin_middleware.NewServerTimings()
-
 	idRedux := NewIdPropertyValues(stencil_app.ProductsProperties)
 
 	if len(query) > 0 {
-		start = time.Now()
 
-		var cached bool
 		var err error
-		ids, cached, err = getSearch(dc, q)
+		ids, err = getSearch(dc, q)
 		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
@@ -85,11 +78,6 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 		slice = ids[from:to]
 
-		if cached {
-			st.SetFlag("getSearch-cached")
-		}
-		st.Set("getSearch", time.Since(start).Milliseconds())
-
 		su := searchUrl(q)
 
 		lm := urlLastModified[su.String()]
@@ -101,21 +89,15 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		start = time.Now()
-		irx, cached, err := getRedux(dc, strings.Join(slice, ","), false, stencil_app.ProductsProperties...)
+		irx, err := getRedux(dc, strings.Join(slice, ","), false, stencil_app.ProductsProperties...)
 		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
 		}
 
-		if cached {
-			st.SetFlag("getRedux-cached")
-		}
-		st.Set("getRedux", time.Since(start).Milliseconds())
-
 		// adding tag names for related games
 
-		tagNamesRedux, _, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
+		tagNamesRedux, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
 		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return
@@ -125,13 +107,26 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			idRedux = MergeIdPropertyValues(irx, tagNamesRedux)
 		}
 	}
+	//else {
+	//	searchPage := compton_pages.SearchNew(query, ids, from, to, nil)
+	//	if err := searchPage.WriteContent(w); err != nil {
+	//		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+	//	}
+	//	return
+	//}
+
+	//gaugin_middleware.DefaultHeaders(w)
 
 	rdx := kevlar.ReduxProxy(idRedux)
 
-	gaugin_middleware.DefaultHeaders(st, w)
-
-	if err := app.RenderSearch(stencil_app.NavSearch, query, slice, from, to, len(ids), r.URL, rdx, w); err != nil {
+	searchPage := compton_pages.Search(query, ids, from, to, rdx)
+	if err := searchPage.WriteContent(w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
 	}
+	//return
+	//
+	//if err := app.RenderSearch(stencil_app.NavSearch, query, slice, from, to, len(ids), r.URL, rdx, w); err != nil {
+	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+	//	return
+	//}
 }
