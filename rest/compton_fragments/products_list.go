@@ -9,6 +9,8 @@ import (
 	"github.com/boggydigital/kevlar"
 )
 
+const dehydratedCount = 10
+
 func ProductsList(r compton.Registrar, ids []string, from, to int, rdx kevlar.ReadableRedux) compton.Element {
 	productCards := grid_items.GridItems(r)
 
@@ -16,7 +18,7 @@ func ProductsList(r compton.Registrar, ids []string, from, to int, rdx kevlar.Re
 		id := ids[ii]
 		productLink := els.A(paths.ProductId(id))
 
-		productCard := product_card.ProductCard(r, id, rdx)
+		productCard := product_card.ProductCard(r, id, ii-from < dehydratedCount, rdx)
 		productLink.Append(productCard)
 		productCards.Append(productLink)
 	}

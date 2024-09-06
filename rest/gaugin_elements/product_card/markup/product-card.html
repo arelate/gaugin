@@ -1,8 +1,21 @@
-<product-card {{.Attributes}}>
+<product-card data-id="{{.Id}}">
     {{.Poster}}
-    <span slot="title">{{.Title}}</span>
-    <flex-items slot="labels" class="labels" data-flex-direction="row" data-column-gap="xx-small" data-row-gap="xx-small">{{.Labels}}</flex-items>
-    <flex-items slot="operating-systems" data-flex-direction="row" data-column-gap="small">{{.OperatingSystems}}</flex-items>
-    <span slot="developers">{{.Developers}}</span>
-    <span slot="publishers">{{.Publishers}}</span>
+    <ul>
+        <li><h3>{{.Title}}</h3></li>
+        <li class="labels">
+            <ul>{{.Labels}}</ul>
+        </li>
+        <li class="property">
+            <span class="title">OS</span>
+            <span class="value horizontal">{{.OperatingSystems}}</span>
+        </li>
+        <li class="property">
+            <span class="title">Developers</span>
+            <span class="value">{{.Developers}}</span>
+        </li>
+        <li class="property">
+            <span class="title">Publishers</span>
+            <span class="value">{{.Publishers}}</span>
+        </li>
+    </ul>
 </product-card>

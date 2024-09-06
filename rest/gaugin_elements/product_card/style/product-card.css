@@ -1,0 +1,103 @@
+product-card {
+    --s-snh: calc((var(--s-s) + var(--s-n))/2);
+    color: var(--c-foreground);
+    padding: var(--s-snh);
+    background-color: var(--c-highlight);
+    border-radius: var(--br-n);
+    content-visibility: auto;
+    contain-intrinsic-size: var(--product-card-width) 120px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 85px 1fr;
+    column-gap: var(--s-snh);
+
+    & issa-image {
+        width: 85px;
+        height: 120px;
+        overflow: hidden;
+        border-radius: var(--br-n);
+
+        & img {
+            width: 85px;
+            height: 120px;
+        }
+    }
+
+    & ul {
+        list-style: none;
+        padding-inline-start: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--s-xs);
+        overflow: hidden;
+    }
+
+    & h3 {
+        margin: 0 0 var(--s-xs) 0;
+        font-size: var(--fs-l);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: var(--fw-b);
+    }
+
+    & .property {
+        color: var(--c-foreground);
+        font-size: calc((var(--fs-xxs) + var(--fs-xs))/2);
+        display: grid;
+        grid-template-columns: calc(var(--s-n) * 4) auto;
+        align-content: center;
+        grid-column-gap: var(--s-s);
+        grid-row-gap: var(--s-s);
+        align-items: center;
+
+        & .value {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &.horizontal {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: var(--s-s);
+
+                & svg {
+                    width: calc(3 * var(--s-xs));
+                    height: calc(3 * var(--s-xs));
+                }
+            }
+        }
+
+        & .title {
+            color: var(--c-subtle);
+        }
+    }
+
+    & .labels {
+        min-height: var(--s-n);
+        width: 100%;
+        overflow: hidden;
+        margin-block-end: auto;
+
+        & ul {
+            flex-direction: row;
+            flex-wrap: wrap;
+            row-gap: var(--s-xxs);
+            column-gap: var(--s-xxs);
+
+            & .label {
+                font-size: var(--fs-xxs);
+                font-weight: var(--fw-b);
+                display: flex;
+                align-items: center;
+                width: min-content;
+                text-transform: uppercase;
+                padding: var(--s-xxs) var(--s-xs);
+                border-radius: var(--br-n);
+                white-space: nowrap;
+            }
+        }
+    }
+}

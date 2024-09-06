@@ -7,10 +7,10 @@ import (
 	"github.com/arelate/gaugin/rest/gaugin_atoms"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/custom_elements"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/issa_image"
 	"github.com/boggydigital/compton/elements/svg_inline"
+	"github.com/boggydigital/issa"
 	"github.com/boggydigital/kevlar"
 	"io"
 	"strings"
@@ -21,10 +21,10 @@ const (
 )
 
 var (
-	//go:embed "markup/template.html"
-	markupTemplate []byte
 	//go:embed "markup/product-card.html"
 	markupProductCard []byte
+	//go:embed "style/product-card.css"
+	ProductCardStyle []byte
 )
 
 var operatingSystemSymbols = map[vangogh_local_data.OperatingSystem]compton.Element{
@@ -42,14 +42,14 @@ type ProductCardElement struct {
 }
 
 func (pc *ProductCardElement) WriteRequirements(w io.Writer) error {
-	if pc.wcr.RequiresRegistration(productCardElementName) {
-		if err := custom_elements.Define(w, custom_elements.Defaults(productCardElementName)); err != nil {
-			return err
-		}
-		if _, err := io.Copy(w, bytes.NewReader(markupTemplate)); err != nil {
-			return err
-		}
-	}
+	//if pc.wcr.RequiresRegistration(productCardElementName) {
+	//	if err := custom_elements.Define(w, custom_elements.Defaults(productCardElementName)); err != nil {
+	//		return err
+	//	}
+	//	if _, err := io.Copy(w, bytes.NewReader(markupTemplate)); err != nil {
+	//		return err
+	//	}
+	//}
 	if pc.poster != nil {
 		if err := pc.poster.WriteRequirements(w); err != nil {
 			return err
@@ -64,6 +64,10 @@ func (pc *ProductCardElement) WriteContent(w io.Writer) error {
 
 func (pc *ProductCardElement) elementFragmentWriter(t string, w io.Writer) error {
 	switch t {
+	case ".Id":
+		if _, err := io.WriteString(w, pc.id); err != nil {
+			return err
+		}
 	case ".Poster":
 		if pc.poster != nil {
 			if err := pc.poster.WriteContent(w); err != nil {
@@ -86,11 +90,6 @@ func (pc *ProductCardElement) elementFragmentWriter(t string, w io.Writer) error
 				}
 			}
 		}
-		//for _, label := range pc.labels {
-		//	if err := label.WriteContent(w); err != nil {
-		//		return err
-		//	}
-		//}
 	case ".OperatingSystems":
 
 		if oses, ok := pc.rdx.GetAllValues(vangogh_local_data.OperatingSystemsProperty, pc.id); ok {
@@ -135,13 +134,13 @@ func (pc *ProductCardElement) SetHydratedPoster(hydratedSrc, posterSrc string) *
 }
 
 func createLabel(property, title, class string) compton.Element {
-	label := els.DivText(title)
+	label := els.ListItemText(title)
 	cs := []string{"label", property, title, class}
 	label.SetClass(cs...)
 	return label
 }
 
-func ProductCard(wcr compton.Registrar, id string, rdx kevlar.ReadableRedux) *ProductCardElement {
+func ProductCard(wcr compton.Registrar, id string, hydrated bool, rdx kevlar.ReadableRedux) *ProductCardElement {
 	pc := &ProductCardElement{
 		BaseElement: compton.BaseElement{
 			TagName: gaugin_atoms.ProductCard,
@@ -154,7 +153,12 @@ func ProductCard(wcr compton.Registrar, id string, rdx kevlar.ReadableRedux) *Pr
 
 	if viSrc, ok := rdx.GetLastVal(vangogh_local_data.VerticalImageProperty, id); ok {
 		dhSrc, _ := rdx.GetLastVal(vangogh_local_data.DehydratedVerticalImageProperty, id)
-		pc.SetDehydratedPoster(dhSrc, "/image?id="+viSrc)
+		if hydrated {
+			hSrc := issa.HydrateColor(dhSrc)
+			pc.SetHydratedPoster(hSrc, "/image?id="+viSrc)
+		} else {
+			pc.SetDehydratedPoster(dhSrc, "/image?id="+viSrc)
+		}
 	}
 
 	pc.SetAttr("data-id", id)
