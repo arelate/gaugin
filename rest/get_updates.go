@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	updatedProductsLimit = 24
+	updatedProductsLimit = 24 // divisible by 2,3,4,6
 )
 
 func GetUpdates(w http.ResponseWriter, r *http.Request) {

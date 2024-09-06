@@ -5,7 +5,7 @@ product-card {
     background-color: var(--c-highlight);
     border-radius: var(--br-n);
     content-visibility: auto;
-    contain-intrinsic-size: var(--product-card-width) 120px;
+    contain-intrinsic-size: var(--resp-grid-column-width) 144px;
     overflow: hidden;
     display: grid;
     grid-template-columns: 85px 1fr;
