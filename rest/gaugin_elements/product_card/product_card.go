@@ -17,14 +17,14 @@ import (
 )
 
 const (
-	productCardElementName = "product-card"
+	elementName = "product-card"
 )
 
 var (
 	//go:embed "markup/product-card.html"
 	markupProductCard []byte
 	//go:embed "style/product-card.css"
-	ProductCardStyle []byte
+	styleProductCard []byte
 )
 
 var operatingSystemSymbols = map[vangogh_local_data.OperatingSystem]compton.Element{
@@ -35,27 +35,38 @@ var operatingSystemSymbols = map[vangogh_local_data.OperatingSystem]compton.Elem
 
 type ProductCardElement struct {
 	compton.BaseElement
-	wcr    compton.Registrar
+	r      compton.Registrar
 	poster compton.Element
 	rdx    kevlar.ReadableRedux
 	id     string
 }
 
+func (pc *ProductCardElement) WriteStyles(w io.Writer) error {
+	if pc.r.RequiresRegistration(elementName) {
+		if err := els.Style(styleProductCard).WriteContent(w); err != nil {
+			return err
+		}
+	}
+	if pc.poster != nil {
+		return pc.poster.WriteStyles(w)
+	}
+	return nil
+}
+
 func (pc *ProductCardElement) WriteRequirements(w io.Writer) error {
-	//if pc.wcr.RequiresRegistration(productCardElementName) {
-	//	if err := custom_elements.Define(w, custom_elements.Defaults(productCardElementName)); err != nil {
-	//		return err
-	//	}
-	//	if _, err := io.Copy(w, bytes.NewReader(markupTemplate)); err != nil {
-	//		return err
-	//	}
-	//}
 	if pc.poster != nil {
 		if err := pc.poster.WriteRequirements(w); err != nil {
 			return err
 		}
 	}
 	return pc.BaseElement.WriteRequirements(w)
+}
+
+func (pc *ProductCardElement) WriteDeferrals(w io.Writer) error {
+	if pc.poster != nil {
+		return pc.poster.WriteDeferrals(w)
+	}
+	return nil
 }
 
 func (pc *ProductCardElement) WriteContent(w io.Writer) error {
@@ -122,13 +133,13 @@ func (pc *ProductCardElement) elementFragmentWriter(t string, w io.Writer) error
 }
 
 func (pc *ProductCardElement) SetDehydratedPoster(dehydratedSrc, posterSrc string) *ProductCardElement {
-	pc.poster = issa_image.IssaImageDehydrated(pc.wcr, dehydratedSrc, posterSrc)
+	pc.poster = issa_image.IssaImageDehydrated(pc.r, dehydratedSrc, posterSrc)
 	pc.poster.SetAttr("slot", "poster")
 	return pc
 }
 
 func (pc *ProductCardElement) SetHydratedPoster(hydratedSrc, posterSrc string) *ProductCardElement {
-	pc.poster = issa_image.IssaImageHydrated(pc.wcr, hydratedSrc, posterSrc)
+	pc.poster = issa_image.IssaImageHydrated(pc.r, hydratedSrc, posterSrc)
 	pc.poster.SetAttr("slot", "poster")
 	return pc
 }
@@ -146,7 +157,7 @@ func ProductCard(wcr compton.Registrar, id string, hydrated bool, rdx kevlar.Rea
 			TagName: gaugin_atoms.ProductCard,
 			Markup:  markupProductCard,
 		},
-		wcr: wcr,
+		r:   wcr,
 		id:  id,
 		rdx: rdx,
 	}

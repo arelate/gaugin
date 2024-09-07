@@ -3,7 +3,6 @@ package compton_pages
 import (
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/compton_fragments"
-	"github.com/arelate/gaugin/rest/gaugin_elements/product_card"
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/elements/details_toggle"
@@ -16,7 +15,7 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 
 	p := page.Page("Search - gaugin").
 		SetFavIconEmoji("🪸").
-		SetCustomStyles(gaugin_styles.GauginStyle, product_card.ProductCardStyle)
+		SetCustomStyles(gaugin_styles.GauginStyle)
 
 	pageStack := flex_items.FlexItemsColumn(p)
 	p.Append(pageStack)

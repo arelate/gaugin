@@ -30,7 +30,6 @@
 .footer {
     & a {
         font-weight: var(--fw-b);
-        color: var(--c-foreground);
     }
 }
 
@@ -112,11 +111,5 @@
     &.extra {
         color: var(--c-highlight);
         background-color: var(--c-orange);
-    }
-}
-
-@container (max-width: 592px) {
-    product-card {
-        max-width: calc(100% - 2 * var(--s-n));
     }
 }

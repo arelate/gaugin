@@ -3,7 +3,6 @@ package compton_pages
 import (
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/compton_fragments"
-	"github.com/arelate/gaugin/rest/gaugin_elements/product_card"
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/elements/details_toggle"
@@ -17,7 +16,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 
 	p := page.Page("Updates - gaugin").
 		SetFavIconEmoji("🪸").
-		SetCustomStyles(gaugin_styles.GauginStyle, product_card.ProductCardStyle)
+		SetCustomStyles(gaugin_styles.GauginStyle)
 
 	pageStack := flex_items.FlexItemsColumn(p)
 	p.Append(pageStack)
