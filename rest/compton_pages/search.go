@@ -5,6 +5,7 @@ import (
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/boggydigital/compton"
+	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/elements/details_toggle"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/page"
@@ -17,7 +18,7 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 		SetFavIconEmoji("🪸").
 		SetCustomStyles(gaugin_styles.GauginStyle)
 
-	pageStack := flex_items.FlexItemsColumn(p)
+	pageStack := flex_items.FlexItems(p, direction.Column)
 	p.Append(pageStack)
 
 	appNavLinks := compton_fragments.AppNavLinks(p, compton_data.AppNavSearch)

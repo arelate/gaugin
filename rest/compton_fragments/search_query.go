@@ -3,7 +3,8 @@ package compton_fragments
 import (
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/consts/alignment"
+	"github.com/boggydigital/compton/consts/align"
+	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/c_section"
 	"github.com/boggydigital/compton/elements/els"
@@ -19,12 +20,12 @@ func SearchQueryDisplay(query map[string][]string, r compton.Registrar) compton.
 	}
 
 	sh := c_section.CSection(r)
-	sh.SetClass("fs-xs")
+	sh.AddClass("fs-xs")
 
-	shStack := flex_items.FlexItemsRow(r).
-		SetColumnGap(size.Normal).
-		SetRowGap(size.Small).
-		JustifyContent(alignment.Center)
+	shStack := flex_items.FlexItems(r, direction.Row).
+		//ColumnGap(size.Normal).
+		RowGap(size.Small).
+		JustifyContent(align.Center)
 	sh.Append(shStack)
 
 	sortedProperties := maps.Keys(query)
@@ -34,15 +35,15 @@ func SearchQueryDisplay(query map[string][]string, r compton.Registrar) compton.
 		values := query[property]
 		span := els.Span()
 		propertyTitle := els.SpanText(compton_data.PropertyTitles[property] + ": ")
-		propertyTitle.SetClass("fg-subtle")
+		propertyTitle.AddClass("fg-subtle")
 		propertyValue := els.SpanText(strings.Join(values, ", "))
-		propertyValue.SetClass("fw-b")
+		propertyValue.AddClass("fw-b")
 		span.Append(propertyTitle, propertyValue)
 		shStack.Append(span)
 	}
 
 	clearAction := els.AText("Clear", "/search")
-	clearAction.SetClass("action")
+	clearAction.AddClass("action")
 	shStack.Append(clearAction)
 
 	return sh

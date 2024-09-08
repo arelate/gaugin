@@ -2,7 +2,8 @@ package compton_fragments
 
 import (
 	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/consts/alignment"
+	"github.com/boggydigital/compton/consts/align"
+	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"strconv"
@@ -28,10 +29,10 @@ func ItemsCount(r compton.Registrar, from, to, total int) compton.Element {
 		title = strings.Replace(title, "{total}", strconv.Itoa(total), 1)
 	}
 
-	row := flex_items.FlexItemsRow(r).JustifyContent(alignment.Center)
+	row := flex_items.FlexItems(r, direction.Row).JustifyContent(align.Center)
 
 	span := els.SpanText(title)
-	span.SetClass("fg-subtle", "fs-xs")
+	span.AddClass("fg-subtle", "fs-xs")
 	row.Append(span)
 
 	return row

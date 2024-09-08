@@ -9,7 +9,7 @@ import (
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/issa_image"
-	"github.com/boggydigital/compton/elements/svg_inline"
+	"github.com/boggydigital/compton/elements/svg_use"
 	"github.com/boggydigital/issa"
 	"github.com/boggydigital/kevlar"
 	"io"
@@ -27,18 +27,19 @@ var (
 	styleProductCard []byte
 )
 
-var operatingSystemSymbols = map[vangogh_local_data.OperatingSystem]compton.Element{
-	vangogh_local_data.Windows: svg_inline.SvgInline(svg_inline.Windows),
-	vangogh_local_data.MacOS:   svg_inline.SvgInline(svg_inline.MacOS),
-	vangogh_local_data.Linux:   svg_inline.SvgInline(svg_inline.Linux),
+var operatingSystemSymbols = map[vangogh_local_data.OperatingSystem]svg_use.Symbol{
+	vangogh_local_data.Windows: svg_use.Windows,
+	vangogh_local_data.MacOS:   svg_use.MacOS,
+	vangogh_local_data.Linux:   svg_use.Linux,
 }
 
 type ProductCardElement struct {
 	compton.BaseElement
-	r      compton.Registrar
-	poster compton.Element
-	rdx    kevlar.ReadableRedux
-	id     string
+	r         compton.Registrar
+	poster    compton.Element
+	osSymbols []compton.Element
+	rdx       kevlar.ReadableRedux
+	id        string
 }
 
 func (pc *ProductCardElement) WriteStyles(w io.Writer) error {
@@ -56,6 +57,11 @@ func (pc *ProductCardElement) WriteStyles(w io.Writer) error {
 func (pc *ProductCardElement) WriteRequirements(w io.Writer) error {
 	if pc.poster != nil {
 		if err := pc.poster.WriteRequirements(w); err != nil {
+			return err
+		}
+	}
+	for _, symbol := range pc.osSymbols {
+		if err := symbol.WriteRequirements(w); err != nil {
 			return err
 		}
 	}
@@ -103,14 +109,19 @@ func (pc *ProductCardElement) elementFragmentWriter(t string, w io.Writer) error
 		}
 	case ".OperatingSystems":
 
-		if oses, ok := pc.rdx.GetAllValues(vangogh_local_data.OperatingSystemsProperty, pc.id); ok {
-			for _, os := range vangogh_local_data.ParseManyOperatingSystems(oses) {
-				symbol := operatingSystemSymbols[os]
-				if err := symbol.WriteContent(w); err != nil {
-					return err
-				}
+		for _, symbol := range pc.osSymbols {
+			if err := symbol.WriteContent(w); err != nil {
+				return err
 			}
 		}
+		//if oses, ok := pc.rdx.GetAllValues(vangogh_local_data.OperatingSystemsProperty, pc.id); ok {
+		//	for _, os := range vangogh_local_data.ParseManyOperatingSystems(oses) {
+		//		symbol := svg_use.SvgUse(pc.r, operatingSystemSymbols[os])
+		//		if err := symbol.WriteContent(w); err != nil {
+		//			return err
+		//		}
+		//	}
+		//}
 	case ".Developers":
 		if developers, ok := pc.rdx.GetAllValues(vangogh_local_data.DevelopersProperty, pc.id); ok {
 			if _, err := io.WriteString(w, strings.Join(developers, ", ")); err != nil {
@@ -134,20 +145,20 @@ func (pc *ProductCardElement) elementFragmentWriter(t string, w io.Writer) error
 
 func (pc *ProductCardElement) SetDehydratedPoster(dehydratedSrc, posterSrc string) *ProductCardElement {
 	pc.poster = issa_image.IssaImageDehydrated(pc.r, dehydratedSrc, posterSrc)
-	pc.poster.SetAttr("slot", "poster")
+	//pc.poster.SetAttribute("slot", "poster")
 	return pc
 }
 
 func (pc *ProductCardElement) SetHydratedPoster(hydratedSrc, posterSrc string) *ProductCardElement {
 	pc.poster = issa_image.IssaImageHydrated(pc.r, hydratedSrc, posterSrc)
-	pc.poster.SetAttr("slot", "poster")
+	//pc.poster.SetAttribute("slot", "poster")
 	return pc
 }
 
 func createLabel(property, title, class string) compton.Element {
 	label := els.ListItemText(title)
 	cs := []string{"label", property, title, class}
-	label.SetClass(cs...)
+	label.AddClass(cs...)
 	return label
 }
 
@@ -172,7 +183,13 @@ func ProductCard(wcr compton.Registrar, id string, hydrated bool, rdx kevlar.Rea
 		}
 	}
 
-	pc.SetAttr("data-id", id)
+	if oses, ok := pc.rdx.GetAllValues(vangogh_local_data.OperatingSystemsProperty, pc.id); ok {
+		for _, os := range vangogh_local_data.ParseManyOperatingSystems(oses) {
+			pc.osSymbols = append(pc.osSymbols, svg_use.SvgUse(pc.r, operatingSystemSymbols[os]))
+		}
+	}
+
+	pc.SetAttribute("data-id", id)
 
 	return pc
 }

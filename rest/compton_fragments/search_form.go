@@ -3,7 +3,8 @@ package compton_fragments
 import (
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/consts/alignment"
+	"github.com/boggydigital/compton/consts/align"
+	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/input_types"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
@@ -16,20 +17,19 @@ import (
 func SearchForm(r compton.Registrar, query map[string][]string, searchQueryDisplay compton.Element) compton.Element {
 
 	form := els.Form("/search", "GET")
-	formStack := flex_items.FlexItemsColumn(r)
+	formStack := flex_items.FlexItems(r, direction.Column)
 	form.Append(formStack)
 
 	if searchQueryDisplay != nil {
 		formStack.Append(searchQueryDisplay)
 	}
 
-	submitRow := flex_items.FlexItemsRow(r).
-		JustifyContent(alignment.Center)
+	submitRow := flex_items.FlexItems(r, direction.Row).JustifyContent(align.Center)
 	submit := els.InputValue(input_types.Submit, "Submit Query")
 	submitRow.Append(submit)
 	formStack.Append(submitRow)
 
-	inputsGrid := grid_items.GridItems(r)
+	inputsGrid := grid_items.GridItems(r).JustifyContent(align.Center)
 	formStack.Append(inputsGrid)
 
 	searchInputs(r, query, inputsGrid)

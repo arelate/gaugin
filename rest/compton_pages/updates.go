@@ -5,6 +5,7 @@ import (
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/boggydigital/compton"
+	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/elements/details_toggle"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/nav_links"
@@ -18,7 +19,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 		SetFavIconEmoji("🪸").
 		SetCustomStyles(gaugin_styles.GauginStyle)
 
-	pageStack := flex_items.FlexItemsColumn(p)
+	pageStack := flex_items.FlexItems(p, direction.Column)
 	p.Append(pageStack)
 
 	appNavLinks := compton_fragments.AppNavLinks(p, compton_data.AppNavUpdates)
@@ -48,7 +49,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 		sectionDetailsToggle := details_toggle.Open(p, sectionTitles[section])
 		pageStack.Append(sectionDetailsToggle)
 
-		sectionStack := flex_items.FlexItemsColumn(p)
+		sectionStack := flex_items.FlexItems(p, direction.Column)
 		sectionDetailsToggle.Append(sectionStack)
 
 		ids := updates[section]
