@@ -6,9 +6,9 @@ import (
 	"github.com/boggydigital/compton/consts/align"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/size"
-	"github.com/boggydigital/compton/elements/c_section"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
+	"github.com/boggydigital/compton/elements/section"
 	"golang.org/x/exp/maps"
 	"slices"
 	"strings"
@@ -19,7 +19,7 @@ func SearchQueryDisplay(query map[string][]string, r compton.Registrar) compton.
 		return nil
 	}
 
-	sh := c_section.CSection(r)
+	sh := section.Section(r)
 	sh.AddClass("fs-xs")
 
 	shStack := flex_items.FlexItems(r, direction.Row).
