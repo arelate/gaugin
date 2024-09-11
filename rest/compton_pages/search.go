@@ -6,8 +6,10 @@ import (
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/align"
+	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
-	"github.com/boggydigital/compton/elements/details_toggle"
+	"github.com/boggydigital/compton/consts/size"
+	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/page"
 	"github.com/boggydigital/kevlar"
@@ -22,22 +24,28 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 	pageStack := flex_items.FlexItems(p, direction.Column)
 	p.Append(pageStack)
 
-	navStack := flex_items.FlexItems(p, direction.Row).JustifyContent(align.Center).AlignItems(align.Center)
+	navStack := flex_items.FlexItems(p, direction.Row).
+		JustifyContent(align.Center).
+		AlignItems(align.Center)
 
-	appNavLinks := compton_fragments.AppNavLinks(p, compton_data.AppNavSearch)
-	//pageStack.Append(appNavLinks)
+	appNavLinks := compton_fragments.
+		AppNavLinks(p, compton_data.AppNavSearch)
 	navStack.Append(appNavLinks)
 
 	searchScope := compton_data.SearchScopeFromQuery(query)
 	searchLinks := compton_fragments.SearchLinks(p, searchScope)
-	//pageStack.Append(searchLinks)
 	navStack.Append(searchLinks)
 
 	pageStack.Append(navStack)
 
 	searchQueryDisplay := compton_fragments.SearchQueryDisplay(query, p)
 
-	filterSearchDetails := details_toggle.Toggle(p, "Filter & Search", len(query) == 0)
+	filterSearchDetails := details_summary.
+		Toggle(p, "Filter & Search", len(query) == 0).
+		BackgroundColor(color.Highlight).
+		SummaryMarginBlockEnd(size.Normal).
+		DetailsMarginBlockEnd(size.Unset)
+
 	filterSearchDetails.Append(compton_fragments.SearchForm(p, query, searchQueryDisplay))
 	pageStack.Append(filterSearchDetails)
 

@@ -6,8 +6,10 @@ import (
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/align"
+	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
-	"github.com/boggydigital/compton/elements/details_toggle"
+	"github.com/boggydigital/compton/consts/size"
+	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/nav_links"
 	"github.com/boggydigital/compton/elements/page"
@@ -51,7 +53,11 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 
 	for _, section := range sections {
 
-		sectionDetailsToggle := details_toggle.Open(p, sectionTitles[section])
+		sectionDetailsToggle := details_summary.
+			Open(p, sectionTitles[section]).
+			BackgroundColor(color.Highlight).
+			SummaryMarginBlockEnd(size.Normal).
+			DetailsMarginBlockEnd(size.Large)
 		pageStack.Append(sectionDetailsToggle)
 
 		sectionStack := flex_items.FlexItems(p, direction.Column)
