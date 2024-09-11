@@ -50,6 +50,10 @@ github.com/boggydigital/compton v0.1.23 h1:UfSqJCccLJMX8Ddwr8jotAUrchTI3WmbieTw9
 github.com/boggydigital/compton v0.1.23/go.mod h1:dj/yZ2cCfts6+heUS60Favateu+gNTIsoxfX6yNZWLg=
 github.com/boggydigital/compton v0.1.24 h1:6mq35RGJn4gca3dEJKoOFPn+jwSRqT8SosflNOPZQ/s=
 github.com/boggydigital/compton v0.1.24/go.mod h1:dj/yZ2cCfts6+heUS60Favateu+gNTIsoxfX6yNZWLg=
+github.com/boggydigital/compton v0.1.25 h1:zLgpsOmLgk3RXCd/R1wUlTvIj1osVOGRjMhWbLHfx6U=
+github.com/boggydigital/compton v0.1.25/go.mod h1:dj/yZ2cCfts6+heUS60Favateu+gNTIsoxfX6yNZWLg=
+github.com/boggydigital/compton v0.1.26 h1:RMooxRz083l9uOkALhDO5vFyVPCDOvKY0ZCjW1ws/cY=
+github.com/boggydigital/compton v0.1.26/go.mod h1:dj/yZ2cCfts6+heUS60Favateu+gNTIsoxfX6yNZWLg=
 github.com/boggydigital/issa v0.1.10 h1:zHSRJHkOz3DwVvp4/YL06qq/VHXexL7qrn4m48hRf/o=
 github.com/boggydigital/issa v0.1.10/go.mod h1:Rq+f8yeTlM/3ov4MCjmxWNL90n47h5CkwP6/628McKU=
 github.com/boggydigital/issa v0.1.12 h1:fuMrmTwScX5jHA+DYc4jfi0fiOjW3XVV23y3kTH+2Og=

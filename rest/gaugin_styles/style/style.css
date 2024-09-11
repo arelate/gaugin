@@ -1,17 +1,5 @@
-.fg-subtle {
-    color: var(--c-subtle);
-}
-
 .fw-b {
     font-weight: var(--fw-b);
-}
-
-.fs-s {
-    font-size: var(--fs-s)
-}
-
-.fs-xs {
-    font-size: var(--fs-xs)
 }
 
 .updates-show-all,

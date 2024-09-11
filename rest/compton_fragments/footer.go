@@ -2,6 +2,7 @@ package compton_fragments
 
 import (
 	"github.com/boggydigital/compton"
+	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/els"
@@ -10,8 +11,9 @@ import (
 )
 
 func Footer(r compton.Registrar) compton.Element {
-	sh := section.Section(r)
-	sh.AddClass("footer", "fs-xs")
+	sh := section.Section(r).
+		BackgroundColor(color.Highlight).
+		FontSize(size.XSmall)
 
 	row := flex_items.FlexItems(r, direction.Row).ColumnGap(size.XSmall)
 	sh.Append(row)
