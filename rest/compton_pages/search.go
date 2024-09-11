@@ -5,6 +5,7 @@ import (
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/boggydigital/compton"
+	"github.com/boggydigital/compton/consts/align"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/elements/details_toggle"
 	"github.com/boggydigital/compton/elements/flex_items"
@@ -21,12 +22,18 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 	pageStack := flex_items.FlexItems(p, direction.Column)
 	p.Append(pageStack)
 
+	navStack := flex_items.FlexItems(p, direction.Row).JustifyContent(align.Center).AlignItems(align.Center)
+
 	appNavLinks := compton_fragments.AppNavLinks(p, compton_data.AppNavSearch)
-	pageStack.Append(appNavLinks)
+	//pageStack.Append(appNavLinks)
+	navStack.Append(appNavLinks)
 
 	searchScope := compton_data.SearchScopeFromQuery(query)
 	searchLinks := compton_fragments.SearchLinks(p, searchScope)
-	pageStack.Append(searchLinks)
+	//pageStack.Append(searchLinks)
+	navStack.Append(searchLinks)
+
+	pageStack.Append(navStack)
 
 	searchQueryDisplay := compton_fragments.SearchQueryDisplay(query, p)
 

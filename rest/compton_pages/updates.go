@@ -5,6 +5,7 @@ import (
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/boggydigital/compton"
+	"github.com/boggydigital/compton/consts/align"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/elements/details_toggle"
 	"github.com/boggydigital/compton/elements/flex_items"
@@ -22,8 +23,10 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 	pageStack := flex_items.FlexItems(p, direction.Column)
 	p.Append(pageStack)
 
+	navStack := flex_items.FlexItems(p, direction.Row).JustifyContent(align.Center).AlignItems(align.Center)
+
 	appNavLinks := compton_fragments.AppNavLinks(p, compton_data.AppNavUpdates)
-	pageStack.Append(appNavLinks)
+	navStack.Append(appNavLinks)
 
 	order := make([]string, 0, len(sections))
 	sectionLinks := make(map[string]string)
@@ -36,7 +39,9 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 	sectionTargets := nav_links.TextLinks(sectionLinks, "", order...)
 
 	sectionNav := nav_links.NavLinksTargets(p, sectionTargets...)
-	pageStack.Append(sectionNav)
+	navStack.Append(sectionNav)
+
+	pageStack.Append(navStack)
 
 	var showAll compton.Element
 	if hasMoreItems(sections, updates, updateTotals) {

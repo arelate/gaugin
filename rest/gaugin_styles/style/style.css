@@ -1,7 +1,3 @@
-.fw-b {
-    font-weight: var(--fw-b);
-}
-
 .updates-show-all,
 .search-show-more {
     width: 100%;
@@ -12,12 +8,6 @@
     .updates-show-all,
     .search-show-more {
         max-width: unset;
-    }
-}
-
-.footer {
-    & a {
-        font-weight: var(--fw-b);
     }
 }
 
