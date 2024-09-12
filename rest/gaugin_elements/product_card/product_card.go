@@ -17,7 +17,8 @@ import (
 )
 
 const (
-	elementName = "product-card"
+	registrationName      = "product-card"
+	styleRegistrationName = "style-" + registrationName
 )
 
 var (
@@ -43,8 +44,8 @@ type ProductCardElement struct {
 }
 
 func (pc *ProductCardElement) WriteStyles(w io.Writer) error {
-	if pc.r.RequiresRegistration(elementName) {
-		if err := els.Style(styleProductCard).WriteContent(w); err != nil {
+	if pc.r.RequiresRegistration(styleRegistrationName) {
+		if err := els.Style(styleProductCard, styleRegistrationName).WriteContent(w); err != nil {
 			return err
 		}
 	}

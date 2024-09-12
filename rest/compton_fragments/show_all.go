@@ -7,6 +7,7 @@ import (
 	"github.com/boggydigital/compton/consts/input_types"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
+	"github.com/boggydigital/compton/elements/inputs"
 )
 
 func ShowAllButton(r compton.Registrar) compton.Element {
@@ -17,7 +18,7 @@ func ShowAllButton(r compton.Registrar) compton.Element {
 	showAllLink.AddClass("updates-show-all")
 	row.Append(showAllLink)
 
-	button := els.InputValue(input_types.Submit, "Show All...")
+	button := inputs.InputValue(r, input_types.Submit, "Show All...")
 	showAllLink.Append(button)
 
 	return row

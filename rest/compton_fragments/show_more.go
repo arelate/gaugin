@@ -8,6 +8,7 @@ import (
 	"github.com/boggydigital/compton/consts/input_types"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
+	"github.com/boggydigital/compton/elements/inputs"
 	"strconv"
 )
 
@@ -22,7 +23,7 @@ func ShowMoreButton(r compton.Registrar, query map[string][]string, from int) co
 	showMoreLink.AddClass("search-show-more")
 	row.Append(showMoreLink)
 
-	button := els.InputValue(input_types.Submit, "More...")
+	button := inputs.InputValue(r, input_types.Submit, "More...")
 	showMoreLink.Append(button)
 
 	return row

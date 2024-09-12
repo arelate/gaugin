@@ -11,7 +11,7 @@ import (
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/flex_items"
-	"github.com/boggydigital/compton/elements/page"
+	"github.com/boggydigital/compton/page"
 	"github.com/boggydigital/kevlar"
 )
 

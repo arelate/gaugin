@@ -46,9 +46,11 @@ func SearchQueryDisplay(query map[string][]string, r compton.Registrar) compton.
 		shStack.Append(span)
 	}
 
-	clearAction := els.AText("Clear", "/search")
-	clearAction.AddClass("action")
-	shStack.Append(clearAction)
+	clearLink := els.A("/search")
+	clearText := fspan.Text(r, "Clear").
+		ForegroundColor(color.Blue).FontWeight(weight.Bolder)
+	clearLink.Append(clearText)
+	shStack.Append(clearLink)
 
 	return sh
 }

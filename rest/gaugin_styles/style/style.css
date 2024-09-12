@@ -12,7 +12,6 @@
 }
 
 .label {
-
     &.owned {
         color: var(--c-highlight);
         background-color: var(--c-subtle);

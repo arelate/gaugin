@@ -9,6 +9,7 @@ import (
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/grid_items"
+	"github.com/boggydigital/compton/elements/inputs"
 	"github.com/boggydigital/compton/elements/title_values"
 	"slices"
 	"strings"
@@ -25,7 +26,7 @@ func SearchForm(r compton.Registrar, query map[string][]string, searchQueryDispl
 	}
 
 	submitRow := flex_items.FlexItems(r, direction.Row).JustifyContent(align.Center)
-	submit := els.InputValue(input_types.Submit, "Submit Query")
+	submit := inputs.InputValue(r, input_types.Submit, "Submit Query")
 	submitRow.Append(submit)
 	formStack.Append(submitRow)
 
