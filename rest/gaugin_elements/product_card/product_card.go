@@ -13,6 +13,7 @@ import (
 	"github.com/boggydigital/issa"
 	"github.com/boggydigital/kevlar"
 	"io"
+	"slices"
 	"strings"
 )
 
@@ -109,20 +110,11 @@ func (pc *ProductCardElement) elementFragmentWriter(t string, w io.Writer) error
 			}
 		}
 	case ".OperatingSystems":
-
 		for _, symbol := range pc.osSymbols {
 			if err := symbol.WriteContent(w); err != nil {
 				return err
 			}
 		}
-		//if oses, ok := pc.rdx.GetAllValues(vangogh_local_data.OperatingSystemsProperty, pc.id); ok {
-		//	for _, os := range vangogh_local_data.ParseManyOperatingSystems(oses) {
-		//		symbol := svg_use.SvgUse(pc.r, operatingSystemSymbols[os])
-		//		if err := symbol.WriteContent(w); err != nil {
-		//			return err
-		//		}
-		//	}
-		//}
 	case ".Developers":
 		if developers, ok := pc.rdx.GetAllValues(vangogh_local_data.DevelopersProperty, pc.id); ok {
 			if _, err := io.WriteString(w, strings.Join(developers, ", ")); err != nil {
@@ -184,9 +176,16 @@ func ProductCard(wcr compton.Registrar, id string, hydrated bool, rdx kevlar.Rea
 		}
 	}
 
+	osOrder := []vangogh_local_data.OperatingSystem{
+		vangogh_local_data.Windows,
+		vangogh_local_data.MacOS,
+		vangogh_local_data.Linux}
 	if oses, ok := pc.rdx.GetAllValues(vangogh_local_data.OperatingSystemsProperty, pc.id); ok {
-		for _, os := range vangogh_local_data.ParseManyOperatingSystems(oses) {
-			pc.osSymbols = append(pc.osSymbols, svg_use.SvgUse(pc.r, operatingSystemSymbols[os]))
+		pOses := vangogh_local_data.ParseManyOperatingSystems(oses)
+		for _, os := range osOrder {
+			if slices.Contains(pOses, os) {
+				pc.osSymbols = append(pc.osSymbols, svg_use.SvgUse(pc.r, operatingSystemSymbols[os]))
+			}
 		}
 	}
 
