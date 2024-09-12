@@ -1,16 +1,3 @@
-.updates-show-all,
-.search-show-more {
-    width: 100%;
-    max-width: calc(5 * var(--s-xl));
-}
-
-@container (max-width: 592px) {
-    .updates-show-all,
-    .search-show-more {
-        max-width: unset;
-    }
-}
-
 .label {
     &.owned {
         color: var(--c-highlight);

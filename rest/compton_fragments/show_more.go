@@ -20,7 +20,6 @@ func ShowMoreButton(r compton.Registrar, query map[string][]string, from int) co
 	row := flex_items.FlexItems(r, direction.Row).JustifyContent(align.Center)
 
 	showMoreLink := els.A("/search?" + enq)
-	showMoreLink.AddClass("search-show-more")
 	row.Append(showMoreLink)
 
 	button := inputs.InputValue(r, input_types.Submit, "More...")

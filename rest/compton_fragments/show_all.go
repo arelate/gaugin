@@ -15,7 +15,6 @@ func ShowAllButton(r compton.Registrar) compton.Element {
 	row := flex_items.FlexItems(r, direction.Row).JustifyContent(align.Center)
 
 	showAllLink := els.A("?show-all=true")
-	showAllLink.AddClass("updates-show-all")
 	row.Append(showAllLink)
 
 	button := inputs.InputValue(r, input_types.Submit, "Show All...")
