@@ -38,11 +38,13 @@ func SearchQueryDisplay(query map[string][]string, r compton.Registrar) compton.
 	for _, property := range sortedProperties {
 		values := query[property]
 		span := els.Span()
-		propertyTitle := fspan.Text(r, compton_data.PropertyTitles[property]+": ").
+		propertyTitleLink := els.A("#" + compton_data.PropertyTitles[property])
+		propertyTitleText := fspan.Text(r, compton_data.PropertyTitles[property]+": ").
 			ForegroundColor(color.Subtle)
+		propertyTitleLink.Append(propertyTitleText)
 		propertyValue := fspan.Text(r, strings.Join(values, ", ")).
 			FontWeight(weight.Bolder)
-		span.Append(propertyTitle, propertyValue)
+		span.Append(propertyTitleLink, propertyValue)
 		shStack.Append(span)
 	}
 
