@@ -17,32 +17,32 @@ const filterSearchTitle = "Filter & Search"
 
 func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.ReadableRedux) compton.Element {
 
-	p := compton_fragments.GauginPage(compton_data.AppNavSearch)
+	current := compton_data.AppNavSearch
+	p, pageStack := compton_fragments.AppPage(current)
 
-	pageStack := flex_items.FlexItems(p, direction.Column)
-	p.Append(pageStack)
+	/* Nav stack = App navigation + Search shortcuts */
 
 	navStack := flex_items.FlexItems(p, direction.Row).
 		JustifyContent(align.Center).
 		AlignItems(align.Center)
+	pageStack.Append(navStack)
 
-	appNavLinks := compton_fragments.
-		AppNavLinks(p, compton_data.AppNavSearch)
+	appNavLinks := compton_fragments.AppNavLinks(p, current)
 	navStack.Append(appNavLinks)
 
 	searchScope := compton_data.SearchScopeFromQuery(query)
 	searchLinks := compton_fragments.SearchLinks(p, searchScope)
 	navStack.Append(searchLinks)
 
-	pageStack.Append(navStack)
-
-	searchQueryDisplay := compton_fragments.SearchQueryDisplay(query, p)
+	/* Filter & Search details */
 
 	filterSearchDetails := details_summary.
 		Toggle(p, filterSearchTitle, len(query) == 0).
 		BackgroundColor(color.Highlight).
 		SummaryMarginBlockEnd(size.Normal).
 		DetailsMarginBlockEnd(size.Unset)
+
+	searchQueryDisplay := compton_fragments.SearchQueryDisplay(query, p)
 
 	filterSearchDetails.Append(compton_fragments.SearchForm(p, query, searchQueryDisplay))
 	pageStack.Append(filterSearchDetails)
@@ -51,17 +51,25 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 		pageStack.Append(searchQueryDisplay)
 	}
 
+	/* Search results items count */
+
 	itemsCount := compton_fragments.ItemsCount(p, from, to, len(ids))
 	pageStack.Append(itemsCount)
+
+	/* Search results product cards */
 
 	if len(ids) > 0 {
 		productsList := compton_fragments.ProductsList(p, ids, from, to, rdx)
 		pageStack.Append(productsList)
 	}
 
+	/* Show more... button */
+
 	if to < len(ids) {
 		pageStack.Append(compton_fragments.ShowMoreButton(p, query, to))
 	}
+
+	/* Standard app footer */
 
 	pageStack.Append(compton_fragments.Footer(p))
 

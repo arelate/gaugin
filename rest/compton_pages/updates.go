@@ -16,15 +16,18 @@ import (
 
 func Updates(sections []string, updates map[string][]string, sectionTitles map[string]string, updateTotals map[string]int, updated string, rdx kevlar.ReadableRedux) compton.Element {
 
-	p := compton_fragments.GauginPage(compton_data.AppNavUpdates)
+	current := compton_data.AppNavUpdates
+	p, pageStack := compton_fragments.AppPage(current)
 
-	pageStack := flex_items.FlexItems(p, direction.Column)
-	p.Append(pageStack)
+	/* Nav stack = App navigation + Updates sections shortcuts */
 
 	navStack := flex_items.FlexItems(p, direction.Row).JustifyContent(align.Center).AlignItems(align.Center)
+	pageStack.Append(navStack)
 
-	appNavLinks := compton_fragments.AppNavLinks(p, compton_data.AppNavUpdates)
+	appNavLinks := compton_fragments.AppNavLinks(p, current)
 	navStack.Append(appNavLinks)
+
+	/* Ordered list of Updates sections */
 
 	order := make([]string, 0, len(sections))
 	sectionLinks := make(map[string]string)
@@ -39,13 +42,15 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 	sectionNav := nav_links.NavLinksTargets(p, sectionTargets...)
 	navStack.Append(sectionNav)
 
-	pageStack.Append(navStack)
+	/* Show All... button */
 
 	var showAll compton.Element
 	if hasMoreItems(sections, updates, updateTotals) {
 		showAll = compton_fragments.ShowAllButton(p)
 		pageStack.Append(showAll)
 	}
+
+	/* Updates sections */
 
 	for _, section := range sections {
 
@@ -68,11 +73,17 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 		sectionStack.Append(productsList)
 	}
 
+	/* Show All.. button at the bottom of the page */
+
 	if showAll != nil {
 		pageStack.Append(showAll)
 	}
 
+	/* Last Updated section */
+
 	pageStack.Append(compton_fragments.Updated(p, updated))
+
+	/* Standard app footer */
 
 	pageStack.Append(compton_fragments.Footer(p))
 

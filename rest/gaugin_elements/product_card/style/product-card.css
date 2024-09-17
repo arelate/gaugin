@@ -43,6 +43,10 @@
             font-weight: var(--fw-b);
         }
 
+        & .labels {
+            margin-block-end: auto;
+        }
+
         & .property {
             color: var(--c-foreground);
             font-size: calc((var(--fs-xxs) + var(--fs-xs)) / 2);
@@ -73,32 +77,6 @@
 
             & .title {
                 color: var(--c-subtle);
-            }
-        }
-
-        & .labels {
-            min-height: var(--s-n);
-            width: 100%;
-            overflow: hidden;
-            margin-block-end: auto;
-
-            & ul {
-                flex-direction: row;
-                flex-wrap: wrap;
-                row-gap: var(--s-xxs);
-                column-gap: var(--s-xxs);
-
-                & .label {
-                    font-size: var(--fs-xxs);
-                    font-weight: var(--fw-b);
-                    display: flex;
-                    align-items: center;
-                    width: min-content;
-                    text-transform: uppercase;
-                    padding: var(--s-xxs) var(--s-xs);
-                    border-radius: var(--br-n);
-                    white-space: nowrap;
-                }
             }
         }
     }

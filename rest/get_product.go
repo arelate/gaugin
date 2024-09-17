@@ -3,8 +3,8 @@ package rest
 import (
 	"fmt"
 	"github.com/arelate/gaugin/data"
-	"github.com/arelate/gaugin/gaugin_middleware"
 	"github.com/arelate/gaugin/paths"
+	"github.com/arelate/gaugin/rest/compton_pages"
 	"github.com/arelate/gaugin/stencil_app"
 	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/southern_light"
@@ -127,7 +127,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	insertAggregateLinks(idRedux[id], id)
 
-	gaugin_middleware.DefaultHeaders(w)
+	//gaugin_middleware.DefaultHeaders(w)
 
 	// adding titles for related games
 	relatedIds := make(map[string]bool)
@@ -163,10 +163,18 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	rdx := kevlar.ReduxProxy(MergeIdPropertyValues(idRedux, tagNamesRedux))
 
-	if err := app.RenderItem(id, hasSections, rdx, w); err != nil {
-		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
+	if productPage := compton_pages.Product(id, rdx); productPage != nil {
+		if err := productPage.WriteContent(w); err != nil {
+			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		}
+	} else {
+		http.NotFound(w, r)
 	}
+
+	//if err := app.RenderItem(id, hasSections, rdx, w); err != nil {
+	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+	//	return
+	//}
 }
 
 func gogLink(p string) string {

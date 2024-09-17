@@ -3,10 +3,11 @@ package product_card
 import (
 	"bytes"
 	_ "embed"
-	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/gaugin_atoms"
+	"github.com/arelate/gaugin/rest/gaugin_elements/product_labels"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/compton"
+	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/issa_image"
 	"github.com/boggydigital/compton/elements/svg_use"
@@ -40,6 +41,7 @@ type ProductCardElement struct {
 	r         compton.Registrar
 	poster    compton.Element
 	osSymbols []compton.Element
+	labels    *product_labels.LabelsElement
 	rdx       kevlar.ReadableRedux
 	id        string
 }
@@ -64,6 +66,11 @@ func (pc *ProductCardElement) WriteRequirements(w io.Writer) error {
 	}
 	for _, symbol := range pc.osSymbols {
 		if err := symbol.WriteRequirements(w); err != nil {
+			return err
+		}
+	}
+	if pc.labels != nil {
+		if err := pc.labels.WriteRequirements(w); err != nil {
 			return err
 		}
 	}
@@ -100,14 +107,8 @@ func (pc *ProductCardElement) elementFragmentWriter(t string, w io.Writer) error
 			}
 		}
 	case ".Labels":
-		for _, property := range compton_data.LabelProperties {
-			if title := compton_data.LabelTitle(pc.id, property, pc.rdx); title != "" {
-				class := compton_data.LabelClass(pc.id, property, pc.rdx)
-				label := createLabel(property, title, class)
-				if err := label.WriteContent(w); err != nil {
-					return err
-				}
-			}
+		if err := pc.labels.WriteContent(w); err != nil {
+			return err
 		}
 	case ".OperatingSystems":
 		for _, symbol := range pc.osSymbols {
@@ -138,30 +139,21 @@ func (pc *ProductCardElement) elementFragmentWriter(t string, w io.Writer) error
 
 func (pc *ProductCardElement) SetDehydratedPoster(dehydratedSrc, posterSrc string) *ProductCardElement {
 	pc.poster = issa_image.IssaImageDehydrated(pc.r, dehydratedSrc, posterSrc)
-	//pc.poster.SetAttribute("slot", "poster")
 	return pc
 }
 
 func (pc *ProductCardElement) SetHydratedPoster(hydratedSrc, posterSrc string) *ProductCardElement {
 	pc.poster = issa_image.IssaImageHydrated(pc.r, hydratedSrc, posterSrc)
-	//pc.poster.SetAttribute("slot", "poster")
 	return pc
 }
 
-func createLabel(property, title, class string) compton.Element {
-	label := els.ListItemText(title)
-	cs := []string{"label", property, title, class}
-	label.AddClass(cs...)
-	return label
-}
-
-func ProductCard(wcr compton.Registrar, id string, hydrated bool, rdx kevlar.ReadableRedux) *ProductCardElement {
+func ProductCard(r compton.Registrar, id string, hydrated bool, rdx kevlar.ReadableRedux) *ProductCardElement {
 	pc := &ProductCardElement{
 		BaseElement: compton.BaseElement{
 			TagName: gaugin_atoms.ProductCard,
 			Markup:  markupProductCard,
 		},
-		r:   wcr,
+		r:   r,
 		id:  id,
 		rdx: rdx,
 	}
@@ -188,6 +180,8 @@ func ProductCard(wcr compton.Registrar, id string, hydrated bool, rdx kevlar.Rea
 			}
 		}
 	}
+
+	pc.labels = product_labels.Labels(r, id, rdx).FontSize(size.XXSmall)
 
 	pc.SetAttribute("data-id", id)
 

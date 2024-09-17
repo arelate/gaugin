@@ -1,0 +1,111 @@
+@scope (.labels) {
+
+    :scope {
+        min-height: var(--s-n);
+        width: 100%;
+        overflow: hidden;
+
+        & ul {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            row-gap: var(--s-xxs);
+            column-gap: var(--s-xxs);
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: var(--fs);
+
+            & .label {
+                font-weight: var(--fw-b);
+                display: flex;
+                align-items: center;
+                width: min-content;
+                text-transform: uppercase;
+                padding: var(--s-xxs) var(--s-xs);
+                border-radius: var(--br-n);
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .label {
+        &.owned {
+            color: var(--c-highlight);
+            background-color: var(--c-subtle);
+        }
+
+        &.owned.validation-result-ok {
+            color: var(--c-highlight);
+            background-color: var(--c-green);
+        }
+
+        &.owned.validation-result-err {
+            color: var(--c-highlight);
+            background-color: var(--c-yellow);
+        }
+
+        /* GAME, DLC, PACK */
+
+        &.product-type {
+            color: var(--c-highlight);
+            background-color: var(--c-foreground);
+        }
+
+        /* Release timeline labels */
+
+        &.tba,
+        &.coming-soon,
+        &.pre-order,
+        &.in-development {
+            color: var(--c-highlight);
+            background-color: var(--c-teal);
+        }
+
+        /* Engine/Source-port labels */
+
+        &.is-using-dosbox,
+        &.is-using-scummvm {
+            color: var(--c-highlight);
+            background-color: var(--c-color);
+        }
+
+        /* User tags */
+
+        &.tag,
+        &.local-tags {
+            color: var(--c-highlight);
+            background-color: var(--c-indigo);
+        }
+
+        /* Sale/price lifecycle labels */
+
+        &.wishlisted {
+            color: var(--c-highlight);
+            background-color: var(--c-orange);
+        }
+
+        &.is-free,
+        &.discount-percentage {
+            color: var(--c-highlight);
+            background-color: var(--c-red);
+        }
+
+        /* Download types */
+
+        &.installer {
+            color: var(--c-highlight);
+            background-color: var(--c-purple);
+        }
+
+        &.downloadable-content {
+            color: var(--c-highlight);
+            background-color: var(--c-green);
+        }
+
+        &.extra {
+            color: var(--c-highlight);
+            background-color: var(--c-orange);
+        }
+    }
+}

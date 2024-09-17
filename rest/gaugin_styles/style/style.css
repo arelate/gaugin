@@ -1,79 +1,21 @@
-.label {
-    &.owned {
-        color: var(--c-highlight);
-        background-color: var(--c-subtle);
+:root {
+    --product-card-width: calc(50 * var(--s-n));
+}
+
+@scope (.product-poster) {
+    :scope {
+        & img {
+            width: var(--product-card-width);
+            height: 370px;
+        }
     }
 
-    &.owned.validation-result-ok {
-        color: var(--c-highlight);
-        background-color: var(--c-green);
-    }
-
-    &.owned.validation-result-err {
-        color: var(--c-highlight);
-        background-color: var(--c-yellow);
-    }
-
-    /* GAME, DLC, PACK */
-
-    &.product-type {
-        color: var(--c-highlight);
-        background-color: var(--c-foreground);
-    }
-
-    /* Release timeline labels */
-
-    &.tba,
-    &.coming-soon,
-    &.pre-order,
-    &.in-development {
-        color: var(--c-highlight);
-        background-color: var(--c-teal);
-    }
-
-    /* Engine/Source-port labels */
-
-    &.is-using-dosbox,
-    &.is-using-scummvm {
-        color: var(--c-highlight);
-        background-color: var(--c-color);
-    }
-
-    /* User tags */
-
-    &.tag,
-    &.local-tags {
-        color: var(--c-highlight);
-        background-color: var(--c-indigo);
-    }
-
-    /* Sale/price lifecycle labels */
-
-    &.wishlisted {
-        color: var(--c-highlight);
-        background-color: var(--c-orange);
-    }
-
-    &.is-free,
-    &.discount-percentage {
-        color: var(--c-highlight);
-        background-color: var(--c-red);
-    }
-
-    /* Download types */
-
-    &.installer {
-        color: var(--c-highlight);
-        background-color: var(--c-purple);
-    }
-
-    &.downloadable-content {
-        color: var(--c-highlight);
-        background-color: var(--c-green);
-    }
-
-    &.extra {
-        color: var(--c-highlight);
-        background-color: var(--c-orange);
+    @media only screen and (max-width: 800px) {
+        :scope {
+            & img {
+                max-width: 100%;
+                height: unset;
+            }
+        }
     }
 }
