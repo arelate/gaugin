@@ -3,7 +3,6 @@ package compton_pages
 import (
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/compton_fragments"
-	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/align"
 	"github.com/boggydigital/compton/consts/color"
@@ -12,15 +11,12 @@ import (
 	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/nav_links"
-	"github.com/boggydigital/compton/page"
 	"github.com/boggydigital/kevlar"
 )
 
 func Updates(sections []string, updates map[string][]string, sectionTitles map[string]string, updateTotals map[string]int, updated string, rdx kevlar.ReadableRedux) compton.Element {
 
-	p := page.Page("Updates - gaugin").
-		SetFavIconEmoji("🪸").
-		SetCustomStyles(gaugin_styles.GauginStyle)
+	p := compton_fragments.GauginPage(compton_data.AppNavUpdates)
 
 	pageStack := flex_items.FlexItems(p, direction.Column)
 	p.Append(pageStack)
