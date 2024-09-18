@@ -52,10 +52,10 @@ func createLabel(title, property, class string) compton.Element {
 }
 
 func (lse *LabelsElement) WriteContent(w io.Writer) error {
+	owned, _ := lse.rdx.GetLastVal(vangogh_local_data.OwnedProperty, lse.id)
 	for _, property := range compton_data.LabelProperties {
-		if title := labelTitle(lse.id, property, lse.rdx); title != "" {
-			class := labelClass(lse.id, property, lse.rdx)
-			lse.ul.Append(createLabel(title, property, class))
+		if vl, cl := labelValueClass(lse.id, property, owned, lse.rdx); vl != "" {
+			lse.ul.Append(createLabel(vl, property, cl))
 		}
 	}
 	return lse.ul.WriteContent(w)
@@ -78,15 +78,19 @@ func Labels(r compton.Registrar, id string, rdx kevlar.ReadableRedux) *LabelsEle
 	}
 }
 
-func labelTitle(id, property string, rdx kevlar.ReadableRedux) string {
-
-	label, _ := rdx.GetLastVal(property, id)
-	owned, _ := rdx.GetLastVal(vangogh_local_data.OwnedProperty, id)
-
+func labelValueClass(id, property, owned string, rdx kevlar.ReadableRedux) (vl string, cl string) {
+	vl, _ = rdx.GetLastVal(property, id)
 	switch property {
-	case vangogh_local_data.WishlistedProperty:
-		fallthrough
 	case vangogh_local_data.OwnedProperty:
+		if res, ok := rdx.GetLastVal(vangogh_local_data.ValidationResultProperty, id); ok {
+			if res == "OK" {
+				cl = "validation-result-ok"
+			} else {
+				cl = "validation-result-err"
+			}
+		}
+		fallthrough
+	case vangogh_local_data.WishlistedProperty:
 		fallthrough
 	case vangogh_local_data.PreOrderProperty:
 		fallthrough
@@ -95,46 +99,35 @@ func labelTitle(id, property string, rdx kevlar.ReadableRedux) string {
 	case vangogh_local_data.InDevelopmentProperty:
 		fallthrough
 	case vangogh_local_data.IsFreeProperty:
-		if label == "true" {
-			return compton_data.LabelTitles[property]
+		if vl == "true" {
+			vl = compton_data.LabelTitles[property]
+			break
 		}
-		return ""
+		vl = ""
 	case vangogh_local_data.ProductTypeProperty:
-		if label == "GAME" {
-			return ""
+		if vl == "GAME" {
+			vl = ""
+			break
 		}
 	case vangogh_local_data.DiscountPercentageProperty:
 		if owned == "true" {
-			return ""
+			vl = ""
+			break
 		}
-		if label != "" && label != "0" {
-			return fmt.Sprintf("-%s%%", label)
+		if vl != "" && vl != "0" {
+			vl = fmt.Sprintf("-%s%%", vl)
+			break
 		}
-		return ""
+		vl = ""
 	case vangogh_local_data.TagIdProperty:
-		if tagName, ok := rdx.GetLastVal(vangogh_local_data.TagNameProperty, label); ok {
-			return tagName
+		if tagName, ok := rdx.GetLastVal(vangogh_local_data.TagNameProperty, vl); ok {
+			vl = tagName
+			break
 		}
 	case vangogh_local_data.DehydratedImageProperty:
 		fallthrough
 	case vangogh_local_data.DehydratedVerticalImageProperty:
-		return property
+		vl = property
 	}
-	return label
-}
-
-func labelClass(id, property string, rdx kevlar.ReadableRedux) string {
-	switch property {
-	case vangogh_local_data.OwnedProperty:
-		if res, ok := rdx.GetLastVal(vangogh_local_data.ValidationResultProperty, id); ok {
-			if res == "OK" {
-				return "validation-result-ok"
-			} else {
-				return "validation-result-err"
-			}
-		} else {
-			return ""
-		}
-	}
-	return ""
+	return vl, cl
 }
