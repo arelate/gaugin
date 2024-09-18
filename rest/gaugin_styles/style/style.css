@@ -1,11 +1,13 @@
-:root {
-    --product-card-width: calc(50 * var(--s-n));
+@scope (.product-title) {
+    :scope {
+        text-align: center;
+    }
 }
 
 @scope (.product-poster) {
     :scope {
         & img {
-            width: var(--product-card-width);
+            width: var(--s-maxw);
             height: 370px;
         }
     }
@@ -17,5 +19,58 @@
                 height: unset;
             }
         }
+    }
+}
+
+@scope (title-values) {
+    & svg {
+        width: calc(5 * var(--s-xs));
+        height: calc(5 * var(--s-xs));
+    }
+
+    & .values .action {
+        color: var(--c-blue);
+    }
+
+    & details.many-values {
+        width: 100%;
+
+        &[open] {
+            margin-block-end: 0;
+        }
+
+        & > summary {
+            justify-content: start;
+            padding: 0;
+            color: unset;
+        }
+    }
+
+    &.positive .values {
+        color: var(--c-green);
+    }
+
+    &.negative .values {
+        color: var(--c-red);
+    }
+
+    &.neutral .values {
+        color: var(--c-subtle);
+    }
+
+    &.Verified .values {
+        color: var(--c-green)
+    }
+
+    &.Playable .values {
+        color: var(--c-yellow)
+    }
+
+    &.Unsupported .values {
+        color: var(--c-red)
+    }
+
+    &.Unknown .values {
+        color: var(--c-subtle)
     }
 }

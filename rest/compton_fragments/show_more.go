@@ -19,5 +19,5 @@ func ShowMoreButton(r compton.Registrar, query map[string][]string, from int) co
 	button := inputs.InputValue(r, input_types.Submit, "More...")
 	showMoreLink.Append(button)
 
-	return recipes.JustifyCenter(r, showMoreLink)
+	return recipes.Center(r, showMoreLink)
 }

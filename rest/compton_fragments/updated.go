@@ -18,5 +18,5 @@ func Updated(r compton.Registrar, updated string) compton.Element {
 		FontWeight(weight.Bolder)
 	span.Append(updatedTitle, updatedValue)
 
-	return recipes.JustifyCenter(r, span)
+	return recipes.Center(r, span)
 }

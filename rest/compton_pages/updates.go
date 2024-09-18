@@ -4,13 +4,13 @@ import (
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/consts/align"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/nav_links"
+	"github.com/boggydigital/compton/elements/recipes"
 	"github.com/boggydigital/kevlar"
 )
 
@@ -21,11 +21,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 
 	/* Nav stack = App navigation + Updates sections shortcuts */
 
-	navStack := flex_items.FlexItems(p, direction.Row).JustifyContent(align.Center).AlignItems(align.Center)
-	pageStack.Append(navStack)
-
 	appNavLinks := compton_fragments.AppNavLinks(p, current)
-	navStack.Append(appNavLinks)
 
 	/* Ordered list of Updates sections */
 
@@ -40,7 +36,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 	sectionTargets := nav_links.TextLinks(sectionLinks, "", order...)
 
 	sectionNav := nav_links.NavLinksTargets(p, sectionTargets...)
-	navStack.Append(sectionNav)
+	pageStack.Append(recipes.Center(p, appNavLinks, sectionNav))
 
 	/* Show All... button */
 

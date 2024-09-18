@@ -15,6 +15,6 @@ func ShowAllButton(r compton.Registrar) compton.Element {
 	button := inputs.InputValue(r, input_types.Submit, "Show All...")
 	showAllLink.Append(button)
 
-	return recipes.JustifyCenter(r, showAllLink)
+	return recipes.Center(r, showAllLink)
 
 }

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/arelate/gaugin/data"
 	"github.com/arelate/gaugin/paths"
+	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/compton_pages"
-	"github.com/arelate/gaugin/stencil_app"
 	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/southern_light"
 	"github.com/arelate/southern_light/gog_integration"
@@ -33,10 +33,10 @@ import (
 
 var (
 	propertiesSections = map[string]string{
-		vangogh_local_data.DescriptionOverviewProperty: stencil_app.DescriptionSection,
-		vangogh_local_data.ChangelogProperty:           stencil_app.ChangelogSection,
-		vangogh_local_data.ScreenshotsProperty:         stencil_app.ScreenshotsSection,
-		vangogh_local_data.VideoIdProperty:             stencil_app.VideosSection,
+		vangogh_local_data.DescriptionOverviewProperty: compton_data.DescriptionSection,
+		vangogh_local_data.ChangelogProperty:           compton_data.ChangelogSection,
+		vangogh_local_data.ScreenshotsProperty:         compton_data.ScreenshotsSection,
+		vangogh_local_data.VideoIdProperty:             compton_data.VideosSection,
 	}
 	propertiesSectionsOrder = []string{
 		vangogh_local_data.DescriptionOverviewProperty,
@@ -46,10 +46,10 @@ var (
 	}
 
 	dataTypesSections = map[vangogh_local_data.ProductType]string{
-		vangogh_local_data.SteamAppNews:                 stencil_app.SteamNewsSection,
-		vangogh_local_data.SteamReviews:                 stencil_app.SteamReviewsSection,
-		vangogh_local_data.SteamDeckCompatibilityReport: stencil_app.SteamDeckSection,
-		vangogh_local_data.Details:                      stencil_app.DownloadsSection,
+		vangogh_local_data.SteamAppNews:                 compton_data.SteamNewsSection,
+		vangogh_local_data.SteamReviews:                 compton_data.SteamReviewsSection,
+		vangogh_local_data.SteamDeckCompatibilityReport: compton_data.SteamDeckSection,
+		vangogh_local_data.Details:                      compton_data.DownloadsSection,
 	}
 
 	dataTypesSectionsOrder = []vangogh_local_data.ProductType{
@@ -83,7 +83,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get(vangogh_local_data.IdProperty)
 
-	idRedux, err := getRedux(http.DefaultClient, id, false, stencil_app.ProductProperties...)
+	idRedux, err := getRedux(http.DefaultClient, id, false, compton_data.ProductProperties...)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
@@ -99,6 +99,8 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	hasSections := make([]string, 0)
+	// every product is expected to have at least those sections
+	hasSections = append(hasSections, compton_data.PropertiesSection, compton_data.LinksSection)
 
 	if hRdx, ok := hasRedux[id]; ok {
 		for _, property := range propertiesSectionsOrder {
@@ -163,7 +165,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	}
 	rdx := kevlar.ReduxProxy(MergeIdPropertyValues(idRedux, tagNamesRedux))
 
-	if productPage := compton_pages.Product(id, rdx); productPage != nil {
+	if productPage := compton_pages.Product(id, rdx, hasSections); productPage != nil {
 		if err := productPage.WriteContent(w); err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		}

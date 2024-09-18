@@ -1,21 +1,21 @@
 package compton_pages
 
 import (
+	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/gaugin/rest/gaugin_elements/product_labels"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/consts/align"
-	"github.com/boggydigital/compton/consts/direction"
+	"github.com/boggydigital/compton/consts/color"
+	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/els"
-	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/issa_image"
 	"github.com/boggydigital/compton/elements/recipes"
 	"github.com/boggydigital/issa"
 	"github.com/boggydigital/kevlar"
 )
 
-func Product(id string, rdx kevlar.ReadableRedux) compton.Element {
+func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.Element {
 
 	title, ok := rdx.GetLastVal(vangogh_local_data.TitleProperty, id)
 	if !ok {
@@ -26,13 +26,8 @@ func Product(id string, rdx kevlar.ReadableRedux) compton.Element {
 
 	/* App navigation */
 
-	navStack := flex_items.FlexItems(p, direction.Row).
-		JustifyContent(align.Center).
-		AlignItems(align.Center)
-	pageStack.Append(navStack)
-
 	appNavLinks := compton_fragments.AppNavLinks(p, "")
-	navStack.Append(appNavLinks)
+	pageStack.Append(recipes.Center(p, appNavLinks))
 
 	/* Product poster */
 
@@ -50,22 +45,50 @@ func Product(id string, rdx kevlar.ReadableRedux) compton.Element {
 
 	/* Product title */
 
-	pageStack.Append(
-		recipes.JustifyCenter(p, els.HeadingText(title, 1)))
+	productTitle := els.HeadingText(title, 1)
+	productTitle.AddClass("product-title")
+	pageStack.Append(recipes.Center(p, productTitle))
 
 	/* Product labels */
 
-	labels := recipes.JustifyCenter(p, product_labels.Labels(p, id, rdx))
+	labels := recipes.Center(p, product_labels.Labels(p, id, rdx))
 	labels.AddClass("labels")
 	pageStack.Append(labels)
 
 	/* Product details sections shortcuts */
 
+	pageStack.Append(compton_fragments.ProductSectionsLinks(p, hasSections))
+
 	/* Product details sections */
+
+	for _, section := range hasSections {
+		detailsSummary := details_summary.
+			Toggle(p, compton_data.SectionTitles[section], toggleProductSection(section)).
+			BackgroundColor(color.Highlight)
+		switch section {
+		case compton_data.PropertiesSection:
+			detailsSummary.Append(compton_fragments.ProductProperties(p, id, rdx))
+		// add product properties
+		case compton_data.LinksSection:
+		//add product links
+		default:
+			// add section iframe
+		}
+		// fill section data
+		pageStack.Append(detailsSummary)
+	}
 
 	/* Standard app footer */
 
 	pageStack.Append(compton_fragments.Footer(p))
 
 	return p
+}
+
+func toggleProductSection(section string) bool {
+	if section == compton_data.PropertiesSection ||
+		section == compton_data.LinksSection {
+		return true
+	}
+	return false
 }

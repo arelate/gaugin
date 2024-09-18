@@ -3,6 +3,7 @@ package product_card
 import (
 	"bytes"
 	_ "embed"
+	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/gaugin_atoms"
 	"github.com/arelate/gaugin/rest/gaugin_elements/product_labels"
 	"github.com/arelate/vangogh_local_data"
@@ -29,12 +30,6 @@ var (
 	//go:embed "style/product-card.css"
 	styleProductCard []byte
 )
-
-var operatingSystemSymbols = map[vangogh_local_data.OperatingSystem]svg_use.Symbol{
-	vangogh_local_data.Windows: svg_use.Windows,
-	vangogh_local_data.MacOS:   svg_use.MacOS,
-	vangogh_local_data.Linux:   svg_use.Linux,
-}
 
 type ProductCardElement struct {
 	compton.BaseElement
@@ -176,7 +171,7 @@ func ProductCard(r compton.Registrar, id string, hydrated bool, rdx kevlar.Reada
 		pOses := vangogh_local_data.ParseManyOperatingSystems(oses)
 		for _, os := range osOrder {
 			if slices.Contains(pOses, os) {
-				pc.osSymbols = append(pc.osSymbols, svg_use.SvgUse(pc.r, operatingSystemSymbols[os]))
+				pc.osSymbols = append(pc.osSymbols, svg_use.SvgUse(pc.r, compton_data.OperatingSystemSymbols[os]))
 			}
 		}
 	}

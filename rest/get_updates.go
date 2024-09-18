@@ -1,8 +1,8 @@
 package rest
 
 import (
+	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/compton_pages"
-	"github.com/arelate/gaugin/stencil_app"
 	"github.com/boggydigital/kevlar"
 	"golang.org/x/exp/maps"
 	"golang.org/x/text/cases"
@@ -71,7 +71,7 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		http.DefaultClient,
 		strings.Join(ids, ","),
 		false,
-		stencil_app.ProductsProperties...)
+		compton_data.ProductsProperties...)
 
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)

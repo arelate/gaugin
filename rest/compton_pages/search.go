@@ -4,12 +4,10 @@ import (
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/consts/align"
 	"github.com/boggydigital/compton/consts/color"
-	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_summary"
-	"github.com/boggydigital/compton/elements/flex_items"
+	"github.com/boggydigital/compton/elements/recipes"
 	"github.com/boggydigital/kevlar"
 )
 
@@ -22,17 +20,12 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 
 	/* Nav stack = App navigation + Search shortcuts */
 
-	navStack := flex_items.FlexItems(p, direction.Row).
-		JustifyContent(align.Center).
-		AlignItems(align.Center)
-	pageStack.Append(navStack)
-
 	appNavLinks := compton_fragments.AppNavLinks(p, current)
-	navStack.Append(appNavLinks)
 
 	searchScope := compton_data.SearchScopeFromQuery(query)
 	searchLinks := compton_fragments.SearchLinks(p, searchScope)
-	navStack.Append(searchLinks)
+
+	pageStack.Append(recipes.Center(p, appNavLinks, searchLinks))
 
 	/* Filter & Search details */
 
