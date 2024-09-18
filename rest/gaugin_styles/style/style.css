@@ -7,7 +7,7 @@
 @scope (.product-poster) {
     :scope {
         & img {
-            width: var(--s-maxw);
+            width: 800px;
             height: 370px;
         }
     }
