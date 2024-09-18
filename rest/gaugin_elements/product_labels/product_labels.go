@@ -52,10 +52,13 @@ func createLabel(title, property, class string) compton.Element {
 }
 
 func (lse *LabelsElement) WriteContent(w io.Writer) error {
-	owned, _ := lse.rdx.GetLastVal(vangogh_local_data.OwnedProperty, lse.id)
+	owned := false
+	if op, ok := lse.rdx.GetLastVal(vangogh_local_data.OwnedProperty, lse.id); ok {
+		owned = op == vangogh_local_data.TrueValue
+	}
 	for _, property := range compton_data.LabelProperties {
-		if vl, cl := labelValueClass(lse.id, property, owned, lse.rdx); vl != "" {
-			lse.ul.Append(createLabel(vl, property, cl))
+		if fmtLabel := formatLabel(lse.id, property, owned, lse.rdx); fmtLabel.value != "" {
+			lse.ul.Append(createLabel(fmtLabel.value, property, fmtLabel.class))
 		}
 	}
 	return lse.ul.WriteContent(w)
@@ -78,15 +81,23 @@ func Labels(r compton.Registrar, id string, rdx kevlar.ReadableRedux) *LabelsEle
 	}
 }
 
-func labelValueClass(id, property, owned string, rdx kevlar.ReadableRedux) (vl string, cl string) {
-	vl, _ = rdx.GetLastVal(property, id)
+type formattedLabel struct {
+	value string
+	class string
+}
+
+func formatLabel(id, property string, owned bool, rdx kevlar.ReadableRedux) formattedLabel {
+
+	fmtLabel := formattedLabel{}
+
+	fmtLabel.value, _ = rdx.GetLastVal(property, id)
 	switch property {
 	case vangogh_local_data.OwnedProperty:
 		if res, ok := rdx.GetLastVal(vangogh_local_data.ValidationResultProperty, id); ok {
 			if res == "OK" {
-				cl = "validation-result-ok"
+				fmtLabel.class = "validation-result-ok"
 			} else {
-				cl = "validation-result-err"
+				fmtLabel.class = "validation-result-err"
 			}
 		}
 		fallthrough
@@ -99,35 +110,35 @@ func labelValueClass(id, property, owned string, rdx kevlar.ReadableRedux) (vl s
 	case vangogh_local_data.InDevelopmentProperty:
 		fallthrough
 	case vangogh_local_data.IsFreeProperty:
-		if vl == "true" {
-			vl = compton_data.LabelTitles[property]
+		if fmtLabel.value == "true" {
+			fmtLabel.value = compton_data.LabelTitles[property]
 			break
 		}
-		vl = ""
+		fmtLabel.value = ""
 	case vangogh_local_data.ProductTypeProperty:
-		if vl == "GAME" {
-			vl = ""
+		if fmtLabel.value == "GAME" {
+			fmtLabel.value = ""
 			break
 		}
 	case vangogh_local_data.DiscountPercentageProperty:
-		if owned == "true" {
-			vl = ""
+		if owned {
+			fmtLabel.value = ""
 			break
 		}
-		if vl != "" && vl != "0" {
-			vl = fmt.Sprintf("-%s%%", vl)
+		if fmtLabel.value != "" && fmtLabel.value != "0" {
+			fmtLabel.value = fmt.Sprintf("-%s%%", fmtLabel.value)
 			break
 		}
-		vl = ""
+		fmtLabel.value = ""
 	case vangogh_local_data.TagIdProperty:
-		if tagName, ok := rdx.GetLastVal(vangogh_local_data.TagNameProperty, vl); ok {
-			vl = tagName
+		if tagName, ok := rdx.GetLastVal(vangogh_local_data.TagNameProperty, fmtLabel.value); ok {
+			fmtLabel.value = tagName
 			break
 		}
 	case vangogh_local_data.DehydratedImageProperty:
 		fallthrough
 	case vangogh_local_data.DehydratedVerticalImageProperty:
-		vl = property
+		fmtLabel.value = property
 	}
-	return vl, cl
+	return fmtLabel
 }

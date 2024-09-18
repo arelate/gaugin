@@ -2,7 +2,6 @@ package compton_fragments
 
 import (
 	"fmt"
-	"github.com/arelate/gaugin/data"
 	"github.com/arelate/gaugin/paths"
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/vangogh_local_data"
@@ -20,6 +19,12 @@ import (
 	"strings"
 )
 
+type formattedProperty struct {
+	values  map[string]string
+	class   string
+	actions map[string]string
+}
+
 func ProductProperties(r compton.Registrar, id string, rdx kevlar.ReadableRedux) compton.Element {
 	grid := grid_items.GridItems(r).JustifyContent(align.Center)
 
@@ -28,258 +33,217 @@ func ProductProperties(r compton.Registrar, id string, rdx kevlar.ReadableRedux)
 			continue
 		}
 
-		propertyTitle := compton_data.PropertyTitles[property]
-
-		// operating systems are row of SVG icons that are added separately from other properties
 		if property == vangogh_local_data.OperatingSystemsProperty {
-			tv := title_values.TitleValues(r, propertyTitle)
-			row := flex_items.FlexItems(r, direction.Row).JustifyContent(align.Start)
-			tv.Append(row)
-			if values, ok := rdx.GetAllValues(property, id); ok {
-				for _, os := range vangogh_local_data.ParseManyOperatingSystems(values) {
-					osLink := els.A(valueHref(property, os.String()))
-					osLink.Append(svg_use.SvgUse(r, compton_data.OperatingSystemSymbols[os]))
-					row.Append(osLink)
-				}
-			}
-			grid.Append(tv)
-			continue
-		}
-
-		tv := title_values.TitleValues(r, propertyTitle)
-
-		firstValue := ""
-		hasContent := false
-
-		if values, ok := rdx.GetAllValues(property, id); ok && len(values) > 0 {
-			fmtValues := make([]string, 0, len(values))
-			fmtValueLinks := make(map[string]string)
-			for _, value := range values {
-				fmtValue := valueTitle(id, property, value, rdx)
-				fmtHref := valueHref(property, value)
-				if fmtHref != "" && fmtValue != "" {
-					fmtValueLinks[fmtValue] = fmtHref
-				} else if fmtValue != "" {
-					fmtValues = append(fmtValues, fmtValue)
-				}
-			}
-
-			if len(fmtValues) > 0 {
-				tv.AppendTextValues(fmtValues...)
-				hasContent = true
-			} else if len(fmtValueLinks) > 0 {
-				if len(fmtValueLinks) < 4 {
-					tv.AppendLinkValues(fmtValueLinks)
-				} else {
-					summaryElement := els.SpanText(fmt.Sprintf("Show all %d...", len(fmtValueLinks)))
-					summaryElement.AddClass("action")
-					ds := els.Details().AppendSummary(summaryElement)
-					ds.AddClass("many-values")
-					row := flex_items.FlexItems(r, direction.Row).JustifyContent(align.Start)
-					for link, href := range fmtValueLinks {
-						row.Append(els.AText(link, href))
-					}
-					ds.Append(row)
-					tv.AppendValues(ds)
-				}
-				hasContent = true
-			}
-
-			if len(values) > 0 {
-				firstValue = values[0]
+			if tv := operatingSystemsTitleValues(r, id, rdx); tv != nil {
+				grid.Append(tv)
+				continue
 			}
 		}
 
-		if fmtValueClass := valueClass(id, property, firstValue, rdx); fmtValueClass != "" && tv != nil {
-			tv.AddClass(fmtValueClass)
-		}
-		if fmtValueAction := valueAction(id, property, firstValue, rdx); fmtValueAction != "" && tv != nil {
-			fmtValueActionHref := valueActionHref(id, property, fmtValueAction, rdx)
-			actionLink := els.AText(fmtValueAction, fmtValueActionHref)
-			actionLink.AddClass("action")
-			tv.AppendValues(actionLink)
-			hasContent = true
-		}
-
-		if hasContent {
+		fmtProperty := formatProperty(id, property, rdx)
+		if tv := propertyTitleValues(r, property, fmtProperty); tv != nil {
 			grid.Append(tv)
 		}
-
 	}
 
 	return grid
 }
 
-func valueAction(id, property, link string, rdx kevlar.ReadableRedux) string {
+func searchHref(property, value string) string {
+	return fmt.Sprintf("/search?%s=%s", property, value)
+}
 
-	owned, _ := rdx.GetLastVal(vangogh_local_data.OwnedProperty, id)
+func grdSortedSearchHref(property, value string) string {
+	return fmt.Sprintf("/search?%s=%s&sort=global-release-date&desc=true", property, value)
+}
 
-	switch property {
-	case vangogh_local_data.WishlistedProperty:
-		if owned == "true" {
-			return ""
-		}
-		switch link {
-		case "true":
-			return "Remove"
-		case "false":
-			return "Add"
-		}
-	case vangogh_local_data.TagIdProperty:
-		if owned != "true" {
-			return ""
-		}
-		return "Edit"
-	case vangogh_local_data.LocalTagsProperty:
-		return "Edit"
-	}
+func noHref() string {
 	return ""
 }
 
-func valueActionHref(id, property, action string, rdx kevlar.ReadableRedux) string {
+func formatProperty(id, property string, rdx kevlar.ReadableRedux) formattedProperty {
 
-	owned, _ := rdx.GetLastVal(vangogh_local_data.OwnedProperty, id)
+	fmtProperty := formattedProperty{
+		actions: make(map[string]string),
+		values:  make(map[string]string),
+	}
 
+	owned := false
+	if op, ok := rdx.GetLastVal(vangogh_local_data.OwnedProperty, id); ok {
+		owned = op == vangogh_local_data.TrueValue
+	}
+	isFree := false
+	if ifp, ok := rdx.GetLastVal(vangogh_local_data.IsFreeProperty, id); ok {
+		isFree = ifp == vangogh_local_data.TrueValue
+	}
+
+	values, _ := rdx.GetAllValues(property, id)
+	firstValue := ""
+	if len(values) > 0 {
+		firstValue = values[0]
+	}
+
+	for _, value := range values {
+		switch property {
+		case vangogh_local_data.WishlistedProperty:
+			if owned {
+				break
+			}
+			title := "No"
+			if value == vangogh_local_data.TrueValue {
+				title = "Yes"
+			}
+			fmtProperty.values[title] = searchHref(property, value)
+		case vangogh_local_data.IncludesGamesProperty:
+			fallthrough
+		case vangogh_local_data.IsIncludedByGamesProperty:
+			fallthrough
+		case vangogh_local_data.RequiresGamesProperty:
+			fallthrough
+		case vangogh_local_data.IsRequiredByGamesProperty:
+			refTitle := value
+			if rtp, ok := rdx.GetLastVal(vangogh_local_data.TitleProperty, value); ok {
+				refTitle = rtp
+			}
+			fmtProperty.values[refTitle] = paths.ProductId(value)
+		case vangogh_local_data.GOGOrderDateProperty:
+			jtd := justTheDate(value)
+			fmtProperty.values[jtd] = searchHref(property, jtd)
+		case vangogh_local_data.LanguageCodeProperty:
+			fmtProperty.values[compton_data.FormatLanguage(value)] = searchHref(property, value)
+		case vangogh_local_data.RatingProperty:
+			fmtProperty.values[fmtGOGRating(value)] = noHref()
+		case vangogh_local_data.TagIdProperty:
+			tagName := value
+			if tnp, ok := rdx.GetLastVal(vangogh_local_data.TagNameProperty, value); ok {
+				tagName = tnp
+			}
+			fmtProperty.values[tagName] = searchHref(property, tagName)
+		case vangogh_local_data.PriceProperty:
+			if !isFree {
+				fmtProperty.values[value] = noHref()
+			}
+		case vangogh_local_data.HLTBHoursToCompleteMainProperty:
+			fallthrough
+		case vangogh_local_data.HLTBHoursToCompletePlusProperty:
+			fallthrough
+		case vangogh_local_data.HLTBHoursToComplete100Property:
+			ct := strings.TrimLeft(value, "0") + " hrs"
+			fmtProperty.values[ct] = noHref()
+		case vangogh_local_data.HLTBReviewScoreProperty:
+			if value != "0" {
+				fmtProperty.values[fmtHLTBRating(value)] = noHref()
+			}
+		case vangogh_local_data.DiscountPercentageProperty:
+			fmtProperty.values[value] = noHref()
+		case vangogh_local_data.PublishersProperty:
+			fallthrough
+		case vangogh_local_data.DevelopersProperty:
+			fmtProperty.values[value] = grdSortedSearchHref(property, value)
+		case vangogh_local_data.EnginesBuildsProperty:
+			fmtProperty.values[value] = noHref()
+
+		default:
+			fmtProperty.values[value] = searchHref(property, value)
+		}
+	}
+
+	// format actions, class
 	switch property {
+	case vangogh_local_data.OwnedProperty:
+		if res, ok := rdx.GetLastVal(vangogh_local_data.ValidationResultProperty, id); ok {
+			if res == "OK" {
+				fmtProperty.class = "validation-result-ok"
+			} else {
+				fmtProperty.class = "validation-result-err"
+			}
+		}
 	case vangogh_local_data.WishlistedProperty:
-		switch action {
-		case "Add":
-			return "/wishlist/add?id=" + id
-		case "Remove":
-			return "/wishlist/remove?id=" + id
+		if !owned {
+			switch firstValue {
+			case vangogh_local_data.TrueValue:
+				fmtProperty.actions["Remove"] = "/wishlist/remove?id=" + id
+			case vangogh_local_data.FalseValue:
+				fmtProperty.actions["Add"] = "/wishlist/add?id=" + id
+			}
 		}
 	case vangogh_local_data.TagIdProperty:
-		if owned != "true" {
-			return ""
+		if owned {
+			fmtProperty.actions["Edit"] = "/tags/edit?id=" + id
 		}
-		return "/tags/edit?id=" + id
 	case vangogh_local_data.LocalTagsProperty:
-		return "/local-tags/edit?id=" + id
-	}
-	return ""
-}
-
-func valueHref(property, link string) string {
-	switch property {
-	case vangogh_local_data.GOGOrderDateProperty:
-		link = justTheDate(link)
-	case vangogh_local_data.PublishersProperty:
-		fallthrough
-	case vangogh_local_data.DevelopersProperty:
-		return fmt.Sprintf("/search?%s=%s&sort=global-release-date&desc=true", property, link)
-	case vangogh_local_data.IncludesGamesProperty:
-		fallthrough
-	case vangogh_local_data.IsIncludedByGamesProperty:
-		fallthrough
-	case vangogh_local_data.RequiresGamesProperty:
-		fallthrough
-	case vangogh_local_data.IsRequiredByGamesProperty:
-		return paths.ProductId(link)
+		fmtProperty.actions["Edit"] = "/local-tags/edit?id=" + id
+	case vangogh_local_data.SteamReviewScoreDescProperty:
+		fmtProperty.class = reviewClass(firstValue)
 	case vangogh_local_data.RatingProperty:
-		return ""
-	case vangogh_local_data.DiscountPercentageProperty:
-		return ""
-	case vangogh_local_data.PriceProperty:
-		return ""
-	case data.GauginGOGLinksProperty:
-		fallthrough
-	case data.GauginOtherLinksProperty:
-		fallthrough
-	case data.GauginSteamLinksProperty:
-		if _, pv, ok := strings.Cut(link, "="); ok {
-			return pv
-		}
-	case vangogh_local_data.HLTBHoursToCompleteMainProperty:
-		fallthrough
-	case vangogh_local_data.HLTBHoursToCompletePlusProperty:
-		fallthrough
-	case vangogh_local_data.HLTBHoursToComplete100Property:
-		return ""
+		fmtProperty.class = reviewClass(fmtGOGRating(firstValue))
 	case vangogh_local_data.HLTBReviewScoreProperty:
-		return ""
-	case vangogh_local_data.EnginesBuildsProperty:
-		return ""
-	case vangogh_local_data.DehydratedImageProperty:
-		fallthrough
-	case vangogh_local_data.DehydratedVerticalImageProperty:
-		return link
+		fmtProperty.class = reviewClass(fmtHLTBRating(firstValue))
+	case vangogh_local_data.SteamDeckAppCompatibilityCategoryProperty:
+		fmtProperty.class = firstValue
 	}
-	return fmt.Sprintf("/search?%s=%s", property, link)
+
+	return fmtProperty
 }
 
-func valueTitle(id, property, link string, rdx kevlar.ReadableRedux) string {
-	title := link
-
-	owned, _ := rdx.GetLastVal(vangogh_local_data.OwnedProperty, id)
-	isFree, _ := rdx.GetLastVal(vangogh_local_data.IsFreeProperty, id)
-
-	switch property {
-	case vangogh_local_data.WishlistedProperty:
-		if owned == "true" {
-			return ""
+func operatingSystemsTitleValues(r compton.Registrar, id string, rdx kevlar.ReadableRedux) compton.Element {
+	property := vangogh_local_data.OperatingSystemsProperty
+	propertyTitle := compton_data.PropertyTitles[property]
+	tv := title_values.TitleValues(r, propertyTitle)
+	row := flex_items.FlexItems(r, direction.Row).JustifyContent(align.Start)
+	tv.Append(row)
+	if values, ok := rdx.GetAllValues(property, id); ok {
+		for _, os := range vangogh_local_data.ParseManyOperatingSystems(values) {
+			osLink := els.A(searchHref(property, os.String()))
+			osLink.Append(svg_use.SvgUse(r, compton_data.OperatingSystemSymbols[os]))
+			row.Append(osLink)
 		}
-		if link == vangogh_local_data.TrueValue {
-			return "Yes"
+	}
+	return tv
+}
+
+func propertyTitleValues(r compton.Registrar, property string, fmtProperty formattedProperty) *title_values.TitleValuesElement {
+
+	if len(fmtProperty.values) == 0 && len(fmtProperty.actions) == 0 {
+		return nil
+	}
+
+	tv := title_values.TitleValues(r, compton_data.PropertyTitles[property])
+
+	if len(fmtProperty.values) > 0 {
+
+		if len(fmtProperty.values) < 4 {
+			tv.AppendLinkValues(fmtProperty.values)
 		} else {
-			return "No"
+			summaryElement := els.SpanText(fmt.Sprintf("Show all %d...", len(fmtProperty.values)))
+			summaryElement.AddClass("action")
+			ds := els.Details().AppendSummary(summaryElement)
+			ds.AddClass("many-values")
+			row := flex_items.FlexItems(r, direction.Row).JustifyContent(align.Start)
+			for link, href := range fmtProperty.values {
+				row.Append(els.AText(link, href))
+			}
+			ds.Append(row)
+			tv.AppendValues(ds)
 		}
-	case vangogh_local_data.IncludesGamesProperty:
-		fallthrough
-	case vangogh_local_data.IsIncludedByGamesProperty:
-		fallthrough
-	case vangogh_local_data.RequiresGamesProperty:
-		fallthrough
-	case vangogh_local_data.IsRequiredByGamesProperty:
-		var ok bool
-		title, ok = rdx.GetLastVal(vangogh_local_data.TitleProperty, link)
-		if !ok {
-			title = link
+
+		if fmtProperty.class != "" {
+			tv.AddClass(fmtProperty.class)
 		}
-	case vangogh_local_data.GOGOrderDateProperty:
-		title = justTheDate(link)
-	case vangogh_local_data.LanguageCodeProperty:
-		title = fmt.Sprintf("%s %s", compton_data.LanguageCodeFlag(link), compton_data.LanguageCodeTitle(link))
-	case vangogh_local_data.RatingProperty:
-		title = fmtGOGRating(link)
-	case vangogh_local_data.TagIdProperty:
-		var ok bool
-		title, ok = rdx.GetLastVal(vangogh_local_data.TagNameProperty, link)
-		if !ok {
-			title = link
-		}
-	case vangogh_local_data.PriceProperty:
-		if isFree == "true" {
-			return ""
-		}
-	case vangogh_local_data.HLTBHoursToCompleteMainProperty:
-		fallthrough
-	case vangogh_local_data.HLTBHoursToCompletePlusProperty:
-		fallthrough
-	case vangogh_local_data.HLTBHoursToComplete100Property:
-		return strings.TrimLeft(link, "0") + " hrs"
-	case data.GauginGOGLinksProperty:
-		fallthrough
-	case data.GauginOtherLinksProperty:
-		fallthrough
-	case data.GauginSteamLinksProperty:
-		if pt, _, ok := strings.Cut(link, "="); ok {
-			title = compton_data.PropertyTitles[pt]
-		}
-	case vangogh_local_data.HLTBReviewScoreProperty:
-		if link == "0" {
-			return ""
-		}
-		return fmtHLTBRating(link)
 	}
 
-	return title
+	if len(fmtProperty.actions) > 0 {
+		for ac, acHref := range fmtProperty.actions {
+			actionLink := els.AText(ac, acHref)
+			actionLink.AddClass("action")
+			tv.AppendValues(actionLink)
+		}
+	}
+
+	return tv
 }
 
-func ownedValidationResult(id string, rdx kevlar.ReadableRedux) (string, bool) {
-	return rdx.GetLastVal(vangogh_local_data.ValidationResultProperty, id)
-}
-
-func ReviewClass(sr string) string {
+func reviewClass(sr string) string {
 	if strings.Contains(sr, "Positive") {
 		return "positive"
 	} else if strings.Contains(sr, "Negative") {
@@ -287,30 +251,6 @@ func ReviewClass(sr string) string {
 	} else {
 		return "neutral"
 	}
-}
-
-func valueClass(id, property, link string, rdx kevlar.ReadableRedux) string {
-	switch property {
-	case vangogh_local_data.OwnedProperty:
-		if res, ok := ownedValidationResult(id, rdx); ok {
-			if res == "OK" {
-				return "validation-result-ok"
-			} else {
-				return "validation-result-err"
-			}
-		} else {
-			return ""
-		}
-	case vangogh_local_data.SteamReviewScoreDescProperty:
-		return ReviewClass(link)
-	case vangogh_local_data.RatingProperty:
-		return ReviewClass(fmtGOGRating(link))
-	case vangogh_local_data.HLTBReviewScoreProperty:
-		return ReviewClass(fmtHLTBRating(link))
-	case vangogh_local_data.SteamDeckAppCompatibilityCategoryProperty:
-		return link
-	}
-	return ""
 }
 
 func fmtGOGRating(rs string) string {

@@ -1,5 +1,7 @@
 package compton_data
 
+import "fmt"
+
 // National flags that correspond to language code.
 // In some cases there is no obvious way to map those,
 // attempting to use sensible option: ar, ca, fa
@@ -100,4 +102,8 @@ func LanguageCodeTitle(lc string) string {
 		return title
 	}
 	return lc
+}
+
+func FormatLanguage(lc string) string {
+	return fmt.Sprintf("%s %s", LanguageCodeFlag(lc), LanguageCodeTitle(lc))
 }
