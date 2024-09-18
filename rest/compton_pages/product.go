@@ -9,6 +9,7 @@ import (
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/els"
+	"github.com/boggydigital/compton/elements/iframe_expand"
 	"github.com/boggydigital/compton/elements/issa_image"
 	"github.com/boggydigital/compton/elements/recipes"
 	"github.com/boggydigital/issa"
@@ -75,7 +76,8 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 				detailsSummary.Append(externalLinks)
 			}
 		default:
-			// add section iframe
+			ifh := iframe_expand.IframeExpandHost(p, section, "/"+section+"?id="+id)
+			detailsSummary.Append(ifh)
 		}
 		pageStack.Append(detailsSummary)
 	}
