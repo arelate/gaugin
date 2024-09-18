@@ -34,11 +34,12 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 	if imgSrc, ok := rdx.GetLastVal(vangogh_local_data.ImageProperty, id); ok {
 		var poster compton.Element
+		relImgSrc := "/image?id=" + imgSrc
 		if dehydSrc, sure := rdx.GetLastVal(vangogh_local_data.DehydratedImageProperty, id); sure {
 			hydSrc := issa.HydrateColor(dehydSrc)
-			poster = issa_image.IssaImageHydrated(p, hydSrc, imgSrc)
+			poster = issa_image.IssaImageHydrated(p, hydSrc, relImgSrc)
 		} else {
-			poster = els.Img(imgSrc)
+			poster = els.Img(relImgSrc)
 		}
 		poster.AddClass("product-poster")
 		pageStack.Append(poster)
