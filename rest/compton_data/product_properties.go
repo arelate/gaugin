@@ -71,10 +71,10 @@ var ProductProperties = []string{
 	vangogh_local_data.ValidationResultProperty,
 }
 
-var ProductComputedProperties = []string{
+var ProductExternalLinksProperties = []string{
 	data.GauginGOGLinksProperty,
-	data.GauginOtherLinksProperty,
 	data.GauginSteamLinksProperty,
+	data.GauginOtherLinksProperty,
 }
 
 var ProductHiddenProperties = []string{

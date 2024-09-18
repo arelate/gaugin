@@ -32,6 +32,10 @@
         color: var(--c-blue);
     }
 
+    &.external .values {
+        color: var(--c-cyan);
+    }
+
     & details.many-values {
         width: 100%;
 

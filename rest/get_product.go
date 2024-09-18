@@ -195,7 +195,6 @@ func insertAggregateLinks(rdx map[string][]string, id string) {
 		vangogh_local_data.SupportUrlProperty} {
 		if len(rdx[p]) > 0 {
 			rdx[data.GauginGOGLinksProperty] = append(rdx[data.GauginGOGLinksProperty],
-				//fmt.Sprintf("%s (%s)", p, gogLink(rdx[p][0])))
 				fmt.Sprintf("%s=%s", p, gogLink(rdx[p][0])))
 		}
 	}
@@ -206,18 +205,15 @@ func insertAggregateLinks(rdx map[string][]string, id string) {
 				uAppId := uint32(appId)
 				rdx[data.GauginSteamLinksProperty] =
 					append(rdx[data.GauginSteamLinksProperty],
-						//fmt.Sprintf("%s (%s)", data.GauginSteamCommunityUrlProperty, steam_integration.SteamCommunityUrl(uAppId)))
 						fmt.Sprintf("%s=%s", data.GauginSteamCommunityUrlProperty, steam_integration.SteamCommunityUrl(uAppId)))
 				rdx[data.GauginOtherLinksProperty] =
 					append(rdx[data.GauginOtherLinksProperty],
-						//fmt.Sprintf("%s (%s)", data.GauginProtonDBUrlProperty, protondb_integration.ProtonDBUrl(uAppId)))
 						fmt.Sprintf("%s=%s", data.GauginProtonDBUrlProperty, protondb_integration.ProtonDBUrl(uAppId)))
 			}
 		}
 	}
 
 	rdx[data.GauginOtherLinksProperty] = append(rdx[data.GauginOtherLinksProperty],
-		//fmt.Sprintf("%s (%s)", data.GauginGOGDBUrlProperty, gogdb_integration.GOGDBUrl(id)))
 		fmt.Sprintf("%s=%s", data.GauginGOGDBUrlProperty, gogdb_integration.GOGDBUrl(id)))
 
 	otherLink(rdx,

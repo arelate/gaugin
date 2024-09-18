@@ -67,14 +67,16 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 			BackgroundColor(color.Highlight)
 		switch section {
 		case compton_data.PropertiesSection:
-			detailsSummary.Append(compton_fragments.ProductProperties(p, id, rdx))
-		// add product properties
+			if productProperties := compton_fragments.ProductProperties(p, id, rdx); productProperties != nil {
+				detailsSummary.Append(productProperties)
+			}
 		case compton_data.LinksSection:
-		//add product links
+			if externalLinks := compton_fragments.ProductExternalLinks(p, id, rdx); externalLinks != nil {
+				detailsSummary.Append(externalLinks)
+			}
 		default:
 			// add section iframe
 		}
-		// fill section data
 		pageStack.Append(detailsSummary)
 	}
 
@@ -86,8 +88,7 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 }
 
 func toggleProductSection(section string) bool {
-	if section == compton_data.PropertiesSection ||
-		section == compton_data.LinksSection {
+	if section == compton_data.PropertiesSection {
 		return true
 	}
 	return false
