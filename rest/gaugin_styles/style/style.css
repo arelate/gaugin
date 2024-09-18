@@ -22,6 +22,12 @@
     }
 }
 
+@scope (details grid-items) {
+    :scope {
+        margin-inline: var(--s-n)
+    }
+}
+
 @scope (title-values) {
     & svg {
         width: calc(5 * var(--s-xs));
