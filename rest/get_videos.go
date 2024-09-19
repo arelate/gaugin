@@ -94,9 +94,12 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 
 		for _, videoId := range videoIds {
 			posterSrc := "/thumbnails?id=" + videoId
-			link := els.A(youtube_urls.VideoUrl(videoId).String())
+			originSrc := youtube_urls.VideoUrl(videoId).String()
+			link := els.A(originSrc)
 			link.SetAttribute("target", "_top")
-			link.Append(els.ImageLazy(posterSrc))
+			img := els.ImageLazy(posterSrc)
+			img.SetAttribute("alt", "VideoId: "+videoId)
+			link.Append(img)
 			dsStack.Append(link)
 		}
 
@@ -106,19 +109,4 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 	if err := ifc.WriteContent(w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 	}
-
-	//sb := &strings.Builder{}
-	//vvm := view_models.NewVideos(id, rdx)
-	//
-	//if err := tmpl.ExecuteTemplate(sb, "videos-content", vvm); err != nil {
-	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	return
-	//}
-	//
-	//gaugin_middleware.DefaultHeaders(w)
-	//
-	//if err := app.RenderSection(id, stencil_app.VideosSection, sb.String(), w); err != nil {
-	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	return
-	//}
 }
