@@ -4,6 +4,7 @@ import (
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/arelate/vangogh_local_data"
+	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/elements/els"
@@ -14,6 +15,8 @@ import (
 	"github.com/boggydigital/nod"
 	"net/http"
 )
+
+const eagerLoadingScreenshots = 3
 
 func GetScreenshots(w http.ResponseWriter, r *http.Request) {
 
@@ -50,11 +53,17 @@ func GetScreenshots(w http.ResponseWriter, r *http.Request) {
 		pageStack.Append(recipes.Center(ifc, fs))
 	}
 
-	for _, src := range screenshots {
+	for ii, src := range screenshots {
 		imageSrc := "/image?id=" + src
 		link := els.A(imageSrc)
 		link.SetAttribute("target", "_top")
-		link.Append(els.Img(imageSrc))
+		var img compton.Element
+		if ii < eagerLoadingScreenshots {
+			img = els.ImgEager(imageSrc)
+		} else {
+			img = els.ImgLazy(imageSrc)
+		}
+		link.Append(img)
 		pageStack.Append(link)
 	}
 
