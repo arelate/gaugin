@@ -2,5 +2,9 @@ package gaugin_styles
 
 import _ "embed"
 
-//go:embed "style/style.css"
-var GauginStyle []byte
+var (
+	//go:embed "style/app.css"
+	AppStyle []byte
+	//go:embed "style/screenshots.css"
+	ScreenshotsStyle []byte
+)

@@ -13,7 +13,7 @@ func AppPage(current string) (p *page.PageElement, stack compton.Element) {
 	p = page.Page(
 		PageTitle(current)).
 		SetFavIconEmoji(compton_data.AppFavIconEmoji).
-		SetCustomStyles(gaugin_styles.GauginStyle)
+		AppendStyle(gaugin_styles.AppStyle)
 
 	stack = flex_items.FlexItems(p, direction.Column)
 	p.Append(stack)
