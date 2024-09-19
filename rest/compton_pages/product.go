@@ -65,7 +65,7 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 	for _, section := range hasSections {
 		detailsSummary := details_summary.
-			Toggle(p, compton_data.SectionTitles[section], toggleProductSection(section)).
+			Toggle(p, compton_data.SectionTitles[section], section == compton_data.PropertiesSection).
 			BackgroundColor(color.Highlight)
 		switch section {
 		case compton_data.PropertiesSection:
@@ -88,11 +88,4 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 	pageStack.Append(compton_fragments.Footer(p))
 
 	return p
-}
-
-func toggleProductSection(section string) bool {
-	if section == compton_data.PropertiesSection {
-		return true
-	}
-	return false
 }
