@@ -49,6 +49,7 @@ func ServeHandler(u *url.URL) error {
 	if err := pathways.SetAbsDirs(vangoghAbsDirs...); err != nil {
 		return err
 	}
+	pathways.SetRelToAbsDir(vangogh_local_data.RelToAbsDirs)
 
 	vangoghDirs := make(map[string]string)
 	if vangoghImagesDir := vangogh_local_data.ValueFromUrl(u, "vangogh-images-dir"); vangoghImagesDir != "" {

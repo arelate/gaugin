@@ -1,6 +1,6 @@
 {{define "videos-content"}}
     {{range .LocalVideos}}
-        <video controls src="/video?id={{.}}" preload="metadata" poster="/thumbnails?id={{.}}"></video>
+        <video controls src="/video?id={{.}}" poster="/thumbnails?id={{.}}"></video>
     {{end}}
     {{if .RemoteVideos}}
         <details>
