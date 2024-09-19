@@ -95,6 +95,7 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 		for _, videoId := range videoIds {
 			posterSrc := "/thumbnails?id=" + videoId
 			link := els.A(youtube_urls.VideoUrl(videoId).String())
+			link.SetAttribute("target", "_top")
 			link.Append(els.ImageLazy(posterSrc))
 			dsStack.Append(link)
 		}
