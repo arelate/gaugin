@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/rest/compton_data"
+	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
@@ -36,7 +37,8 @@ func GetChangelog(w http.ResponseWriter, r *http.Request) {
 	}
 
 	section := compton_data.ChangelogSection
-	ifc := iframe_expand.IframeExpandContent(section, compton_data.SectionTitles[section])
+	ifc := iframe_expand.IframeExpandContent(section, compton_data.SectionTitles[section]).
+		AppendStyle(gaugin_styles.ChangelogStyle)
 
 	pageStack := flex_items.FlexItems(ifc, direction.Column)
 	ifc.Append(pageStack)

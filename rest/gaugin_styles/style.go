@@ -11,4 +11,6 @@ var (
 	VideosStyle []byte
 	//go:embed "style/description.css"
 	DescriptionStyle []byte
+	//go:embed "style/changelog.css"
+	ChangelogStyle []byte
 )
