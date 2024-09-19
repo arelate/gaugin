@@ -182,7 +182,9 @@ func formatProperty(id, property string, rdx kevlar.ReadableRedux) formattedProp
 		fmtProperty.class = reviewClass(fmtHLTBRating(firstValue))
 	case vangogh_local_data.SteamDeckAppCompatibilityCategoryProperty:
 		fmtProperty.class = firstValue
-		fmtProperty.actions["&darr;"] = "#Steam Deck"
+		if firstValue != "" {
+			fmtProperty.actions["&darr;"] = "#Steam Deck"
+		}
 	}
 
 	return fmtProperty
