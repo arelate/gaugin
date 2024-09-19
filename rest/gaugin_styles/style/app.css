@@ -22,7 +22,7 @@
     }
 }
 
-@scope (details grid-items) {
+@scope (details grid-items.inset) {
     :scope {
         margin-inline: var(--s-n)
     }

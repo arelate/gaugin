@@ -7,6 +7,7 @@ import (
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/color"
+	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/iframe_expand"
@@ -21,6 +22,8 @@ var convertedSections = []string{
 	compton_data.PropertiesSection,
 	compton_data.ExternalLinksSection,
 	compton_data.ScreenshotsSection,
+	compton_data.ChangelogSection,
+	compton_data.DescriptionSection,
 }
 
 func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.Element {
@@ -79,7 +82,9 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 		detailsSummary := details_summary.
 			Toggle(p, compton_data.SectionTitles[section], section == compton_data.PropertiesSection).
-			BackgroundColor(dsc)
+			BackgroundColor(dsc).
+			SummaryMarginBlockEnd(size.Large).
+			DetailsMarginBlockEnd(size.Normal)
 
 		switch section {
 		case compton_data.PropertiesSection:

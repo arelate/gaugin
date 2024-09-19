@@ -27,6 +27,7 @@ type formattedProperty struct {
 
 func ProductProperties(r compton.Registrar, id string, rdx kevlar.ReadableRedux) compton.Element {
 	grid := grid_items.GridItems(r).JustifyContent(align.Center)
+	grid.AddClass("inset")
 
 	for _, property := range compton_data.ProductProperties {
 		if slices.Contains(compton_data.ProductHiddenProperties, property) {

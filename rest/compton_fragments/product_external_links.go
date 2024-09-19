@@ -13,6 +13,7 @@ import (
 func ProductExternalLinks(r compton.Registrar, id string, rdx kevlar.ReadableRedux) compton.Element {
 
 	grid := grid_items.GridItems(r).JustifyContent(align.Center)
+	grid.AddClass("inset")
 
 	for _, linkProperty := range compton_data.ProductExternalLinksProperties {
 		if links, ok := rdx.GetAllValues(linkProperty, id); ok && len(links) > 0 {
