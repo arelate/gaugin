@@ -3,6 +3,7 @@ package rest
 import (
 	"github.com/arelate/gaugin/paths"
 	"github.com/arelate/gaugin/rest/compton_data"
+	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/els"
@@ -51,12 +52,16 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 	}
 
 	section := compton_data.DescriptionSection
-	ifc := iframe_expand.IframeExpandContent(section, compton_data.SectionTitles[section])
+	ifc := iframe_expand.IframeExpandContent(section, compton_data.SectionTitles[section]).
+		AppendStyle(gaugin_styles.DescriptionStyle)
+	div := els.Div()
+	div.AddClass("description")
+	ifc.Append(div)
 
 	if desc == "" {
 		fs := fspan.Text(ifc, "Description is not available for this product").
 			ForegroundColor(color.Subtle)
-		ifc.Append(recipes.Center(ifc, fs))
+		div.Append(recipes.Center(ifc, fs))
 	} else {
 		desc = rewriteItemsLinks(desc)
 		desc = rewriteGameLinks(desc)
@@ -65,7 +70,7 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 		desc = replaceDataFallbackUrls(desc)
 		desc = rewriteVideoAsInline(desc)
 
-		ifc.Append(els.Text(desc))
+		div.Append(els.Text(desc))
 	}
 
 	addtReqs := ""
@@ -76,8 +81,8 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 	}
 	if addtReqs != "" {
 		arfs := fspan.Text(ifc, addtReqs).ForegroundColor(color.Subtle).FontSize(size.Small)
-		ifc.Append(els.Br())
-		ifc.Append(arfs)
+		div.Append(els.Br())
+		div.Append(arfs)
 	}
 
 	copyright := ""
@@ -88,8 +93,8 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 	}
 	if copyright != "" {
 		cfs := fspan.Text(ifc, copyright).ForegroundColor(color.Subtle).FontSize(size.Small)
-		ifc.Append(els.Br())
-		ifc.Append(cfs)
+		div.Append(els.Br())
+		div.Append(cfs)
 	}
 
 	if err := ifc.WriteContent(w); err != nil {

@@ -87,7 +87,6 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 
 		detailsSummary := details_summary.
 			Closed(ifc, "Watch on YouTube").
-			BackgroundColor(color.Highlight).
 			ForegroundColor(color.Cyan)
 
 		dsStack := flex_items.FlexItems(ifc, direction.Column)
