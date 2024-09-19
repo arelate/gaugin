@@ -1,34 +1,34 @@
 package compton_data
 
 const (
-	ChangelogSection    = "changelog"
-	DescriptionSection  = "description"
-	DownloadsSection    = "downloads"
-	LinksSection        = "links"
-	PropertiesSection   = "properties"
-	ScreenshotsSection  = "screenshots"
-	SteamNewsSection    = "steam-news"
-	SteamReviewsSection = "steam-reviews"
-	SteamDeckSection    = "steam-deck"
-	VideosSection       = "videos"
+	ChangelogSection     = "changelog"
+	DescriptionSection   = "description"
+	DownloadsSection     = "downloads"
+	ExternalLinksSection = "links"
+	PropertiesSection    = "properties"
+	ScreenshotsSection   = "screenshots"
+	SteamNewsSection     = "steam-news"
+	SteamReviewsSection  = "steam-reviews"
+	SteamDeckSection     = "steam-deck"
+	VideosSection        = "videos"
 )
 
 var SectionTitles = map[string]string{
-	ChangelogSection:    "Changelog",
-	DescriptionSection:  "Description",
-	DownloadsSection:    "Downloads",
-	LinksSection:        "External Links",
-	PropertiesSection:   "Properties",
-	ScreenshotsSection:  "Screenshots",
-	SteamNewsSection:    "Steam News",
-	SteamReviewsSection: "Steam Reviews",
-	SteamDeckSection:    "Steam Deck",
-	VideosSection:       "Videos",
+	ChangelogSection:     "Changelog",
+	DescriptionSection:   "Description",
+	DownloadsSection:     "Downloads",
+	ExternalLinksSection: "External Links",
+	PropertiesSection:    "Properties",
+	ScreenshotsSection:   "Screenshots",
+	SteamNewsSection:     "Steam News",
+	SteamReviewsSection:  "Steam Reviews",
+	SteamDeckSection:     "Steam Deck",
+	VideosSection:        "Videos",
 }
 
 var SectionsTitlesOrder = []string{
 	SectionTitles[PropertiesSection],
-	SectionTitles[LinksSection],
+	SectionTitles[ExternalLinksSection],
 	SectionTitles[DescriptionSection],
 	SectionTitles[ChangelogSection],
 	SectionTitles[ScreenshotsSection],

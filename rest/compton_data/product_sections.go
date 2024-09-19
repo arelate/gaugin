@@ -2,7 +2,7 @@ package compton_data
 
 var ProductSections = []string{
 	PropertiesSection,
-	LinksSection,
+	ExternalLinksSection,
 	DescriptionSection,
 	ScreenshotsSection,
 	ChangelogSection,

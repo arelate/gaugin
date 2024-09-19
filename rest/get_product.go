@@ -100,7 +100,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	hasSections := make([]string, 0)
 	// every product is expected to have at least those sections
-	hasSections = append(hasSections, compton_data.PropertiesSection, compton_data.LinksSection)
+	hasSections = append(hasSections, compton_data.PropertiesSection, compton_data.ExternalLinksSection)
 
 	if hRdx, ok := hasRedux[id]; ok {
 		for _, property := range propertiesSectionsOrder {

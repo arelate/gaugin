@@ -14,7 +14,14 @@ import (
 	"github.com/boggydigital/compton/elements/recipes"
 	"github.com/boggydigital/issa"
 	"github.com/boggydigital/kevlar"
+	"slices"
 )
+
+var convertedSections = []string{
+	compton_data.PropertiesSection,
+	compton_data.ExternalLinksSection,
+	compton_data.ScreenshotsSection,
+}
 
 func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.Element {
 
@@ -64,15 +71,22 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 	/* Product details sections */
 
 	for _, section := range hasSections {
+
+		dsc := color.Highlight
+		if slices.Contains(convertedSections, section) {
+			dsc = color.Green
+		}
+
 		detailsSummary := details_summary.
 			Toggle(p, compton_data.SectionTitles[section], section == compton_data.PropertiesSection).
-			BackgroundColor(color.Highlight)
+			BackgroundColor(dsc)
+
 		switch section {
 		case compton_data.PropertiesSection:
 			if productProperties := compton_fragments.ProductProperties(p, id, rdx); productProperties != nil {
 				detailsSummary.Append(productProperties)
 			}
-		case compton_data.LinksSection:
+		case compton_data.ExternalLinksSection:
 			if externalLinks := compton_fragments.ProductExternalLinks(p, id, rdx); externalLinks != nil {
 				detailsSummary.Append(externalLinks)
 			}
