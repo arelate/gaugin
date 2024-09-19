@@ -78,8 +78,8 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 		dsbc := color.Highlight
 		dsfc := color.Foreground
-		if slices.Contains(convertedSections, section) {
-			dsbc = color.Green
+		if !slices.Contains(convertedSections, section) {
+			dsbc = color.Red
 			dsfc = color.Background
 		}
 
