@@ -7,4 +7,6 @@ var (
 	AppStyle []byte
 	//go:embed "style/screenshots.css"
 	ScreenshotsStyle []byte
+	//go:embed "style/videos.css"
+	VideosStyle []byte
 )

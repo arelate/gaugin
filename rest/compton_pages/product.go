@@ -24,6 +24,7 @@ var convertedSections = []string{
 	compton_data.ScreenshotsSection,
 	compton_data.ChangelogSection,
 	compton_data.DescriptionSection,
+	compton_data.VideosSection,
 }
 
 func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.Element {
@@ -75,14 +76,17 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 	for _, section := range hasSections {
 
-		dsc := color.Highlight
+		dsbc := color.Highlight
+		dsfc := color.Foreground
 		if slices.Contains(convertedSections, section) {
-			dsc = color.Green
+			dsbc = color.Green
+			dsfc = color.Background
 		}
 
 		detailsSummary := details_summary.
 			Toggle(p, compton_data.SectionTitles[section], section == compton_data.PropertiesSection).
-			BackgroundColor(dsc).
+			BackgroundColor(dsbc).
+			ForegroundColor(dsfc).
 			SummaryMarginBlockEnd(size.Large).
 			DetailsMarginBlockEnd(size.Normal)
 
