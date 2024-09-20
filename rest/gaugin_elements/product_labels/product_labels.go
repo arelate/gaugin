@@ -33,16 +33,16 @@ type LabelsElement struct {
 	container compton.Element
 }
 
-func (lse *LabelsElement) WriteRequirements(w io.Writer) error {
+func (lse *LabelsElement) WriteStyles(w io.Writer) error {
 	if lse.r.RequiresRegistration(styleRegistrationName) {
 		if err := els.Style(styleProductLabels, styleRegistrationName).WriteContent(w); err != nil {
 			return err
 		}
 	}
-	if err := lse.container.WriteRequirements(w); err != nil {
+	if err := lse.container.WriteStyles(w); err != nil {
 		return err
 	}
-	return lse.BaseElement.WriteRequirements(w)
+	return lse.BaseElement.WriteStyles(w)
 }
 
 func createLabel(title, property, class string) compton.Element {

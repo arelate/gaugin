@@ -48,7 +48,14 @@ func (pc *ProductCardElement) WriteStyles(w io.Writer) error {
 		}
 	}
 	if pc.poster != nil {
-		return pc.poster.WriteStyles(w)
+		if err := pc.poster.WriteStyles(w); err != nil {
+			return err
+		}
+	}
+	if pc.labels != nil {
+		if err := pc.labels.WriteStyles(w); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -61,11 +68,6 @@ func (pc *ProductCardElement) WriteRequirements(w io.Writer) error {
 	}
 	for _, symbol := range pc.osSymbols {
 		if err := symbol.WriteRequirements(w); err != nil {
-			return err
-		}
-	}
-	if pc.labels != nil {
-		if err := pc.labels.WriteRequirements(w); err != nil {
 			return err
 		}
 	}
