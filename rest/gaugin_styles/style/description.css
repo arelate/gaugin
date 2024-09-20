@@ -118,7 +118,7 @@
     margin-top: var(--s-l);
     font-size: var(--fs-s);
     line-height: calc(1.2 * var(--s-n));
-    font-weight: var(--fw-b);
+    color: var(--c-subtle);
 }
 
 .description__features-point {

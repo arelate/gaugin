@@ -5,7 +5,6 @@ import (
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/boggydigital/compton/consts/color"
-	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/fspan"
 	"github.com/boggydigital/compton/elements/iframe_expand"
@@ -73,17 +72,9 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 		div.Append(els.Text(desc))
 	}
 
-	addtReqs := ""
-	if rdx != nil {
-		if arp := rdx[vangogh_local_data.AdditionalRequirementsProperty]; len(arp) > 0 {
-			addtReqs = arp[0]
-		}
-	}
-	if addtReqs != "" {
-		arfs := fspan.Text(ifc, addtReqs).ForegroundColor(color.Subtle).FontSize(size.Small)
-		div.Append(els.Br())
-		div.Append(arfs)
-	}
+	copyrightsDiv := els.Div()
+	copyrightsDiv.AddClass("description__copyrights")
+	div.Append(copyrightsDiv)
 
 	copyright := ""
 	if rdx != nil {
@@ -92,9 +83,19 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if copyright != "" {
-		cfs := fspan.Text(ifc, copyright).ForegroundColor(color.Subtle).FontSize(size.Small)
-		div.Append(els.Br())
-		div.Append(cfs)
+		cd := els.DivText(copyright)
+		copyrightsDiv.Append(cd)
+	}
+
+	addtReqs := ""
+	if rdx != nil {
+		if arp := rdx[vangogh_local_data.AdditionalRequirementsProperty]; len(arp) > 0 {
+			addtReqs = arp[0]
+		}
+	}
+	if addtReqs != "" {
+		ard := els.DivText(addtReqs)
+		copyrightsDiv.Append(ard)
 	}
 
 	if err := ifc.WriteContent(w); err != nil {
