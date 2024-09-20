@@ -69,6 +69,16 @@ func (lse *LabelsElement) FontSize(s size.Size) *LabelsElement {
 	return lse
 }
 
+func (lse *LabelsElement) RowGap(s size.Size) *LabelsElement {
+	lse.ul.AddClass(class.RowGap(s))
+	return lse
+}
+
+func (lse *LabelsElement) ColumnGap(s size.Size) *LabelsElement {
+	lse.ul.AddClass(class.ColumnGap(s))
+	return lse
+}
+
 func Labels(r compton.Registrar, id string, rdx kevlar.ReadableRedux) *LabelsElement {
 	return &LabelsElement{
 		BaseElement: compton.BaseElement{

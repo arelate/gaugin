@@ -64,9 +64,10 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 	/* Product labels */
 
-	labels := recipes.Center(p, product_labels.Labels(p, id, rdx))
-	labels.AddClass("labels")
-	pageStack.Append(labels)
+	labels := product_labels.Labels(p, id, rdx).FontSize(size.Small).RowGap(size.XSmall).ColumnGap(size.XSmall)
+	labelsCenter := recipes.Center(p, labels)
+	labelsCenter.AddClass("labels")
+	pageStack.Append(labelsCenter)
 
 	/* Product details sections shortcuts */
 

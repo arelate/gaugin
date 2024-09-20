@@ -37,7 +37,7 @@ func ItemsCount(r compton.Registrar, from, to, total int) compton.Element {
 
 	itemsCount := fspan.Text(r, title).
 		ForegroundColor(color.Subtle).
-		FontSize(size.XSmall)
+		FontSize(size.Small)
 
 	row.Append(itemsCount)
 

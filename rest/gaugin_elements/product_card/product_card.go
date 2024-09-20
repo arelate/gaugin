@@ -176,7 +176,10 @@ func ProductCard(r compton.Registrar, id string, hydrated bool, rdx kevlar.Reada
 		}
 	}
 
-	pc.labels = product_labels.Labels(r, id, rdx).FontSize(size.XXSmall)
+	pc.labels = product_labels.Labels(r, id, rdx).
+		FontSize(size.XSmall).
+		ColumnGap(size.XXSmall).
+		RowGap(size.XXSmall)
 
 	pc.SetAttribute("data-id", id)
 

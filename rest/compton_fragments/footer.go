@@ -15,7 +15,7 @@ import (
 func Footer(r compton.Registrar) compton.Element {
 	sh := section.Section(r).
 		BackgroundColor(color.Highlight).
-		FontSize(size.XSmall)
+		FontSize(size.Small)
 
 	row := flex_items.FlexItems(r, direction.Row).ColumnGap(size.XSmall)
 	sh.Append(row)

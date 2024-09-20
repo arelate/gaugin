@@ -24,7 +24,7 @@ func SearchQueryDisplay(query map[string][]string, r compton.Registrar) compton.
 
 	sh := section.Section(r).
 		BackgroundColor(color.Highlight).
-		FontSize(size.XSmall).
+		FontSize(size.Small).
 		ColumnGap(size.Small)
 
 	shStack := flex_items.FlexItems(r, direction.Row).

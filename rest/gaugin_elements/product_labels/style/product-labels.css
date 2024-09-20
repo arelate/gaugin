@@ -9,8 +9,8 @@
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            row-gap: var(--s-xxs);
-            column-gap: var(--s-xxs);
+            row-gap: var(--rg);
+            column-gap: var(--cg);
             list-style: none;
             margin: 0;
             padding: 0;

@@ -36,11 +36,9 @@
 
         & h3 {
             margin: 0 0 var(--s-xs) 0;
-            font-size: var(--fs-l);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-weight: var(--fw-b);
         }
 
         & .labels {
@@ -49,7 +47,7 @@
 
         & .property {
             color: var(--c-foreground);
-            font-size: calc((var(--fs-xxs) + var(--fs-xs)) / 2);
+            font-size: calc((var(--fs-xs) + var(--fs-s)) / 2);
             display: grid;
             grid-template-columns: calc(var(--s-n) * 4) auto;
             align-content: center;

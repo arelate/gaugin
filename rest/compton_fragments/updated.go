@@ -11,7 +11,7 @@ import (
 
 func Updated(r compton.Registrar, updated string) compton.Element {
 	span := fspan.Text(r, "").
-		FontSize(size.XSmall)
+		FontSize(size.Small)
 	updatedTitle := fspan.Text(r, "Updated: ").
 		ForegroundColor(color.Subtle)
 	updatedValue := fspan.Text(r, updated).
