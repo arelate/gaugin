@@ -18,7 +18,7 @@ const (
 	AdminRole  = "admin"
 	SharedRole = "shared"
 
-	SearchResultsLimit = 42 // divisible by 2,3,6,7
+	SearchResultsLimit = 60 // divisible by 2,3,4,5,6
 )
 
 var (
