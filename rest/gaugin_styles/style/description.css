@@ -1,96 +1,90 @@
 .description {
-    margin-top: .5em;
-    margin-bottom: 50px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height:21px
+    font-size: var(--fs-n);
+    font-weight: var(--fs-n);
+    line-height: calc(1.5 * var(--s-n))
 }
 
 .description img:nth-of-type(n) {
     margin: auto;
-    max-width:100%
+    max-width: 100%
 }
 
 .description a {
     text-decoration: underline;
-    color:inherit
+    color: inherit
 }
 
 .description ul {
-    padding-left:5px
+    padding-left: var(--s-s)
 }
 
 .description .module {
-    padding: 15px;
-    margin-top: 5px;
+    padding: var(--s-n);
+    margin-top: var(--s-s);
     position: relative;
-    background-color: #e9e9e9;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, .25);
-    font-weight: 600;
-    display:block
+    background-color: var(--c-subtle);
+    font-weight: var(--fw-b);
+    display: block
 }
 
 .description .h1, .description h1 {
-    font-weight: 300;
-    font-size: 2.125em;
-    line-height:1.41176em
+    font-weight: var(--fw-l);
+    line-height: calc(1.5 * var(--s-n))
 }
 
 .description .h1, .description .h3, .description h1, .description h3 {
-    -webkit-margin-before: 1em !important;
-    margin-block-start: 1em !important;
+    -webkit-margin-before: var(--s-n) !important;
+    margin-block-start: var(--s-n) !important;
     -webkit-margin-after: 0 !important;
     margin-block-end: 0 !important;
-    display:block
+    display: block
 }
 
 .description .h3, .description h3 {
-    font-weight: 600;
-    font-size: 1.5em;
-    line-height:1.5em
+    font-weight: var(--fw-b);
+    line-height: calc(1.5 * var(--s-n))
 }
 
 .description .h4, .description h2.bb_tag, .description h4 {
-    font-size: 1.15em;
-    line-height: 1.2em;
-    font-weight: 600;
+    line-height: calc(1.25 * var(--s-n));
+    font-weight: var(--fw-b);
     display: block;
-    -webkit-margin-before: 1.33em !important;
-    margin-block-start: 1em !important;
+    -webkit-margin-before: calc(1.3 * var(--s-n)) !important;
+    margin-block-start: var(--s-n) !important;
     -webkit-margin-after: 0 !important;
-    margin-block-end:.2em !important
+    margin-block-end: var(--s-xs) !important
 }
 
 .description strong {
-    font-weight:700
+    font-weight: var(--fw-b);
 }
 
 .description .description__cool-point, .description li {
     position: relative;
-    padding-left: 1em;
-    margin-bottom:.5em
+    padding-left: var(--s-n);
+    margin-bottom: var(--s-s);
 }
 
 .description .description__cool-point:before, .description ul li:before {
     content: "- ";
     position: absolute;
     top: 0;
-    left:0
+    left: 0
 }
 
 .description .ol, .description ol {
     list-style-type: decimal;
-    line-height: 1.7692307692;
-    -webkit-padding-start: 30px !important;
-    padding-inline-start: 30px !important;
-    -webkit-margin-before: .5em !important;
-    margin-block-start:.5em !important
+    line-height: calc(1.8 * var(--s-n));
+    -webkit-padding-start: var(--s-l) !important;
+    padding-inline-start: var(--s-l) !important;
+    -webkit-margin-before: var(--s-s) !important;
+    margin-block-start: var(--s-s) !important
 }
 
 .description .description img:nth-of-type(n) {
-    margin: 10px auto;
+    margin: var(--s-s) auto;
     max-width: 100%;
-    display:block
+    display: block
 }
 
 .description .ul, .description ul, .description ul.bb_ul {
@@ -98,61 +92,61 @@
     -webkit-margin-before: 0 !important;
     margin-block-start: 0 !important;
     -webkit-margin-after: 0 !important;
-    margin-block-end:0 !important
+    margin-block-end: 0 !important
 }
 
 .description hr {
-    border-bottom: 1px solid #bfbfbf;
-    margin:.5em 0
+    border-bottom: var(--s-xxxs) solid var(--c-subtle);
+    margin: var(--s-s) 0
 }
 
 .description:after {
     content: "";
     display: block;
-    clear:both
+    clear: both
 }
 
 .description video {
-    max-width:100%
+    max-width: 100%
 }
 
 .description .description__features {
-    margin-top:.75em !important
+    margin-top: var(--s-n) !important
 }
 
 .description__copyrights {
-    margin-top: 2em;
-    font-size: 12px;
-    line-height: 18px;
-    font-weight:300
+    margin-top: var(--s-l);
+    font-size: var(--fs-s);
+    line-height: calc(1.2 * var(--s-n));
+    font-weight: var(--fw-b);
 }
 
 .description__features-point {
     position: relative;
-    padding-left:1em
+    padding-left: var(--s-n)
 }
 
 .description__features-point:before {
-    content: "\25CF";
+    content: "- ";
     position: absolute;
     top: 0;
-    left:0
+    left: 0
 }
 
 .description__read-more {
     text-decoration: underline;
     font-style: italic;
-    cursor:pointer
+    cursor: pointer
 }
 
 .description__full-content {
-    display:none
+    display: none
 }
 
 .description.is-expanded .description__full-content {
-    display:block
+    display: block
 }
 
 .description.is-expanded .description__lead {
-    display:none
+    display: none
 }
