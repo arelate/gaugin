@@ -219,7 +219,8 @@ func propertyTitleValues(r compton.Registrar, property string, fmtProperty forma
 		if len(fmtProperty.values) < 4 {
 			tv.AppendLinkValues(fmtProperty.values)
 		} else {
-			summaryElement := els.SpanText(fmt.Sprintf("Show all %d...", len(fmtProperty.values)))
+			summaryTitle := fmt.Sprintf("Show all %d...", len(fmtProperty.values))
+			summaryElement := els.SpanText(summaryTitle)
 			summaryElement.AddClass("action")
 			ds := els.Details().AppendSummary(summaryElement)
 			ds.AddClass("many-values")
