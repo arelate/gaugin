@@ -4,6 +4,24 @@
     }
 }
 
+@scope (details) {
+    :scope {
+        &.product-sections-links {
+            & > summary {
+                padding: unset;
+            }
+
+            &[open] {
+                margin-block-end: 0;
+
+                & summary {
+                    margin-block-end: var(--s-n)
+                }
+            }
+        }
+    }
+}
+
 @scope (.product-poster) {
     :scope {
         & img {
