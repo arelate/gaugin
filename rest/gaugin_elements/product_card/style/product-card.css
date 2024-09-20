@@ -41,7 +41,7 @@
             text-overflow: ellipsis;
         }
 
-        & .labels {
+        & li.labels {
             margin-block-end: auto;
         }
 

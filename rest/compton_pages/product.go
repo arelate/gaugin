@@ -60,14 +60,13 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 	productTitle := els.HeadingText(title, 1)
 	productTitle.AddClass("product-title")
-	pageStack.Append(recipes.Center(p, productTitle))
 
 	/* Product labels */
 
 	labels := product_labels.Labels(p, id, rdx).FontSize(size.Small).RowGap(size.XSmall).ColumnGap(size.XSmall)
-	labelsCenter := recipes.Center(p, labels)
-	labelsCenter.AddClass("labels")
-	pageStack.Append(labelsCenter)
+	pageStack.Append(recipes.Center(p, productTitle, labels))
+
+	//pageStack.Append(labelsCenter)
 
 	/* Product details sections shortcuts */
 

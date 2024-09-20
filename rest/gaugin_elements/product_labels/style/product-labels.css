@@ -1,8 +1,7 @@
-@scope (.labels) {
+@scope (span.labels) {
 
     :scope {
         min-height: var(--s-n);
-        width: 100%;
         overflow: hidden;
 
         & ul {

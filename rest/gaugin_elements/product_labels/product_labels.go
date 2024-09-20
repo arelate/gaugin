@@ -11,6 +11,7 @@ import (
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/kevlar"
+	"golang.org/x/net/html/atom"
 	"io"
 )
 
@@ -26,10 +27,10 @@ var (
 
 type LabelsElement struct {
 	compton.BaseElement
-	r   compton.Registrar
-	id  string
-	rdx kevlar.ReadableRedux
-	ul  compton.Element
+	r         compton.Registrar
+	id        string
+	rdx       kevlar.ReadableRedux
+	container compton.Element
 }
 
 func (lse *LabelsElement) WriteRequirements(w io.Writer) error {
@@ -38,7 +39,7 @@ func (lse *LabelsElement) WriteRequirements(w io.Writer) error {
 			return err
 		}
 	}
-	if err := lse.ul.WriteRequirements(w); err != nil {
+	if err := lse.container.WriteRequirements(w); err != nil {
 		return err
 	}
 	return lse.BaseElement.WriteRequirements(w)
@@ -51,44 +52,58 @@ func createLabel(title, property, class string) compton.Element {
 	return label
 }
 
+func (lse *LabelsElement) unorderedList() compton.Element {
+	if uls := lse.container.GetElementsByTagName(atom.Ul); len(uls) > 0 {
+		return uls[0]
+	} else {
+		panic("labels missing ul element")
+	}
+}
+
 func (lse *LabelsElement) WriteContent(w io.Writer) error {
 	owned := false
 	if op, ok := lse.rdx.GetLastVal(vangogh_local_data.OwnedProperty, lse.id); ok {
 		owned = op == vangogh_local_data.TrueValue
 	}
+	ul := lse.unorderedList()
 	for _, property := range compton_data.LabelProperties {
 		if fmtLabel := formatLabel(lse.id, property, owned, lse.rdx); fmtLabel.value != "" {
-			lse.ul.Append(createLabel(fmtLabel.value, property, fmtLabel.class))
+			ul.Append(createLabel(fmtLabel.value, property, fmtLabel.class))
 		}
 	}
-	return lse.ul.WriteContent(w)
+	return lse.container.WriteContent(w)
 }
 
 func (lse *LabelsElement) FontSize(s size.Size) *LabelsElement {
-	lse.ul.AddClass(class.FontSize(s))
+	lse.unorderedList().AddClass(class.FontSize(s))
 	return lse
 }
 
 func (lse *LabelsElement) RowGap(s size.Size) *LabelsElement {
-	lse.ul.AddClass(class.RowGap(s))
+	lse.unorderedList().AddClass(class.RowGap(s))
 	return lse
 }
 
 func (lse *LabelsElement) ColumnGap(s size.Size) *LabelsElement {
-	lse.ul.AddClass(class.ColumnGap(s))
+	lse.unorderedList().AddClass(class.ColumnGap(s))
 	return lse
 }
 
 func Labels(r compton.Registrar, id string, rdx kevlar.ReadableRedux) *LabelsElement {
-	return &LabelsElement{
+	lse := &LabelsElement{
 		BaseElement: compton.BaseElement{
 			TagName: gaugin_atoms.ProductLabels,
 		},
 		r:   r,
 		id:  id,
 		rdx: rdx,
-		ul:  els.Ul(),
 	}
+
+	lse.container = els.Span()
+	lse.container.AddClass("labels")
+	lse.container.Append(els.Ul())
+
+	return lse
 }
 
 type formattedLabel struct {

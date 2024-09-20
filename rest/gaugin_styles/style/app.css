@@ -42,7 +42,7 @@
 
 @scope (details grid-items.inset) {
     :scope {
-        margin-inline: var(--s-n)
+        padding-inline: var(--s-s)
     }
 }
 
