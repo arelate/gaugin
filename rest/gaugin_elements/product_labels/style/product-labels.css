@@ -1,33 +1,4 @@
 @scope (span.labels) {
-
-    :scope {
-        min-height: var(--s-n);
-        overflow: hidden;
-
-        & ul {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            row-gap: var(--rg);
-            column-gap: var(--cg);
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            font-size: var(--fs);
-
-            & .label {
-                font-weight: var(--fw-b);
-                display: flex;
-                align-items: center;
-                width: min-content;
-                text-transform: uppercase;
-                padding: var(--s-xxs) var(--s-xs);
-                border-radius: var(--br-n);
-                white-space: nowrap;
-            }
-        }
-    }
-
     .label {
         &.owned {
             color: var(--c-highlight);

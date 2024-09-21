@@ -4,125 +4,43 @@ import (
 	_ "embed"
 	"fmt"
 	"github.com/arelate/gaugin/rest/compton_data"
-	"github.com/arelate/gaugin/rest/gaugin_atoms"
 	"github.com/arelate/vangogh_local_data"
-	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/consts/class"
-	"github.com/boggydigital/compton/consts/size"
-	"github.com/boggydigital/compton/elements/els"
+	"github.com/boggydigital/compton/elements/labels"
 	"github.com/boggydigital/kevlar"
-	"golang.org/x/net/html/atom"
-	"io"
 )
 
-const (
-	registrationName      = "product-label"
-	styleRegistrationName = "style-" + registrationName
-)
+//go:embed "style/product-labels.css"
+var StyleProductLabels []byte
 
-var (
-	//go:embed "style/product-labels.css"
-	styleProductLabels []byte
-)
-
-type LabelsElement struct {
-	compton.BaseElement
-	r         compton.Registrar
-	id        string
-	rdx       kevlar.ReadableRedux
-	container compton.Element
-}
-
-func (lse *LabelsElement) WriteStyles(w io.Writer) error {
-	if lse.r.RequiresRegistration(styleRegistrationName) {
-		if err := els.Style(styleProductLabels, styleRegistrationName).WriteContent(w); err != nil {
-			return err
-		}
-	}
-	if err := lse.container.WriteStyles(w); err != nil {
-		return err
-	}
-	return lse.BaseElement.WriteStyles(w)
-}
-
-func createLabel(title, property, class string) compton.Element {
-	label := els.ListItemText(title)
-	cs := []string{"label", property, title, class}
-	label.AddClass(cs...)
-	return label
-}
-
-func (lse *LabelsElement) unorderedList() compton.Element {
-	if uls := lse.container.GetElementsByTagName(atom.Ul); len(uls) > 0 {
-		return uls[0]
-	} else {
-		panic("labels missing ul element")
-	}
-}
-
-func (lse *LabelsElement) WriteContent(w io.Writer) error {
+func FormatLabels(id string, rdx kevlar.ReadableRedux, properties ...string) []labels.FormattedLabel {
 	owned := false
-	if op, ok := lse.rdx.GetLastVal(vangogh_local_data.OwnedProperty, lse.id); ok {
+	if op, ok := rdx.GetLastVal(vangogh_local_data.OwnedProperty, id); ok {
 		owned = op == vangogh_local_data.TrueValue
 	}
-	ul := lse.unorderedList()
-	for _, property := range compton_data.LabelProperties {
-		if fmtLabel := formatLabel(lse.id, property, owned, lse.rdx); fmtLabel.value != "" {
-			ul.Append(createLabel(fmtLabel.value, property, fmtLabel.class))
-		}
-	}
-	return lse.container.WriteContent(w)
-}
 
-func (lse *LabelsElement) FontSize(s size.Size) *LabelsElement {
-	lse.unorderedList().AddClass(class.FontSize(s))
-	return lse
-}
+	fmtLabels := make([]labels.FormattedLabel, 0, len(properties))
 
-func (lse *LabelsElement) RowGap(s size.Size) *LabelsElement {
-	lse.unorderedList().AddClass(class.RowGap(s))
-	return lse
-}
-
-func (lse *LabelsElement) ColumnGap(s size.Size) *LabelsElement {
-	lse.unorderedList().AddClass(class.ColumnGap(s))
-	return lse
-}
-
-func Labels(r compton.Registrar, id string, rdx kevlar.ReadableRedux) *LabelsElement {
-	lse := &LabelsElement{
-		BaseElement: compton.BaseElement{
-			TagName: gaugin_atoms.ProductLabels,
-		},
-		r:   r,
-		id:  id,
-		rdx: rdx,
+	for _, p := range properties {
+		fmtLabels = append(fmtLabels, formatLabel(id, p, owned, rdx))
 	}
 
-	lse.container = els.Span()
-	lse.container.AddClass("labels")
-	lse.container.Append(els.Ul())
-
-	return lse
+	return fmtLabels
 }
 
-type formattedLabel struct {
-	value string
-	class string
-}
+func formatLabel(id, property string, owned bool, rdx kevlar.ReadableRedux) labels.FormattedLabel {
 
-func formatLabel(id, property string, owned bool, rdx kevlar.ReadableRedux) formattedLabel {
+	fmtLabel := labels.FormattedLabel{
+		Property: property,
+	}
 
-	fmtLabel := formattedLabel{}
-
-	fmtLabel.value, _ = rdx.GetLastVal(property, id)
+	fmtLabel.Title, _ = rdx.GetLastVal(property, id)
 	switch property {
 	case vangogh_local_data.OwnedProperty:
 		if res, ok := rdx.GetLastVal(vangogh_local_data.ValidationResultProperty, id); ok {
 			if res == "OK" {
-				fmtLabel.class = "validation-result-ok"
+				fmtLabel.Class = "validation-result-ok"
 			} else {
-				fmtLabel.class = "validation-result-err"
+				fmtLabel.Class = "validation-result-err"
 			}
 		}
 		fallthrough
@@ -135,35 +53,35 @@ func formatLabel(id, property string, owned bool, rdx kevlar.ReadableRedux) form
 	case vangogh_local_data.InDevelopmentProperty:
 		fallthrough
 	case vangogh_local_data.IsFreeProperty:
-		if fmtLabel.value == "true" {
-			fmtLabel.value = compton_data.LabelTitles[property]
+		if fmtLabel.Title == "true" {
+			fmtLabel.Title = compton_data.LabelTitles[property]
 			break
 		}
-		fmtLabel.value = ""
+		fmtLabel.Title = ""
 	case vangogh_local_data.ProductTypeProperty:
-		if fmtLabel.value == "GAME" {
-			fmtLabel.value = ""
+		if fmtLabel.Title == "GAME" {
+			fmtLabel.Title = ""
 			break
 		}
 	case vangogh_local_data.DiscountPercentageProperty:
 		if owned {
-			fmtLabel.value = ""
+			fmtLabel.Title = ""
 			break
 		}
-		if fmtLabel.value != "" && fmtLabel.value != "0" {
-			fmtLabel.value = fmt.Sprintf("-%s%%", fmtLabel.value)
+		if fmtLabel.Title != "" && fmtLabel.Title != "0" {
+			fmtLabel.Title = fmt.Sprintf("-%s%%", fmtLabel.Title)
 			break
 		}
-		fmtLabel.value = ""
+		fmtLabel.Title = ""
 	case vangogh_local_data.TagIdProperty:
-		if tagName, ok := rdx.GetLastVal(vangogh_local_data.TagNameProperty, fmtLabel.value); ok {
-			fmtLabel.value = tagName
+		if tagName, ok := rdx.GetLastVal(vangogh_local_data.TagNameProperty, fmtLabel.Title); ok {
+			fmtLabel.Title = tagName
 			break
 		}
 	case vangogh_local_data.DehydratedImageProperty:
 		fallthrough
 	case vangogh_local_data.DehydratedVerticalImageProperty:
-		fmtLabel.value = property
+		fmtLabel.Title = property
 	}
 	return fmtLabel
 }

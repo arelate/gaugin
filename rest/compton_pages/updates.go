@@ -3,6 +3,7 @@ package compton_pages
 import (
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/compton_fragments"
+	"github.com/arelate/gaugin/rest/gaugin_elements/product_labels"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
@@ -18,6 +19,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 
 	current := compton_data.AppNavUpdates
 	p, pageStack := compton_fragments.AppPage(current)
+	p.AppendStyle(product_labels.StyleProductLabels)
 
 	/* Nav stack = App navigation + Updates sections shortcuts */
 

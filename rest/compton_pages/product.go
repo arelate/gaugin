@@ -12,6 +12,7 @@ import (
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/iframe_expand"
 	"github.com/boggydigital/compton/elements/issa_image"
+	"github.com/boggydigital/compton/elements/labels"
 	"github.com/boggydigital/compton/elements/recipes"
 	"github.com/boggydigital/issa"
 	"github.com/boggydigital/kevlar"
@@ -36,6 +37,7 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 	}
 
 	p, pageStack := compton_fragments.AppPage(title)
+	p.AppendStyle(product_labels.StyleProductLabels)
 
 	/* App navigation */
 
@@ -64,8 +66,10 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 	/* Product labels */
 
-	labels := product_labels.Labels(p, id, rdx).FontSize(size.Small).RowGap(size.XSmall).ColumnGap(size.XSmall)
-	pageStack.Append(recipes.Center(p, productTitle, labels))
+	//labels := product_labels.Labels(p, id, rdx).FontSize(size.Small).RowGap(size.XSmall).ColumnGap(size.XSmall)
+	fmtLabels := product_labels.FormatLabels(id, rdx, compton_data.LabelProperties...)
+	productLabels := labels.Labels(p, fmtLabels...).FontSize(size.Small).RowGap(size.XSmall).ColumnGap(size.XSmall)
+	pageStack.Append(recipes.Center(p, productTitle, productLabels))
 
 	/* Product details sections shortcuts */
 

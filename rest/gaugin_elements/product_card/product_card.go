@@ -11,6 +11,7 @@ import (
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/issa_image"
+	"github.com/boggydigital/compton/elements/labels"
 	"github.com/boggydigital/compton/elements/svg_use"
 	"github.com/boggydigital/issa"
 	"github.com/boggydigital/kevlar"
@@ -36,7 +37,7 @@ type ProductCardElement struct {
 	r         compton.Registrar
 	poster    compton.Element
 	osSymbols []compton.Element
-	labels    *product_labels.LabelsElement
+	labels    *labels.LabelsElement
 	rdx       kevlar.ReadableRedux
 	id        string
 }
@@ -178,7 +179,8 @@ func ProductCard(r compton.Registrar, id string, hydrated bool, rdx kevlar.Reada
 		}
 	}
 
-	pc.labels = product_labels.Labels(r, id, rdx).
+	pc.labels = labels.Labels(r,
+		product_labels.FormatLabels(id, rdx, compton_data.LabelProperties...)...).
 		FontSize(size.XSmall).
 		ColumnGap(size.XXSmall).
 		RowGap(size.XXSmall)
