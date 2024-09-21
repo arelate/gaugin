@@ -1,0 +1,58 @@
+h1 {
+    font-size: var(--fs-l);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--s-n);
+
+    & li {
+
+        &::before {
+            margin-inline-end: var(--s-s);
+        }
+
+        &.Verified::before {
+            content: "✅";
+        }
+
+        &.Playable::before {
+            content: "⚠️";
+        }
+
+        &.Unsupported::before {
+            content: "🚫";
+        }
+
+        &.Unknown {
+            font-style: italic;
+            color: var(--c-subtle)
+        }
+    }
+}
+
+.message {
+
+    & .category, .title {
+        font-weight: bold;
+    }
+
+    & .verified {
+        color: var(--c-green)
+    }
+
+    & .playable {
+        color: var(--c-yellow)
+    }
+
+    & .unsupported {
+        color: var(--c-red)
+    }
+
+    & .unknown {
+        color: var(--c-subtle)
+    }
+}

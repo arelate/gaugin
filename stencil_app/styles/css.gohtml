@@ -256,40 +256,6 @@
             }
         }
 
-        /* Videos */
-
-        #videos-content {
-
-            & video {
-                width: 100%;
-                border-radius: var(--border-radius);
-                object-fit: cover;
-                margin-block-end: var(--normal);
-            }
-
-            & details {
-                & summary {
-                    display: flex;
-                    justify-content: center;
-
-                    & h1 {
-                        font-size: var(--normal);
-                    }
-                }
-            }
-
-            & .youtube-video-link img {
-                border-radius: var(--border-radius);
-            }
-
-            & div.missing-src {
-                width: 100%;
-                aspect-ratio: 3/2;
-                border-radius: var(--border-radius);
-                background-color: var(--background-color);
-            }
-        }
-
         /* Steam News */
 
         #steam-news-content summary > h1 {
@@ -383,69 +349,6 @@
         #steam-reviews-content section .steam-review-contents {
             margin-block-start: var(--normal);
             margin-block-end: var(--large);
-        }
-
-        /* Steam Deck */
-        #steam-deck-content {
-
-            & h1 {
-                margin: 1rem;
-                font-size: var(--fs-larger);
-            }
-
-            & ul {
-                list-style: none;
-                padding: 0;
-                margin-block: 1rem;
-
-                & li {
-                    margin-block: 1rem;
-
-                    &.Verified::before {
-                        content: "✅";
-                        margin-inline-end: 0.5rem;
-                    }
-
-                    &.Playable::before {
-                        content: "⚠️";
-                        margin-inline-end: 0.5rem;
-                    }
-
-                    &.Unsupported::before {
-                        content: "🚫";
-                        margin-inline-end: 0.5rem;
-                    }
-
-                    &.Unknown {
-                        font-style: italic;
-                    }
-                }
-            }
-
-            .message {
-
-                margin-block: 1rem;
-
-                & .category, .title {
-                    font-weight: bold;
-                }
-
-                & .verified {
-                    color: var(--color-green)
-                }
-
-                & .playable {
-                    color: var(--color-yellow)
-                }
-
-                & .unsupported {
-                    color: var(--color-red)
-                }
-
-                & .unknown {
-                    color: var(--subtle-color)
-                }
-            }
         }
 
     </style>

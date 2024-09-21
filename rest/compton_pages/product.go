@@ -25,6 +25,7 @@ var convertedSections = []string{
 	compton_data.ChangelogSection,
 	compton_data.DescriptionSection,
 	compton_data.VideosSection,
+	compton_data.SteamDeckSection,
 }
 
 func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.Element {
@@ -65,8 +66,6 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 	labels := product_labels.Labels(p, id, rdx).FontSize(size.Small).RowGap(size.XSmall).ColumnGap(size.XSmall)
 	pageStack.Append(recipes.Center(p, productTitle, labels))
-
-	//pageStack.Append(labelsCenter)
 
 	/* Product details sections shortcuts */
 

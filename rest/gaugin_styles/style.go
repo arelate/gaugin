@@ -13,4 +13,6 @@ var (
 	DescriptionStyle []byte
 	//go:embed "style/changelog.css"
 	ChangelogStyle []byte
+	//go:embed "style/steam-deck.css"
+	SteamDeckStyle []byte
 )
