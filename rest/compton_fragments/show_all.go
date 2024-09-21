@@ -12,7 +12,7 @@ func ShowAllButton(r compton.Registrar) compton.Element {
 
 	showAllLink := els.A("?show-all=true")
 
-	button := inputs.InputValue(r, input_types.Submit, "Show All...")
+	button := inputs.InputValue(r, input_types.Submit, "Show all...")
 	showAllLink.Append(button)
 
 	return recipes.Center(r, showAllLink)

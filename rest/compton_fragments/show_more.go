@@ -16,7 +16,7 @@ func ShowMoreButton(r compton.Registrar, query map[string][]string, from int) co
 	enq := compton_data.EncodeQuery(query)
 
 	showMoreLink := els.A("/search?" + enq)
-	button := inputs.InputValue(r, input_types.Submit, "More...")
+	button := inputs.InputValue(r, input_types.Submit, "Show more...")
 	showMoreLink.Append(button)
 
 	return recipes.Center(r, showMoreLink)

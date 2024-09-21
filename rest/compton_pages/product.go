@@ -7,12 +7,15 @@ import (
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/color"
+	"github.com/boggydigital/compton/consts/input_types"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/iframe_expand"
+	"github.com/boggydigital/compton/elements/inputs"
 	"github.com/boggydigital/compton/elements/issa_image"
 	"github.com/boggydigital/compton/elements/labels"
+	"github.com/boggydigital/compton/elements/popup"
 	"github.com/boggydigital/compton/elements/recipes"
 	"github.com/boggydigital/issa"
 	"github.com/boggydigital/kevlar"
@@ -42,7 +45,16 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 	/* App navigation */
 
 	appNavLinks := compton_fragments.AppNavLinks(p, "")
-	pageStack.Append(recipes.Center(p, appNavLinks))
+
+	showToc := inputs.InputValue(p, input_types.Button, "Scroll to...")
+	pageStack.Append(recipes.Center(p, appNavLinks, showToc))
+
+	/* Product details sections shortcuts */
+
+	productSectionsLinks := compton_fragments.ProductSectionsLinks(p, hasSections)
+	pageStack.Append(productSectionsLinks)
+
+	pageStack.Append(popup.Attach(p, showToc, productSectionsLinks))
 
 	/* Product poster */
 
@@ -70,10 +82,6 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 	fmtLabels := product_labels.FormatLabels(id, rdx, compton_data.LabelProperties...)
 	productLabels := labels.Labels(p, fmtLabels...).FontSize(size.Small).RowGap(size.XSmall).ColumnGap(size.XSmall)
 	pageStack.Append(recipes.Center(p, productTitle, productLabels))
-
-	/* Product details sections shortcuts */
-
-	pageStack.Append(compton_fragments.ProductSectionsLinks(p, hasSections))
 
 	/* Product details sections */
 
