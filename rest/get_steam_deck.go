@@ -10,6 +10,7 @@ import (
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/iframe_expand"
+	"github.com/boggydigital/kevlar"
 	"github.com/boggydigital/nod"
 	"net/http"
 )
@@ -34,24 +35,20 @@ func GetSteamDeck(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	dacr, err := getSteamDeckReport(http.DefaultClient, id)
+	idRedux, err := getRedux(http.DefaultClient, id, false,
+		vangogh_local_data.TitleProperty,
+		vangogh_local_data.SteamDeckAppCompatibilityCategoryProperty,
+		vangogh_local_data.SteamDeckAppCompatibilityResultsProperty,
+		vangogh_local_data.SteamDeckAppCompatibilityDisplayTypesProperty,
+		vangogh_local_data.SteamDeckAppCompatibilityBlogUrlProperty)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 
-	titleResult, err := getRedux(http.DefaultClient, id, false, vangogh_local_data.TitleProperty)
-	if err != nil {
-		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
-	}
+	rdx := kevlar.ReduxProxy(idRedux)
 
-	title := ""
-	if tt, ok := titleResult[id][vangogh_local_data.TitleProperty]; ok && len(tt) > 0 {
-		title = tt[0]
-	}
-
-	message := fmt.Sprintf(messageByCategory[dacr.String()], title)
+	title, _ := rdx.GetLastVal(vangogh_local_data.TitleProperty, id)
 
 	section := compton_data.SteamDeckSection
 	ifc := iframe_expand.IframeExpandContent(section, compton_data.SectionTitles[section]).
@@ -60,22 +57,27 @@ func GetSteamDeck(w http.ResponseWriter, r *http.Request) {
 	pageStack := flex_items.FlexItems(ifc, direction.Column)
 	ifc.Append(pageStack)
 
-	divMessage := els.DivText(message)
-	divMessage.AddClass("message")
-	pageStack.Append(divMessage)
+	if category, ok := rdx.GetLastVal(vangogh_local_data.SteamDeckAppCompatibilityCategoryProperty, id); ok {
+		message := fmt.Sprintf(messageByCategory[category], title)
+		divMessage := els.DivText(message)
+		divMessage.AddClass("message")
+		pageStack.Append(divMessage)
+	}
 
-	results := dacr.GetResults()
+	results, _ := rdx.GetAllValues(vangogh_local_data.SteamDeckAppCompatibilityResultsProperty, id)
 
 	if len(results) > 0 {
 		pageStack.Append(els.Hr())
 	}
 
-	if blogUrl := dacr.GetSteamDeckBlogUrl(); blogUrl != "" {
+	if blogUrl, ok := rdx.GetLastVal(vangogh_local_data.SteamDeckAppCompatibilityBlogUrlProperty, id); ok && blogUrl != "" {
 		pageStack.Append(els.AText("Read more in the Steam blog", blogUrl))
 	}
 
+	displayTypes, _ := rdx.GetAllValues(vangogh_local_data.SteamDeckAppCompatibilityDisplayTypesProperty, id)
+
 	ul := els.Ul()
-	if displayTypes := dacr.GetResultsDisplayTypes(); len(displayTypes) == len(results) {
+	if len(displayTypes) == len(results) {
 		for ii, result := range results {
 			decodedResult := steam_integration.DecodeLocToken(result)
 			li := els.ListItemText(decodedResult)
