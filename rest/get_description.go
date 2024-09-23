@@ -45,22 +45,19 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 		if dop := rdx[vangogh_local_data.DescriptionOverviewProperty]; len(dop) > 0 {
 			desc = dop[0]
 		}
-		if dfp := rdx[vangogh_local_data.DescriptionFeaturesProperty]; len(dfp) > 0 {
-			desc += implicitToExplicitList(dfp[0])
-		}
 	}
 
 	section := compton_data.DescriptionSection
 	ifc := iframe_expand.IframeExpandContent(section, compton_data.SectionTitles[section]).
 		AppendStyle(gaugin_styles.DescriptionStyle)
-	div := els.Div()
-	div.AddClass("description")
-	ifc.Append(div)
+	descriptionDiv := els.Div()
+	descriptionDiv.AddClass("description")
+	ifc.Append(descriptionDiv)
 
 	if desc == "" {
 		fs := fspan.Text(ifc, "Description is not available for this product").
 			ForegroundColor(color.Subtle)
-		div.Append(flex_items.Center(ifc, fs))
+		descriptionDiv.Append(flex_items.Center(ifc, fs))
 	} else {
 		desc = rewriteItemsLinks(desc)
 		desc = rewriteGameLinks(desc)
@@ -69,12 +66,21 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 		desc = replaceDataFallbackUrls(desc)
 		desc = rewriteVideoAsInline(desc)
 
-		div.Append(els.Text(desc))
+		descriptionDiv.Append(els.Text(desc))
 	}
+
+	featuresDiv := els.Div()
+	featuresDiv.AddClass("description__features")
+	if rdx != nil {
+		if dfp := rdx[vangogh_local_data.DescriptionFeaturesProperty]; len(dfp) > 0 {
+			featuresDiv.Append(els.Text(implicitToExplicitList(dfp[0])))
+		}
+	}
+	descriptionDiv.Append(featuresDiv)
 
 	copyrightsDiv := els.Div()
 	copyrightsDiv.AddClass("description__copyrights")
-	div.Append(copyrightsDiv)
+	descriptionDiv.Append(copyrightsDiv)
 
 	copyright := ""
 	if rdx != nil {
