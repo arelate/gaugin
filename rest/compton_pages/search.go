@@ -8,7 +8,8 @@ import (
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_summary"
-	"github.com/boggydigital/compton/elements/recipes"
+	"github.com/boggydigital/compton/elements/els"
+	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/kevlar"
 )
 
@@ -27,12 +28,13 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 	searchScope := compton_data.SearchScopeFromQuery(query)
 	searchLinks := compton_fragments.SearchLinks(p, searchScope)
 
-	pageStack.Append(recipes.Center(p, appNavLinks, searchLinks))
+	pageStack.Append(flex_items.Center(p, appNavLinks, searchLinks))
 
 	/* Filter & Search details */
 
+	filterSearchHeading := els.HeadingText(filterSearchTitle, detailsSummaryHeadingLevel)
 	filterSearchDetails := details_summary.
-		Toggle(p, filterSearchTitle, len(query) == 0).
+		Toggle(p, filterSearchHeading, len(query) == 0).
 		BackgroundColor(color.Highlight).
 		SummaryMarginBlockEnd(size.Normal).
 		DetailsMarginBlockEnd(size.Unset)

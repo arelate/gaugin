@@ -5,8 +5,8 @@ import (
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/input_types"
 	"github.com/boggydigital/compton/elements/els"
+	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/inputs"
-	"github.com/boggydigital/compton/elements/recipes"
 	"strconv"
 )
 
@@ -19,5 +19,5 @@ func ShowMoreButton(r compton.Registrar, query map[string][]string, from int) co
 	button := inputs.InputValue(r, input_types.Submit, "Show more...")
 	showMoreLink.Append(button)
 
-	return recipes.Center(r, showMoreLink)
+	return flex_items.Center(r, showMoreLink)
 }

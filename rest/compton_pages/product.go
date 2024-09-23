@@ -11,12 +11,12 @@ import (
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/els"
+	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/iframe_expand"
 	"github.com/boggydigital/compton/elements/inputs"
 	"github.com/boggydigital/compton/elements/issa_image"
 	"github.com/boggydigital/compton/elements/labels"
 	"github.com/boggydigital/compton/elements/popup"
-	"github.com/boggydigital/compton/elements/recipes"
 	"github.com/boggydigital/issa"
 	"github.com/boggydigital/kevlar"
 	"slices"
@@ -47,7 +47,7 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 	appNavLinks := compton_fragments.AppNavLinks(p, "")
 
 	showToc := inputs.InputValue(p, input_types.Button, "Scroll to...")
-	pageStack.Append(recipes.Center(p, appNavLinks, showToc))
+	pageStack.Append(flex_items.Center(p, appNavLinks, showToc))
 
 	/* Product details sections shortcuts */
 
@@ -81,7 +81,7 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 	//labels := product_labels.Labels(p, id, rdx).FontSize(size.Small).RowGap(size.XSmall).ColumnGap(size.XSmall)
 	fmtLabels := product_labels.FormatLabels(id, rdx, compton_data.LabelProperties...)
 	productLabels := labels.Labels(p, fmtLabels...).FontSize(size.Small).RowGap(size.XSmall).ColumnGap(size.XSmall)
-	pageStack.Append(recipes.Center(p, productTitle, productLabels))
+	pageStack.Append(flex_items.Center(p, productTitle, productLabels))
 
 	/* Product details sections */
 
@@ -89,17 +89,23 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 		dsbc := color.Highlight
 		dsfc := color.Foreground
+		dsmc := color.Subtle
 		if !slices.Contains(convertedSections, section) {
 			dsbc = color.Red
 			dsfc = color.Background
+			dsmc = color.Black
 		}
 
+		sectionTitle := compton_data.SectionTitles[section]
+		summaryHeading := els.HeadingText(sectionTitle, detailsSummaryHeadingLevel)
 		detailsSummary := details_summary.
-			Toggle(p, compton_data.SectionTitles[section], section == compton_data.PropertiesSection).
+			Toggle(p, summaryHeading, section == compton_data.PropertiesSection).
 			BackgroundColor(dsbc).
 			ForegroundColor(dsfc).
+			MarkerColor(dsmc).
 			SummaryMarginBlockEnd(size.Large).
 			DetailsMarginBlockEnd(size.Normal)
+		detailsSummary.SetId(sectionTitle)
 
 		switch section {
 		case compton_data.PropertiesSection:

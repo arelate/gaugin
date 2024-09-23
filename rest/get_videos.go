@@ -11,7 +11,6 @@ import (
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
 	"github.com/boggydigital/compton/elements/iframe_expand"
-	"github.com/boggydigital/compton/elements/recipes"
 	"github.com/boggydigital/kevlar"
 	"github.com/boggydigital/nod"
 	"github.com/boggydigital/yet_urls/youtube_urls"
@@ -52,7 +51,7 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 	if len(videoIds) == 0 {
 		fs := fspan.Text(ifc, "Videos are not available for this product").
 			ForegroundColor(color.Subtle)
-		pageStack.Append(recipes.Center(ifc, fs))
+		pageStack.Append(flex_items.Center(ifc, fs))
 	}
 
 	for _, videoId := range videoIds {

@@ -28,7 +28,7 @@ ul {
         }
 
         &.Unknown {
-            /*font-style: italic;*/
+            font-style: italic;
             color: var(--c-subtle)
         }
     }

@@ -11,7 +11,6 @@ import (
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
 	"github.com/boggydigital/compton/elements/iframe_expand"
-	"github.com/boggydigital/compton/elements/recipes"
 	"github.com/boggydigital/nod"
 	"net/http"
 )
@@ -50,7 +49,7 @@ func GetScreenshots(w http.ResponseWriter, r *http.Request) {
 	if len(screenshots) == 0 {
 		fs := fspan.Text(ifc, "Screenshots are not available for this product").
 			ForegroundColor(color.Subtle)
-		pageStack.Append(recipes.Center(ifc, fs))
+		pageStack.Append(flex_items.Center(ifc, fs))
 	}
 
 	for ii, src := range screenshots {

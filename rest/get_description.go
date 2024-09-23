@@ -6,9 +6,9 @@ import (
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/elements/els"
+	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
 	"github.com/boggydigital/compton/elements/iframe_expand"
-	"github.com/boggydigital/compton/elements/recipes"
 	"net/http"
 	"net/url"
 	"path"
@@ -60,7 +60,7 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 	if desc == "" {
 		fs := fspan.Text(ifc, "Description is not available for this product").
 			ForegroundColor(color.Subtle)
-		div.Append(recipes.Center(ifc, fs))
+		div.Append(flex_items.Center(ifc, fs))
 	} else {
 		desc = rewriteItemsLinks(desc)
 		desc = rewriteGameLinks(desc)

@@ -10,7 +10,6 @@ import (
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
 	"github.com/boggydigital/compton/elements/iframe_expand"
-	"github.com/boggydigital/compton/elements/recipes"
 	"github.com/boggydigital/nod"
 	"net/http"
 )
@@ -46,7 +45,7 @@ func GetChangelog(w http.ResponseWriter, r *http.Request) {
 	if len(changelog) == 0 {
 		fs := fspan.Text(ifc, "Changelog is not available for this product").
 			ForegroundColor(color.Subtle)
-		pageStack.Append(recipes.Center(ifc, fs))
+		pageStack.Append(flex_items.Center(ifc, fs))
 	}
 
 	for _, log := range changelog {

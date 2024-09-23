@@ -11,7 +11,6 @@ import (
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
-	"github.com/boggydigital/compton/elements/recipes"
 	"github.com/boggydigital/compton/elements/section"
 )
 
@@ -36,7 +35,7 @@ func ProductSectionsLinks(r compton.Registrar, sections []string) compton.Elemen
 
 	linksSection.Append(linksStack)
 
-	wrapper := recipes.Center(r, linksSection)
+	wrapper := flex_items.Center(r, linksSection)
 	wrapper.SetId("product-sections-links")
 
 	return wrapper

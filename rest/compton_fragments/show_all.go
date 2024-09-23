@@ -4,8 +4,8 @@ import (
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/input_types"
 	"github.com/boggydigital/compton/elements/els"
+	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/inputs"
-	"github.com/boggydigital/compton/elements/recipes"
 )
 
 func ShowAllButton(r compton.Registrar) compton.Element {
@@ -15,6 +15,6 @@ func ShowAllButton(r compton.Registrar) compton.Element {
 	button := inputs.InputValue(r, input_types.Submit, "Show all...")
 	showAllLink.Append(button)
 
-	return recipes.Center(r, showAllLink)
+	return flex_items.Center(r, showAllLink)
 
 }

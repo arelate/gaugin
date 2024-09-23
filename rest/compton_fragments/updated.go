@@ -5,8 +5,8 @@ import (
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/consts/weight"
+	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
-	"github.com/boggydigital/compton/elements/recipes"
 )
 
 func Updated(r compton.Registrar, updated string) compton.Element {
@@ -18,5 +18,5 @@ func Updated(r compton.Registrar, updated string) compton.Element {
 		FontWeight(weight.Bolder)
 	span.Append(updatedTitle, updatedValue)
 
-	return recipes.Center(r, span)
+	return flex_items.Center(r, span)
 }

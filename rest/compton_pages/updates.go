@@ -9,10 +9,14 @@ import (
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_summary"
+	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/nav_links"
-	"github.com/boggydigital/compton/elements/recipes"
 	"github.com/boggydigital/kevlar"
+)
+
+const (
+	detailsSummaryHeadingLevel = 3
 )
 
 func Updates(sections []string, updates map[string][]string, sectionTitles map[string]string, updateTotals map[string]int, updated string, rdx kevlar.ReadableRedux) compton.Element {
@@ -38,7 +42,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 	sectionTargets := nav_links.TextLinks(sectionLinks, "", order...)
 
 	sectionNav := nav_links.NavLinksTargets(p, sectionTargets...)
-	pageStack.Append(recipes.Center(p, appNavLinks, sectionNav))
+	pageStack.Append(flex_items.Center(p, appNavLinks, sectionNav))
 
 	/* Show All... button */
 
@@ -52,11 +56,14 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 
 	for _, section := range sections {
 
+		sectionTitle := sectionTitles[section]
+		sectionHeading := els.HeadingText(sectionTitle, detailsSummaryHeadingLevel)
 		sectionDetailsToggle := details_summary.
-			Open(p, sectionTitles[section]).
+			Open(p, sectionHeading).
 			BackgroundColor(color.Highlight).
 			SummaryMarginBlockEnd(size.Normal).
 			DetailsMarginBlockEnd(size.Large)
+		sectionDetailsToggle.SetId(sectionTitle)
 		pageStack.Append(sectionDetailsToggle)
 
 		sectionStack := flex_items.FlexItems(p, direction.Column)
