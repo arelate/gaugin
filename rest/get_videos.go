@@ -7,6 +7,8 @@ import (
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
+	"github.com/boggydigital/compton/consts/size"
+	"github.com/boggydigital/compton/consts/weight"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
@@ -74,8 +76,12 @@ func createVideo(r compton.Registrar, videoId string) compton.Element {
 	video.SetAttribute("poster", posterSrc)
 	stack.Append(video)
 
-	originLink := els.AText("Watch at origin", youtube_urls.VideoUrl(videoId).String())
-	originLink.AddClass("external")
+	originLink := els.A(youtube_urls.VideoUrl(videoId).String())
+	linkText := fspan.Text(r, "Watch at origin").
+		FontSize(size.Small).
+		FontWeight(weight.Bolder).
+		ForegroundColor(color.Cyan)
+	originLink.Append(linkText)
 	stack.Append(originLink)
 
 	return stack
