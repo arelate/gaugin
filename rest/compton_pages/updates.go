@@ -9,14 +9,9 @@ import (
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_summary"
-	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/nav_links"
 	"github.com/boggydigital/kevlar"
-)
-
-const (
-	detailsSummaryHeadingLevel = 3
 )
 
 func Updates(sections []string, updates map[string][]string, sectionTitles map[string]string, updateTotals map[string]int, updated string, rdx kevlar.ReadableRedux) compton.Element {
@@ -57,7 +52,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 	for _, section := range sections {
 
 		sectionTitle := sectionTitles[section]
-		sectionHeading := els.HeadingText(sectionTitle, detailsSummaryHeadingLevel)
+		sectionHeading := compton_fragments.DetailsSummaryTitle(p, sectionTitle)
 		sectionDetailsToggle := details_summary.
 			Open(p, sectionHeading).
 			BackgroundColor(color.Highlight).

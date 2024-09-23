@@ -8,7 +8,6 @@ import (
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_summary"
-	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/kevlar"
 )
@@ -32,7 +31,7 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 
 	/* Filter & Search details */
 
-	filterSearchHeading := els.HeadingText(filterSearchTitle, detailsSummaryHeadingLevel)
+	filterSearchHeading := compton_fragments.DetailsSummaryTitle(p, filterSearchTitle)
 	filterSearchDetails := details_summary.
 		Toggle(p, filterSearchHeading, len(query) == 0).
 		BackgroundColor(color.Highlight).

@@ -97,7 +97,7 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 		}
 
 		sectionTitle := compton_data.SectionTitles[section]
-		summaryHeading := els.HeadingText(sectionTitle, detailsSummaryHeadingLevel)
+		summaryHeading := compton_fragments.DetailsSummaryTitle(p, sectionTitle)
 		detailsSummary := details_summary.
 			Toggle(p, summaryHeading, section == compton_data.PropertiesSection).
 			BackgroundColor(dsbc).
