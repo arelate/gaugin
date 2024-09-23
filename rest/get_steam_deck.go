@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/gaugin_styles"
+	"github.com/arelate/southern_light/steam_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/elements/els"
@@ -76,7 +77,8 @@ func GetSteamDeck(w http.ResponseWriter, r *http.Request) {
 	ul := els.Ul()
 	if displayTypes := dacr.GetResultsDisplayTypes(); len(displayTypes) == len(results) {
 		for ii, result := range results {
-			li := els.ListItemText(result)
+			decodedResult := steam_integration.DecodeLocToken(result)
+			li := els.ListItemText(decodedResult)
 			li.AddClass(displayTypes[ii])
 			ul.Append(li)
 		}

@@ -1,7 +1,13 @@
 github.com/arelate/southern_light v0.1.45 h1:QhZ+ro67/wqoqX9JUkSACkS44p55bI3NdmjPBBOVEUs=
 github.com/arelate/southern_light v0.1.45/go.mod h1:IR7j2+TrHdoNfZrTNeXOvL3UYsotcNED3aOAEpm7VCY=
+github.com/arelate/southern_light v0.1.46 h1:eSwYlt4a9x7MFQOvuOnnMVnD74nhR1ncBiPp+LQDFwM=
+github.com/arelate/southern_light v0.1.46/go.mod h1:IR7j2+TrHdoNfZrTNeXOvL3UYsotcNED3aOAEpm7VCY=
+github.com/arelate/southern_light v0.1.47 h1:KYK4O9ZGdbo5eTvxZDJFh9c49vZ3sZ+SWN/b+ctBqpY=
+github.com/arelate/southern_light v0.1.47/go.mod h1:IR7j2+TrHdoNfZrTNeXOvL3UYsotcNED3aOAEpm7VCY=
 github.com/arelate/vangogh_local_data v0.4.17 h1:3jUQ96/96NMcWHajmfHKYPb3vsEIxNvleSmWxl2njbU=
 github.com/arelate/vangogh_local_data v0.4.17/go.mod h1:unEZgU2PkfWDeHBuYBcJDnmlaRqxRFwmyfCI/3W24kQ=
+github.com/arelate/vangogh_local_data v0.4.18 h1:v+q3O+192NvjQ2T3kA/MLuekYkFu8TvMKx9MSF9RdeA=
+github.com/arelate/vangogh_local_data v0.4.18/go.mod h1:2DzuiPruUAZGATnS458Af3KPZQZMwfz16rIySXTXDzc=
 github.com/boggydigital/busan v0.1.0 h1:mUpe4b3vdt9Kcf4Z/C2YSuX5L7ru+J/iZW+IcSfW0cM=
 github.com/boggydigital/busan v0.1.0/go.mod h1:0IjeMKwqaO94r8f28at/2UHhqV2FAN6ufFaLEbur/YU=
 github.com/boggydigital/clo v1.0.4 h1:LKvXktyG+EeemzjnSp0DYIAEbY2/rvFcuHtjjwJk280=
