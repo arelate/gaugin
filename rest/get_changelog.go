@@ -44,7 +44,7 @@ func GetChangelog(w http.ResponseWriter, r *http.Request) {
 
 	if len(changelog) == 0 {
 		fs := fspan.Text(ifc, "Changelog is not available for this product").
-			ForegroundColor(color.Subtle)
+			ForegroundColor(color.Gray)
 		pageStack.Append(flex_items.Center(ifc, fs))
 	}
 

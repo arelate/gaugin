@@ -74,7 +74,7 @@
             }
 
             & .title {
-                color: var(--c-subtle);
+                color: var(--c-gray);
             }
         }
     }

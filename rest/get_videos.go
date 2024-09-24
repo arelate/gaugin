@@ -52,7 +52,7 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 
 	if len(videoIds) == 0 {
 		fs := fspan.Text(ifc, "Videos are not available for this product").
-			ForegroundColor(color.Subtle)
+			ForegroundColor(color.Gray)
 		pageStack.Append(flex_items.Center(ifc, fs))
 	}
 

@@ -40,7 +40,7 @@ func SearchQueryDisplay(query map[string][]string, r compton.Registrar) compton.
 		span := els.Span()
 		propertyTitleLink := els.A("#" + compton_data.PropertyTitles[property])
 		propertyTitleText := fspan.Text(r, compton_data.PropertyTitles[property]+": ").
-			ForegroundColor(color.Subtle)
+			ForegroundColor(color.Gray)
 		propertyTitleLink.Append(propertyTitleText)
 		propertyValue := fspan.Text(r, strings.Join(values, ", ")).
 			FontWeight(weight.Bolder)

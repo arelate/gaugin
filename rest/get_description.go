@@ -56,7 +56,7 @@ func GetDescription(w http.ResponseWriter, r *http.Request) {
 
 	if desc == "" {
 		fs := fspan.Text(ifc, "Description is not available for this product").
-			ForegroundColor(color.Subtle)
+			ForegroundColor(color.Gray)
 		descriptionDiv.Append(flex_items.Center(ifc, fs))
 	} else {
 		desc = rewriteItemsLinks(desc)

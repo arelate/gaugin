@@ -65,7 +65,7 @@
     }
 
     &.neutral .values {
-        color: var(--c-subtle);
+        color: var(--c-gray);
     }
 
     &.Verified .values {
@@ -81,6 +81,6 @@
     }
 
     &.Unknown .values {
-        color: var(--c-subtle)
+        color: var(--c-gray)
     }
 }

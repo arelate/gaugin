@@ -92,7 +92,7 @@
     }
 
     & hr {
-        border-bottom: var(--s-xxxs) solid var(--c-subtle);
+        border-bottom: var(--s-xxxs) solid var(--c-gray);
         margin: var(--s-s) 0
     }
 
@@ -110,7 +110,7 @@
         margin-top: var(--s-l);
         font-size: var(--fs-s);
         line-height: calc(1.2 * var(--s-n));
-        color: var(--c-subtle);
+        color: var(--c-gray);
     }
 
     & .description__features-point {

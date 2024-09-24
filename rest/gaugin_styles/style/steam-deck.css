@@ -29,7 +29,7 @@ ul {
 
         &.Unknown {
             font-style: italic;
-            color: var(--c-subtle)
+            color: var(--c-gray)
         }
     }
 }
@@ -53,6 +53,6 @@ ul {
     }
 
     & .unknown {
-        color: var(--c-subtle)
+        color: var(--c-gray)
     }
 }

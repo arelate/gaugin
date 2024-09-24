@@ -48,7 +48,7 @@ func GetScreenshots(w http.ResponseWriter, r *http.Request) {
 
 	if len(screenshots) == 0 {
 		fs := fspan.Text(ifc, "Screenshots are not available for this product").
-			ForegroundColor(color.Subtle)
+			ForegroundColor(color.Gray)
 		pageStack.Append(flex_items.Center(ifc, fs))
 	}
 
