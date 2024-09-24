@@ -14,10 +14,8 @@ import (
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/iframe_expand"
 	"github.com/boggydigital/compton/elements/inputs"
-	"github.com/boggydigital/compton/elements/issa_image"
 	"github.com/boggydigital/compton/elements/labels"
 	"github.com/boggydigital/compton/elements/popup"
-	"github.com/boggydigital/issa"
 	"github.com/boggydigital/kevlar"
 	"slices"
 )
@@ -58,16 +56,7 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 	/* Product poster */
 
-	if imgSrc, ok := rdx.GetLastVal(vangogh_local_data.ImageProperty, id); ok {
-		var poster compton.Element
-		relImgSrc := "/image?id=" + imgSrc
-		if dehydSrc, sure := rdx.GetLastVal(vangogh_local_data.DehydratedImageProperty, id); sure {
-			hydSrc := issa.HydrateColor(dehydSrc)
-			poster = issa_image.IssaImageHydrated(p, hydSrc, relImgSrc)
-		} else {
-			poster = els.Img(relImgSrc)
-		}
-		poster.AddClass("product-poster")
+	if poster := compton_fragments.ProductPoster(p, id, rdx); poster != nil {
 		pageStack.Append(poster)
 	}
 
@@ -78,7 +67,6 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 	/* Product labels */
 
-	//labels := product_labels.Labels(p, id, rdx).FontSize(size.Small).RowGap(size.XSmall).ColumnGap(size.XSmall)
 	fmtLabels := product_labels.FormatLabels(id, rdx, compton_data.LabelProperties...)
 	productLabels := labels.Labels(p, fmtLabels...).FontSize(size.Small).RowGap(size.XSmall).ColumnGap(size.XSmall)
 	pageStack.Append(flex_items.Center(p, productTitle, productLabels))

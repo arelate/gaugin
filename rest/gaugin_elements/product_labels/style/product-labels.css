@@ -1,5 +1,5 @@
-@scope (span.labels) {
-    .label {
+@scope (.label) {
+    :scope {
         &.owned {
             color: var(--c-highlight);
             background-color: var(--c-subtle);

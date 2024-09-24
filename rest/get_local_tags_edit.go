@@ -1,9 +1,9 @@
 package rest
 
 import (
-	"github.com/arelate/gaugin/gaugin_middleware"
-	"github.com/arelate/gaugin/stencil_app"
+	"github.com/arelate/gaugin/rest/compton_pages"
 	"github.com/arelate/vangogh_local_data"
+	"github.com/boggydigital/kevlar"
 	"github.com/boggydigital/nod"
 	"net/http"
 )
@@ -19,7 +19,9 @@ func GetLocalTagsEdit(w http.ResponseWriter, r *http.Request) {
 		id,
 		false,
 		vangogh_local_data.TitleProperty,
-		vangogh_local_data.LocalTagsProperty)
+		vangogh_local_data.LocalTagsProperty,
+		vangogh_local_data.ImageProperty,
+		vangogh_local_data.DehydratedImageProperty)
 
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
@@ -33,11 +35,13 @@ func GetLocalTagsEdit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	gaugin_middleware.DefaultHeaders(w)
+	rdx := kevlar.ReduxProxy(idRedux)
 
-	selectedValues := make(map[string]bool)
-	for _, v := range idRedux[id][vangogh_local_data.LocalTagsProperty] {
-		selectedValues[v] = true
+	selectedValues := make(map[string]any)
+	if lt, ok := rdx.GetAllValues(vangogh_local_data.LocalTagsProperty, id); ok {
+		for _, v := range lt {
+			selectedValues[v] = nil
+		}
 	}
 
 	localTags := make(map[string]string)
@@ -45,18 +49,26 @@ func GetLocalTagsEdit(w http.ResponseWriter, r *http.Request) {
 		localTags[v] = v
 	}
 
-	if err := app.RenderPropertyEditor(
-		id,
-		idRedux[id][vangogh_local_data.TitleProperty][0],
-		stencil_app.PropertyTitles[vangogh_local_data.LocalTagsProperty],
-		true,
-		"",
-		selectedValues,
-		localTags,
-		true,
-		"/local-tags/apply",
-		w); err != nil {
+	ltePage := compton_pages.TagsEditor(id, true, vangogh_local_data.LocalTagsProperty, localTags, selectedValues, rdx)
+	if err := ltePage.WriteContent(w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
+
+	//gaugin_middleware.DefaultHeaders(w)
+	//
+	//if err := app.RenderPropertyEditor(
+	//	id,
+	//	idRedux[id][vangogh_local_data.TitleProperty][0],
+	//	stencil_app.PropertyTitles[vangogh_local_data.LocalTagsProperty],
+	//	true,
+	//	"",
+	//	selectedValues,
+	//	localTags,
+	//	true,
+	//	"/local-tags/apply",
+	//	w); err != nil {
+	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+	//	return
+	//}
 }

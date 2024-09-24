@@ -1,4 +1,4 @@
-@scope (.product-title) {
+@scope (h1) {
     :scope {
         text-align: center;
     }
