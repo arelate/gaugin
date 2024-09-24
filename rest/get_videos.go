@@ -77,6 +77,7 @@ func createVideo(r compton.Registrar, videoId string) compton.Element {
 	stack.Append(video)
 
 	originLink := els.A(youtube_urls.VideoUrl(videoId).String())
+	originLink.SetAttribute("target", "_top")
 	linkText := fspan.Text(r, "Watch at origin").
 		FontSize(size.Small).
 		FontWeight(weight.Bolder).
