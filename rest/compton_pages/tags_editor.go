@@ -14,10 +14,12 @@ import (
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/inputs"
+	"github.com/boggydigital/compton/elements/section"
 	"github.com/boggydigital/kevlar"
 	"golang.org/x/exp/maps"
 	"net/http"
 	"slices"
+	"strconv"
 )
 
 func TagsEditor(
@@ -50,6 +52,17 @@ func TagsEditor(
 	productHeading := els.HeadingText(productTitle, 1)
 	pageStack.Append(flex_items.Center(p, productHeading))
 
+	/* Ownership notice */
+
+	if !owned {
+		ownershipNotice := section.Section(p).
+			BackgroundColor(color.Yellow).
+			ForegroundColor(color.Background)
+
+		ownershipNotice.Append(els.DivText("Tags modifications require product ownership"))
+		pageStack.Append(ownershipNotice)
+	}
+
 	/* Tags Property Title */
 
 	tagsPropertyHeading := compton_fragments.DetailsSummaryTitle(p, tagsPropertyTitle)
@@ -64,12 +77,26 @@ func TagsEditor(
 
 	/* Tag Values Switches */
 
-	editTagsForm := els.Form("/local-tags/apply", http.MethodGet)
+	action := ""
+	switch tagsProperty {
+	case vangogh_local_data.LocalTagsProperty:
+		action = "/local-tags/apply"
+	case vangogh_local_data.TagIdProperty:
+		action = "/tags/apply"
+	default:
+		panic("unknown tags property editor")
+	}
+
+	editTagsForm := els.Form(action, http.MethodGet)
 	swColumn := flex_items.FlexItems(p, direction.Column).AlignContent(align.Center)
 
 	idInput := inputs.InputValue(p, input_types.Hidden, id)
 	idInput.SetName(vangogh_local_data.IdProperty)
 	swColumn.Append(idInput)
+
+	conditionInput := inputs.InputValue(p, input_types.Hidden, strconv.FormatBool(owned))
+	conditionInput.SetName("condition")
+	swColumn.Append(conditionInput)
 
 	keys := maps.Keys(allValues)
 	slices.Sort(keys)
@@ -77,7 +104,7 @@ func TagsEditor(
 	for _, vid := range keys {
 		label := allValues[vid]
 		_, has := selected[vid]
-		swColumn.Append(switchLabel(p, label, has))
+		swColumn.Append(switchLabel(p, vid, label, has, !owned))
 	}
 
 	newValueInput := inputs.Input(p, input_types.Text)
@@ -98,16 +125,17 @@ func TagsEditor(
 	return p
 }
 
-func switchLabel(r compton.Registrar, label string, checked bool) compton.Element {
+func switchLabel(r compton.Registrar, id, label string, checked, disabled bool) compton.Element {
 	row := flex_items.FlexItems(r, direction.Row).AlignItems(align.Center)
 
 	switchElement := inputs.Switch(r)
-	switchElement.SetId(label)
-	switchElement.SetValue(label)
+	switchElement.SetId(id)
+	switchElement.SetValue(id)
 	switchElement.SetChecked(checked)
+	switchElement.SetDisabled(disabled)
 	switchElement.SetName("value") //using the same name for all binary properties
 
-	labelElement := els.Label(label)
+	labelElement := els.Label(id)
 	labelElement.Append(els.Text(label))
 
 	row.Append(switchElement, labelElement)
