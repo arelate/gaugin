@@ -54,21 +54,4 @@ func GetLocalTagsEdit(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
-
-	//gaugin_middleware.DefaultHeaders(w)
-	//
-	//if err := app.RenderPropertyEditor(
-	//	id,
-	//	idRedux[id][vangogh_local_data.TitleProperty][0],
-	//	stencil_app.PropertyTitles[vangogh_local_data.LocalTagsProperty],
-	//	true,
-	//	"",
-	//	selectedValues,
-	//	localTags,
-	//	true,
-	//	"/local-tags/apply",
-	//	w); err != nil {
-	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	return
-	//}
 }
