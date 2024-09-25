@@ -14,6 +14,7 @@ import (
 	"github.com/boggydigital/compton/elements/svg_use"
 	"github.com/boggydigital/compton/elements/title_values"
 	"github.com/boggydigital/kevlar"
+	"golang.org/x/exp/maps"
 	"slices"
 	"strconv"
 	"strings"
@@ -225,7 +226,10 @@ func propertyTitleValues(r compton.Registrar, property string, fmtProperty forma
 			ds := els.Details().AppendSummary(summaryElement)
 			ds.AddClass("many-values")
 			row := flex_items.FlexItems(r, direction.Row).JustifyContent(align.Start)
-			for link, href := range fmtProperty.values {
+			keys := maps.Keys(fmtProperty.values)
+			slices.Sort(keys)
+			for _, link := range keys {
+				href := fmtProperty.values[link]
 				row.Append(els.AText(link, href))
 			}
 			ds.Append(row)
