@@ -135,10 +135,10 @@ func steamReviewFragment(r compton.Registrar, review steam_integration.Review) c
 
 	datesRow := appendSteamReviewHeadingRow(r, "Review")
 	if review.TimestampCreated > 0 {
-		appendSteamReviewPropertyValue(r, datesRow, "Created:", time.Unix(review.TimestampCreated, 0).Format("Jan 2, 2006"))
+		appendSteamReviewPropertyValue(r, datesRow, "Cr:", epochDate(review.TimestampCreated))
 	}
 	if review.TimestampUpdated > 0 {
-		appendSteamReviewPropertyValue(r, datesRow, "Updated:", time.Unix(review.TimestampUpdated, 0).Format("Jan 2, 2006"))
+		appendSteamReviewPropertyValue(r, datesRow, "Upd:", epochDate(review.TimestampUpdated))
 	}
 
 	playtimeRow := appendSteamReviewHeadingRow(r, "Playtime")
@@ -146,7 +146,7 @@ func steamReviewFragment(r compton.Registrar, review steam_integration.Review) c
 		appendSteamReviewPropertyValue(r, playtimeRow, "At review:", minutesToHours(review.Author.PlaytimeAtReview))
 	}
 	if review.Author.PlaytimeLastTwoWeeks > 0 {
-		appendSteamReviewPropertyValue(r, playtimeRow, "Last two weeks:", minutesToHours(review.Author.PlaytimeLastTwoWeeks))
+		appendSteamReviewPropertyValue(r, playtimeRow, "Last 2w:", minutesToHours(review.Author.PlaytimeLastTwoWeeks))
 	}
 	if review.Author.PlaytimeForever > 0 {
 		appendSteamReviewPropertyValue(r, playtimeRow, "Total:", minutesToHours(review.Author.PlaytimeForever))
@@ -186,11 +186,27 @@ func steamReviewFragment(r compton.Registrar, review steam_integration.Review) c
 	}
 	reviewContainer.Append(fspan.Text(r, review.Review))
 
+	votesRow := appendSteamReviewHeadingRow(r, "Votes")
+	if review.VotesUp > 0 {
+		appendSteamReviewPropertyValue(r, votesRow, "Helpful:", strconv.Itoa(review.VotesUp))
+	}
+	if review.VotesFunny > 0 {
+		appendSteamReviewPropertyValue(r, votesRow, "Funny:", strconv.Itoa(review.VotesFunny))
+	}
+
+	if votesRow.HasChildren() {
+		container.Append(votesRow)
+	}
+
 	return container
 }
 
 func minutesToHours(m int) string {
 	return strconv.Itoa(m/60) + "h"
+}
+
+func epochDate(e int64) string {
+	return time.Unix(e, 0).Format("Jan 2, '06")
 }
 
 func appendSteamReviewPropertyValue(r compton.Registrar, c compton.Element, p, v string) {
@@ -199,14 +215,15 @@ func appendSteamReviewPropertyValue(r compton.Registrar, c compton.Element, p, v
 }
 
 func appendSteamReviewNotice(r compton.Registrar, c compton.Element, n string) {
-	c.Append(fspan.Text(r, n).
+	notice := fspan.Text(r, n).
 		FontWeight(weight.Bolder).
 		FontSize(size.Small).
-		ForegroundColor(color.Yellow))
+		ForegroundColor(color.Yellow)
+	c.Append(notice)
 }
 
 func appendSteamReviewHeadingRow(r compton.Registrar, title string) compton.Element {
-	row := flex_items.FlexItems(r, direction.Row).ColumnGap(size.Small)
+	row := flex_items.FlexItems(r, direction.Row).ColumnGap(size.XSmall)
 	if title != "" {
 		row.Append(fspan.Text(r, title).FontSize(size.Small).FontWeight(weight.Bolder))
 	}
