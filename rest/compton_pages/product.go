@@ -28,6 +28,7 @@ var convertedSections = []string{
 	compton_data.DescriptionSection,
 	compton_data.VideosSection,
 	compton_data.SteamDeckSection,
+	compton_data.SteamReviewsSection,
 }
 
 func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.Element {
