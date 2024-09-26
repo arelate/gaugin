@@ -7,9 +7,13 @@ import (
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/align"
+	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
+	"github.com/boggydigital/compton/consts/weight"
+	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
+	"github.com/boggydigital/compton/elements/fspan"
 	"github.com/boggydigital/compton/elements/grid_items"
 	"github.com/boggydigital/compton/elements/svg_use"
 	"github.com/boggydigital/compton/elements/title_values"
@@ -220,11 +224,11 @@ func propertyTitleValues(r compton.Registrar, property string, fmtProperty forma
 		if len(fmtProperty.values) < 4 {
 			tv.AppendLinkValues(fmtProperty.values)
 		} else {
-			summaryTitle := fmt.Sprintf("Show all %d...", len(fmtProperty.values))
-			summaryElement := els.SpanText(summaryTitle)
-			summaryElement.AddClass("action")
-			ds := els.Details().AppendSummary(summaryElement)
-			ds.AddClass("many-values")
+			summaryTitle := fmt.Sprintf("Show all %d", len(fmtProperty.values))
+			summaryElement := fspan.Text(r, summaryTitle).
+				ForegroundColor(color.Blue).
+				FontWeight(weight.Bolder)
+			ds := details_summary.Smaller(r, summaryElement, false)
 			row := flex_items.FlexItems(r, direction.Row).JustifyContent(align.Start)
 			keys := maps.Keys(fmtProperty.values)
 			slices.Sort(keys)

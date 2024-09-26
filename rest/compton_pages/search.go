@@ -33,7 +33,7 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 
 	filterSearchHeading := compton_fragments.DetailsSummaryTitle(p, filterSearchTitle)
 	filterSearchDetails := details_summary.
-		Toggle(p, filterSearchHeading, len(query) == 0).
+		Larger(p, filterSearchHeading, len(query) == 0).
 		BackgroundColor(color.Highlight).
 		SummaryMarginBlockEnd(size.Normal).
 		DetailsMarginBlockEnd(size.Unset)

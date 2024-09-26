@@ -9,6 +9,7 @@ import (
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/consts/weight"
+	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
@@ -21,23 +22,6 @@ import (
 
 const longReviewThreshold = 1024
 
-//type steamReview struct {
-//	Author                   string
-//	Language                 string
-//	Created, Updated         string
-//	VotedUp                  bool
-//	VotesUp, VotesFunny      int
-//	SteamPurchase            bool
-//	ReceivedForFree          bool
-//	WrittenDuringEarlyAccess bool
-//	LongReview               bool
-//	Review                   template.HTML
-//}
-
-func unixDateFormat(d int64) string {
-	return time.Unix(d, 0).Format("Jan 2, 2006")
-}
-
 func GetSteamReviews(w http.ResponseWriter, r *http.Request) {
 
 	// GET /steam-reviews?id
@@ -49,28 +33,6 @@ func GetSteamReviews(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
-
-	//reviews := make([]steamReview, 0, len(sar.Reviews))
-	//sb := &strings.Builder{}
-	//srvm := view_models.NewSteamReviews(sar)
-
-	//for _, rev := range sar.Reviews {
-	//	reviews = append(reviews,
-	//		steamReview{
-	//			Author:                   rev.Author.SteamId,
-	//			Language:                 rev.Language,
-	//			Created:                  unixDateFormat(rev.TimestampCreated),
-	//			Updated:                  unixDateFormat(rev.TimestampUpdated),
-	//			VotedUp:                  rev.VotedUp,
-	//			VotesUp:                  rev.VotesUp,
-	//			VotesFunny:               rev.VotesFunny,
-	//			SteamPurchase:            rev.SteamPurchase,
-	//			ReceivedForFree:          rev.ReceivedForFree,
-	//			WrittenDuringEarlyAccess: rev.WrittenDuringEarlyAccess,
-	//			LongReview:               len(rev.Review) > longReviewThreshold,
-	//			Review:                   template.HTML(rev.Review),
-	//		})
-	//}
 
 	section := compton_data.SteamReviewsSection
 	ifc := iframe_expand.IframeExpandContent(section, compton_data.SectionTitles[section]).
@@ -91,46 +53,33 @@ func GetSteamReviews(w http.ResponseWriter, r *http.Request) {
 	if err := ifc.WriteContent(w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 	}
-
-	//if err := tmpl.ExecuteTemplate(sb, "steam-reviews-content", srvm); err != nil {
-	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	return
-	//}
-	//
-	//gaugin_middleware.DefaultHeaders(w)
-	//
-	//if err := app.RenderSection(id, stencil_app.SteamReviewsSection, sb.String(), w); err != nil {
-	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	return
-	//}
 }
 
 func steamReviewFragment(r compton.Registrar, review steam_integration.Review) compton.Element {
 
 	container := flex_items.FlexItems(r, direction.Column).RowGap(size.Normal)
 
-	header := flex_items.FlexItems(r, direction.Column).RowGap(size.XXXSmall)
-
 	votedRow := flex_items.FlexItems(r, direction.Row).ColumnGap(size.Small)
-	votedEmoji := "👎"
+
 	votedTitle := "Not Recommended"
 	votedColor := color.Red
 	if review.VotedUp {
-		votedEmoji = "👍"
 		votedTitle = "Recommended"
 		votedColor = color.Green
 	}
 
-	votedRow.Append(
-		fspan.Text(r, votedTitle).FontWeight(weight.Bolder).ForegroundColor(votedColor),
-		fspan.Text(r, votedEmoji))
+	votedRow.Append(fspan.Text(r, votedTitle).FontWeight(weight.Bolder).ForegroundColor(votedColor))
+
+	container.Append(votedRow)
+
+	header := flex_items.FlexItems(r, direction.Row).ColumnGap(size.Small).RowGap(size.Unset)
 
 	authorRow := appendSteamReviewHeadingRow(r, "Author")
 	if review.Author.NumGamesOwned > 0 {
-		appendSteamReviewPropertyValue(r, authorRow, "Games owned:", strconv.Itoa(review.Author.NumGamesOwned))
+		appendSteamReviewPropertyValue(r, authorRow, "Games:", strconv.Itoa(review.Author.NumGamesOwned))
 	}
 	if review.Author.NumReviews > 0 {
-		appendSteamReviewPropertyValue(r, authorRow, "Reviews posted:", strconv.Itoa(review.Author.NumReviews))
+		appendSteamReviewPropertyValue(r, authorRow, "Reviews:", strconv.Itoa(review.Author.NumReviews))
 	}
 
 	datesRow := appendSteamReviewHeadingRow(r, "Review")
@@ -169,7 +118,7 @@ func steamReviewFragment(r compton.Registrar, review steam_integration.Review) c
 		appendSteamReviewNotice(r, noticeRow, "Written during Early Access")
 	}
 
-	header.Append(votedRow, authorRow, playtimeRow, datesRow)
+	header.Append(authorRow, playtimeRow, datesRow)
 	if noticeRow.HasChildren() {
 		header.Append(noticeRow)
 	}
@@ -177,8 +126,10 @@ func steamReviewFragment(r compton.Registrar, review steam_integration.Review) c
 
 	var reviewContainer compton.Element
 	if len(review.Review) > longReviewThreshold {
-		dsTitle := fspan.Text(r, "Expand full review").ForegroundColor(color.Blue)
-		dsReview := els.Details().AppendSummary(dsTitle)
+		dsTitle := fspan.Text(r, "Expand full review").
+			ForegroundColor(color.Blue).
+			FontWeight(weight.Bolder)
+		dsReview := details_summary.Smaller(r, dsTitle, false)
 		container.Append(dsReview)
 		reviewContainer = dsReview
 	} else {
@@ -194,7 +145,7 @@ func steamReviewFragment(r compton.Registrar, review steam_integration.Review) c
 		appendSteamReviewPropertyValue(r, votesRow, "Funny:", strconv.Itoa(review.VotesFunny))
 	}
 
-	if votesRow.HasChildren() {
+	if review.VotesUp > 0 || review.VotesFunny > 0 {
 		container.Append(votesRow)
 	}
 
@@ -223,7 +174,7 @@ func appendSteamReviewNotice(r compton.Registrar, c compton.Element, n string) {
 }
 
 func appendSteamReviewHeadingRow(r compton.Registrar, title string) compton.Element {
-	row := flex_items.FlexItems(r, direction.Row).ColumnGap(size.XSmall)
+	row := flex_items.FlexItems(r, direction.Row).ColumnGap(size.XSmall).RowGap(size.Unset)
 	if title != "" {
 		row.Append(fspan.Text(r, title).FontSize(size.Small).FontWeight(weight.Bolder))
 	}

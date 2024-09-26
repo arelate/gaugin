@@ -54,7 +54,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 		sectionTitle := sectionTitles[section]
 		sectionHeading := compton_fragments.DetailsSummaryTitle(p, sectionTitle)
 		sectionDetailsToggle := details_summary.
-			Open(p, sectionHeading).
+			Larger(p, sectionHeading, true).
 			BackgroundColor(color.Highlight).
 			SummaryMarginBlockEnd(size.Normal).
 			DetailsMarginBlockEnd(size.Large)
