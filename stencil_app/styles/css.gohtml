@@ -1,142 +1,65 @@
 {{define "app-css"}}
     <style id="app-css">
-        /* Owned products with downloads */
 
-        .label.owned {
-            color: var(--highlight-color);
-            background-color: var(--subtle-color);
+        /* Steam News */
+
+        #steam-news-content summary > h1 {
+            display: inline;
+            padding: 0;
+            font-size: var(--normal);
         }
 
-        .label.owned.validation-result-ok {
-            color: var(--highlight-color);
-            background-color: var(--color-green);
+        #steam-news-content > details > summary > svg {
+            width: var(--small);
+            height: var(--small);
+            margin-inline-start: var(--small);
         }
 
-        .label.owned.validation-result-err {
-            color: var(--highlight-color);
-            background-color: var(--color-yellow);
+        #steam-news-content .steam-news-contents ul,
+        #steam-news-content .steam-news-contents p {
+            margin: var(--x-small) 0;
         }
 
-        /* GAME, DLC, PACK */
-
-        .label.product-type {
-            color: var(--highlight-color);
-            background-color: var(--color);
+        #steam-news-content .steam-news-contents ul > br {
+            display: none;
         }
 
-        /* Release timeline labels */
-        .label.tba,
-        .label.coming-soon,
-        .label.pre-order,
-        .label.in-development {
-            color: var(--highlight-color);
-            background-color: var(--color-teal);
+        #steam-news-content .steam-news-metadata {
+            display: flex;
+            flex-direction: column;
+            font-size: var(--fs-x-smaller);
         }
 
-        /* Engine/Source-port labels */
-        .label.is-using-dosbox,
-        .label.is-using-scummvm {
-            color: var(--highlight-color);
-            background-color: var(--color-blue);
+        #steam-news-content .steam-news-metadata .metadata-value {
+            font-weight: bold;
         }
 
-        /* User tags */
-
-        .label.tag,
-        .label.local-tags {
-            color: var(--highlight-color);
-            background-color: var(--color-indigo);
+        #steam-news-content .steam-news-contents {
+            margin: var(--normal) 0;
         }
 
-        /* Sale/price lifecycle labels */
-        .label.wishlisted {
-            color: var(--highlight-color);
-            background-color: var(--color-orange);
+        #steam-news-content pre {
+            font-family: sans-serif;
+            white-space: break-spaces;
+            max-width: 100%;
+            overflow: hidden;
         }
 
-        .label.is-free,
-        .label.discount-percentage {
-            color: var(--highlight-color);
-            background-color: var(--color-red);
+        #steam-news-content .steam-news-contents img,
+        #steam-news-content .steam-news-contents video,
+        #steam-news-content .steam-news-contents iframe {
+            display: none;
         }
 
-        /* Download types */
-        .label.installer {
-            color: var(--highlight-color);
-            background-color: var(--color-purple);
+        #steam-news-content mark.spoiler {
+            background: var(--color);
+            color: var(--color);
+            cursor: pointer;
         }
 
-        .label.downloadable-content {
-            color: var(--highlight-color);
-            background-color: var(--color-green);
-        }
-
-        .label.extra {
-            color: var(--highlight-color);
-            background-color: var(--color-orange);
-        }
-
-        /* Items images */
-
-        .image img {
-            width: var(--product-details-width);
-            height: 370px;
-        }
-
-        @media only screen and (max-width: 800px) {
-            .image img {
-                width: 370px;
-                height: unset;
-            }
-        }
-
-        /* Items */
-
-        #item {
-            & .item-details {
-                & .text-properties {
-                    & .property-value.positive li {
-                        color: var(--color-green);
-                    }
-
-                    & .property-value.negative li {
-                        color: var(--color-red);
-                    }
-
-                    & .property-value.neutral li {
-                        color: var(--subtle-color);
-                    }
-
-                    & .property-value.Verified li {
-                        color: var(--color-green)
-                    }
-
-                    & .property-value.Playable li {
-                        color: var(--color-yellow)
-                    }
-
-                    & .property-value.Unsupported li {
-                        color: var(--color-red)
-                    }
-
-                    & .property-value.Unknown li {
-                        color: var(--subtle-color)
-                    }
-
-                    & .discount-percentage {
-                        align-items: center;
-
-                        & li {
-                            padding: var(--x-small) var(--small);
-                            border-radius: var(--border-radius);
-                            background-color: var(--color-red);
-                            color: var(--background-color);
-                            font-weight: bold;
-                        }
-                    }
-
-                }
-            }
+        #steam-news-content mark.spoiler::selection,
+        #steam-news-content mark.spoiler:active {
+            color: var(--background-color);
         }
 
         /* Downloads */
@@ -254,101 +177,6 @@
 
 
             }
-        }
-
-        /* Steam News */
-
-        #steam-news-content summary > h1 {
-            display: inline;
-            padding: 0;
-            font-size: var(--normal);
-        }
-
-        #steam-news-content > details > summary > svg {
-            width: var(--small);
-            height: var(--small);
-            margin-inline-start: var(--small);
-        }
-
-        #steam-news-content .steam-news-contents ul,
-        #steam-news-content .steam-news-contents p {
-            margin: var(--x-small) 0;
-        }
-
-        #steam-news-content .steam-news-contents ul > br {
-            display: none;
-        }
-
-        #steam-news-content .steam-news-metadata {
-            display: flex;
-            flex-direction: column;
-            font-size: var(--fs-x-smaller);
-        }
-
-        #steam-news-content .steam-news-metadata .metadata-value {
-            font-weight: bold;
-        }
-
-        #steam-news-content .steam-news-contents {
-            margin: var(--normal) 0;
-        }
-
-        #steam-news-content pre {
-            font-family: sans-serif;
-            white-space: break-spaces;
-            max-width: 100%;
-            overflow: hidden;
-        }
-
-        #steam-news-content .steam-news-contents img,
-        #steam-news-content .steam-news-contents video,
-        #steam-news-content .steam-news-contents iframe {
-            display: none;
-        }
-
-        #steam-news-content mark.spoiler {
-            background: var(--color);
-            color: var(--color);
-            cursor: pointer;
-        }
-
-        #steam-news-content mark.spoiler::selection,
-        #steam-news-content mark.spoiler:active {
-            color: var(--background-color);
-        }
-
-        /* Steam reviews */
-
-        #steam-reviews-content section .header {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            flex-direction: row;
-            column-gap: var(--small);
-            font-size: var(--fs-x-smaller);
-            color: var(--subtle-color);
-        }
-
-        #steam-reviews-content section summary {
-            margin-block-end: var(--large);
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-        }
-
-        #steam-reviews-content section details[open] > summary {
-            margin-block-end: var(--normal);
-        }
-
-        #steam-reviews-content section summary svg {
-            width: var(--small);
-            height: var(--small);
-            margin-inline-start: var(--small);
-        }
-
-        #steam-reviews-content section .steam-review-contents {
-            margin-block-start: var(--normal);
-            margin-block-end: var(--large);
         }
 
     </style>

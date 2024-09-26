@@ -17,4 +17,6 @@ var (
 	SteamDeckStyle []byte
 	//go:embed "style/steam-reviews.css"
 	SteamReviews []byte
+	//go:embed "style/steam-news.css"
+	SteamNews []byte
 )
