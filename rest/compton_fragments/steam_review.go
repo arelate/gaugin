@@ -16,11 +16,13 @@ import (
 	"time"
 )
 
-const longReviewThreshold = 1024
+const longReviewThreshold = 750
 
 func SteamReview(r compton.Registrar, review steam_integration.Review) compton.Element {
 
 	container := flex_items.FlexItems(r, direction.Column).RowGap(size.Normal)
+
+	//container.Append(els.Text(strconv.Itoa(len(review.Review))))
 
 	votedTitle := "Not Recommended"
 	votedColor := color.Red
@@ -88,7 +90,7 @@ func SteamReview(r compton.Registrar, review steam_integration.Review) compton.E
 
 	var reviewContainer compton.Element
 	if len(review.Review) > longReviewThreshold {
-		dsTitle := fspan.Text(r, "Expand full review").
+		dsTitle := fspan.Text(r, "Show full review").
 			ForegroundColor(color.Blue).
 			FontWeight(font_weight.Bolder)
 		dsReview := details_summary.Smaller(r, dsTitle, false)

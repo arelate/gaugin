@@ -2,6 +2,7 @@ package compton_fragments
 
 import (
 	"fmt"
+	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/southern_light/steam_integration"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/color"
@@ -28,8 +29,13 @@ func SteamNewsItem(r compton.Registrar, item steam_integration.NewsItem, open bo
 	header := SteamReviewHeadingRow(r, "")
 
 	AppendSteamReviewPropertyValue(r, header, "Posted:", epochDate(item.Date))
-	AppendSteamReviewPropertyValue(r, header, "Author:", item.Author)
-	AppendSteamReviewPropertyValue(r, header, "Feed:", item.FeedLabel)
+	if item.Author != "" {
+		AppendSteamReviewPropertyValue(r, header, "Author:", item.Author)
+	}
+	if item.FeedType != compton_data.FeedTypeCommunityAnnouncement {
+		// only showing feed label that are not community announcements
+		AppendSteamReviewPropertyValue(r, header, "Feed:", item.FeedLabel)
+	}
 	if len(item.Tags) > 0 {
 		AppendSteamReviewPropertyValue(r, header, "Tags:", strings.Join(item.Tags, ", "))
 	}
@@ -39,7 +45,7 @@ func SteamNewsItem(r compton.Registrar, item steam_integration.NewsItem, open bo
 
 	container.Append(header)
 
-	dsTitle := fspan.Text(r, "Expand news item").FontWeight(font_weight.Bolder).ForegroundColor(color.Blue)
+	dsTitle := fspan.Text(r, "Show news item").FontWeight(font_weight.Bolder).ForegroundColor(color.Blue)
 
 	ds := details_summary.Smaller(r, dsTitle, open)
 

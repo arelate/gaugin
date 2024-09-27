@@ -33,25 +33,25 @@ func GetSteamNews(w http.ResponseWriter, r *http.Request) {
 	pageStack := flex_items.FlexItems(ifc, direction.Column)
 	ifc.Append(pageStack)
 
-	communityUpdates := make([]steam_integration.NewsItem, 0, len(san.NewsItems))
+	communityAnnouncements := make([]steam_integration.NewsItem, 0, len(san.NewsItems))
 	for _, ni := range san.NewsItems {
-		if ni.FeedType < 1 {
+		if ni.FeedType == compton_data.FeedTypeOther {
 			continue
 		}
-		communityUpdates = append(communityUpdates, ni)
+		communityAnnouncements = append(communityAnnouncements, ni)
 	}
 
-	if len(communityUpdates) < len(san.NewsItems) {
-		title := "Show all"
+	if len(communityAnnouncements) < len(san.NewsItems) {
+		title := "All news items feed types"
 		href := "/steam-news?id=" + id + "&all"
 		if all {
-			title = "Community announcements"
+			title = "Community announcements only"
 			href = "/steam-news?id=" + id
 		}
 		pageStack.Append(compton_fragments.ShowMoreButton(ifc, title, href))
 	}
 
-	newsItems := communityUpdates
+	newsItems := communityAnnouncements
 	if all {
 		newsItems = san.NewsItems
 	}
