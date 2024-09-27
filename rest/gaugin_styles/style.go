@@ -19,4 +19,6 @@ var (
 	SteamReviews []byte
 	//go:embed "style/steam-news.css"
 	SteamNews []byte
+	//go:embed "style/tag-editors.css"
+	TagEditors []byte
 )
