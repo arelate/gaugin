@@ -2,20 +2,16 @@ package rest
 
 import (
 	"github.com/arelate/gaugin/rest/compton_data"
+	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/arelate/vangogh_local_data"
-	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
-	"github.com/boggydigital/compton/consts/size"
-	"github.com/boggydigital/compton/consts/weight"
-	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
 	"github.com/boggydigital/compton/elements/iframe_expand"
 	"github.com/boggydigital/kevlar"
 	"github.com/boggydigital/nod"
-	"github.com/boggydigital/yet_urls/youtube_urls"
 	"net/http"
 )
 
@@ -57,33 +53,10 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, videoId := range videoIds {
-		pageStack.Append(createVideo(ifc, videoId))
+		pageStack.Append(compton_fragments.Video(ifc, videoId))
 	}
 
 	if err := ifc.WriteContent(w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 	}
-}
-
-func createVideo(r compton.Registrar, videoId string) compton.Element {
-	src := "/video?id=" + videoId
-	posterSrc := "/thumbnails?id=" + videoId
-
-	stack := flex_items.FlexItems(r, direction.Column)
-
-	video := els.Video(src)
-	video.SetAttribute("controls", "")
-	video.SetAttribute("poster", posterSrc)
-	stack.Append(video)
-
-	originLink := els.A(youtube_urls.VideoUrl(videoId).String())
-	originLink.SetAttribute("target", "_top")
-	linkText := fspan.Text(r, "Watch at origin").
-		FontSize(size.Small).
-		FontWeight(weight.Bolder).
-		ForegroundColor(color.Cyan)
-	originLink.Append(linkText)
-	stack.Append(originLink)
-
-	return stack
 }

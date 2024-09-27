@@ -92,7 +92,6 @@
     }
 
     & hr {
-        border-bottom: var(--s-xxxs) solid var(--c-gray);
         margin: var(--s-s) 0
     }
 

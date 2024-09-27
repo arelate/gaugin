@@ -10,6 +10,7 @@ import (
 	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/kevlar"
+	"strconv"
 )
 
 const filterSearchTitle = "Filter & Search"
@@ -62,7 +63,12 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 	/* Show more... button */
 
 	if to < len(ids) {
-		pageStack.Append(compton_fragments.ShowMoreButton(p, query, to))
+		query["from"] = []string{strconv.Itoa(from)}
+		enq := compton_data.EncodeQuery(query)
+
+		href := "/search?" + enq
+
+		pageStack.Append(compton_fragments.ShowMoreButton(p, "Show more", href))
 	}
 
 	/* Standard app footer */

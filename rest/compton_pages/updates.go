@@ -43,7 +43,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 
 	var showAll compton.Element
 	if hasMoreItems(sections, updates, updateTotals) {
-		showAll = compton_fragments.ShowAllButton(p)
+		showAll = compton_fragments.ShowMoreButton(p, "Show all", "?show-all=true")
 		pageStack.Append(showAll)
 	}
 

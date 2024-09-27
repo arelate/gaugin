@@ -6,8 +6,8 @@ import (
 	"github.com/boggydigital/compton/consts/align"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
+	"github.com/boggydigital/compton/consts/font_weight"
 	"github.com/boggydigital/compton/consts/size"
-	"github.com/boggydigital/compton/consts/weight"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
@@ -43,14 +43,14 @@ func SearchQueryDisplay(query map[string][]string, r compton.Registrar) compton.
 			ForegroundColor(color.Gray)
 		propertyTitleLink.Append(propertyTitleText)
 		propertyValue := fspan.Text(r, strings.Join(values, ", ")).
-			FontWeight(weight.Bolder)
+			FontWeight(font_weight.Bolder)
 		span.Append(propertyTitleLink, propertyValue)
 		shStack.Append(span)
 	}
 
 	clearLink := els.A("/search")
 	clearText := fspan.Text(r, "Clear").
-		ForegroundColor(color.Blue).FontWeight(weight.Bolder)
+		ForegroundColor(color.Blue).FontWeight(font_weight.Bolder)
 	clearLink.Append(clearText)
 	shStack.Append(clearLink)
 

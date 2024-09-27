@@ -9,7 +9,7 @@ import (
 	"github.com/boggydigital/compton/consts/align"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
-	"github.com/boggydigital/compton/consts/weight"
+	"github.com/boggydigital/compton/consts/font_weight"
 	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
@@ -227,7 +227,7 @@ func propertyTitleValues(r compton.Registrar, property string, fmtProperty forma
 			summaryTitle := fmt.Sprintf("Show all %d", len(fmtProperty.values))
 			summaryElement := fspan.Text(r, summaryTitle).
 				ForegroundColor(color.Blue).
-				FontWeight(weight.Bolder)
+				FontWeight(font_weight.Bolder)
 			ds := details_summary.Smaller(r, summaryElement, false)
 			row := flex_items.FlexItems(r, direction.Row).JustifyContent(align.Start)
 			keys := maps.Keys(fmtProperty.values)

@@ -8,11 +8,11 @@ import (
 	"github.com/boggydigital/compton/elements/inputs"
 )
 
-func ShowAllButton(r compton.Registrar) compton.Element {
+func ShowMoreButton(r compton.Registrar, title, href string) compton.Element {
 
-	showAllLink := els.A("?show-all=true")
+	showAllLink := els.A(href)
 
-	button := inputs.InputValue(r, input_types.Submit, "Show all...")
+	button := inputs.InputValue(r, input_types.Submit, title)
 	showAllLink.Append(button)
 
 	return flex_items.Center(r, showAllLink)

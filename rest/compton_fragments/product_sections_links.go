@@ -6,8 +6,8 @@ import (
 	"github.com/boggydigital/compton/consts/align"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
+	"github.com/boggydigital/compton/consts/font_weight"
 	"github.com/boggydigital/compton/consts/size"
-	"github.com/boggydigital/compton/consts/weight"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
@@ -19,7 +19,7 @@ func ProductSectionsLinks(r compton.Registrar, sections []string) compton.Elemen
 	linksSection := section.Section(r).
 		BackgroundColor(color.Highlight).
 		FontSize(size.Small).
-		FontWeight(weight.Normal)
+		FontWeight(font_weight.Normal)
 
 	linksStack := flex_items.FlexItems(r, direction.Row).
 		JustifyContent(align.Center).

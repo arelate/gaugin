@@ -4,8 +4,8 @@ import (
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
+	"github.com/boggydigital/compton/consts/font_weight"
 	"github.com/boggydigital/compton/consts/size"
-	"github.com/boggydigital/compton/consts/weight"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
@@ -21,7 +21,7 @@ func Footer(r compton.Registrar) compton.Element {
 	sh.Append(row)
 
 	link := els.A("https://github.com/arelate")
-	link.Append(fspan.Text(r, "Arles").FontWeight(weight.Bolder))
+	link.Append(fspan.Text(r, "Arles").FontWeight(font_weight.Bolder))
 
 	row.Append(
 		els.SpanText("👋"), els.SpanText("from"),

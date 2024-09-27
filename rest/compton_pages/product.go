@@ -29,6 +29,7 @@ var convertedSections = []string{
 	compton_data.VideosSection,
 	compton_data.SteamDeckSection,
 	compton_data.SteamReviewsSection,
+	compton_data.SteamNewsSection,
 }
 
 func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.Element {
@@ -45,7 +46,7 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 	appNavLinks := compton_fragments.AppNavLinks(p, "")
 
-	showToc := inputs.InputValue(p, input_types.Button, "Scroll to...")
+	showToc := inputs.InputValue(p, input_types.Button, "Scroll to")
 	pageStack.Append(flex_items.Center(p, appNavLinks, showToc))
 
 	/* Product details sections shortcuts */
