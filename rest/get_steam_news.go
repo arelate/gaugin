@@ -35,7 +35,7 @@ func GetSteamNews(w http.ResponseWriter, r *http.Request) {
 
 	communityAnnouncements := make([]steam_integration.NewsItem, 0, len(san.NewsItems))
 	for _, ni := range san.NewsItems {
-		if ni.FeedType == compton_data.FeedTypeOther {
+		if ni.FeedType != compton_data.FeedTypeCommunityAnnouncement {
 			continue
 		}
 		communityAnnouncements = append(communityAnnouncements, ni)

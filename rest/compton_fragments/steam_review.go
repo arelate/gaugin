@@ -1,6 +1,7 @@
 package compton_fragments
 
 import (
+	"fmt"
 	"github.com/arelate/southern_light/steam_integration"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/align"
@@ -90,7 +91,8 @@ func SteamReview(r compton.Registrar, review steam_integration.Review) compton.E
 
 	var reviewContainer compton.Element
 	if len(review.Review) > longReviewThreshold {
-		dsTitle := fspan.Text(r, "Show full review").
+		dsTitleText := fmt.Sprintf("Show full review (%d chars)", len(review.Review))
+		dsTitle := fspan.Text(r, dsTitleText).
 			ForegroundColor(color.Blue).
 			FontWeight(font_weight.Bolder)
 		dsReview := details_summary.Smaller(r, dsTitle, false)
@@ -138,7 +140,10 @@ func AppendSteamReviewNotice(r compton.Registrar, c compton.Element, n string) {
 }
 
 func SteamReviewHeadingRow(r compton.Registrar, title string) compton.Element {
-	row := flex_items.FlexItems(r, direction.Row).ColumnGap(size.XSmall).RowGap(size.Unset).AlignItems(align.Center)
+	row := flex_items.FlexItems(r, direction.Row).
+		ColumnGap(size.XSmall).
+		RowGap(size.Unset).
+		AlignItems(align.Center)
 	if title != "" {
 		row.Append(fspan.Text(r, title).FontSize(size.Small).FontWeight(font_weight.Bolder))
 	}
