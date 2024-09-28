@@ -1,67 +1,6 @@
 {{define "app-css"}}
     <style id="app-css">
 
-        /* Steam News */
-
-        #steam-news-content summary > h1 {
-            display: inline;
-            padding: 0;
-            font-size: var(--normal);
-        }
-
-        #steam-news-content > details > summary > svg {
-            width: var(--small);
-            height: var(--small);
-            margin-inline-start: var(--small);
-        }
-
-        #steam-news-content .steam-news-contents ul,
-        #steam-news-content .steam-news-contents p {
-            margin: var(--x-small) 0;
-        }
-
-        #steam-news-content .steam-news-contents ul > br {
-            display: none;
-        }
-
-        #steam-news-content .steam-news-metadata {
-            display: flex;
-            flex-direction: column;
-            font-size: var(--fs-x-smaller);
-        }
-
-        #steam-news-content .steam-news-metadata .metadata-value {
-            font-weight: bold;
-        }
-
-        #steam-news-content .steam-news-contents {
-            margin: var(--normal) 0;
-        }
-
-        #steam-news-content pre {
-            font-family: sans-serif;
-            white-space: break-spaces;
-            max-width: 100%;
-            overflow: hidden;
-        }
-
-        #steam-news-content .steam-news-contents img,
-        #steam-news-content .steam-news-contents video,
-        #steam-news-content .steam-news-contents iframe {
-            display: none;
-        }
-
-        #steam-news-content mark.spoiler {
-            background: var(--color);
-            color: var(--color);
-            cursor: pointer;
-        }
-
-        #steam-news-content mark.spoiler::selection,
-        #steam-news-content mark.spoiler:active {
-            color: var(--background-color);
-        }
-
         /* Downloads */
 
         #downloads-content {
