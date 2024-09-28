@@ -42,10 +42,10 @@ func GetSteamNews(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(communityAnnouncements) < len(san.NewsItems) {
-		title := "All news items feed types"
+		title := "Show all news items types"
 		href := "/steam-news?id=" + id + "&all"
 		if all {
-			title = "Community announcements only"
+			title = "Show only community announcements"
 			href = "/steam-news?id=" + id
 		}
 		pageStack.Append(compton_fragments.ShowMoreButton(ifc, title, href))
