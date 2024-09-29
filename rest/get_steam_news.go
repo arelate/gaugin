@@ -5,9 +5,11 @@ import (
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/gaugin/rest/gaugin_styles"
 	"github.com/arelate/southern_light/steam_integration"
+	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
+	"github.com/boggydigital/compton/elements/fspan"
 	"github.com/boggydigital/compton/elements/iframe_expand"
 	"github.com/boggydigital/nod"
 	"net/http"
@@ -41,7 +43,8 @@ func GetSteamNews(w http.ResponseWriter, r *http.Request) {
 		communityAnnouncements = append(communityAnnouncements, ni)
 	}
 
-	if len(communityAnnouncements) < len(san.NewsItems) {
+	if len(san.NewsItems) > 0 &&
+		len(communityAnnouncements) < len(san.NewsItems) {
 		title := "Show all news items types"
 		href := "/steam-news?id=" + id + "&all"
 		if all {
@@ -54,6 +57,15 @@ func GetSteamNews(w http.ResponseWriter, r *http.Request) {
 	newsItems := communityAnnouncements
 	if all {
 		newsItems = san.NewsItems
+	}
+
+	if len(newsItems) == 0 {
+		title := "Community announcements are not available for this product"
+		if all {
+			title = "Steam news are not available for this product"
+		}
+		fs := fspan.Text(ifc, title).ForegroundColor(color.Gray)
+		pageStack.Append(flex_items.Center(ifc, fs))
 	}
 
 	for ii, ni := range newsItems {

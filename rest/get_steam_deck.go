@@ -35,12 +35,19 @@ func GetSteamDeck(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
+	sdcr, err := getSteamDeckReport(http.DefaultClient, id)
+	if err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
+	}
+
 	idRedux, err := getRedux(http.DefaultClient, id, false,
 		vangogh_local_data.TitleProperty,
 		vangogh_local_data.SteamDeckAppCompatibilityCategoryProperty,
-		vangogh_local_data.SteamDeckAppCompatibilityResultsProperty,
-		vangogh_local_data.SteamDeckAppCompatibilityDisplayTypesProperty,
-		vangogh_local_data.SteamDeckAppCompatibilityBlogUrlProperty)
+		//vangogh_local_data.SteamDeckAppCompatibilityResultsProperty,
+		//vangogh_local_data.SteamDeckAppCompatibilityDisplayTypesProperty,
+		//vangogh_local_data.SteamDeckAppCompatibilityBlogUrlProperty)
+	)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
@@ -64,17 +71,17 @@ func GetSteamDeck(w http.ResponseWriter, r *http.Request) {
 		pageStack.Append(divMessage)
 	}
 
-	results, _ := rdx.GetAllValues(vangogh_local_data.SteamDeckAppCompatibilityResultsProperty, id)
+	results := sdcr.GetResults()
 
 	if len(results) > 0 {
 		pageStack.Append(els.Hr())
 	}
 
-	if blogUrl, ok := rdx.GetLastVal(vangogh_local_data.SteamDeckAppCompatibilityBlogUrlProperty, id); ok && blogUrl != "" {
+	if blogUrl := sdcr.GetBlogUrl(); blogUrl != "" {
 		pageStack.Append(els.AText("Read more in the Steam blog", blogUrl))
 	}
 
-	displayTypes, _ := rdx.GetAllValues(vangogh_local_data.SteamDeckAppCompatibilityDisplayTypesProperty, id)
+	displayTypes := sdcr.GetDisplayTypes()
 
 	ul := els.Ul()
 	if len(displayTypes) == len(results) {

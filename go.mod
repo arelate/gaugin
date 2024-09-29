@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	github.com/arelate/southern_light v0.1.49
-	github.com/arelate/vangogh_local_data v0.4.20
+	github.com/arelate/vangogh_local_data v0.4.21
 	github.com/boggydigital/clo v1.0.4
 	github.com/boggydigital/compton v0.1.65
 	github.com/boggydigital/issa v0.1.12
