@@ -52,7 +52,9 @@ func SteamNewsItem(r compton.Registrar, item steam_integration.NewsItem, open bo
 
 	container.Append(header)
 
-	dsTitle := fspan.Text(r, "Show news item").FontWeight(font_weight.Bolder).ForegroundColor(color.Gray)
+	dsTitle := fspan.Text(r, "Show news item").
+		FontWeight(font_weight.Bolder)
+	//ForegroundColor(color.Gray)
 
 	ds := details_summary.Smaller(r, dsTitle, open)
 
