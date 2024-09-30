@@ -63,10 +63,6 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 		pageStack.Append(searchQueryDisplay)
 	}
 
-	/* Search results items count */
-
-	//pageStack.Append(itemsCount)
-
 	/* Search results product cards */
 
 	if len(ids) > 0 {
@@ -77,12 +73,12 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 	/* Show more... button */
 
 	if to < len(ids) {
-		query["from"] = []string{strconv.Itoa(from)}
+		query["from"] = []string{strconv.Itoa(to)}
 		enq := compton_data.EncodeQuery(query)
 
 		href := "/search?" + enq
 
-		pageStack.Append(compton_fragments.ShowMoreButton(p, "Show more", href))
+		pageStack.Append(compton_fragments.ShowMoreButton(p, "Next page", href))
 	}
 
 	/* Standard app footer */
