@@ -5,6 +5,7 @@ import (
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/gaugin/rest/gaugin_elements/product_labels"
 	"github.com/boggydigital/compton"
+	"github.com/boggydigital/compton/consts/align"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/size"
@@ -51,10 +52,21 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 
 	for _, section := range sections {
 
+		ids := updates[section]
+
 		sectionTitle := sectionTitles[section]
+
+		sectionColumn := flex_items.FlexItems(p, direction.Column).
+			RowGap(size.Unset).
+			AlignItems(align.Start)
+
 		sectionHeading := compton_fragments.DetailsSummaryTitle(p, sectionTitle)
+		itemsCount := compton_fragments.ItemsCount(p, 0, len(ids), updateTotals[section])
+
+		sectionColumn.Append(sectionHeading, itemsCount)
+
 		sectionDetailsToggle := details_summary.
-			Larger(p, sectionHeading, true).
+			Larger(p, sectionColumn, true).
 			BackgroundColor(color.Highlight).
 			SummaryMarginBlockEnd(size.Normal).
 			DetailsMarginBlockEnd(size.Unset)
@@ -64,10 +76,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 		sectionStack := flex_items.FlexItems(p, direction.Column)
 		sectionDetailsToggle.Append(sectionStack)
 
-		ids := updates[section]
-
-		itemsCount := compton_fragments.ItemsCount(p, 0, len(ids), updateTotals[section])
-		sectionStack.Append(itemsCount)
+		//sectionStack.Append(itemsCount)
 
 		productsList := compton_fragments.ProductsList(p, ids, 0, len(ids), rdx)
 		sectionStack.Append(productsList)
