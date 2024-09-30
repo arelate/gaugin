@@ -57,7 +57,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 			Larger(p, sectionHeading, true).
 			BackgroundColor(color.Highlight).
 			SummaryMarginBlockEnd(size.Normal).
-			DetailsMarginBlockEnd(size.Large)
+			DetailsMarginBlockEnd(size.Unset)
 		sectionDetailsToggle.SetId(sectionTitle)
 		pageStack.Append(sectionDetailsToggle)
 

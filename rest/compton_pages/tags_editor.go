@@ -73,7 +73,8 @@ func TagsEditor(
 		BackgroundColor(color.Indigo).
 		ForegroundColor(color.Background).
 		MarkerColor(color.Background).
-		DetailsMarginBlockEnd(size.Large)
+		SummaryMarginBlockEnd(size.Normal).
+		DetailsMarginBlockEnd(size.Unset)
 
 	pageStack.Append(dsTags)
 

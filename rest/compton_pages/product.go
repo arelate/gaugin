@@ -93,8 +93,8 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 			BackgroundColor(dsbc).
 			ForegroundColor(dsfc).
 			MarkerColor(dsmc).
-			SummaryMarginBlockEnd(size.Large).
-			DetailsMarginBlockEnd(size.Normal)
+			SummaryMarginBlockEnd(size.Normal).
+			DetailsMarginBlockEnd(size.Unset)
 		detailsSummary.SetId(sectionTitle)
 
 		switch section {
