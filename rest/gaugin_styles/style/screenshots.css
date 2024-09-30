@@ -1,4 +1,8 @@
-img {
-    width: 100%;
-    border-radius: var(--br-n);
+a {
+    line-height: 0;
+
+    & img {
+        width: 100%;
+        border-radius: var(--br-n);
+    }
 }
