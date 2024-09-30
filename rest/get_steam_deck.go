@@ -44,9 +44,6 @@ func GetSteamDeck(w http.ResponseWriter, r *http.Request) {
 	idRedux, err := getRedux(http.DefaultClient, id, false,
 		vangogh_local_data.TitleProperty,
 		vangogh_local_data.SteamDeckAppCompatibilityCategoryProperty,
-		//vangogh_local_data.SteamDeckAppCompatibilityResultsProperty,
-		//vangogh_local_data.SteamDeckAppCompatibilityDisplayTypesProperty,
-		//vangogh_local_data.SteamDeckAppCompatibilityBlogUrlProperty)
 	)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)

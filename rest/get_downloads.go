@@ -1,8 +1,12 @@
 package rest
 
 import (
-	"github.com/arelate/gaugin/gaugin_middleware"
-	"github.com/arelate/gaugin/stencil_app"
+	"fmt"
+	"github.com/arelate/gaugin/rest/compton_data"
+	"github.com/arelate/gaugin/rest/gaugin_styles"
+	"github.com/boggydigital/compton/consts/direction"
+	"github.com/boggydigital/compton/elements/flex_items"
+	"github.com/boggydigital/compton/elements/iframe_expand"
 	"net/http"
 	"strings"
 
@@ -18,25 +22,53 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 
 	clientOS := getClientOperatingSystem(r)
-	dvm, err := getDownloadsViewModel(id, clientOS)
+
+	idRdx, err := getRedux(
+		http.DefaultClient,
+		id,
+		false,
+		vangogh_local_data.ValidationResultProperty,
+		vangogh_local_data.ValidationCompletedProperty)
 	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 
-	sb := &strings.Builder{}
-
-	if err := tmpl.ExecuteTemplate(sb, "downloads-content", dvm); err != nil {
+	//we specifically get /downloads and not /data&product-type=details because of Details
+	//format complexities, see gog_integration/details.go/GetGameDownloads comment
+	dls, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes, excludePatches)
+	if err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 		return
 	}
 
-	gaugin_middleware.DefaultHeaders(w)
+	dvm := view_models.NewDownloads(idRdx[id], clientOS, dls)
+	fmt.Println(dvm)
 
-	if err := app.RenderSection(id, stencil_app.DownloadsSection, sb.String(), w); err != nil {
+	section := compton_data.DownloadsSection
+	ifc := iframe_expand.IframeExpandContent(section, compton_data.SectionTitles[section]).
+		AppendStyle(gaugin_styles.DownloadsStyle)
+
+	pageStack := flex_items.FlexItems(ifc, direction.Column)
+	ifc.Append(pageStack)
+
+	if err := ifc.WriteContent(w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
 	}
+
+	//sb := &strings.Builder{}
+	//
+	//if err := tmpl.ExecuteTemplate(sb, "downloads-content", dvm); err != nil {
+	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+	//	return
+	//}
+	//
+	//gaugin_middleware.DefaultHeaders(w)
+	//
+	//if err := app.RenderSection(id, stencil_app.DownloadsSection, sb.String(), w); err != nil {
+	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+	//	return
+	//}
 }
 
 func getClientOperatingSystem(r *http.Request) vangogh_local_data.OperatingSystem {
@@ -76,28 +108,4 @@ func getClientOperatingSystem(r *http.Request) vangogh_local_data.OperatingSyste
 	}
 
 	return clientOS
-}
-
-func getDownloadsViewModel(id string, clientOS vangogh_local_data.OperatingSystem) (*view_models.Downloads, error) {
-
-	idRdx, err := getRedux(
-		http.DefaultClient,
-		id,
-		false,
-		vangogh_local_data.ValidationResultProperty,
-		vangogh_local_data.ValidationCompletedProperty)
-	if err != nil {
-		return nil, err
-	}
-
-	//we specifically get /downloads and not /data&product-type=details because of Details
-	//format complexities, see gog_integration/details.go/GetGameDownloads comment
-	dls, err := getDownloads(http.DefaultClient, id, operatingSystems, languageCodes, excludePatches)
-	if err != nil {
-		return nil, err
-	}
-
-	dvm := view_models.NewDownloads(idRdx[id], clientOS, dls)
-
-	return dvm, nil
 }
