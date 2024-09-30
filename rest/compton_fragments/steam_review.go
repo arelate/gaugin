@@ -13,6 +13,7 @@ import (
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
+	"github.com/boggydigital/compton/elements/svg_use"
 	"strconv"
 	"time"
 )
@@ -32,10 +33,20 @@ func SteamReview(r compton.Registrar, review steam_integration.Review) compton.E
 		votedColor = color.Green
 	}
 
-	votedHeading := els.H3()
-	votedHeading.Append(fspan.Text(r, votedTitle).ForegroundColor(votedColor))
+	votedRow := flex_items.FlexItems(r, direction.Row).
+		AlignItems(align.Center).
+		ColumnGap(size.Small)
 
-	container.Append(votedHeading)
+	fs := fspan.Text(r, "").ForegroundColor(votedColor)
+	fs.AddClass("symbol")
+	fs.Append(svg_use.SvgUse(r, svg_use.Circle))
+
+	votedHeading := els.H3Text(votedTitle)
+	//votedHeading.Append(fspan.Text(r, votedTitle))
+
+	votedRow.Append(fs, votedHeading)
+
+	container.Append(votedRow)
 
 	header := flex_items.FlexItems(r, direction.Row).ColumnGap(size.Small).RowGap(size.Unset)
 
