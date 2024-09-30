@@ -10,6 +10,7 @@ import (
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/font_weight"
+	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
@@ -226,9 +227,10 @@ func propertyTitleValues(r compton.Registrar, property string, fmtProperty forma
 		} else {
 			summaryTitle := fmt.Sprintf("Show all %d", len(fmtProperty.values))
 			summaryElement := fspan.Text(r, summaryTitle).
-				ForegroundColor(color.Blue).
 				FontWeight(font_weight.Bolder)
-			ds := details_summary.Smaller(r, summaryElement, false)
+			ds := details_summary.Smaller(r, summaryElement, false).
+				SummaryMarginBlockEnd(size.Normal).
+				DetailsMarginBlockEnd(size.Small)
 			row := flex_items.FlexItems(r, direction.Row).JustifyContent(align.Start)
 			keys := maps.Keys(fmtProperty.values)
 			slices.Sort(keys)
@@ -247,8 +249,8 @@ func propertyTitleValues(r compton.Registrar, property string, fmtProperty forma
 
 	if len(fmtProperty.actions) > 0 {
 		for ac, acHref := range fmtProperty.actions {
-			actionLink := els.AText(ac, acHref)
-			actionLink.AddClass("action")
+			actionLink := els.A(acHref)
+			actionLink.Append(fspan.Text(r, ac).ForegroundColor(color.Blue))
 			tv.AppendValues(actionLink)
 		}
 	}

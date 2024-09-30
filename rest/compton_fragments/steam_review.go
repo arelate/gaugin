@@ -104,7 +104,7 @@ func SteamReview(r compton.Registrar, review steam_integration.Review) compton.E
 	if len(review.Review) > longReviewThreshold {
 		dsTitleText := fmt.Sprintf("Show full review (%d chars)", len(review.Review))
 		dsTitle := fspan.Text(r, dsTitleText).
-			ForegroundColor(color.Blue).
+			ForegroundColor(color.Gray).
 			FontWeight(font_weight.Bolder)
 		dsReview := details_summary.Smaller(r, dsTitle, false)
 		container.Append(dsReview)
