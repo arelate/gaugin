@@ -1,16 +1,11 @@
 package rest
 
 import (
-	"fmt"
-	"github.com/arelate/gaugin/rest/compton_data"
-	"github.com/arelate/gaugin/rest/gaugin_styles"
-	"github.com/boggydigital/compton/consts/direction"
-	"github.com/boggydigital/compton/elements/flex_items"
-	"github.com/boggydigital/compton/elements/iframe_expand"
+	"github.com/arelate/gaugin/rest/compton_pages"
+	"github.com/boggydigital/kevlar"
 	"net/http"
 	"strings"
 
-	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
 )
@@ -23,7 +18,7 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 
 	clientOS := getClientOperatingSystem(r)
 
-	idRdx, err := getRedux(
+	idRedux, err := getRedux(
 		http.DefaultClient,
 		id,
 		false,
@@ -42,17 +37,9 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	dvm := view_models.NewDownloads(idRdx[id], clientOS, dls)
-	fmt.Println(dvm)
+	p := compton_pages.Downloads(id, clientOS, dls, kevlar.ReduxProxy(idRedux))
 
-	section := compton_data.DownloadsSection
-	ifc := iframe_expand.IframeExpandContent(section, compton_data.SectionTitles[section]).
-		AppendStyle(gaugin_styles.DownloadsStyle)
-
-	pageStack := flex_items.FlexItems(ifc, direction.Column)
-	ifc.Append(pageStack)
-
-	if err := ifc.WriteContent(w); err != nil {
+	if err := p.WriteContent(w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 	}
 

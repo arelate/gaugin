@@ -16,11 +16,11 @@ var (
 	//go:embed "style/steam-deck.css"
 	SteamDeckStyle []byte
 	//go:embed "style/steam-reviews.css"
-	SteamReviews []byte
+	SteamReviewsStyle []byte
 	//go:embed "style/steam-news.css"
-	SteamNews []byte
+	SteamNewsStyle []byte
 	//go:embed "style/tag-editors.css"
-	TagEditors []byte
+	TagEditorsStyle []byte
 	//go:embed "style/downloads.css"
 	DownloadsStyle []byte
 )
