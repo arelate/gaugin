@@ -1,8 +1,9 @@
 package rest
 
 import (
-	"github.com/arelate/gaugin/rest/compton_pages"
-	"github.com/boggydigital/kevlar"
+	"github.com/arelate/gaugin/gaugin_middleware"
+	"github.com/arelate/gaugin/stencil_app"
+	"github.com/arelate/gaugin/view_models"
 	"net/http"
 	"strings"
 
@@ -37,27 +38,27 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	p := compton_pages.Downloads(id, clientOS, dls, kevlar.ReduxProxy(idRedux))
+	//p := compton_pages.Downloads(id, clientOS, dls, kevlar.ReduxProxy(idRedux))
+	//
+	//if err := p.WriteContent(w); err != nil {
+	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+	//}
 
-	if err := p.WriteContent(w); err != nil {
+	dvm := view_models.NewDownloads(idRedux[id], clientOS, dls)
+
+	sb := &strings.Builder{}
+
+	if err := tmpl.ExecuteTemplate(sb, "downloads-content", dvm); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
 	}
 
-	//dvm := view_models.NewDownloads(idRedux[id], clientOS, dls)
-	//
-	//sb := &strings.Builder{}
-	//
-	//if err := tmpl.ExecuteTemplate(sb, "downloads-content", dvm); err != nil {
-	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	return
-	//}
-	//
-	//gaugin_middleware.DefaultHeaders(w)
-	//
-	//if err := app.RenderSection(id, stencil_app.DownloadsSection, sb.String(), w); err != nil {
-	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	return
-	//}
+	gaugin_middleware.DefaultHeaders(w)
+
+	if err := app.RenderSection(id, stencil_app.DownloadsSection, sb.String(), w); err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
+	}
 }
 
 func getClientOperatingSystem(r *http.Request) vangogh_local_data.OperatingSystem {

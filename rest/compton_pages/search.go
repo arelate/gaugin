@@ -5,9 +5,7 @@ import (
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/gaugin/rest/gaugin_elements/product_labels"
 	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/consts/align"
 	"github.com/boggydigital/compton/consts/color"
-	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/flex_items"
@@ -36,23 +34,20 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 
 	/* Filter & Search details */
 
-	filterSearchColumn := flex_items.FlexItems(p, direction.Column).
-		RowGap(size.Unset).
-		AlignItems(align.Start)
-
 	filterSearchHeading := compton_fragments.DetailsSummaryTitle(p, filterSearchTitle)
-	itemsCount := compton_fragments.ItemsCount(p, from, to, len(ids))
-
-	filterSearchColumn.Append(filterSearchHeading)
-	if len(query) > 0 {
-		filterSearchColumn.Append(itemsCount)
-	}
 
 	filterSearchDetails := details_summary.
-		Larger(p, filterSearchColumn, len(query) == 0).
+		Larger(p, filterSearchHeading, len(query) == 0).
 		BackgroundColor(color.Highlight).
 		SummaryMarginBlockEnd(size.Normal).
-		DetailsMarginBlockEnd(size.Unset)
+		DetailsMarginBlockEnd(size.Unset).
+		SummaryRowGap(size.XSmall)
+
+	if len(query) > 0 {
+
+		itemsCount := compton_fragments.ItemsCount(p, from, to, len(ids))
+		filterSearchDetails.AppendSummary(itemsCount)
+	}
 
 	searchQueryDisplay := compton_fragments.SearchQueryDisplay(query, p)
 

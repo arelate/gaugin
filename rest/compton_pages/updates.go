@@ -5,7 +5,6 @@ import (
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/gaugin/rest/gaugin_elements/product_labels"
 	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/consts/align"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/size"
@@ -56,20 +55,18 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 
 		sectionTitle := sectionTitles[section]
 
-		sectionColumn := flex_items.FlexItems(p, direction.Column).
-			RowGap(size.Unset).
-			AlignItems(align.Start)
-
 		sectionHeading := compton_fragments.DetailsSummaryTitle(p, sectionTitle)
-		itemsCount := compton_fragments.ItemsCount(p, 0, len(ids), updateTotals[section])
-
-		sectionColumn.Append(sectionHeading, itemsCount)
 
 		sectionDetailsToggle := details_summary.
-			Larger(p, sectionColumn, true).
+			Larger(p, sectionHeading, true).
 			BackgroundColor(color.Highlight).
 			SummaryMarginBlockEnd(size.Normal).
-			DetailsMarginBlockEnd(size.Unset)
+			DetailsMarginBlockEnd(size.Unset).
+			SummaryRowGap(size.XSmall)
+
+		itemsCount := compton_fragments.ItemsCount(p, 0, len(ids), updateTotals[section])
+		sectionDetailsToggle.AppendSummary(itemsCount)
+
 		sectionDetailsToggle.SetId(sectionTitle)
 		pageStack.Append(sectionDetailsToggle)
 
