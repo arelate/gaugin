@@ -29,9 +29,10 @@
 }
 
 @scope (title-values) {
+
     & svg {
-        width: calc(5 * var(--s-xs));
-        height: calc(5 * var(--s-xs));
+        width: var(--s-n);
+        height: var(--s-n);
     }
 
     &.external .values {
