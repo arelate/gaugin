@@ -62,7 +62,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 			BackgroundColor(color.Highlight).
 			SummaryMarginBlockEnd(size.Normal).
 			DetailsMarginBlockEnd(size.Unset).
-			SummaryRowGap(size.XSmall)
+			SummaryRowGap(size.XXSmall)
 
 		itemsCount := compton_fragments.ItemsCount(p, 0, len(ids), updateTotals[section])
 		sectionDetailsToggle.AppendSummary(itemsCount)

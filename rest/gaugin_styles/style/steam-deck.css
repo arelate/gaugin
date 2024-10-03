@@ -45,7 +45,7 @@ ul {
     }
 
     & .playable {
-        color: var(--c-yellow)
+        color: var(--c-orange)
     }
 
     & .unsupported {

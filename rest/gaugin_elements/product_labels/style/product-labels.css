@@ -11,7 +11,7 @@
         }
 
         &.owned.validation-result-err {
-            color: var(--c-highlight);
+            color: black;
             background-color: var(--c-yellow);
         }
 

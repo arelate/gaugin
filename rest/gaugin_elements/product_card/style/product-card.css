@@ -49,7 +49,7 @@
             color: var(--c-foreground);
             font-size: calc((var(--fs-xs) + var(--fs-s)) / 2);
             display: grid;
-            grid-template-columns: calc(var(--s-n) * 4) auto;
+            grid-template-columns: var(--s-xl) auto;
             align-content: center;
             grid-column-gap: var(--s-s);
             grid-row-gap: var(--s-s);

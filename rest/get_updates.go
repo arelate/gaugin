@@ -111,17 +111,17 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		st := t
 		switch t {
 		case "new in store":
-			st = "store"
+			st = "Store additions"
 		case "new in account":
-			st = "account"
+			st = "Purchased recently"
 		case "new in wishlist":
-			st = "wishlist"
+			st = "Wishlist additions"
 		case "released today":
-			st = "today"
+			st = "Today's releases"
 		case "updates in account":
-			st = "updates"
+			st = "Installers updated"
 		case "updates in news":
-			st = "news"
+			st = "Steam news"
 		}
 
 		sectionTitles[t] = caser.String(st)

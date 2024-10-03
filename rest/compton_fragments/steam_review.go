@@ -146,7 +146,7 @@ func AppendSteamReviewNotice(r compton.Registrar, c compton.Element, n string) {
 	notice := fspan.Text(r, n).
 		FontWeight(font_weight.Bolder).
 		FontSize(size.Small).
-		ForegroundColor(color.Yellow)
+		ForegroundColor(color.Orange)
 	c.Append(notice)
 }
 

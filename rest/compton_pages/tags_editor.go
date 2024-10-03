@@ -59,7 +59,7 @@ func TagsEditor(
 	if !owned {
 		ownershipNotice := section.Section(p).
 			BackgroundColor(color.Yellow).
-			ForegroundColor(color.Background)
+			ForegroundColor(color.Black)
 
 		ownershipNotice.Append(els.DivText("Tags modifications require product ownership"))
 		pageStack.Append(ownershipNotice)

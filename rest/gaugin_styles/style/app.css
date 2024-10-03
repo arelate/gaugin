@@ -56,7 +56,7 @@
     }
 
     &.Playable .values {
-        color: var(--c-yellow)
+        color: var(--c-orange)
     }
 
     &.Unsupported .values {

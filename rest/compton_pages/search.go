@@ -41,7 +41,7 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 		BackgroundColor(color.Highlight).
 		SummaryMarginBlockEnd(size.Normal).
 		DetailsMarginBlockEnd(size.Unset).
-		SummaryRowGap(size.XSmall)
+		SummaryRowGap(size.XXSmall)
 
 	if len(query) > 0 {
 
