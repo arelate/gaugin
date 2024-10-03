@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	filterSearchTitle = "Filter & Search"
+	filterSearchTitle = "Filter & search"
 )
 
 func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.ReadableRedux) compton.Element {

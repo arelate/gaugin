@@ -39,6 +39,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            font-weight: var(--fw-n);
         }
 
         & li.labels {

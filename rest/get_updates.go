@@ -5,8 +5,6 @@ import (
 	"github.com/arelate/gaugin/rest/compton_pages"
 	"github.com/boggydigital/kevlar"
 	"golang.org/x/exp/maps"
-	"golang.org/x/text/cases"
-	"golang.org/x/text/language"
 	"net/http"
 	"sort"
 	"strconv"
@@ -20,6 +18,15 @@ import (
 const (
 	updatedProductsLimit = 24 // divisible by 2,3,4,6
 )
+
+var sectionTitles = map[string]string{
+	"new in store":       "Store additions",
+	"new in account":     "Purchased recently",
+	"new in wishlist":    "Wishlist additions",
+	"released today":     "Today's releases",
+	"updates in account": "Updated installers",
+	"updates in news":    "Steam news",
+}
 
 func GetUpdates(w http.ResponseWriter, r *http.Request) {
 
@@ -97,35 +104,10 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	//gaugin_middleware.DefaultHeaders(w)
-
 	// section order will be based on full title ("new in ...", "updates in ...")
-	// so not changed after concise update titles change
+	// so the order won't be changed after expanding titles
 	sections := maps.Keys(updates)
 	sort.Strings(sections)
-
-	var caser = cases.Title(language.English)
-
-	sectionTitles := make(map[string]string)
-	for t, _ := range updates {
-		st := t
-		switch t {
-		case "new in store":
-			st = "Store additions"
-		case "new in account":
-			st = "Purchased recently"
-		case "new in wishlist":
-			st = "Wishlist additions"
-		case "released today":
-			st = "Today's releases"
-		case "updates in account":
-			st = "Installers updated"
-		case "updates in news":
-			st = "Steam news"
-		}
-
-		sectionTitles[t] = caser.String(st)
-	}
 
 	tagNamesRedux, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
 	if err != nil {
@@ -139,18 +121,4 @@ func GetUpdates(w http.ResponseWriter, r *http.Request) {
 	if err := updatesPage.WriteContent(w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 	}
-
-	//if err := app.RenderGroup(
-	//	stencil_app.NavUpdates,
-	//	sections,
-	//	updates,
-	//	sectionTitles,
-	//	updateTotals,
-	//	updated,
-	//	r.URL,
-	//	rdx,
-	//	w); err != nil {
-	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	return
-	//}
 }
