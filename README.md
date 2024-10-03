@@ -40,8 +40,6 @@ services:
       - /docker/vangogh/images:/var/lib/vangogh/images:ro
       # items
       - /docker/vangogh/items:/var/lib/vangogh/items:ro
-      # videos
-      - /docker/vangogh/videos:/var/lib/vangogh/videos:ro
      # downloads
       - /docker/vangogh/downloads:/var/lib/vangogh/downloads:ro
       # sharing timezone from the host
@@ -53,7 +51,7 @@ services:
       - "1848:1848"
 ```
 
-NOTE: `gaugin` needs direct access to digital files fetched by `vangogh` (images, videos, downloads). While `gaugin` doesn't need to run on the same server, it's recommended for easier configuration. Mounting remote `vangogh` volume is out of scope for this document. 
+NOTE: `gaugin` needs direct access to digital files fetched by `vangogh` (images, downloads). While `gaugin` doesn't need to run on the same server, it's recommended for easier configuration. Mounting remote `vangogh` volume is out of scope for this document. 
 
 - (move it to location of your choice, e.g. `/docker/gaugin` or remote server or anywhere else)
 - while in the directory with that config - pull the image with `docker-compose pull`

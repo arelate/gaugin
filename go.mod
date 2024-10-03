@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	github.com/arelate/southern_light v0.1.49
-	github.com/arelate/vangogh_local_data v0.4.21
+	github.com/arelate/vangogh_local_data v0.4.22
 	github.com/boggydigital/clo v1.0.4
 	github.com/boggydigital/compton v0.1.70
 	github.com/boggydigital/issa v0.1.12
@@ -16,7 +16,6 @@ require (
 	github.com/boggydigital/yet_urls v0.1.54
 	golang.org/x/exp v0.0.0-20240909161429-701f63a606c0
 	golang.org/x/net v0.29.0
-	golang.org/x/text v0.18.0
 )
 
 require (

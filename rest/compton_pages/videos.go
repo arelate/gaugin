@@ -27,7 +27,7 @@ func Videos(id string, rdx kevlar.ReadableRedux) compton.Element {
 	}
 
 	for _, videoId := range videoIds {
-		pageStack.Append(compton_fragments.Video(s, videoId))
+		pageStack.Append(compton_fragments.VideoOriginLink(s, videoId))
 	}
 
 	return s

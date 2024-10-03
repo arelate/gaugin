@@ -19,8 +19,6 @@ EXPOSE 1848
 VOLUME /var/lib/vangogh/images
 #items
 VOLUME /var/lib/vangogh/items
-#videos
-VOLUME /var/lib/vangogh/videos
 #downloads
 VOLUME /var/lib/vangogh/downloads
 

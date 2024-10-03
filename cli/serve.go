@@ -41,7 +41,6 @@ func ServeHandler(u *url.URL) error {
 	vangoghAbsDirs := []pathways.AbsDir{
 		vangogh_local_data.Images,
 		vangogh_local_data.Items,
-		vangogh_local_data.Videos,
 		vangogh_local_data.Downloads,
 	}
 
@@ -57,9 +56,6 @@ func ServeHandler(u *url.URL) error {
 	}
 	if vangoghItemsDir := vangogh_local_data.ValueFromUrl(u, "vangogh-items-dir"); vangoghItemsDir != "" {
 		vangoghDirs[string(vangogh_local_data.Items)] = vangoghItemsDir
-	}
-	if vangoghVideosDir := vangogh_local_data.ValueFromUrl(u, "vangogh-videos-dir"); vangoghVideosDir != "" {
-		vangoghDirs[string(vangogh_local_data.Videos)] = vangoghVideosDir
 	}
 	if vangoghDownloadsDir := vangogh_local_data.ValueFromUrl(u, "vangogh-downloads-dir"); vangoghDownloadsDir != "" {
 		vangoghDirs[string(vangogh_local_data.Downloads)] = vangoghDownloadsDir
