@@ -37,11 +37,12 @@ func formatLabel(id, property string, owned bool, rdx kevlar.ReadableRedux) labe
 	switch property {
 	case vangogh_local_data.OwnedProperty:
 		if res, ok := rdx.GetLastVal(vangogh_local_data.ValidationResultProperty, id); ok {
-			if res == "OK" {
-				fmtLabel.Class = "validation-result-ok"
-			} else {
-				fmtLabel.Class = "validation-result-err"
-			}
+			fmtLabel.Class = res
+			//if res == "OK" {
+			//	fmtLabel.Class = "validation-result-ok"
+			//} else {
+			//	fmtLabel.Class = "validation-result-err"
+			//}
 		}
 		fallthrough
 	case vangogh_local_data.WishlistedProperty:

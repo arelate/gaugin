@@ -159,11 +159,12 @@ func formatProperty(id, property string, rdx kevlar.ReadableRedux) formattedProp
 	switch property {
 	case vangogh_local_data.OwnedProperty:
 		if res, ok := rdx.GetLastVal(vangogh_local_data.ValidationResultProperty, id); ok {
-			if res == "OK" {
-				fmtProperty.class = "validation-result-ok"
-			} else {
-				fmtProperty.class = "validation-result-err"
-			}
+			fmtProperty.class = res
+			//if res == "OK" {
+			//	fmtProperty.class = "validation-result-ok"
+			//} else {
+			//	fmtProperty.class = "validation-result-err"
+			//}
 		}
 	case vangogh_local_data.WishlistedProperty:
 		if !owned {

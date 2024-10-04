@@ -5,14 +5,29 @@
             background-color: var(--c-gray);
         }
 
-        &.owned.validation-result-ok {
+        &.owned.OK {
             color: var(--c-highlight);
             background-color: var(--c-green);
         }
 
-        &.owned.validation-result-err {
+        &.owned.missing-checksum {
+            color:var(--c-highlight);
+            background-color: var(--c-mint);
+        }
+
+        &.owned.unresolved-manual-url {
+            color:var(--c-highlight);
+            background-color: var(--c-teal);
+        }
+
+        &.owned.missing-download {
             color: black;
             background-color: var(--c-yellow);
+        }
+
+        &.owned.failed-validation {
+            color:var(--c-highlight);
+            background-color: var(--c-red);
         }
 
         /* GAME, DLC, PACK */
