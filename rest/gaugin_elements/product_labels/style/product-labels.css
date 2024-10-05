@@ -75,22 +75,5 @@
             color: var(--c-highlight);
             background-color: var(--c-red);
         }
-
-        /* Download types */
-
-        &.installer {
-            color: var(--c-highlight);
-            background-color: var(--c-purple);
-        }
-
-        &.downloadable-content {
-            color: var(--c-highlight);
-            background-color: var(--c-green);
-        }
-
-        &.extra {
-            color: var(--c-highlight);
-            background-color: var(--c-orange);
-        }
     }
 }

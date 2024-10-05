@@ -1,0 +1,25 @@
+/*.download {*/
+/*    padding: var(--s-xxs) var(--s-s);*/
+/*    border-radius: var(--br-n);*/
+/*    background-color: var(--c-gray);*/
+/*    color: var(--c-highlight);*/
+/*}*/
+svg {
+    width: var(--s-n);
+    height: var(--s-n);
+
+    &.installer {
+        color: var(--c-purple);
+    }
+
+    &.downloadable-content {
+        color: var(--c-indigo);
+    }
+
+    &.extra {
+        color: var(--c-orange);
+    }
+}
+
+/* Download types */
+

@@ -42,22 +42,6 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 	if err := p.WriteContent(w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 	}
-
-	//dvm := view_models.NewDownloads(idRedux[id], clientOS, dls)
-	//
-	//sb := &strings.Builder{}
-	//
-	//if err := tmpl.ExecuteTemplate(sb, "downloads-content", dvm); err != nil {
-	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	return
-	//}
-	//
-	//gaugin_middleware.DefaultHeaders(w)
-	//
-	//if err := app.RenderSection(id, stencil_app.DownloadsSection, sb.String(), w); err != nil {
-	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	return
-	//}
 }
 
 func getClientOperatingSystem(r *http.Request) vangogh_local_data.OperatingSystem {
