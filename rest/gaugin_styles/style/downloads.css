@@ -1,12 +1,10 @@
-/*.download {*/
-/*    padding: var(--s-xxs) var(--s-s);*/
-/*    border-radius: var(--br-n);*/
-/*    background-color: var(--c-gray);*/
-/*    color: var(--c-highlight);*/
-/*}*/
 svg {
     width: var(--s-n);
     height: var(--s-n);
+
+    &.operating-system {
+        color: var(--c-gray);
+    }
 
     &.installer {
         color: var(--c-purple);
@@ -21,5 +19,36 @@ svg {
     }
 }
 
-/* Download types */
+@scope (.validation-results) {
+    :scope {
+        border-radius: var(--br-n);
+        color: var(--c-highlight);
+        background-color: var(--c-gray);
 
+        &.OK {
+            color: var(--c-highlight);
+            background-color: var(--c-green);
+        }
+
+        &.missing-checksum {
+            color: var(--c-highlight);
+            background-color: var(--c-mint);
+        }
+
+        &.unresolved-manual-url {
+            color: var(--c-highlight);
+            background-color: var(--c-teal);
+        }
+
+        &.missing-download {
+            color: black;
+            background-color: var(--c-yellow);
+        }
+
+        &.failed-validation {
+            color: var(--c-highlight);
+            background-color: var(--c-red);
+        }
+    }
+
+}

@@ -17,20 +17,7 @@ import (
 	"github.com/boggydigital/compton/elements/labels"
 	"github.com/boggydigital/compton/elements/popup"
 	"github.com/boggydigital/kevlar"
-	"slices"
 )
-
-var convertedSections = []string{
-	compton_data.PropertiesSection,
-	compton_data.ExternalLinksSection,
-	compton_data.ScreenshotsSection,
-	compton_data.ChangelogSection,
-	compton_data.DescriptionSection,
-	compton_data.VideosSection,
-	compton_data.SteamDeckSection,
-	compton_data.SteamReviewsSection,
-	compton_data.SteamNewsSection,
-}
 
 func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.Element {
 
@@ -77,22 +64,13 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 	for _, section := range hasSections {
 
-		dsbc := color.Highlight
-		dsfc := color.Foreground
-		dsmc := color.Gray
-		if !slices.Contains(convertedSections, section) {
-			dsbc = color.Red
-			dsfc = color.Background
-			dsmc = color.Black
-		}
-
 		sectionTitle := compton_data.SectionTitles[section]
 		summaryHeading := compton_fragments.DetailsSummaryTitle(p, sectionTitle)
 		detailsSummary := details_summary.
 			Larger(p, summaryHeading, section == compton_data.PropertiesSection).
-			BackgroundColor(dsbc).
-			ForegroundColor(dsfc).
-			MarkerColor(dsmc).
+			BackgroundColor(color.Highlight).
+			ForegroundColor(color.Foreground).
+			MarkerColor(color.Gray).
 			SummaryMarginBlockEnd(size.Normal).
 			DetailsMarginBlockEnd(size.Unset)
 		detailsSummary.SetId(sectionTitle)

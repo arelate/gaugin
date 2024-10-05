@@ -47,6 +47,18 @@ func Downloads(id string, clientOs vangogh_local_data.OperatingSystem, dls vango
 	pageStack := flex_items.FlexItems(s, direction.Column)
 	s.Append(pageStack)
 
+	if _, ok := rdx.GetLastVal(vangogh_local_data.ValidationCompletedProperty, id); ok {
+		if validationResults, sure := rdx.GetAllValues(vangogh_local_data.ValidationResultProperty, id); sure && len(validationResults) > 0 {
+
+			lastResult := validationResults[len(validationResults)-1]
+			validationSection := flex_items.FlexItems(s, direction.Row).JustifyContent(align.Center)
+			validationSection.Append(els.DivText(lastResult))
+			validationSection.AddClass("validation-results", lastResult)
+
+			pageStack.Append(validationSection)
+		}
+	}
+
 	dlOs := downloadsOperatingSystems(dls)
 
 	for ii, os := range dlOs {
@@ -58,6 +70,7 @@ func Downloads(id string, clientOs vangogh_local_data.OperatingSystem, dls vango
 			osSymbol = smb
 		}
 		osIcon := svg_use.SvgUse(s, osSymbol)
+		osIcon.AddClass("operating-system")
 		osTitle := els.H3()
 		osString := ""
 		switch os {
@@ -66,7 +79,7 @@ func Downloads(id string, clientOs vangogh_local_data.OperatingSystem, dls vango
 		default:
 			osString = os.String()
 		}
-		osTitle.Append(fspan.Text(s, osString).ForegroundColor(color.Gray))
+		osTitle.Append(fspan.Text(s, osString))
 		osRow.Append(osIcon, osTitle)
 		pageStack.Append(osRow)
 
