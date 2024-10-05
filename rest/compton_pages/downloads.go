@@ -86,6 +86,10 @@ func Downloads(id string, clientOs vangogh_local_data.OperatingSystem, dls vango
 		variants := getDownloadVariants(os, dls)
 		for _, dv := range variants {
 
+			column := flex_items.FlexItems(s, direction.Column).
+				RowGap(size.Unset).
+				AlignItems(align.Start)
+
 			row := flex_items.FlexItems(s, direction.Row).
 				ColumnGap(size.Small).
 				AlignItems(align.Center)
@@ -97,13 +101,19 @@ func Downloads(id string, clientOs vangogh_local_data.OperatingSystem, dls vango
 			typeSpan := fspan.Text(s, downloadTypesStrings[dv.dlType]).FontWeight(font_weight.Bolder)
 			row.Append(typeSpan)
 
-			versionSpan := fspan.Text(s, dv.version).ForegroundColor(color.Gray)
-			row.Append(versionSpan)
-
 			lcSpan := fspan.Text(s, compton_data.LanguageFlags[dv.langCode])
 			row.Append(lcSpan)
 
-			dsDownloadVariant := details_summary.Smaller(s, row, os == clientOs)
+			versionRow := flex_items.FlexItems(s, direction.Row)
+
+			versionTitle := fspan.Text(s, "Version").FontSize(size.Small).FontWeight(font_weight.Bolder)
+			versionSpan := fspan.Text(s, dv.version).ForegroundColor(color.Gray).FontSize(size.Small)
+
+			versionRow.Append(versionTitle, versionSpan)
+
+			column.Append(row, versionRow)
+
+			dsDownloadVariant := details_summary.Smaller(s, column, os == clientOs)
 			pageStack.Append(dsDownloadVariant)
 
 			downloads := filterDownloads(os, dls, dv)
@@ -117,7 +127,7 @@ func Downloads(id string, clientOs vangogh_local_data.OperatingSystem, dls vango
 					name = dl.ProductTitle
 				}
 				link := els.A(dl.ManualUrl)
-				linkTitle := fspan.Text(s, name).FontSize(size.Small).FontWeight(font_weight.Bolder)
+				linkTitle := fspan.Text(s, name).FontSize(size.Small).FontWeight(font_weight.Bolder).ForegroundColor(color.Gray)
 				link.Append(linkTitle)
 				link.AddClass("download")
 				downloadsRow.Append(link)
