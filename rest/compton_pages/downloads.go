@@ -171,7 +171,8 @@ func downloadVariant(r compton.Registrar, dv *DownloadVariant) compton.Element {
 	//	AlignItems(align.Start)
 
 	row := flex_items.FlexItems(r, direction.Row).
-		ColumnGap(size.Small).
+		ColumnGap(size.XSmall).
+		RowGap(size.Unset).
 		AlignItems(align.Center)
 
 	typeIcon := svg_use.SvgUse(r, svg_use.Circle)
