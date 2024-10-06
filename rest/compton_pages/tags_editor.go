@@ -70,9 +70,8 @@ func TagsEditor(
 	tagsPropertyHeading := compton_fragments.DetailsSummaryTitle(p, tagsPropertyTitle)
 
 	dsTags := details_summary.Larger(p, tagsPropertyHeading, true).
-		BackgroundColor(color.Indigo).
-		ForegroundColor(color.Background).
-		MarkerColor(color.Background).
+		BackgroundColor(color.Highlight).
+		ForegroundColor(color.Foreground).
 		SummaryMarginBlockEnd(size.Normal).
 		DetailsMarginBlockEnd(size.Unset)
 
