@@ -2,8 +2,7 @@ package rest
 
 import (
 	"encoding/json"
-	"github.com/arelate/gaugin/gaugin_middleware"
-	"github.com/arelate/gaugin/stencil_app"
+	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/nod"
 	"net/http"
@@ -64,7 +63,7 @@ func GetDigest(w http.ResponseWriter, r *http.Request) {
 		values = digests[property]
 	}
 
-	gaugin_middleware.DefaultHeaders(w)
+	//gaugin_middleware.DefaultHeaders(w)
 
 	addedValueTitles, err := addTitles(property, values)
 	if err != nil {
@@ -90,7 +89,7 @@ func addTitles(property string, values []string) (map[string]string, error) {
 		// do nothing already filled earlier
 	default:
 		for _, v := range values {
-			if title, ok := stencil_app.PropertyTitles[v]; ok {
+			if title, ok := compton_data.PropertyTitles[v]; ok {
 				valueTitles[v] = title
 			} else {
 				valueTitles[v] = v

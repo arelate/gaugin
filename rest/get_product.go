@@ -6,7 +6,6 @@ import (
 	"github.com/arelate/gaugin/paths"
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/compton_pages"
-	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/southern_light"
 	"github.com/arelate/southern_light/gog_integration"
 	"github.com/arelate/southern_light/gogdb_integration"
@@ -60,6 +59,27 @@ var (
 	}
 )
 
+func propertiesFromRedux(redux map[string][]string, property string) []string {
+	if val, ok := redux[property]; ok {
+		return val
+	} else {
+		return []string{}
+	}
+}
+
+func propertyFromRedux(redux map[string][]string, property string) string {
+	properties := propertiesFromRedux(redux, property)
+	if len(properties) > 0 {
+		return properties[0]
+	}
+	return ""
+}
+
+// TODO: review and remove this
+func FlagFromRedux(redux map[string][]string, property string) bool {
+	return propertyFromRedux(redux, property) == vangogh_local_data.TrueValue
+}
+
 func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	// GET /product?slug -> /product?id
@@ -105,7 +125,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	if hRdx, ok := hasRedux[id]; ok {
 		for _, property := range propertiesSectionsOrder {
 			if section, ok := propertiesSections[property]; ok {
-				if view_models.FlagFromRedux(hRdx, property) {
+				if FlagFromRedux(hRdx, property) {
 					hasSections = append(hasSections, section)
 				}
 			}

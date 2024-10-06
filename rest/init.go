@@ -3,15 +3,10 @@ package rest
 import (
 	"crypto/sha256"
 	"encoding/gob"
-	"github.com/arelate/gaugin/stencil_app"
-	"github.com/arelate/gaugin/view_models"
 	"github.com/arelate/southern_light/gog_integration"
 	"github.com/arelate/southern_light/steam_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/middleware"
-	"github.com/boggydigital/stencil"
-	"html/template"
-	"io/fs"
 )
 
 const (
@@ -22,11 +17,9 @@ const (
 )
 
 var (
-	tmpl             *template.Template
 	operatingSystems []vangogh_local_data.OperatingSystem
 	languageCodes    []string
 	excludePatches   bool
-	app              *stencil.AppConfiguration
 )
 
 func SetDefaultDownloadsFilters(
@@ -46,7 +39,7 @@ func SetPassword(role, p string) {
 	middleware.SetPassword(role, sha256.Sum256([]byte(p)))
 }
 
-func Init(templatesFS fs.FS, stencilAppStyles fs.FS) error {
+func Init() {
 
 	//GOG.com types
 	gob.Register(gog_integration.AccountPage{})
@@ -66,18 +59,4 @@ func Init(templatesFS fs.FS, stencilAppStyles fs.FS) error {
 	gob.Register(steam_integration.GetNewsForAppResponse{})
 	gob.Register(steam_integration.DeckAppCompatibilityReport{})
 	gob.Register(steam_integration.AppReviews{})
-
-	tmpl = template.Must(
-		template.
-			New("").
-			Funcs(view_models.FuncMap()).
-			ParseFS(templatesFS, "templates/*.gohtml"))
-
-	stencil.InitAppTemplates(stencilAppStyles, "stencil_app/styles/css.gohtml")
-
-	var err error
-	app, err = stencil_app.Init()
-	app, err = stencil_app.Init()
-
-	return err
 }

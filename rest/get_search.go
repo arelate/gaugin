@@ -1,8 +1,8 @@
 package rest
 
 import (
+	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/compton_pages"
-	"github.com/arelate/gaugin/stencil_app"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/kevlar"
 	"github.com/boggydigital/middleware"
@@ -31,7 +31,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	query := make(map[string][]string)
 
 	shortQuery := false
-	queryProperties := stencil_app.SearchProperties
+	queryProperties := compton_data.SearchProperties
 	for _, p := range queryProperties {
 		if v := q.Get(p); v != "" {
 			query[p] = strings.Split(v, ",")
@@ -54,7 +54,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 
 	dc := http.DefaultClient
 
-	idRedux := NewIdPropertyValues(stencil_app.ProductsProperties)
+	idRedux := NewIdPropertyValues(compton_data.ProductsProperties)
 
 	if len(query) > 0 {
 
@@ -89,7 +89,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		irx, err := getRedux(dc, strings.Join(slice, ","), false, stencil_app.ProductsProperties...)
+		irx, err := getRedux(dc, strings.Join(slice, ","), false, compton_data.ProductsProperties...)
 		if err != nil {
 			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 			return

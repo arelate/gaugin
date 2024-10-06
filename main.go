@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	"embed"
+	_ "embed"
 	"github.com/arelate/gaugin/cli"
 	"github.com/arelate/gaugin/rest"
 	"github.com/boggydigital/clo"
@@ -13,10 +13,6 @@ import (
 
 var (
 	once = sync.Once{}
-	//go:embed "templates/*.gohtml"
-	templates embed.FS
-	//go:embed "stencil_app/styles/css.gohtml"
-	stencilAppStyles embed.FS
 	//go:embed "cli-commands.txt"
 	cliCommands []byte
 	//go:embed "cli-help.txt"
@@ -31,10 +27,7 @@ func main() {
 	defer gs.End()
 
 	once.Do(func() {
-		if err := rest.Init(templates, stencilAppStyles); err != nil {
-			_ = gs.EndWithError(err)
-			os.Exit(1)
-		}
+		rest.Init()
 	})
 
 	defs, err := clo.Load(
