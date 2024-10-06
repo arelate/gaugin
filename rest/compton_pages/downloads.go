@@ -1,6 +1,7 @@
 package compton_pages
 
 import (
+	"fmt"
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/arelate/gaugin/rest/compton_fragments"
 	"github.com/arelate/vangogh_local_data"
@@ -62,85 +63,139 @@ func Downloads(id string, clientOs vangogh_local_data.OperatingSystem, dls vango
 	dlOs := downloadsOperatingSystems(dls)
 
 	for ii, os := range dlOs {
-		osRow := flex_items.FlexItems(s, direction.Row).
-			AlignItems(align.Center).
-			ColumnGap(size.Small)
-		osSymbol := svg_use.Sparkle
-		if smb, ok := compton_data.OperatingSystemSymbols[os]; ok {
-			osSymbol = smb
+
+		if osHeading := operatingSystemHeading(s, os); osHeading != nil {
+			pageStack.Append(osHeading)
 		}
-		osIcon := svg_use.SvgUse(s, osSymbol)
-		osIcon.AddClass("operating-system")
-		osTitle := els.H3()
-		osString := ""
-		switch os {
-		case vangogh_local_data.AnyOperatingSystem:
-			osString = "Goodies"
-		default:
-			osString = os.String()
-		}
-		osTitle.Append(fspan.Text(s, osString))
-		osRow.Append(osIcon, osTitle)
-		pageStack.Append(osRow)
 
 		variants := getDownloadVariants(os, dls)
-		for _, dv := range variants {
-
-			column := flex_items.FlexItems(s, direction.Column).
-				RowGap(size.Unset).
-				AlignItems(align.Start)
-
-			row := flex_items.FlexItems(s, direction.Row).
-				ColumnGap(size.Small).
-				AlignItems(align.Center)
-
-			typeIcon := svg_use.SvgUse(s, svg_use.Circle)
-			typeIcon.AddClass(dv.dlType.String())
-			row.Append(typeIcon)
-
-			typeSpan := fspan.Text(s, downloadTypesStrings[dv.dlType]).FontWeight(font_weight.Bolder)
-			row.Append(typeSpan)
-
-			lcSpan := fspan.Text(s, compton_data.LanguageFlags[dv.langCode])
-			row.Append(lcSpan)
-
-			versionRow := flex_items.FlexItems(s, direction.Row)
-
-			versionTitle := fspan.Text(s, "Version").FontSize(size.Small).FontWeight(font_weight.Bolder)
-			versionSpan := fspan.Text(s, dv.version).ForegroundColor(color.Gray).FontSize(size.Small)
-
-			versionRow.Append(versionTitle, versionSpan)
-
-			column.Append(row, versionRow)
-
-			dsDownloadVariant := details_summary.Smaller(s, column, os == clientOs)
-			pageStack.Append(dsDownloadVariant)
-
-			downloads := filterDownloads(os, dls, dv)
-
-			downloadsRow := flex_items.FlexItems(s, direction.Row)
-			dsDownloadVariant.Append(downloadsRow)
-
-			for _, dl := range downloads {
-				name := dl.Name
-				if dl.Type == vangogh_local_data.DLC {
-					name = dl.ProductTitle
-				}
-				link := els.A(dl.ManualUrl)
-				linkTitle := fspan.Text(s, name).FontSize(size.Small).FontWeight(font_weight.Bolder).ForegroundColor(color.Gray)
-				link.Append(linkTitle)
-				link.AddClass("download")
-				downloadsRow.Append(link)
+		for _, variant := range variants {
+			if dv := downloadVariant(s, variant); dv != nil {
+				pageStack.Append(dv)
 			}
+			if dlLinks := downloadLinks(s, os, variant, dls); dlLinks != nil {
+				pageStack.Append(dlLinks)
+
+			}
+
 		}
 
 		if ii != len(dlOs)-1 {
 			pageStack.Append(els.Hr())
 		}
-
 	}
 
 	return s
+}
+
+func operatingSystemHeading(r compton.Registrar, os vangogh_local_data.OperatingSystem) compton.Element {
+	osRow := flex_items.FlexItems(r, direction.Row).
+		AlignItems(align.Center).
+		ColumnGap(size.Small)
+	osSymbol := svg_use.Sparkle
+	if smb, ok := compton_data.OperatingSystemSymbols[os]; ok {
+		osSymbol = smb
+	}
+	osIcon := svg_use.SvgUse(r, osSymbol)
+	osIcon.AddClass("operating-system")
+	osTitle := els.H3()
+	osString := ""
+	switch os {
+	case vangogh_local_data.AnyOperatingSystem:
+		osString = "Goodies"
+	default:
+		osString = os.String()
+	}
+	osTitle.Append(fspan.Text(r, osString))
+	osRow.Append(osIcon, osTitle)
+	return osRow
+}
+
+func downloadVariant(r compton.Registrar, dv *DownloadVariant) compton.Element {
+	//column := flex_items.FlexItems(r, direction.Column).
+	//	ColumnGap(size.XSmall).
+	//	AlignItems(align.Start)
+
+	row := flex_items.FlexItems(r, direction.Row).
+		ColumnGap(size.Small).
+		AlignItems(align.Center)
+
+	typeIcon := svg_use.SvgUse(r, svg_use.Circle)
+	typeIcon.AddClass(dv.dlType.String())
+	typeSpan := fspan.Text(r, downloadTypesStrings[dv.dlType]).
+		FontWeight(font_weight.Bolder).
+		FontSize(size.Small)
+
+	row.Append(typeSpan, typeIcon)
+
+	if dv.langCode != "" {
+		lcTitle := fspan.Text(r, "Lang:").FontSize(size.Small).ForegroundColor(color.Gray)
+		lcSpan := fspan.Text(r, compton_data.LanguageFlags[dv.langCode])
+		row.Append(lcTitle, lcSpan)
+	}
+
+	//column.Append(row)
+
+	if dv.version != "" {
+		versionTitle := fspan.Text(r, "Version:").FontSize(size.Small).ForegroundColor(color.Gray)
+		versionSpan := fspan.Text(r, dv.version).FontSize(size.Small)
+		row.Append(versionTitle, versionSpan)
+	}
+
+	return row
+}
+
+func downloadLinks(r compton.Registrar, os vangogh_local_data.OperatingSystem, dv *DownloadVariant, dls vangogh_local_data.DownloadsList) compton.Element {
+	downloadLinksTitle := fspan.Text(r, "Show download links").FontWeight(font_weight.Bolder)
+
+	dsDownloadLinks := details_summary.Smaller(r, downloadLinksTitle, false)
+
+	downloads := filterDownloads(os, dls, dv)
+
+	downloadsRow := flex_items.FlexItems(r, direction.Row).
+		ColumnGap(size.Large).
+		RowGap(size.Small)
+	dsDownloadLinks.Append(downloadsRow)
+
+	for _, dl := range downloads {
+		if link := downloadLink(r, dl); link != nil {
+			downloadsRow.Append(link)
+		}
+	}
+
+	return dsDownloadLinks
+}
+
+func downloadLink(r compton.Registrar, dl vangogh_local_data.Download) compton.Element {
+
+	link := els.A(dl.ManualUrl)
+	link.AddClass("download")
+
+	linkColumn := flex_items.FlexItems(r, direction.Column).
+		RowGap(size.Unset)
+
+	name := dl.Name
+	if dl.Type == vangogh_local_data.DLC {
+		name = dl.ProductTitle
+	}
+	linkTitle := fspan.Text(r, name).
+		FontWeight(font_weight.Bolder)
+	//ForegroundColor(color.Gray)
+	linkColumn.Append(linkTitle)
+
+	sizeRow := flex_items.FlexItems(r, direction.Row).
+		ColumnGap(size.XSmall)
+	sizeTitle := fspan.Text(r, "Size:").
+		FontSize(size.Small).
+		ForegroundColor(color.Gray)
+	sizeSpan := fspan.Text(r, fmtBytes(dl.EstimatedBytes)).
+		FontSize(size.Small)
+	sizeRow.Append(sizeTitle, sizeSpan)
+	linkColumn.Append(sizeRow)
+
+	link.Append(linkColumn)
+
+	return link
 }
 
 func downloadsOperatingSystems(dls vangogh_local_data.DownloadsList) []vangogh_local_data.OperatingSystem {
@@ -207,4 +262,18 @@ func filterDownloads(os vangogh_local_data.OperatingSystem, dls vangogh_local_da
 		downloads = append(downloads, dl)
 	}
 	return downloads
+}
+
+func fmtBytes(b int) string {
+	const unit = 1000
+	if b < unit {
+		return fmt.Sprintf("%d B", b)
+	}
+	div, exp := int64(unit), 0
+	for n := b / unit; n >= unit; n /= unit {
+		div *= unit
+		exp++
+	}
+	return fmt.Sprintf("%.1f %cB",
+		float64(b)/float64(div), "kMGTPE"[exp])
 }

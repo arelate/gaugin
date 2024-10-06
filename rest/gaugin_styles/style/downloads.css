@@ -2,9 +2,9 @@ svg {
     width: var(--s-n);
     height: var(--s-n);
 
-    &.operating-system {
-        color: var(--c-gray);
-    }
+    /*&.operating-system {*/
+    /*    color: var(--c-gray);*/
+    /*}*/
 
     &.installer {
         color: var(--c-purple);
@@ -51,4 +51,10 @@ svg {
         }
     }
 
+}
+
+.version {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
