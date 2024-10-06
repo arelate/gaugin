@@ -17,6 +17,7 @@ import (
 	"github.com/boggydigital/compton/elements/fspan"
 	"github.com/boggydigital/compton/elements/svg_use"
 	"github.com/boggydigital/kevlar"
+	"strconv"
 )
 
 var osOrder = []vangogh_local_data.OperatingSystem{
@@ -42,22 +43,14 @@ var downloadTypesStrings = map[vangogh_local_data.DownloadType]string{
 // Downloads will present available installers, DLCs in the following hierarchy:
 // - Operating system heading - Installers and DLCs (separately)
 // - title_values list of downloads by version
-func Downloads(id string, clientOs vangogh_local_data.OperatingSystem, dls vangogh_local_data.DownloadsList, rdx kevlar.ReadableRedux) compton.Element {
+func Downloads(id string, dls vangogh_local_data.DownloadsList, rdx kevlar.ReadableRedux) compton.Element {
 	s := compton_fragments.ProductSection(compton_data.DownloadsSection)
 
 	pageStack := flex_items.FlexItems(s, direction.Column)
 	s.Append(pageStack)
 
-	if _, ok := rdx.GetLastVal(vangogh_local_data.ValidationCompletedProperty, id); ok {
-		if validationResults, sure := rdx.GetAllValues(vangogh_local_data.ValidationResultProperty, id); sure && len(validationResults) > 0 {
-
-			lastResult := validationResults[len(validationResults)-1]
-			validationSection := flex_items.FlexItems(s, direction.Row).JustifyContent(align.Center)
-			validationSection.Append(els.DivText(lastResult))
-			validationSection.AddClass("validation-results", lastResult)
-
-			pageStack.Append(validationSection)
-		}
+	if valRes := validationResults(s, id, rdx); valRes != nil {
+		pageStack.Append(valRes)
 	}
 
 	dlOs := downloadsOperatingSystems(dls)
@@ -77,7 +70,6 @@ func Downloads(id string, clientOs vangogh_local_data.OperatingSystem, dls vango
 				pageStack.Append(dlLinks)
 
 			}
-
 		}
 
 		if ii != len(dlOs)-1 {
@@ -86,6 +78,49 @@ func Downloads(id string, clientOs vangogh_local_data.OperatingSystem, dls vango
 	}
 
 	return s
+}
+
+func validationResults(r compton.Registrar, id string, rdx kevlar.ReadableRedux) compton.Element {
+	if valDate, ok := rdx.GetLastVal(vangogh_local_data.ValidationCompletedProperty, id); ok {
+		if valRes, sure := rdx.GetAllValues(vangogh_local_data.ValidationResultProperty, id); sure && len(valRes) > 0 {
+
+			lastResult := valRes[len(valRes)-1]
+			valSect := flex_items.FlexItems(r, direction.Row).
+				JustifyContent(align.Center).
+				ColumnGap(size.Small)
+			valSect.AddClass("validation-results", lastResult)
+
+			var valDateElement compton.Element
+
+			if vd, err := strconv.ParseInt(valDate, 10, 64); err == nil {
+				valDateElement = fspan.Text(r, compton_fragments.EpochDate(vd)).
+					FontWeight(font_weight.Bolder).
+					FontSize(size.Small)
+			}
+
+			valResTitle := ""
+			switch lastResult {
+			case "OK":
+				valResTitle = "All product files have been successfully validated"
+			case "":
+				valResTitle = "Product files have not been validated"
+			default:
+				valResTitle = "Validation problems found"
+			}
+
+			valResElement := fspan.Text(r, valResTitle).FontSize(size.Small)
+
+			if valDateElement != nil {
+				valSect.Append(valDateElement)
+			}
+			valSect.Append(valResElement)
+
+			return valSect
+
+		}
+	}
+
+	return nil
 }
 
 func operatingSystemHeading(r compton.Registrar, os vangogh_local_data.OperatingSystem) compton.Element {

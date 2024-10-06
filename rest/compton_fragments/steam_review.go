@@ -60,10 +60,10 @@ func SteamReview(r compton.Registrar, review steam_integration.Review) compton.E
 
 	datesRow := SteamReviewHeadingRow(r, "Review")
 	if review.TimestampCreated > 0 {
-		AppendSteamReviewPropertyValue(r, datesRow, "Cr:", epochDate(review.TimestampCreated))
+		AppendSteamReviewPropertyValue(r, datesRow, "Cr:", EpochDate(review.TimestampCreated))
 	}
 	if review.TimestampUpdated > 0 {
-		AppendSteamReviewPropertyValue(r, datesRow, "Upd:", epochDate(review.TimestampUpdated))
+		AppendSteamReviewPropertyValue(r, datesRow, "Upd:", EpochDate(review.TimestampUpdated))
 	}
 
 	playtimeRow := SteamReviewHeadingRow(r, "Playtime")
@@ -133,7 +133,7 @@ func minutesToHours(m int) string {
 	return strconv.Itoa(m/60) + "h"
 }
 
-func epochDate(e int64) string {
+func EpochDate(e int64) string {
 	return time.Unix(e, 0).Format("Jan 2, '06")
 }
 

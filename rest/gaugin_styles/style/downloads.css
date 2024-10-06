@@ -2,10 +2,6 @@ svg {
     width: var(--s-n);
     height: var(--s-n);
 
-    /*&.operating-system {*/
-    /*    color: var(--c-gray);*/
-    /*}*/
-
     &.installer {
         color: var(--c-purple);
     }
@@ -24,6 +20,12 @@ svg {
         border-radius: var(--br-n);
         color: var(--c-highlight);
         background-color: var(--c-gray);
+        padding: var(--s-xs) var(--s-n);
+
+        & fspan {
+            background-color: transparent;
+            color: var(--s-highlight);
+        }
 
         &.OK {
             color: var(--c-highlight);

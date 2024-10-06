@@ -38,7 +38,7 @@ func SteamNewsItem(r compton.Registrar, item steam_integration.NewsItem, open bo
 
 	header := SteamReviewHeadingRow(r, headingTitle)
 
-	AppendSteamReviewPropertyValue(r, header, "Posted:", epochDate(item.Date))
+	AppendSteamReviewPropertyValue(r, header, "Posted:", EpochDate(item.Date))
 	if item.Author != "" {
 		AppendSteamReviewPropertyValue(r, header, "Author:", item.Author)
 	}

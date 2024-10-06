@@ -59,27 +59,6 @@ var (
 	}
 )
 
-func propertiesFromRedux(redux map[string][]string, property string) []string {
-	if val, ok := redux[property]; ok {
-		return val
-	} else {
-		return []string{}
-	}
-}
-
-func propertyFromRedux(redux map[string][]string, property string) string {
-	properties := propertiesFromRedux(redux, property)
-	if len(properties) > 0 {
-		return properties[0]
-	}
-	return ""
-}
-
-// TODO: review and remove this
-func FlagFromRedux(redux map[string][]string, property string) bool {
-	return propertyFromRedux(redux, property) == vangogh_local_data.TrueValue
-}
-
 func GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	// GET /product?slug -> /product?id
@@ -110,7 +89,6 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// fill redux, data presence to allow showing only the section that will have data
-
 	hasRedux, err := getHasRedux(http.DefaultClient, id, maps.Keys(propertiesSections)...)
 
 	if err != nil {
@@ -122,12 +100,12 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	// every product is expected to have at least those sections
 	hasSections = append(hasSections, compton_data.PropertiesSection, compton_data.ExternalLinksSection)
 
-	if hRdx, ok := hasRedux[id]; ok {
-		for _, property := range propertiesSectionsOrder {
-			if section, ok := propertiesSections[property]; ok {
-				if FlagFromRedux(hRdx, property) {
-					hasSections = append(hasSections, section)
-				}
+	hasRdx := kevlar.ReduxProxy(hasRedux)
+
+	for _, property := range propertiesSectionsOrder {
+		if section, ok := propertiesSections[property]; ok {
+			if val, sure := hasRdx.GetLastVal(property, id); sure && val == vangogh_local_data.TrueValue {
+				hasSections = append(hasSections, section)
 			}
 		}
 	}
@@ -192,11 +170,6 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	} else {
 		http.NotFound(w, r)
 	}
-
-	//if err := app.RenderItem(id, hasSections, rdx, w); err != nil {
-	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	return
-	//}
 }
 
 func gogLink(p string) string {

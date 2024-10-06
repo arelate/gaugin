@@ -16,8 +16,6 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
 
-	clientOS := getClientOperatingSystem(r)
-
 	idRedux, err := getRedux(
 		http.DefaultClient,
 		id,
@@ -37,7 +35,7 @@ func GetDownloads(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	p := compton_pages.Downloads(id, clientOS, dls, kevlar.ReduxProxy(idRedux))
+	p := compton_pages.Downloads(id, dls, kevlar.ReduxProxy(idRedux))
 
 	if err := p.WriteContent(w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
