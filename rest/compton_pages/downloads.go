@@ -94,21 +94,40 @@ func validationResults(r compton.Registrar, id string, rdx kevlar.ReadableRedux)
 
 			if vd, err := strconv.ParseInt(valDate, 10, 64); err == nil {
 				valDateElement = fspan.Text(r, compton_fragments.EpochDate(vd)).
-					FontWeight(font_weight.Bolder).
+					//FontWeight(font_weight.Bolder).
+					ForegroundColor(color.Gray).
 					FontSize(size.Small)
 			}
 
 			valResTitle := ""
+			valResColor := color.Gray
 			switch lastResult {
 			case "OK":
-				valResTitle = "All product files have been successfully validated"
+				valResTitle = "Validation successful"
+				valResColor = color.Green
+			case "missing-checksum":
+				valResTitle = "Missing checksum"
+				valResColor = color.Mint
+			case "unresolved-manual-url":
+				valResTitle = "Unresolved URL"
+				valResColor = color.Teal
+			case "missing-download":
+				valResTitle = "Missing download"
+				valResColor = color.Yellow
+			case "failed-validation":
+				valResTitle = "Failed validation"
+				valResColor = color.Red
 			case "":
-				valResTitle = "Product files have not been validated"
+				valResTitle = "Not validated yet"
 			default:
-				valResTitle = "Validation problems found"
+				valResTitle = "Unknown result"
+				valResColor = color.Gray
 			}
 
-			valResElement := fspan.Text(r, valResTitle).FontSize(size.Small)
+			valResElement := fspan.Text(r, valResTitle).
+				FontSize(size.Small).
+				FontWeight(font_weight.Bolder).
+				ForegroundColor(valResColor)
 
 			if valDateElement != nil {
 				valSect.Append(valDateElement)
@@ -187,14 +206,16 @@ func downloadLinks(r compton.Registrar, os vangogh_local_data.OperatingSystem, d
 
 	downloads := filterDownloads(os, dls, dv)
 
-	downloadsRow := flex_items.FlexItems(r, direction.Row).
-		ColumnGap(size.Large).
+	downloadsColumn := flex_items.FlexItems(r, direction.Column).
 		RowGap(size.Small)
-	dsDownloadLinks.Append(downloadsRow)
+	dsDownloadLinks.Append(downloadsColumn)
 
-	for _, dl := range downloads {
+	for ii, dl := range downloads {
 		if link := downloadLink(r, dl); link != nil {
-			downloadsRow.Append(link)
+			downloadsColumn.Append(link)
+		}
+		if ii != len(downloads)-1 {
+			downloadsColumn.Append(els.Hr())
 		}
 	}
 

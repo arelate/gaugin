@@ -15,46 +15,6 @@ svg {
     }
 }
 
-@scope (.validation-results) {
-    :scope {
-        border-radius: var(--br-n);
-        color: var(--c-highlight);
-        background-color: var(--c-gray);
-        padding: var(--s-xs) var(--s-n);
-
-        & fspan {
-            background-color: transparent;
-            color: var(--s-highlight);
-        }
-
-        &.OK {
-            color: var(--c-highlight);
-            background-color: var(--c-green);
-        }
-
-        &.missing-checksum {
-            color: var(--c-highlight);
-            background-color: var(--c-mint);
-        }
-
-        &.unresolved-manual-url {
-            color: var(--c-highlight);
-            background-color: var(--c-teal);
-        }
-
-        &.missing-download {
-            color: black;
-            background-color: var(--c-yellow);
-        }
-
-        &.failed-validation {
-            color: var(--c-highlight);
-            background-color: var(--c-red);
-        }
-    }
-
-}
-
 .version {
     white-space: nowrap;
     overflow: hidden;
