@@ -74,6 +74,7 @@ func SteamDeck(id string, dacr *steam_integration.DeckAppCompatibilityReport, rd
 			resultRow.AddClass("nowrap")
 
 			displayTypeIcon := fspan.Text(s, "").ForegroundColor(displayTypeColors[dt])
+			displayTypeIcon.AddClass("svg")
 			displayTypeIcon.Append(svg_use.SvgUse(s, svg_use.Circle))
 			decodedResult := steam_integration.DecodeLocToken(result)
 			displayTypeMessage := fspan.Text(s, decodedResult)

@@ -15,6 +15,10 @@ ul {
             flex-wrap: nowrap;
         }
 
+        & fspan.svg {
+            line-height: 0;
+        }
+
         & svg {
             width: var(--s-n);
             height: var(--s-n);
