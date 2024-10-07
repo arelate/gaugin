@@ -7,9 +7,13 @@ import (
 	"github.com/arelate/southern_light/steam_integration"
 	"github.com/arelate/vangogh_local_data"
 	"github.com/boggydigital/compton"
+	"github.com/boggydigital/compton/consts/align"
+	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
+	"github.com/boggydigital/compton/elements/fspan"
+	"github.com/boggydigital/compton/elements/svg_use"
 	"github.com/boggydigital/kevlar"
 )
 
@@ -25,6 +29,13 @@ var messageByCategory = map[string]string{
 		"Some or all of this game currently doesn't function on Steam Deck.",
 	"Unknown": "Valve is still learning about <span class='title'>%s</span>. " +
 		"We do not currently have further information regarding Steam Deck compatibility.",
+}
+
+var displayTypeColors = map[string]color.Color{
+	"Verified":    color.Green,
+	"Playable":    color.Orange,
+	"Unsupported": color.Red,
+	"Unknown":     color.Gray,
 }
 
 func SteamDeck(id string, dacr *steam_integration.DeckAppCompatibilityReport, rdx kevlar.ReadableRedux) compton.Element {
@@ -57,10 +68,29 @@ func SteamDeck(id string, dacr *steam_integration.DeckAppCompatibilityReport, rd
 	ul := els.Ul()
 	if len(displayTypes) == len(results) {
 		for ii, result := range results {
+
+			dt := displayTypes[ii]
+			resultRow := flex_items.FlexItems(s, direction.Row).AlignItems(align.Center)
+			resultRow.AddClass("nowrap")
+
+			displayTypeIcon := fspan.Text(s, "").ForegroundColor(displayTypeColors[dt])
+			displayTypeIcon.Append(svg_use.SvgUse(s, svg_use.Circle))
 			decodedResult := steam_integration.DecodeLocToken(result)
-			li := els.ListItemText(decodedResult)
-			li.AddClass(displayTypes[ii])
+			displayTypeMessage := fspan.Text(s, decodedResult)
+			if dt == "Unknown" {
+				displayTypeMessage.ForegroundColor(color.Gray)
+			}
+			resultRow.Append(displayTypeIcon, displayTypeMessage)
+
+			li := els.ListItem()
+			li.Append(resultRow)
+
 			ul.Append(li)
+
+			if ii != len(results)-1 {
+				ul.Append(els.Hr())
+			}
+
 		}
 	}
 	pageStack.Append(ul)

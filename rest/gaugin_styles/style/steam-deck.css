@@ -11,25 +11,13 @@ ul {
 
     & li {
 
-        &::before {
-            margin-inline-end: var(--s-s);
+        & flex-items.nowrapCSS {
+            flex-wrap: nowrap;
         }
 
-        &.Verified::before {
-            content: "✅";
-        }
-
-        &.Playable::before {
-            content: "⚠️";
-        }
-
-        &.Unsupported::before {
-            content: "🚫";
-        }
-
-        &.Unknown {
-            font-style: italic;
-            color: var(--c-gray)
+        & svg {
+            width: var(--s-n);
+            height: var(--s-n);
         }
     }
 }
