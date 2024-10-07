@@ -11,7 +11,7 @@ ul {
 
     & li {
 
-        & flex-items.nowrapCSS {
+        & flex-items.nowrap {
             flex-wrap: nowrap;
         }
 
