@@ -2,6 +2,7 @@ package compton_fragments
 
 import (
 	"github.com/boggydigital/compton"
+	"github.com/boggydigital/compton/consts/align"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/font_weight"
@@ -35,7 +36,8 @@ func VideoOriginLink(r compton.Registrar, videoId, videoTitle, videoDuration str
 	originLink.SetAttribute("target", "_top")
 
 	linkColumn := flex_items.FlexItems(r, direction.Column).
-		RowGap(size.Unset)
+		RowGap(size.Unset).
+		AlignItems(align.Center)
 
 	if videoTitle == "" {
 		videoTitle = "Watch at origin"
