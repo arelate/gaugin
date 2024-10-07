@@ -37,6 +37,10 @@ func VideoOriginLink(r compton.Registrar, videoId, videoTitle, videoDuration str
 	linkColumn := flex_items.FlexItems(r, direction.Column).
 		RowGap(size.Unset)
 
+	if videoTitle == "" {
+		videoTitle = "Watch at origin"
+	}
+
 	linkText := fspan.Text(r, videoTitle).
 		FontWeight(font_weight.Bolder).
 		ForegroundColor(color.Cyan)
