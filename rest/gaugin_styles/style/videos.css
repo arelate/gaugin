@@ -1,8 +1,0 @@
-a {
-    text-align:center;
-
-    &.external {
-        color: var(--c-cyan);
-        font-weight: var(--fw-b);
-    }
-}

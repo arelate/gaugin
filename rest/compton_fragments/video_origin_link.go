@@ -3,21 +3,57 @@ package compton_fragments
 import (
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/color"
+	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/font_weight"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/els"
+	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
 	"github.com/boggydigital/yet_urls/youtube_urls"
+	"strconv"
+	"time"
 )
 
-func VideoOriginLink(r compton.Registrar, videoId string) compton.Element {
+func formatSeconds(ts int64) string {
+	if ts == 0 {
+		return "unknown"
+	}
+
+	t := time.Unix(ts, 0).UTC()
+
+	layout := "4:05"
+	if t.Hour() > 0 {
+		layout = "15:04:05"
+	}
+
+	return t.Format(layout)
+}
+
+func VideoOriginLink(r compton.Registrar, videoId, videoTitle, videoDuration string) compton.Element {
+
 	originLink := els.A(youtube_urls.VideoUrl(videoId).String())
 	originLink.SetAttribute("target", "_top")
-	linkText := fspan.Text(r, "Watch at origin").
-		FontSize(size.Small).
+
+	linkColumn := flex_items.FlexItems(r, direction.Column).
+		RowGap(size.Unset)
+
+	linkText := fspan.Text(r, videoTitle).
 		FontWeight(font_weight.Bolder).
 		ForegroundColor(color.Cyan)
-	originLink.Append(linkText)
+	linkColumn.Append(linkText)
+
+	if dur, err := strconv.ParseInt(videoDuration, 10, 64); err == nil {
+		durationRow := flex_items.FlexItems(r, direction.Row).
+			ColumnGap(size.Small)
+		durationTitle := fspan.Text(r, "Duration:").
+			FontSize(size.Small).ForegroundColor(color.Gray)
+		durationValue := fspan.Text(r, formatSeconds(dur)).
+			FontSize(size.Small)
+		durationRow.Append(durationTitle, durationValue)
+		linkColumn.Append(durationRow)
+	}
+
+	originLink.Append(linkColumn)
 
 	return originLink
 }

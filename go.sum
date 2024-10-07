@@ -2,6 +2,8 @@ github.com/arelate/southern_light v0.1.49 h1:IWwa1s9rTjSITcPkDwKHR0nsIVKKPW+Y5UA
 github.com/arelate/southern_light v0.1.49/go.mod h1:IR7j2+TrHdoNfZrTNeXOvL3UYsotcNED3aOAEpm7VCY=
 github.com/arelate/vangogh_local_data v0.4.22 h1:FEfxEX5OxzsMUsKzXQSBYY8yR7gl5E+MDgeAdDYgvY4=
 github.com/arelate/vangogh_local_data v0.4.22/go.mod h1:y/lz8bxUDS08T0l/YRoN6U4HjnDTitg8X0TtdaLskJE=
+github.com/arelate/vangogh_local_data v0.4.23 h1:jjNe3/ia1iW8RgNLcQaBiQurttAvrJysw+ZSXC4V0Yg=
+github.com/arelate/vangogh_local_data v0.4.23/go.mod h1:y/lz8bxUDS08T0l/YRoN6U4HjnDTitg8X0TtdaLskJE=
 github.com/boggydigital/busan v0.1.0 h1:mUpe4b3vdt9Kcf4Z/C2YSuX5L7ru+J/iZW+IcSfW0cM=
 github.com/boggydigital/busan v0.1.0/go.mod h1:0IjeMKwqaO94r8f28at/2UHhqV2FAN6ufFaLEbur/YU=
 github.com/boggydigital/clo v1.0.4 h1:LKvXktyG+EeemzjnSp0DYIAEbY2/rvFcuHtjjwJk280=
