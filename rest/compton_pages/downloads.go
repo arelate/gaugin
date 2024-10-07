@@ -166,12 +166,9 @@ func operatingSystemHeading(r compton.Registrar, os vangogh_local_data.Operating
 }
 
 func downloadVariant(r compton.Registrar, dv *DownloadVariant) compton.Element {
-	//column := flex_items.FlexItems(r, direction.Column).
-	//	ColumnGap(size.XSmall).
-	//	AlignItems(align.Start)
 
 	row := flex_items.FlexItems(r, direction.Row).
-		ColumnGap(size.XSmall).
+		ColumnGap(size.Small).
 		RowGap(size.Unset).
 		AlignItems(align.Center)
 
@@ -181,7 +178,7 @@ func downloadVariant(r compton.Registrar, dv *DownloadVariant) compton.Element {
 		FontWeight(font_weight.Bolder).
 		FontSize(size.Small)
 
-	row.Append(typeSpan, typeIcon)
+	row.Append(typeIcon, typeSpan)
 
 	if dv.langCode != "" {
 		lcTitle := fspan.Text(r, "Lang:").FontSize(size.Small).ForegroundColor(color.Gray)
@@ -201,7 +198,9 @@ func downloadVariant(r compton.Registrar, dv *DownloadVariant) compton.Element {
 }
 
 func downloadLinks(r compton.Registrar, os vangogh_local_data.OperatingSystem, dv *DownloadVariant, dls vangogh_local_data.DownloadsList) compton.Element {
-	downloadLinksTitle := fspan.Text(r, "Show download links").FontWeight(font_weight.Bolder)
+	downloadLinksTitle := fspan.Text(r, "Show download links").
+		FontWeight(font_weight.Bolder).
+		ForegroundColor(color.Gray)
 
 	dsDownloadLinks := details_summary.Smaller(r, downloadLinksTitle, false)
 
