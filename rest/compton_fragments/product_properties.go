@@ -83,6 +83,10 @@ func formatProperty(id, property string, rdx kevlar.ReadableRedux) formattedProp
 	if ifp, ok := rdx.GetLastVal(vangogh_local_data.IsFreeProperty, id); ok {
 		isFree = ifp == vangogh_local_data.TrueValue
 	}
+	isDiscounted := false
+	if idp, ok := rdx.GetLastVal(vangogh_local_data.IsDiscountedProperty, id); ok {
+		isDiscounted = idp == vangogh_local_data.TrueValue
+	}
 
 	values, _ := rdx.GetAllValues(property, id)
 	firstValue := ""
@@ -128,7 +132,14 @@ func formatProperty(id, property string, rdx kevlar.ReadableRedux) formattedProp
 			fmtProperty.values[tagName] = searchHref(property, tagName)
 		case vangogh_local_data.PriceProperty:
 			if !isFree {
-				fmtProperty.values[value] = noHref()
+				if isDiscounted && !owned {
+					if bpp, ok := rdx.GetLastVal(vangogh_local_data.BasePriceProperty, id); ok {
+						fmtProperty.values["Base: "+bpp] = noHref()
+					}
+					fmtProperty.values["Sale: "+value] = noHref()
+				} else {
+					fmtProperty.values[value] = noHref()
+				}
 			}
 		case vangogh_local_data.HLTBHoursToCompleteMainProperty:
 			fallthrough
@@ -160,11 +171,6 @@ func formatProperty(id, property string, rdx kevlar.ReadableRedux) formattedProp
 	case vangogh_local_data.OwnedProperty:
 		if res, ok := rdx.GetLastVal(vangogh_local_data.ValidationResultProperty, id); ok {
 			fmtProperty.class = res
-			//if res == "OK" {
-			//	fmtProperty.class = "validation-result-ok"
-			//} else {
-			//	fmtProperty.class = "validation-result-err"
-			//}
 		}
 	case vangogh_local_data.WishlistedProperty:
 		if !owned {
