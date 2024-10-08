@@ -41,12 +41,18 @@ func SearchForm(r compton.Registrar, query map[string][]string, searchQueryDispl
 	return form
 }
 
+var binaryDataList = map[string]string{
+	"true":  "True",
+	"false": "False",
+}
+
 func searchInputs(r compton.Registrar, query map[string][]string, container compton.Element) {
 	for _, property := range compton_data.SearchProperties {
 		title := compton_data.PropertyTitles[property]
 		value := strings.Join(query[property], ", ")
 		titleInput := title_values.SearchValue(r, title, property, value)
-		if slices.Contains(compton_data.DigestProperties, property) {
+		if slices.Contains(compton_data.BinaryDigestProperties, property) {
+			titleInput.SetDataList(binaryDataList, "binary-list")
 			// set datalist for that property
 		}
 		container.Append(titleInput)

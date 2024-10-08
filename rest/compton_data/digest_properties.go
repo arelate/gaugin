@@ -34,3 +34,13 @@ var DigestProperties = []string{
 	//vangogh_local_data.SortProperty,
 	//vangogh_local_data.DescendingProperty,
 }
+
+var BinaryDigestProperties = []string{
+	vangogh_local_data.WishlistedProperty,
+	vangogh_local_data.OwnedProperty,
+	vangogh_local_data.IsFreeProperty,
+	vangogh_local_data.IsDiscountedProperty,
+	vangogh_local_data.PreOrderProperty,
+	vangogh_local_data.ComingSoonProperty,
+	vangogh_local_data.InDevelopmentProperty,
+}

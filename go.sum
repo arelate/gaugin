@@ -4,12 +4,16 @@ github.com/arelate/vangogh_local_data v0.4.22 h1:FEfxEX5OxzsMUsKzXQSBYY8yR7gl5E+
 github.com/arelate/vangogh_local_data v0.4.22/go.mod h1:y/lz8bxUDS08T0l/YRoN6U4HjnDTitg8X0TtdaLskJE=
 github.com/arelate/vangogh_local_data v0.4.23 h1:jjNe3/ia1iW8RgNLcQaBiQurttAvrJysw+ZSXC4V0Yg=
 github.com/arelate/vangogh_local_data v0.4.23/go.mod h1:y/lz8bxUDS08T0l/YRoN6U4HjnDTitg8X0TtdaLskJE=
+github.com/arelate/vangogh_local_data v0.4.24 h1:9TdLXxl4x94lYSK1oRrPbpkRv+tUifJNHcTeT+56TY0=
+github.com/arelate/vangogh_local_data v0.4.24/go.mod h1:y/lz8bxUDS08T0l/YRoN6U4HjnDTitg8X0TtdaLskJE=
 github.com/boggydigital/busan v0.1.0 h1:mUpe4b3vdt9Kcf4Z/C2YSuX5L7ru+J/iZW+IcSfW0cM=
 github.com/boggydigital/busan v0.1.0/go.mod h1:0IjeMKwqaO94r8f28at/2UHhqV2FAN6ufFaLEbur/YU=
 github.com/boggydigital/clo v1.0.4 h1:LKvXktyG+EeemzjnSp0DYIAEbY2/rvFcuHtjjwJk280=
 github.com/boggydigital/clo v1.0.4/go.mod h1:7QbdMB008okXsdk41qJyJ6k/oJALIIXQ0GLYSxY9WFM=
 github.com/boggydigital/compton v0.1.71 h1:dF4NDHckDUD+v/Tf/mcN26LTa+SdnOv82NtvFRdKVKM=
 github.com/boggydigital/compton v0.1.71/go.mod h1:dj/yZ2cCfts6+heUS60Favateu+gNTIsoxfX6yNZWLg=
+github.com/boggydigital/compton v0.1.72 h1:RJWpKIZ06YjCGzg0afJ+rncIqRFVJDJhkx2ZOE1JhwE=
+github.com/boggydigital/compton v0.1.72/go.mod h1:dj/yZ2cCfts6+heUS60Favateu+gNTIsoxfX6yNZWLg=
 github.com/boggydigital/issa v0.1.12 h1:fuMrmTwScX5jHA+DYc4jfi0fiOjW3XVV23y3kTH+2Og=
 github.com/boggydigital/issa v0.1.12/go.mod h1:Za10zkG7QvOGC7dDRjvzVr6GWDQm4f7FwO8/fH8usZY=
 github.com/boggydigital/kevlar v0.5.19 h1:NPNxTSLReQyYDzYlxX+Vb9XbOy2BIgh3W+i28Oh2PKY=
