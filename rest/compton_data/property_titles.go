@@ -96,6 +96,7 @@ var PropertyTitles = map[string]string{
 	vangogh_local_data.SteamAppNews.String():         "Steam App News",
 	vangogh_local_data.SteamReviews.String():         "Steam Reviews",
 	vangogh_local_data.SteamStorePage.String():       "Steam Store Page",
+	vangogh_local_data.ProtonDBSummary.String():      "ProtonDB Summary",
 	vangogh_local_data.UserWishlistProducts.String(): "User Wishlist Products",
 
 	vangogh_local_data.MacOS.String():   "macOS",
