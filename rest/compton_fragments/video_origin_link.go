@@ -36,8 +36,7 @@ func VideoOriginLink(r compton.Registrar, videoId, videoTitle, videoDuration str
 	originLink.SetAttribute("target", "_top")
 
 	linkColumn := flex_items.FlexItems(r, direction.Column).
-		RowGap(size.Unset).
-		AlignItems(align.Center)
+		RowGap(size.Unset)
 
 	if videoTitle == "" {
 		videoTitle = "Watch at origin"
@@ -50,7 +49,8 @@ func VideoOriginLink(r compton.Registrar, videoId, videoTitle, videoDuration str
 
 	if dur, err := strconv.ParseInt(videoDuration, 10, 64); err == nil {
 		durationRow := flex_items.FlexItems(r, direction.Row).
-			ColumnGap(size.Small)
+			ColumnGap(size.Small).
+			JustifyContent(align.Center)
 		durationTitle := fspan.Text(r, "Duration:").
 			FontSize(size.Small).ForegroundColor(color.Gray)
 		durationValue := fspan.Text(r, formatSeconds(dur)).

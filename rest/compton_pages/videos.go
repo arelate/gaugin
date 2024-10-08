@@ -16,7 +16,6 @@ func Videos(videoIds []string, videoTitles, videoDurations map[string]string) co
 	s := compton_fragments.ProductSection(compton_data.VideosSection)
 
 	pageStack := flex_items.FlexItems(s, direction.Column)
-	//AlignItems(align.Start)
 
 	s.Append(pageStack)
 
