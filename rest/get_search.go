@@ -95,20 +95,18 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// adding tag names for related games
-
-		tagNamesRedux, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
-		if err != nil {
-			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-			return
-		}
-
-		if len(irx) > 0 {
-			idRedux = MergeIdPropertyValues(irx, tagNamesRedux)
-		}
+		idRedux = irx
 	}
 
-	//gaugin_middleware.DefaultHeaders(w)
+	// adding tag names for related games
+
+	tagNamesRedux, err := getRedux(http.DefaultClient, "", true, vangogh_local_data.TagNameProperty)
+	if err != nil {
+		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
+		return
+	}
+
+	idRedux = MergeIdPropertyValues(idRedux, tagNamesRedux)
 
 	rdx := kevlar.ReduxProxy(idRedux)
 
@@ -116,10 +114,4 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	if err := searchPage.WriteContent(w); err != nil {
 		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
 	}
-	//return
-	//
-	//if err := app.RenderSearch(stencil_app.NavSearch, query, slice, from, to, len(ids), r.URL, rdx, w); err != nil {
-	//	http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-	//	return
-	//}
 }

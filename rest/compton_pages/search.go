@@ -51,7 +51,7 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 
 	searchQueryDisplay := compton_fragments.SearchQueryDisplay(query, p)
 
-	filterSearchDetails.Append(compton_fragments.SearchForm(p, query, searchQueryDisplay))
+	filterSearchDetails.Append(compton_fragments.SearchForm(p, query, searchQueryDisplay, rdx))
 	pageStack.Append(filterSearchDetails)
 
 	if searchQueryDisplay != nil {

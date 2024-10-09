@@ -13,12 +13,13 @@ import (
 	"github.com/boggydigital/compton/elements/grid_items"
 	"github.com/boggydigital/compton/elements/inputs"
 	"github.com/boggydigital/compton/elements/title_values"
+	"github.com/boggydigital/kevlar"
 	"golang.org/x/exp/maps"
 	"slices"
 	"strings"
 )
 
-func SearchForm(r compton.Registrar, query map[string][]string, searchQueryDisplay compton.Element) compton.Element {
+func SearchForm(r compton.Registrar, query map[string][]string, searchQueryDisplay compton.Element, rdx kevlar.ReadableRedux) compton.Element {
 
 	form := els.Form("/search", "GET")
 	formStack := flex_items.FlexItems(r, direction.Column)
@@ -36,7 +37,7 @@ func SearchForm(r compton.Registrar, query map[string][]string, searchQueryDispl
 	inputsGrid := grid_items.GridItems(r).JustifyContent(align.Center)
 	formStack.Append(inputsGrid)
 
-	searchInputs(r, query, inputsGrid)
+	searchInputs(r, query, inputsGrid, rdx)
 
 	// duplicating Submit button after inputs at the end
 	formStack.Append(submitRow)
@@ -113,7 +114,17 @@ func languagesDatalist() map[string]string {
 	return dl
 }
 
-func searchInputs(r compton.Registrar, query map[string][]string, container compton.Element) {
+func tagsDatalist(rdx kevlar.ReadableRedux) map[string]string {
+	dl := make(map[string]string)
+	for _, tagId := range rdx.Keys(vangogh_local_data.TagNameProperty) {
+		if tagName, ok := rdx.GetLastVal(vangogh_local_data.TagNameProperty, tagId); ok {
+			dl[tagId] = tagName
+		}
+	}
+	return dl
+}
+
+func searchInputs(r compton.Registrar, query map[string][]string, container compton.Element, rdx kevlar.ReadableRedux) {
 	for _, property := range compton_data.SearchProperties {
 		title := compton_data.PropertyTitles[property]
 		value := strings.Join(query[property], ", ")
@@ -139,6 +150,8 @@ func searchInputs(r compton.Registrar, query map[string][]string, container comp
 				datalist = steamDeckDatalist()
 			case vangogh_local_data.LanguageCodeProperty:
 				datalist = languagesDatalist()
+			case vangogh_local_data.TagIdProperty:
+				datalist = tagsDatalist(rdx)
 			}
 		}
 
