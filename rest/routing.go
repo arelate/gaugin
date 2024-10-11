@@ -21,6 +21,7 @@ func HandleFuncs(p int) {
 	port = p
 
 	patternHandlers := map[string]http.Handler{
+		"GET /manifest.json": Log(http.HandlerFunc(GetManifest)),
 		// unauth data endpoints
 		"GET /updates":       Log(http.HandlerFunc(GetUpdates)),
 		"GET /product":       Log(http.HandlerFunc(GetProduct)),

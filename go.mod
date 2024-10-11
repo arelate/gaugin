@@ -6,14 +6,14 @@ require (
 	github.com/arelate/southern_light v0.1.49
 	github.com/arelate/vangogh_local_data v0.4.24
 	github.com/boggydigital/clo v1.0.4
-	github.com/boggydigital/compton v0.1.73
+	github.com/boggydigital/compton v0.1.74
 	github.com/boggydigital/issa v0.1.12
 	github.com/boggydigital/kevlar v0.5.19
 	github.com/boggydigital/middleware v0.1.16
 	github.com/boggydigital/nod v0.1.21
 	github.com/boggydigital/pathways v0.1.14
 	github.com/boggydigital/yet_urls v0.1.54
-	golang.org/x/exp v0.0.0-20241004190924-225e2abe05e6
+	golang.org/x/exp v0.0.0-20241009180824-f66d83c29e7c
 	golang.org/x/net v0.30.0
 )
 
