@@ -22,7 +22,6 @@ func Search(query map[string][]string, ids []string, from, to int, rdx kevlar.Re
 	current := compton_data.AppNavSearch
 	p, pageStack := compton_fragments.AppPage(current)
 	p.AppendStyle(product_labels.StyleProductLabels)
-	p.AppendManifest()
 
 	/* Nav stack = App navigation + Search shortcuts */
 

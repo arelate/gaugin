@@ -4,9 +4,7 @@ import (
 	"github.com/boggydigital/compton/elements/svg_use"
 )
 
-const AppTitle = "gaugin"
-
-const AppFavIconEmoji = "🪸"
+const AppTitle = "Gaugin"
 
 const (
 	AppNavUpdates = "Updates"

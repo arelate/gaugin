@@ -19,7 +19,6 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 	current := compton_data.AppNavUpdates
 	p, pageStack := compton_fragments.AppPage(current)
 	p.AppendStyle(product_labels.StyleProductLabels)
-	p.AppendManifest()
 
 	/* Nav stack = App navigation + Updates sections shortcuts */
 
