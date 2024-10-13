@@ -236,7 +236,8 @@ func downloadLink(r compton.Registrar, dl vangogh_local_data.Download) compton.E
 	linkColumn.Append(linkTitle)
 
 	sizeRow := flex_items.FlexItems(r, direction.Row).
-		ColumnGap(size.XSmall)
+		ColumnGap(size.XSmall).
+		FontSize(size.Small)
 	sizeTitle := fspan.Text(r, "Size:").ForegroundColor(color.Gray)
 	sizeSpan := fspan.Text(r, fmtBytes(dl.EstimatedBytes))
 	sizeRow.Append(sizeTitle, sizeSpan)
