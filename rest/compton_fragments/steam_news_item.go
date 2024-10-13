@@ -20,7 +20,7 @@ import (
 
 func SteamNewsItem(r compton.Registrar, item steam_integration.NewsItem, open bool) compton.Element {
 
-	container := flex_items.FlexItems(r, direction.Column).RowGap(size.Normal).FontSize(size.Small)
+	container := flex_items.FlexItems(r, direction.Column).RowGap(size.Normal)
 
 	newItemHeading := els.HeadingText(item.Title, 3)
 

@@ -22,7 +22,7 @@ const longReviewThreshold = 750
 
 func SteamReview(r compton.Registrar, review steam_integration.Review) compton.Element {
 
-	container := flex_items.FlexItems(r, direction.Column).RowGap(size.Normal).FontSize(size.Small)
+	container := flex_items.FlexItems(r, direction.Column).RowGap(size.Normal)
 
 	votedTitle := "Not Recommended"
 	votedColor := color.Red
@@ -46,7 +46,7 @@ func SteamReview(r compton.Registrar, review steam_integration.Review) compton.E
 
 	container.Append(votedRow)
 
-	header := flex_items.FlexItems(r, direction.Row).ColumnGap(size.Small).RowGap(size.Unset)
+	header := flex_items.FlexItems(r, direction.Row).ColumnGap(size.Small).RowGap(size.Unset).FontSize(size.Small)
 
 	authorRow := SteamReviewHeadingRow(r, "Author")
 	if review.Author.NumGamesOwned > 0 {
@@ -151,7 +151,8 @@ func SteamReviewHeadingRow(r compton.Registrar, title string) compton.Element {
 	row := flex_items.FlexItems(r, direction.Row).
 		ColumnGap(size.XSmall).
 		RowGap(size.Unset).
-		AlignItems(align.Center)
+		AlignItems(align.Center).
+		FontSize(size.Small)
 	if title != "" {
 		row.Append(fspan.Text(r, title).FontWeight(font_weight.Bolder))
 	}
