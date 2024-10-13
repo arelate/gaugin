@@ -6,7 +6,7 @@ require (
 	github.com/arelate/southern_light v0.1.49
 	github.com/arelate/vangogh_local_data v0.4.24
 	github.com/boggydigital/clo v1.0.4
-	github.com/boggydigital/compton v0.1.77
+	github.com/boggydigital/compton v0.1.78
 	github.com/boggydigital/issa v0.1.12
 	github.com/boggydigital/kevlar v0.5.19
 	github.com/boggydigital/middleware v0.1.16
