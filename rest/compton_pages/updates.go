@@ -88,11 +88,11 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 
 	/* Last Updated section */
 
-	pageStack.Append(compton_fragments.Updated(p, updated))
+	pageStack.Append(els.Br(), compton_fragments.Updated(p, updated))
 
 	/* Standard app footer */
 
-	pageStack.Append(els.Br(), compton_fragments.Footer(p))
+	pageStack.Append(compton_fragments.Footer(p))
 
 	return p
 }
