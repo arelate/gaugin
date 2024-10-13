@@ -22,9 +22,7 @@ const longReviewThreshold = 750
 
 func SteamReview(r compton.Registrar, review steam_integration.Review) compton.Element {
 
-	container := flex_items.FlexItems(r, direction.Column).RowGap(size.Normal)
-
-	//container.Append(els.Text(strconv.Itoa(len(review.Review))))
+	container := flex_items.FlexItems(r, direction.Column).RowGap(size.Normal).FontSize(size.Small)
 
 	votedTitle := "Not Recommended"
 	votedColor := color.Red
@@ -138,14 +136,13 @@ func EpochDate(e int64) string {
 }
 
 func AppendSteamReviewPropertyValue(r compton.Registrar, c compton.Element, p, v string) {
-	c.Append(fspan.Text(r, p).FontSize(size.Small).ForegroundColor(color.Gray))
-	c.Append(fspan.Text(r, v).FontSize(size.Small))
+	c.Append(fspan.Text(r, p).ForegroundColor(color.Gray))
+	c.Append(fspan.Text(r, v))
 }
 
 func AppendSteamReviewNotice(r compton.Registrar, c compton.Element, n string) {
 	notice := fspan.Text(r, n).
 		FontWeight(font_weight.Bolder).
-		FontSize(size.Small).
 		ForegroundColor(color.Orange)
 	c.Append(notice)
 }
@@ -156,7 +153,7 @@ func SteamReviewHeadingRow(r compton.Registrar, title string) compton.Element {
 		RowGap(size.Unset).
 		AlignItems(align.Center)
 	if title != "" {
-		row.Append(fspan.Text(r, title).FontSize(size.Small).FontWeight(font_weight.Bolder))
+		row.Append(fspan.Text(r, title).FontWeight(font_weight.Bolder))
 	}
 	return row
 

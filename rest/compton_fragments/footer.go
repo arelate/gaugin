@@ -12,15 +12,11 @@ import (
 func Footer(r compton.Registrar) compton.Element {
 
 	link := els.A("https://github.com/arelate")
-	link.Append(fspan.Text(r, "Arles").FontWeight(font_weight.Bolder).FontSize(size.Small))
+	link.Append(fspan.Text(r, "Arles").FontWeight(font_weight.Bolder))
 
-	row := flex_items.Center(r,
-		fspan.Text(r, "👋").FontSize(size.Small),
-		fspan.Text(r, "from").FontSize(size.Small),
-		link,
-		fspan.Text(r, "🇫🇷").FontSize(size.Small))
-
-	row.ColumnGap(size.XSmall)
+	row := flex_items.Center(r, fspan.Text(r, "👋"), fspan.Text(r, "from"), link, fspan.Text(r, "🇫🇷")).
+		ColumnGap(size.XSmall).
+		FontSize(size.Small)
 
 	return row
 }

@@ -87,16 +87,15 @@ func validationResults(r compton.Registrar, id string, rdx kevlar.ReadableRedux)
 			lastResult := valRes[len(valRes)-1]
 			valSect := flex_items.FlexItems(r, direction.Row).
 				JustifyContent(align.Center).
-				ColumnGap(size.Small)
+				ColumnGap(size.Small).
+				FontSize(size.Small)
 			valSect.AddClass("validation-results", lastResult)
 
 			var valDateElement compton.Element
 
 			if vd, err := strconv.ParseInt(valDate, 10, 64); err == nil {
 				valDateElement = fspan.Text(r, compton_fragments.EpochDate(vd)).
-					//FontWeight(font_weight.Bolder).
-					ForegroundColor(color.Gray).
-					FontSize(size.Small)
+					ForegroundColor(color.Gray)
 			}
 
 			valResTitle := ""
@@ -125,7 +124,6 @@ func validationResults(r compton.Registrar, id string, rdx kevlar.ReadableRedux)
 			}
 
 			valResElement := fspan.Text(r, valResTitle).
-				FontSize(size.Small).
 				FontWeight(font_weight.Bolder).
 				ForegroundColor(valResColor)
 
@@ -170,18 +168,17 @@ func downloadVariant(r compton.Registrar, dv *DownloadVariant) compton.Element {
 	row := flex_items.FlexItems(r, direction.Row).
 		ColumnGap(size.Small).
 		RowGap(size.Unset).
-		AlignItems(align.Center)
+		AlignItems(align.Center).FontSize(size.Small)
 
 	typeIcon := svg_use.SvgUse(r, svg_use.Circle)
 	typeIcon.AddClass(dv.dlType.String())
 	typeSpan := fspan.Text(r, downloadTypesStrings[dv.dlType]).
-		FontWeight(font_weight.Bolder).
-		FontSize(size.Small)
+		FontWeight(font_weight.Bolder)
 
 	row.Append(typeIcon, typeSpan)
 
 	if dv.langCode != "" {
-		lcTitle := fspan.Text(r, "Lang:").FontSize(size.Small).ForegroundColor(color.Gray)
+		lcTitle := fspan.Text(r, "Lang:").ForegroundColor(color.Gray)
 		lcSpan := fspan.Text(r, compton_data.LanguageFlags[dv.langCode])
 		row.Append(lcTitle, lcSpan)
 	}
@@ -189,8 +186,8 @@ func downloadVariant(r compton.Registrar, dv *DownloadVariant) compton.Element {
 	//column.Append(row)
 
 	if dv.version != "" {
-		versionTitle := fspan.Text(r, "Version:").FontSize(size.Small).ForegroundColor(color.Gray)
-		versionSpan := fspan.Text(r, dv.version).FontSize(size.Small)
+		versionTitle := fspan.Text(r, "Version:").ForegroundColor(color.Gray)
+		versionSpan := fspan.Text(r, dv.version)
 		row.Append(versionTitle, versionSpan)
 	}
 
@@ -236,16 +233,12 @@ func downloadLink(r compton.Registrar, dl vangogh_local_data.Download) compton.E
 	}
 	linkTitle := fspan.Text(r, name).
 		FontWeight(font_weight.Bolder)
-	//ForegroundColor(color.Gray)
 	linkColumn.Append(linkTitle)
 
 	sizeRow := flex_items.FlexItems(r, direction.Row).
 		ColumnGap(size.XSmall)
-	sizeTitle := fspan.Text(r, "Size:").
-		FontSize(size.Small).
-		ForegroundColor(color.Gray)
-	sizeSpan := fspan.Text(r, fmtBytes(dl.EstimatedBytes)).
-		FontSize(size.Small)
+	sizeTitle := fspan.Text(r, "Size:").ForegroundColor(color.Gray)
+	sizeSpan := fspan.Text(r, fmtBytes(dl.EstimatedBytes))
 	sizeRow.Append(sizeTitle, sizeSpan)
 	linkColumn.Append(sizeRow)
 

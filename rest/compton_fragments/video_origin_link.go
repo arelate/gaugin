@@ -50,11 +50,10 @@ func VideoOriginLink(r compton.Registrar, videoId, videoTitle, videoDuration str
 	if dur, err := strconv.ParseInt(videoDuration, 10, 64); err == nil {
 		durationRow := flex_items.FlexItems(r, direction.Row).
 			ColumnGap(size.Small).
-			JustifyContent(align.Center)
-		durationTitle := fspan.Text(r, "Duration:").
-			FontSize(size.Small).ForegroundColor(color.Gray)
-		durationValue := fspan.Text(r, formatSeconds(dur)).
+			JustifyContent(align.Center).
 			FontSize(size.Small)
+		durationTitle := fspan.Text(r, "Duration:").ForegroundColor(color.Gray)
+		durationValue := fspan.Text(r, formatSeconds(dur))
 		durationRow.Append(durationTitle, durationValue)
 		linkColumn.Append(durationRow)
 	}
