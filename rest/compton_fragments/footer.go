@@ -2,31 +2,25 @@ package compton_fragments
 
 import (
 	"github.com/boggydigital/compton"
-	"github.com/boggydigital/compton/consts/color"
-	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/font_weight"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
-	"github.com/boggydigital/compton/elements/section"
 )
 
 func Footer(r compton.Registrar) compton.Element {
-	sh := section.Section(r).
-		BackgroundColor(color.Highlight).
-		FontSize(size.Small)
-
-	row := flex_items.FlexItems(r, direction.Row).ColumnGap(size.XSmall)
-	sh.Append(row)
 
 	link := els.A("https://github.com/arelate")
-	link.Append(fspan.Text(r, "Arles").FontWeight(font_weight.Bolder))
+	link.Append(fspan.Text(r, "Arles").FontWeight(font_weight.Bolder).FontSize(size.Small))
 
-	row.Append(
-		els.SpanText("👋"), els.SpanText("from"),
+	row := flex_items.Center(r,
+		fspan.Text(r, "👋").FontSize(size.Small),
+		fspan.Text(r, "from").FontSize(size.Small),
 		link,
-		els.SpanText("🇫🇷"))
+		fspan.Text(r, "🇫🇷").FontSize(size.Small))
 
-	return sh
+	row.ColumnGap(size.XSmall)
+
+	return row
 }

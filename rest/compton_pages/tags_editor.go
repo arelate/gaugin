@@ -9,13 +9,14 @@ import (
 	"github.com/boggydigital/compton/consts/align"
 	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
+	"github.com/boggydigital/compton/consts/font_weight"
 	"github.com/boggydigital/compton/consts/input_types"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_summary"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
+	"github.com/boggydigital/compton/elements/fspan"
 	"github.com/boggydigital/compton/elements/inputs"
-	"github.com/boggydigital/compton/elements/section"
 	"github.com/boggydigital/kevlar"
 	"golang.org/x/exp/maps"
 	"net/http"
@@ -57,12 +58,10 @@ func TagsEditor(
 	/* Ownership notice */
 
 	if !owned {
-		ownershipNotice := section.Section(p).
-			BackgroundColor(color.Yellow).
-			ForegroundColor(color.Black)
+		ownershipNotice := fspan.Text(p, "Tags modifications require product ownership").
+			ForegroundColor(color.Yellow).FontWeight(font_weight.Bolder)
 
-		ownershipNotice.Append(els.DivText("Tags modifications require product ownership"))
-		pageStack.Append(ownershipNotice)
+		pageStack.Append(flex_items.Center(p, ownershipNotice))
 	}
 
 	/* Tags Property Title */
@@ -122,7 +121,7 @@ func TagsEditor(
 
 	/* Footer */
 
-	pageStack.Append(compton_fragments.Footer(p))
+	pageStack.Append(els.Br(), compton_fragments.Footer(p))
 
 	return p
 }

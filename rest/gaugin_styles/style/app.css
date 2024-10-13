@@ -22,48 +22,33 @@
     }
 }
 
-@scope (details grid-items.inset) {
-    :scope {
-        padding-inline: var(--s-s)
-    }
-}
-
 @scope (title-values) {
 
-    & svg {
-        width: var(--s-n);
-        height: var(--s-n);
-    }
-
-    &.external .values {
-        color: var(--c-cyan);
-    }
-
     &.positive .values {
-        color: var(--c-green);
+        --fg: var(--c-green);
     }
 
     &.negative .values {
-        color: var(--c-red);
+        --fg: var(--c-red);
     }
 
     &.neutral .values {
-        color: var(--c-gray);
+        --fg: var(--c-gray);
     }
 
     &.Verified .values {
-        color: var(--c-green)
+        --fg: var(--c-green)
     }
 
     &.Playable .values {
-        color: var(--c-orange)
+        --fg: var(--c-orange)
     }
 
     &.Unsupported .values {
-        color: var(--c-red)
+        --fg: var(--c-red)
     }
 
     &.Unknown .values {
-        color: var(--c-gray)
+        --fg: var(--c-gray)
     }
 }

@@ -33,7 +33,6 @@ type formattedProperty struct {
 
 func ProductProperties(r compton.Registrar, id string, rdx kevlar.ReadableRedux) compton.Element {
 	grid := grid_items.GridItems(r).JustifyContent(align.Center)
-	grid.AddClass("inset")
 
 	for _, property := range compton_data.ProductProperties {
 		if slices.Contains(compton_data.ProductHiddenProperties, property) {
@@ -225,7 +224,8 @@ func propertyTitleValues(r compton.Registrar, property string, fmtProperty forma
 		return nil
 	}
 
-	tv := title_values.TitleValues(r, compton_data.PropertyTitles[property])
+	tv := title_values.TitleValues(r, compton_data.PropertyTitles[property]).
+		ForegroundColor(color.Gray).TitleForegroundColor(color.Foreground)
 
 	if len(fmtProperty.values) > 0 {
 

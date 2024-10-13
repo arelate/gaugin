@@ -4,25 +4,20 @@ import (
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/align"
-	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/font_weight"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
-	"github.com/boggydigital/compton/elements/section"
 )
 
 func ProductSectionsLinks(r compton.Registrar, sections []string) compton.Element {
 
-	linksSection := section.Section(r).
-		BackgroundColor(color.Highlight).
-		FontSize(size.Small).
-		FontWeight(font_weight.Normal)
-
 	linksStack := flex_items.FlexItems(r, direction.Row).
 		JustifyContent(align.Center).
+		FontSize(size.Small).
+		FontWeight(font_weight.Bolder).
 		RowGap(size.Small)
 
 	for _, s := range sections {
@@ -33,9 +28,7 @@ func ProductSectionsLinks(r compton.Registrar, sections []string) compton.Elemen
 		linksStack.Append(link)
 	}
 
-	linksSection.Append(linksStack)
-
-	wrapper := flex_items.Center(r, linksSection)
+	wrapper := flex_items.Center(r, linksStack)
 	wrapper.SetId("product-sections-links")
 
 	return wrapper

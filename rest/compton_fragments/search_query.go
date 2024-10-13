@@ -11,7 +11,6 @@ import (
 	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/fspan"
-	"github.com/boggydigital/compton/elements/section"
 	"golang.org/x/exp/maps"
 	"slices"
 	"strings"
@@ -22,15 +21,10 @@ func SearchQueryDisplay(query map[string][]string, r compton.Registrar) compton.
 		return nil
 	}
 
-	sh := section.Section(r).
-		BackgroundColor(color.Highlight).
-		FontSize(size.Small).
-		ColumnGap(size.Small)
-
-	shStack := flex_items.FlexItems(r, direction.Row).
+	sqStack := flex_items.FlexItems(r, direction.Row).
 		RowGap(size.Small).
-		JustifyContent(align.Center)
-	sh.Append(shStack)
+		JustifyContent(align.Center).
+		FontSize(size.Small)
 
 	sortedProperties := maps.Keys(query)
 	slices.Sort(sortedProperties)
@@ -53,14 +47,14 @@ func SearchQueryDisplay(query map[string][]string, r compton.Registrar) compton.
 		propertyValue := fspan.Text(r, strings.Join(fmtValues, ", ")).
 			FontWeight(font_weight.Bolder)
 		span.Append(propertyTitleLink, propertyValue)
-		shStack.Append(span)
+		sqStack.Append(span)
 	}
 
 	clearLink := els.A("/search")
 	clearText := fspan.Text(r, "Clear").
 		ForegroundColor(color.Blue).FontWeight(font_weight.Bolder)
 	clearLink.Append(clearText)
-	shStack.Append(clearLink)
+	sqStack.Append(clearLink)
 
-	return sh
+	return sqStack
 }

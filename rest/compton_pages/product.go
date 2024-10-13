@@ -93,7 +93,7 @@ func Product(id string, rdx kevlar.ReadableRedux, hasSections []string) compton.
 
 	/* Standard app footer */
 
-	pageStack.Append(compton_fragments.Footer(p))
+	pageStack.Append(els.Br(), compton_fragments.Footer(p))
 
 	return p
 }

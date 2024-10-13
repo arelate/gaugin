@@ -4,6 +4,7 @@ import (
 	"github.com/arelate/gaugin/rest/compton_data"
 	"github.com/boggydigital/compton"
 	"github.com/boggydigital/compton/consts/align"
+	"github.com/boggydigital/compton/consts/color"
 	"github.com/boggydigital/compton/elements/grid_items"
 	"github.com/boggydigital/compton/elements/title_values"
 	"github.com/boggydigital/kevlar"
@@ -13,7 +14,6 @@ import (
 func ProductExternalLinks(r compton.Registrar, id string, rdx kevlar.ReadableRedux) compton.Element {
 
 	grid := grid_items.GridItems(r).JustifyContent(align.Center)
-	grid.AddClass("inset")
 
 	for _, linkProperty := range compton_data.ProductExternalLinksProperties {
 		if links, ok := rdx.GetAllValues(linkProperty, id); ok && len(links) > 0 {
@@ -35,7 +35,9 @@ func externalLinks(r compton.Registrar, property string, links []string) compton
 		}
 	}
 	propertyTitle := compton_data.PropertyTitles[property]
-	tv := title_values.TitleValues(r, propertyTitle).AppendLinkValues(linksHrefs)
-	tv.AddClass("external")
+	tv := title_values.TitleValues(r, propertyTitle).
+		ForegroundColor(color.Cyan).
+		TitleForegroundColor(color.Foreground).
+		AppendLinkValues(linksHrefs)
 	return tv
 }

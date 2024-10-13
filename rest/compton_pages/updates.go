@@ -9,6 +9,7 @@ import (
 	"github.com/boggydigital/compton/consts/direction"
 	"github.com/boggydigital/compton/consts/size"
 	"github.com/boggydigital/compton/elements/details_summary"
+	"github.com/boggydigital/compton/elements/els"
 	"github.com/boggydigital/compton/elements/flex_items"
 	"github.com/boggydigital/compton/elements/nav_links"
 	"github.com/boggydigital/kevlar"
@@ -91,7 +92,7 @@ func Updates(sections []string, updates map[string][]string, sectionTitles map[s
 
 	/* Standard app footer */
 
-	pageStack.Append(compton_fragments.Footer(p))
+	pageStack.Append(els.Br(), compton_fragments.Footer(p))
 
 	return p
 }
